@@ -1,4 +1,3 @@
-package auto.mezclador;
 import combustible.Nafta;
 import auto.Tanque.TanqueNafta;
 
