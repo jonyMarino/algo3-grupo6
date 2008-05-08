@@ -47,7 +47,7 @@ private float getVelocidad(){
 }
 
 
-	//ESCAPE
+//ESCAPE
 public Escape getEscape() {
 	return escape;
 }
