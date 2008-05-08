@@ -1,4 +1,4 @@
-package partesAuto.Tanque;
+package auto.partesAuto.tanque;
 import combustible.Nafta;
 
 public class TanqueNafta extends Tanque{

@@ -1,4 +1,4 @@
-package auto.Tanque;
+package auto.partesAuto.tanque;
 
 public abstract class Tanque {
 
