@@ -1,3 +1,6 @@
+package auto.partesAuto.rueda;
+import  auto.ParteAuto;
+
 public class Rueda extends ParteAuto {
 	
 	private int rodado;
