@@ -1,4 +1,4 @@
-package auto.mezclador;
+package auto.partesAuto.mezclador;
 
 public class Carburador extends Mezclador {
 
