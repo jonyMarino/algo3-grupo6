@@ -1,3 +1,6 @@
+package auto.partesAuto.carroceria;
+import  auto.ParteAuto;
+
 public class Carroceria extends ParteAuto{
 	
 	private String color;
