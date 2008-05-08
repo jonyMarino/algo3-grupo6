@@ -1,6 +1,6 @@
 package auto.pedal;
 
-public class Acelerador extends Pedal{
+public class Acelerador extends Pedal {
 	
 	private	Motor motor;
 
