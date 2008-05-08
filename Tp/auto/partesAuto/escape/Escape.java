@@ -1,3 +1,7 @@
+package auto.partesAuto.escape;
+import  auto.ParteAuto;
+
+
 public class Escape extends ParteAuto{
 	
 	private double eficiencia;
