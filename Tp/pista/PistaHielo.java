@@ -1,3 +1,5 @@
+package pista;
+
 public class PistaHielo extends Pista {
 
 	 public PistaHielo(){

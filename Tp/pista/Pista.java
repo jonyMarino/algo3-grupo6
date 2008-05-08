@@ -1,3 +1,5 @@
+package pista;
+
 public class Pista {
 	
 	private double coeficienteDeRozamientoRelativo;
