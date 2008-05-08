@@ -1,4 +1,4 @@
-package auto.pedal;
+package auto.partesAuto.pedal;
 
 public class Freno extends Pedal  {
 
