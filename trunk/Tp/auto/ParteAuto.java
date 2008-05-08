@@ -1,3 +1,5 @@
+package auto;
+
 public class ParteAuto {
  
 	private double peso;
@@ -54,4 +56,3 @@ public class ParteAuto {
 	}
 	
 }
- 
