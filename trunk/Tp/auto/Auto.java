@@ -4,7 +4,6 @@ import auto.mezclador.Mezclador;
 import auto.pedal.Acelerador;
 import auto.pedal.Freno;
 
-
 public class Auto {
 	private double			      peso;
 	private Escape 		          escape;
