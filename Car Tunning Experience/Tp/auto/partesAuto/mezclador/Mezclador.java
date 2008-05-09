@@ -11,7 +11,10 @@ public Mezclador(int eficiencia) {
 		this.setEficiencia(eficiencia);
 }
 
-public abstract double obtenerMezcla(double litrosDeMezcla, TanqueNafta tanque);
+/*********************************************************************************/
+public double obtenerMezcla(double litrosDeMezcla, TanqueNafta tanque){
+	
+}
 
 public int getEficiencia(){
 	return eficiencia;
@@ -20,6 +23,8 @@ public int getEficiencia(){
 public void setEficiencia(int eficiencia) {
 	this.eficiencia = eficiencia;
 }
+
+private abstract int getPerdidas();
 	
 /*********************************************************************************/
 }
