@@ -36,8 +36,8 @@ public double usarNafta(double litros){
 		this.cantidadNafta -= litros;
 		naftaConsumo = litros;
 	}else{ 
-		this.cantidadNafta = 0;
 		naftaConsumo = this.obtenerCantidadNafta();
+		this.cantidadNafta = 0;
 	}
 	return naftaConsumo;
 }

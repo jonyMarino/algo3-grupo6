@@ -16,10 +16,10 @@ public class MezcladorTest extends TestCase {
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		tanque = new TanqueNafta(50);
-		tanque.llenarTanque(50);
 		nafta = new Nafta(95,10);
-		tanque.setTipoCombustible(nafta);
+		tanque = new TanqueNafta(50, nafta);
+		tanque.llenarTanque(50);
+		//tanque.setTipoCombustible(nafta);
 		mezclador = new MezcladorNafta(0, tanque);
 	}
 
@@ -32,13 +32,13 @@ public class MezcladorTest extends TestCase {
 	
 	public void testObtenerMezclaMaximaEficiencia() {
 		mezclador.setEficiencia(100);
-		assertEquals(300, mezclador.obtenerMezcla(50), 0);
+		assertEquals(300, mezclador.obtenerMezcla(50));
 		
 	}
 	
 	public void testObtenerMezclaMínimaEficiencia() {
 		mezclador.setEficiencia(0);
-		assertEquals(5300, mezclador.obtenerMezcla(50), 0);
+		assertEquals(5300, mezclador.obtenerMezcla(50));
 		
 	}
 	

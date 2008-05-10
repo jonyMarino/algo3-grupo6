@@ -12,7 +12,7 @@ public class TanqueNaftaTest extends TestCase {
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		tanque = new TanqueNafta(50);
+		tanque = new TanqueNafta(50, nafta);
 		nafta = new Nafta(95,20);
 		tanque.setTipoCombustible(nafta);
 	}
