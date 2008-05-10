@@ -1,6 +1,6 @@
 package pista;
 
-public abstract class Pista {
+public class Pista {
 	
 	
 	private double coeficienteDeRozamientoRelativo;
