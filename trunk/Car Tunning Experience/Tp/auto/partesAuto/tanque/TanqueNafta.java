@@ -6,9 +6,10 @@ public class TanqueNafta extends Tanque{
 	private Nafta  tipoNafta;
 	private double cantidadNafta;
 	
-public TanqueNafta(int capacidad){
+public TanqueNafta(int capacidad,Nafta tipoNafta){
 	super(capacidad);
 	this.setCantidadNafta(0);
+	this.setTipoCombustible(tipoNafta);
 }
 
 /*********************************************************************************/
