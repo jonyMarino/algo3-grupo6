@@ -11,7 +11,10 @@ public class Escape extends ParteAuto{
 	}
 	
 	public void setEficiencia(double eficiencia){
-		this.eficiencia=eficiencia;
+		if((eficiencia>=0)&&(eficiencia<=100))
+			this.eficiencia=eficiencia;
+		else 
+			this.eficiencia=0;
 	}
 	
 	public double getEficiencia(){
