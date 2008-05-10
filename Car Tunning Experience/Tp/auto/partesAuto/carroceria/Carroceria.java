@@ -10,6 +10,7 @@ public class Carroceria extends ParteAuto{
 	public Carroceria(double volumen){
 		super();
 		setVolumen(volumen);
+		setAeroDinamica(aeroDinamica);
 		setColor("#FFFFFF");
 	}
 	
