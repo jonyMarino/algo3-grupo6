@@ -14,8 +14,6 @@ public class Rueda extends ParteAuto {
 		setCoeficienteDinamico(coeficienteDinamico);
 	}
 	
-
-	
 	public Rueda(double peso, double costo, double desgaste, int rodado,
 		double coeficienteEstatico, double coeficienteDinamico) {
 		setRodado(rodado);
