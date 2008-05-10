@@ -22,7 +22,7 @@ public double getPesoEspecifico(){
 private void setOctanaje(int octanaje){
 	if(octanaje > 100)
 		this.octanaje = 100;
-	if else(octanaje < 0)
+	else if(octanaje < 0)
 		this.octanaje = 0;
 	else this.octanaje = octanaje;
 }
