@@ -5,12 +5,12 @@ public class Carroceria extends ParteAuto{
 	
 	private String color;
 	private double volumen;
-	private int aeroDinamica;
+	private int aeroDinamia;
 
-	public Carroceria(double volumen,int aeroDinamica){
+	public Carroceria(double volumen,int aeroDinamia){
 		super();
 		setVolumen(volumen);
-		setAeroDinamica(aeroDinamica);
+		setAeroDinamia(aeroDinamia);
 		setColor("#FFFFFF");
 	}
 	
@@ -30,12 +30,12 @@ public class Carroceria extends ParteAuto{
 		return this.volumen;
 	}
 	
-	public void setAeroDinamica(int aeroDinamica){
-		this.aeroDinamica=aeroDinamica;
+	public void setAeroDinamia(int aeroDinamia){
+		this.aeroDinamia=aeroDinamia;
 	}
 	
-	public double getAeroDinamica(){
-		return this.aeroDinamica;
+	public double getAeroDinamia(){
+		return this.aeroDinamia;
 	}
 	
 	public double getFuerzaAire(){
