@@ -47,7 +47,7 @@ public double getPeso(){
 	return peso;
 }
 
-public double getCantidadNafta() {
+public double obtenerCantidadNafta() {
 	return cantidadNafta;
 }
 
