@@ -52,7 +52,7 @@ public void setEficiencia(int eficiencia) {
 	   this.eficiencia = 0;
 	else if (eficiencia > 100)
 		this.eficiencia = 100;
-	else this.eficiencia=eficiencia;
+	else this.eficiencia = eficiencia;
 }
 
 public TanqueNafta getTanqueNafta() {
