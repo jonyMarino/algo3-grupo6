@@ -14,4 +14,9 @@ public class Comentarios {
 	
 	Que les sea leve, Buenas Noches!
 	
+	Pd: Marino creo que le faltan terminar unas cosas...
+	Nada mas... me fui... manden mail cualquier cosa...
+	y les respondo si puedo, tengo q ir a de mi hna
+	
+	
 }
