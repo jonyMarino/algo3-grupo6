@@ -23,7 +23,11 @@ public class Pista {
 	}
 	
 	public void setCoeficienteDeRozamientoRelativo(double coeficienteDeRozamientoRelativo) {
-		this.coeficienteDeRozamientoRelativo=coeficienteDeRozamientoRelativo;
+		if ((coeficienteDeRozamientoRelativo>=0)&&(coeficienteDeRozamientoRelativo<=1))
+			this.coeficienteDeRozamientoRelativo=coeficienteDeRozamientoRelativo;
+		else
+			this.coeficienteDeRozamientoRelativo=0;
+			
 	}
 	
 	public double getCoeficienteDeRozamientoRelativo() {
@@ -32,7 +36,9 @@ public class Pista {
 	
 	
 	public void setVelocidadAire(int velocidadAire) {
-		this.velocidadAire=velocidadAire;
+		if(velocidadAire>=0)
+			this.velocidadAire=velocidadAire;
+		else this.velocidadAire=0;
 	}
 	
 	public int getVelocidadAire(){
