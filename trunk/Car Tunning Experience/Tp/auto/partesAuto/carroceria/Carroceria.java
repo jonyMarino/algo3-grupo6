@@ -1,5 +1,7 @@
 package auto.partesAuto.carroceria;
 import auto.ParteAuto;
+import pista.Pista;
+
 
 public class Carroceria extends ParteAuto{
 	
@@ -44,10 +46,8 @@ public class Carroceria extends ParteAuto{
 		return this.aeroDinamia;
 	}
 	
-	public double getFuerzaAire(){
-		//falta el calculo
+	public double getFuerzaAire(Pista pista){
+		return pista.getVelocidadAire()/getAeroDinamia();
 	}
-	
-	
 
 }
