@@ -119,9 +119,9 @@ public void setMotor(Motor motor) {
 	this.motor = motor;
 }
 
-public float getRPM(){
+public double getRPM(){
 	Motor motorAux = this.getMotor();
-	float rpm = motorAux.getRPM;
+	double rpm = motorAux.getRPM;
 	return rpm;
 }
 
@@ -151,9 +151,9 @@ public void setCaja(Caja caja) {
 	this.caja = caja;
 }
 
-public float getCambio(){
+public double getCambio(){
 	Caja cajaAux = this.getCaja();
-	float cambio = cajaAux.getCambio();
+	double cambio = cajaAux.getCambio();
 	return cambio;
 }
 
