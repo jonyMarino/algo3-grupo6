@@ -1,11 +1,12 @@
 package auto.partesAuto.carroceria;
 import auto.ParteAuto;
 import pista.Pista;
+import java.awt.Color;
 
 
 public class Carroceria extends ParteAuto{
 	
-	private String color;
+	private Color color;
 	private double volumen;
 	private int aeroDinamia;
 
@@ -13,14 +14,18 @@ public class Carroceria extends ParteAuto{
 		super();
 		setVolumen(volumen);
 		setAeroDinamia(aeroDinamia);
-		setColor("#FFFFFF");
+		setColor(0,0,0);
 	}
 	
-	public void setColor(String color){
-		this.color=color;
+	public void setColor(int R,int G,int B){
+		if (R>=0 && R<255 && G>=0 && G<255 && G>=0 && G<255)
+			this.color=new Color(R,G,B);
+		else 
+			this.color=new Color(0,0,0);
+			
 	}
 	
-	public String getColor(){
+	public Color getColor(){
 		return this.color;
 	}
 	
