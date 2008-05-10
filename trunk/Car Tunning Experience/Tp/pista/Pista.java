@@ -1,8 +1,7 @@
 package pista;
 
 public class Pista {
-	
-	
+		
 	private double coeficienteDeRozamientoRelativo;
 	private double longitud;
 	private int velocidadAire;
@@ -14,7 +13,9 @@ public class Pista {
 	}
 	
 	public void setLongitud(double longitud) {
-		this.longitud=longitud;
+		if (longitud < 0)
+			this.longitud = 0;
+		else this.longitud = longitud;
 	}
 	
 	public double getLongitud() {
