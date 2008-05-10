@@ -31,7 +31,7 @@ public double obtenerMezcla(double litrosDeMezcla){
 	 */
 		
 	double mezcla = litrosDeMezcla+(litrosDeMezcla *(200 - (this.getEficiencia() + naftaAux.getOctanaje())));
-	tanqueNafta.usarNafta(mezcla);
+	tanqueNaftaAux.usarNafta(mezcla);
 	return mezcla;
 }
 
