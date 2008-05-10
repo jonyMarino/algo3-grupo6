@@ -1,9 +1,9 @@
 package auto;
-import auto.parteAuto.carroceria.Carroceria;
-import auto.parteAuto.escape.Escape;
-import auto.parteAuto.mezclador.Mezclador;
-import auto.parteAuto.rueda.Rueda;
-import auto.parteAuto.tanque.TanqueNafta;
+import auto.partesAuto.carroceria.Carroceria;
+import auto.partesAuto.escape.Escape;
+import auto.partesAuto.mezclador.Mezclador;
+import auto.partesAuto.rueda.Rueda;
+import auto.partesAuto.tanque.TanqueNafta;
 
 public class AutoSecuencial extends Auto {
 

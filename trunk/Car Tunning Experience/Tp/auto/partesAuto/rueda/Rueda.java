@@ -1,4 +1,4 @@
-package auto.parteAuto.rueda;
+package auto.partesAuto.rueda;
 import auto.ParteAuto;
 
 public class Rueda extends ParteAuto {
@@ -14,6 +14,20 @@ public class Rueda extends ParteAuto {
 		setCoeficienteDinamico(coeficienteDinamico);
 	}
 	
+
+	
+	public Rueda(double peso, double costo, double desgaste, int rodado,
+		double coeficienteEstatico, double coeficienteDinamico) {
+		setRodado(rodado);
+		setCoeficienteEstatico(coeficienteEstatico);
+		setCoeficienteDinamico(coeficienteDinamico);
+		setPeso(peso);
+		setCosto(costo);
+		setDesgaste(desgaste);
+	}
+
+
+
 	public void setRodado(int rodado){
 		this.rodado=rodado;
 	}

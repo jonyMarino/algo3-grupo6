@@ -1,4 +1,4 @@
-package auto.parteAuto.tanque;
+package auto.partesAuto.tanque;
 import auto.ParteAuto;
 
 public abstract class Tanque extends ParteAuto{
