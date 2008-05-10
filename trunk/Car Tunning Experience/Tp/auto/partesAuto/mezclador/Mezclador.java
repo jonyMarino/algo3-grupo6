@@ -27,6 +27,16 @@ public double obtenerMezcla(double litrosDeMezcla){
 		
 		// Creo que sería "mas adecuado"
 		
+		/*En todo caso hacemos es asi
+		 * litrosUsados = tanqueNaftaAux.usarNafta();
+		 *  //ahi te devuelve los litros que "puede darte"
+		 *  //y despues aplicamos el calcular,
+		 *  double mezcla = litros+(litros *(200 - (this.getEficiencia() + naftaAux.getOctanaje())));
+		 *  if(litrosUsados > mezcla)
+		 *  	mezcla = litrosUsados;
+		 *  //creo que ahi deberia andar no??
+		 */
+		
 		double mezcla = litrosDeMezcla+(litrosDeMezcla *(200 - (this.getEficiencia() + naftaAux.getOctanaje())));
 		tanqueNafta.usarNafta(mezcla);
 		return mezcla;
