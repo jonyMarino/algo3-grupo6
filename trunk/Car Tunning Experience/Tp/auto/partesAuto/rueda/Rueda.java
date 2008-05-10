@@ -26,10 +26,11 @@ public class Rueda extends ParteAuto {
 		setDesgaste(desgaste);
 	}
 
-
-
 	public void setRodado(int rodado){
-		this.rodado=rodado;
+		if(rodado>0)
+			this.rodado=rodado;
+		else 
+			this.rodado=1;
 	}
 	
 	public int getRodado(){
@@ -37,7 +38,10 @@ public class Rueda extends ParteAuto {
 	}
 	
 	public void setCoeficienteEstatico(double coeficienteEstatico){
-		this.coeficienteEstatico=coeficienteEstatico;
+		if ((coeficienteEstatico>=0)&&(coeficienteEstatico<=1))
+			this.coeficienteEstatico=coeficienteEstatico;
+		else
+			this.coeficienteEstatico=0;
 	}
 	
 	public double getCoeficienteEstatico(){
@@ -45,7 +49,10 @@ public class Rueda extends ParteAuto {
 	}
 	
 	public void setCoeficienteDinamico(double coeficienteDinamico){
-		this.coeficienteDinamico=coeficienteEstatico;
+		if ((coeficienteDinamico>=0)&&(coeficienteDinamico<=1))
+			this.coeficienteDinamico=coeficienteDinamico;
+		else
+			this.coeficienteDinamico=0;
 	}
 	
 	public double getCoeficienteDinamico(){
