@@ -32,7 +32,19 @@ public class MezcladorTest extends TestCase {
 	
 	public void testObtenerMezclaMaximaEficiencia() {
 		mezclador.setEficiencia(100);
-		assertEquals(9800, mezclador.obtenerMezcla(50), 0);
+		assertEquals(300, mezclador.obtenerMezcla(50), 0);
+		
+	}
+	
+	public void testObtenerMezclaMínimaEficiencia() {
+		mezclador.setEficiencia(0);
+		assertEquals(5300, mezclador.obtenerMezcla(50), 0);
+		
+	}
+	
+	public void testObtenerMezclaMediaEficiencia() {
+		mezclador.setEficiencia(50);
+		assertEquals(2800, mezclador.obtenerMezcla(50), 0);
 		
 	}
 
