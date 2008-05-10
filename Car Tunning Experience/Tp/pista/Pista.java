@@ -9,6 +9,8 @@ public class Pista {
 	
 	public Pista(double longitud){
 		setLongitud(longitud);
+		setVelocidadAire(0);
+		setCoeficienteDeRozamientoRelativo(0);
 	}
 	
 	public void setLongitud(double longitud) {
