@@ -1,4 +1,4 @@
-package auto.parteAuto.escape;
+package auto.partesAuto.escape;
 import auto.ParteAuto;
 
 public class Escape extends ParteAuto{

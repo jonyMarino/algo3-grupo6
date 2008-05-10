@@ -1,4 +1,4 @@
-package auto.parteAuto.pedal;
+package auto.partesAuto.pedal;
 import auto.ParteAuto;
 
 public class Acelerador extends ParteAuto implements Pedal{

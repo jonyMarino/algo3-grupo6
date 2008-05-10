@@ -1,8 +1,8 @@
-package auto.parteAuto.mezclador;
-import combustible.Nafta;
-
-import auto.parteAuto.tanque.TanqueNafta;
+package auto.partesAuto.mezclador;
 import auto.ParteAuto;
+import auto.partesAuto.tanque.TanqueNafta;
+
+import combustible.Nafta;
 
 public abstract class Mezclador extends ParteAuto{
 

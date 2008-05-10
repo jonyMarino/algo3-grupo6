@@ -1,4 +1,4 @@
-package auto.parteAuto.pedal;
+package auto.partesAuto.pedal;
 import auto.ParteAuto;
 
 public class Freno extends ParteAuto implements Pedal {

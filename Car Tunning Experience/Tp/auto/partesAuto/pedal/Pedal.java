@@ -1,4 +1,4 @@
-package auto.parteAuto.pedal;
+package auto.partesAuto.pedal;
 
 public interface Pedal {
 
