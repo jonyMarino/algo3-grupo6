@@ -196,7 +196,7 @@ public void setRueda(Rueda rueda) {
 }
 
 
-//CALCULADOR DE VELOCIDAD
+//EJE
 public Eje getEje() {
 	return eje;
 }
