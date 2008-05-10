@@ -43,7 +43,21 @@ public Auto(Escape escape, Carroceria carroceria, Motor motor,
 }
 
 /*********************************************************************************/
-private float getVelocidad(){
+public float obtenerVelocidad(){
+	//FALTA GENERAR
+	return (0);
+}
+
+public float obtenerRpm(){
+	//FALTA GENERAR
+	return (0);
+}
+
+public void calcularVelocidad(){
+	//FALTAAAA	:D
+}
+
+public double obtenerRpm(){
 	//FALTA GENERAR
 	return (0);
 }
@@ -96,7 +110,7 @@ public void setTanqueNafta(TanqueNafta tanqueNafta) {
 	this.tanqueNafta = tanqueNafta;
 }
 
-public double getCantidadCombustible(){
+public double obtenerCantidadCombustible(){
 	TanqueNafta tanqueNaftaAux = this.getTanqueNafta();
 	double cantidadCombustible = tanqueNaftaAux.getCantidadNafta();
 	return cantidadCombustible;
