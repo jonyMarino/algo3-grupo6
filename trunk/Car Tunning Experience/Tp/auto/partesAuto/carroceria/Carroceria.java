@@ -7,7 +7,7 @@ public class Carroceria extends ParteAuto{
 	private double volumen;
 	private int aeroDinamica;
 
-	public Carroceria(double volumen){
+	public Carroceria(double volumen,int aeroDinamica){
 		super();
 		setVolumen(volumen);
 		setAeroDinamica(aeroDinamica);
