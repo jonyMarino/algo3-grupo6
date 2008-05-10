@@ -48,12 +48,4 @@ public class TanqueNaftaTest extends TestCase {
 		assertEquals(0.0, tanque.obtenerCantidadNafta());
 	}
 
-	public void testObtenerCantidadNafta() {
-		fail("Not yet implemented");
-	}
-
-	public void testGetCapacidad() {
-		fail("Not yet implemented");
-	}
-
 }
