@@ -19,6 +19,7 @@ public abstract class Auto {
 	private Rueda 	 	   rueda;
 	private Eje            eje;
 	private Mezclador      mezclador;
+	private double		   velocidad;
 
 public Auto(Escape escape, Carroceria carroceria, Motor motor,
             Caja caja, Rueda rueda, Mezclador mezclador, TanqueNafta tanqueNafta){
@@ -40,26 +41,50 @@ public Auto(Escape escape, Carroceria carroceria, Motor motor,
 	//Calculador Peso
 	this.calculadorPeso();
 	
+	//Velocidad
+	this.setVelocidad(0);
+	
 }
 
 /*********************************************************************************/
-public float obtenerVelocidad(){
-	//FALTA GENERAR
-	return (0);
+
+//VELOCIDAD
+public double obtenerVelocidad(){
+	return velocidad;
+}
+
+/* Quizas podriamos pones acalcularVelocidad como un metodo privado;
+ * entonces hacemos 
+ * obtenerVelocidad(Tiempo){
+ *  	this.calcularVelocidad(segundos);
+ *  	return velocidad;
+ * }
+ * 
+ */
+
+public void calcularVelocidad(int segundosTranscurridos){
+	Eje ejeAux = this.getEje();
+	double fuerzas = ejeAux.getFuerza;
+	Carroceria carroceriaAux = this.getCarroceria();
+	double fuerzaAire = carroceriaAux.getFuerzaAire();
+	double incrementoVelocidad = 0;
+	incrementoVelocidad = (((fuerzas-fuerzaAire)/this.getPeso())*segundosTranscurridos);
+	double velocidadActual = this.obtenerVelocidad() + incrementoVelocidad;
+	this.setVelocidad(velocidadActual);
+}
+
+public double obtenerRps(){
+	Caja cajaAux = this.getCaja();
+	return (cajaAux.getRps());
 }
 
 public float obtenerRpm(){
-	//FALTA GENERAR
-	return (0);
+	Eje ejeAux = this.getEje();
+	return (ejeAux.getRpm());
 }
 
-public void calcularVelocidad(){
-	//FALTAAAA	:D
-}
-
-public double obtenerRpm(){
-	//FALTA GENERAR
-	return (0);
+private void setVelocidad(double velocidad){
+	this.velocidad = velocidad;
 }
 
 
