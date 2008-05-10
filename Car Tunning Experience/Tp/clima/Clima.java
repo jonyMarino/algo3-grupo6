@@ -2,8 +2,8 @@ package clima;
 public abstract class Clima {
 	
 	private double coeficienteDeRozamiento;
-	
-	public Clima(double coeficienteDeRozamiento){
+		
+	public Clima(double coeficienteDeRozamiento,double velocidadAire){
 		setCoeficienteDeRozamiento(coeficienteDeRozamiento);
 	}
 	
@@ -14,5 +14,6 @@ public abstract class Clima {
 	public double getCoeficienteDeRozamiento(){
 		return this.coeficienteDeRozamiento;
 	}
+
 
 }
