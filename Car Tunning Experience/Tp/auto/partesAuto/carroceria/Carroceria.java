@@ -23,7 +23,10 @@ public class Carroceria extends ParteAuto{
 	}
 	
 	public void setVolumen(double volumen){
-		this.volumen=volumen;
+		if(volumen>0)
+			this.volumen=volumen;
+		else 
+			this.volumen=0;
 	}
 	
 	public double getVolumen(){
@@ -31,7 +34,10 @@ public class Carroceria extends ParteAuto{
 	}
 	
 	public void setAeroDinamia(int aeroDinamia){
-		this.aeroDinamia=aeroDinamia;
+		if(aeroDinamia>0)
+			this.aeroDinamia=aeroDinamia;
+		else 
+			this.aeroDinamia=0;
 	}
 	
 	public double getAeroDinamia(){
