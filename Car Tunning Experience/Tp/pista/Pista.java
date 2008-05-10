@@ -2,9 +2,11 @@ package pista;
 
 public abstract class Pista {
 	
+	
 	private double coeficienteDeRozamientoRelativo;
 	private double longitud;
-
+	private int velocidadAire;
+	
 	public Pista(double longitud){
 		setLongitud(longitud);
 	}
@@ -23,6 +25,15 @@ public abstract class Pista {
 	
 	public double getCoeficienteDeRozamientoRelativo() {
 		return this.coeficienteDeRozamientoRelativo;
+	}
+	
+	
+	public void setVelocidadAire(int velocidadAire) {
+		this.velocidadAire=velocidadAire;
+	}
+	
+	public int getVelocidadAire(){
+		return this.velocidadAire;
 	}
 
 }
