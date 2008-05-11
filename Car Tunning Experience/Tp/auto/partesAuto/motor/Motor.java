@@ -41,10 +41,14 @@ public class Motor extends PartesAuto {
 		else this.rpmMaximo=rpmMaximo;
 	}
 	
-	public void acelerar(){
+	public void acelerar(double aceleracion){  //No es aceleracion del punto de vista físico. aceleracion [0..1]
 		double mezcla;
 		if(getVidaUtil()>0){
-		mezcla=mezclador.obtenerMezcla(0.2);
+			if (aceleracion>1)
+				aceleracion=1;
+			else if (aceleracion < 0)
+				aceleracion = 0;
+		mezcla=mezclador.obtenerMezcla(aceleracion);
 		aumentarRpm(realizarCombustión(mezcla));
 		actualizarVidaUtil();
 		}
@@ -76,7 +80,7 @@ public class Motor extends PartesAuto {
 	}
 
 	public void aumentarRpm(double incrementoRPM) {
-		rpm += incrementoRPM*((getRPMMaximo()-rpm)/getRPMMaximo());
+		rpm += Math.exp(-obtenerRPM()/getRPMMaximo()/2)*incrementoRPM;
 		temperatura += ((getRPMMaximo() + temperatura))/getRPMMaximo();
 		if (rpm>=getRPMMaximo())
 			NecesitoCambio = true;
