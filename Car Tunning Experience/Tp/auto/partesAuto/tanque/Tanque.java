@@ -1,7 +1,7 @@
 package auto.partesAuto.tanque;
-import auto.ParteAuto;
+import auto.PartesAuto;
 
-public abstract class Tanque extends ParteAuto{
+public abstract class Tanque extends PartesAuto{
 		
 	private int capacidad;
 	
