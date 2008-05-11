@@ -1,7 +1,7 @@
 package auto.partesAuto;
-import auto.ParteAuto;
+import auto.PartesAuto;
 
-public class Rueda extends ParteAuto {
+public class Rueda extends PartesAuto {
 	
 	private int rodado;
 	private double coeficienteEstatico;

@@ -1,8 +1,8 @@
 package auto.partesAuto.mezclador;
-import auto.ParteAuto;
+import auto.PartesAuto;
 import auto.partesAuto.tanque.TanqueNafta;
 
-public abstract class Mezclador extends ParteAuto{
+public abstract class Mezclador extends PartesAuto{
 
 	private int eficiencia;
 	private TanqueNafta tanqueNafta;

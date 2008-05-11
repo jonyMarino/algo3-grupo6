@@ -1,6 +1,6 @@
 package auto.partesAuto.motor;
 
-import auto.ParteAuto;
+import auto.PartesAuto;
 import auto.partesAuto.escape.Escape;
 import auto.partesAuto.mezclador.Mezclador;
 
