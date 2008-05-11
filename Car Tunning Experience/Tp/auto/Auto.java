@@ -68,7 +68,7 @@ public double obtenerVelocidad(){
 
 public void calcularVelocidad(int segundosTranscurridos){
 	Eje ejeAux = this.getEje();
-	double fuerzas = ejeAux.getFuerza;
+	double fuerzas = ejeAux.getFuerza();
 	Carroceria carroceriaAux = this.getCarroceria();
 	double fuerzaAire = carroceriaAux.getFuerzaAire();
 	double incrementoVelocidad = 0;
@@ -79,7 +79,7 @@ public void calcularVelocidad(int segundosTranscurridos){
 
 public double obtenerRps(){
 	Caja cajaAux = this.getCaja();
-	return (cajaAux.getRps());
+	return (cajaAux.obtenerRpsEntrada());
 }
 
 public float obtenerRpm(){
@@ -125,7 +125,7 @@ public void setMotor(Motor motor) {
 
 public double getRPM(){
 	Motor motorAux = this.getMotor();
-	double rpm = motorAux.getRPM;
+	double rpm = motorAux.getRPM();
 	return rpm;
 }
 
@@ -141,7 +141,7 @@ public void setTanqueNafta(TanqueNafta tanqueNafta) {
 
 public double obtenerCantidadCombustible(){
 	TanqueNafta tanqueNaftaAux = this.getTanqueNafta();
-	double cantidadCombustible = tanqueNaftaAux.getCantidadNafta();
+	double cantidadCombustible = tanqueNaftaAux.obtenerCantidadNafta();
 	return cantidadCombustible;
 }
 
