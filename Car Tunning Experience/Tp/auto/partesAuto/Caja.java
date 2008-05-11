@@ -1,5 +1,6 @@
 package auto.partesAuto;
 import auto.Auto;
+import auto.PartesAuto;
 
 public abstract class Caja extends PartesAuto {
  
