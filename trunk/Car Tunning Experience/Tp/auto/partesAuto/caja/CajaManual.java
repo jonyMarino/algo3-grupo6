@@ -2,6 +2,14 @@ package auto.partesAuto.caja;
 
 import auto.partesAuto.motor.Motor;
 
+
+
+/**
+ * Un caso particular de {@link Caja}. Su principal característica es que los cambios deben ser pasados por el usuario.
+ *
+ *@see Caja
+ *
+ */
 public class CajaManual extends Caja {
 
 	public CajaManual() {

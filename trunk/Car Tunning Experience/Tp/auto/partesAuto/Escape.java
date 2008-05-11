@@ -4,7 +4,7 @@ import auto.PartesAuto;
 /**
  * El escape es necesario para el funcionamiento del motor.
  * Un escape con buen rendimiento, ayuda a evacuar mejor los gases de la combustión y mejoran el desempeño del motor.
- *{@see {@link PartesAuto}}
+ *@see  PartesAuto
  */
 public class Escape extends PartesAuto{
 	

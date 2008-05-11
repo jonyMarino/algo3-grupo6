@@ -5,6 +5,17 @@ import auto.partesAuto.Escape;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
 
+
+/**
+ * El Motor es el alma del {@link Auto}.
+ * Es el encargado del proceso de combustión del {@link Combustible}, que obtiene a traves del {@link Mezclador}.
+ * A partir del proceso de combustión genera un torque que luego pasa por la {@link Caja}.
+ * @see PartesAuto
+ * @see Mezclador
+ * @see Combstible
+ * @see Caja
+ *
+ */
 public class Motor extends PartesAuto {
 	private double rpmMaximo;
 	private int rendimiento;

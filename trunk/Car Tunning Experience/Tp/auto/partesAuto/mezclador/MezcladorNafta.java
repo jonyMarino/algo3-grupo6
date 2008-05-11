@@ -3,6 +3,12 @@ import auto.partesAuto.tanque.TanqueNafta;
 import combustible.Nafta;
 
 
+/**
+ * El Mezclador es el encargado de obtener combustible del {@link Tanque}, mezclarlo y dejarlo listo para el proceso de combustión.
+ * @see Tanque
+ * @see Motor
+ * @see Mezclador
+ */
 public class MezcladorNafta extends Mezclador {
 
 	public MezcladorNafta(int eficiencia, TanqueNafta tanqueNafta) {
