@@ -1,19 +1,24 @@
 package auto.partesAuto.motor;
 
 import auto.ParteAuto;
+import auto.partesAuto.escape.Escape;
 import auto.partesAuto.mezclador.Mezclador;
 
 public class Motor extends ParteAuto {
 	private long rpmMaximo;
 	private int rendimiento;
-	private double cilindrada;
-	Mezclador mezclador;
-	int cambio;
+	private long rpm;
+	//private double cilindrada;
+	private Mezclador mezclador;
+	private int cambio;
+	private boolean NecesitoCambio;
+	private Escape escape;
 	
-	public Motor(int rendimiento, long rpmMaximo, Mezclador mezclador){
+	public Motor(int rendimiento, long rpmMaximo, Mezclador mezclador, Escape escape){
 		setRendimiento(rendimiento);
 		setRPMMaximo(rpmMaximo);
 		this.mezclador = mezclador;
+		this.escape=escape;
 	}
 	
 	private void setRendimiento(int rendimiento){
@@ -33,9 +38,11 @@ public class Motor extends ParteAuto {
 	}
 	
 	public acelerar(){
-		
+		double mezcla;
+		mezcla=mezclador.obtenerMezcla(litrosDeMezcla);
 	}
 	
-	public obtenerRPM(){
+	public long obtenerRPM(){
+		return rpm; 
 	}
 }
