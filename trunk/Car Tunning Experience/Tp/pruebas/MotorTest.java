@@ -1,13 +1,12 @@
 package pruebas;
 
-import combustible.Nafta;
-
+import junit.framework.TestCase;
 import auto.partesAuto.Escape;
-import auto.partesAuto.mezclador.Mezclador;
 import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.motor.Motor;
 import auto.partesAuto.tanque.TanqueNafta;
-import junit.framework.TestCase;
+
+import combustible.Nafta;
 
 public class MotorTest extends TestCase {
 
@@ -24,6 +23,7 @@ public class MotorTest extends TestCase {
 		mezclador = new MezcladorNafta(100,tanque);
 		escape = new Escape(100);
 		motor=new Motor(100,7500,mezclador,escape);
+		tanque.llenarTanque(50);
 	}
 
 	protected void tearDown() throws Exception {
@@ -37,20 +37,19 @@ public class MotorTest extends TestCase {
 
 	public void testAcelerar() {
 		assertEquals(0.0, motor.obtenerRPM());
-		motor.acelerar();
+		motor.acelerar(0.2);
 		assertEquals(1.2, motor.obtenerRPM());
+		motor.acelerar(1);
+}
+	
+	public void testAcelerarHastaFundir(){
+		escape.setEficiencia(20);
+		int contador;
+		for(contador=0;contador<100;contador++)
+			motor.acelerar(1);
+		assertEquals(0.0, motor.getVidaUtil());
+		assertEquals(0.0, motor.obtenerRPM());
 	}
 
-	public void testObtenerRPM() {
-		fail("Not yet implemented");
-	}
-
-	public void testAumentarRpm() {
-		fail("Not yet implemented");
-	}
-
-	public void testDisminuiRPM() {
-		fail("Not yet implemented");
-	}
 
 }
