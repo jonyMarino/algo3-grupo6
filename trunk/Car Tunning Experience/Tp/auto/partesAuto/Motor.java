@@ -2,6 +2,7 @@ package auto.partesAuto;
 
 import java.math.*;
 import auto.Auto;
+import auto.PartesAuto;
 import auto.partesAuto.pedal.Acelerador;
 import auto.partesAuto.Escape;
 

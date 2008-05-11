@@ -1,8 +1,9 @@
 package auto.partesAuto;
 import auto.Auto;
+import auto.PartesAuto;
 import auto.partesAuto.pedal.Freno;
 
-public class Eje {
+public class Eje extends PartesAuto{
  
 	private Freno freno;
 	 
