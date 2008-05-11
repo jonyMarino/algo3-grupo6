@@ -1,7 +1,11 @@
 package auto.partesAuto.pedal;
 import auto.PartesAuto;
-import auto.partesAuto.Motor;
-
+import auto.partesAuto.motor.Motor;
+/**
+ * El {@link Pedal} del freno.
+ *@see Pedal
+ *@see PartesAuto
+ */
 public class Acelerador extends PartesAuto implements Pedal{
 	
 	private	Motor motor;

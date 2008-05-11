@@ -2,6 +2,11 @@ package auto.partesAuto.pedal;
 import auto.PartesAuto;
 import auto.partesAuto.Torque;
 
+/**
+ * El {@link Pedal} del freno.
+ *@see Pedal
+ *@see PartesAuto
+ */
 public class Freno extends PartesAuto implements Pedal {
 
 	private Torque torque;
