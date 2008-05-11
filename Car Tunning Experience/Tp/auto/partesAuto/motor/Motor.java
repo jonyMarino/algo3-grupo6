@@ -1,6 +1,7 @@
 package auto.partesAuto.motor;
 
 import auto.PartesAuto;
+import auto.partesAuto.Caja;
 import auto.partesAuto.Escape;
 import auto.partesAuto.mezclador.Mezclador;
 
@@ -10,17 +11,18 @@ public class Motor extends PartesAuto {
 	private double rpm;
 	//private double cilindrada;
 	private Mezclador mezclador;
-	private int cambio;
+	private Caja caja;
 	private boolean NecesitoCambio;
 	private Escape escape;
 	private double temperatura;
 	
-	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape){
+	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape, Caja caja){
 		super();
 		setRendimiento(rendimiento);
 		setRPMMaximo(rpmMaximo);
 		this.mezclador = mezclador;
 		this.escape=escape;
+		this.caja=caja;
 		rpm=0;
 		temperatura=0;
 	}
@@ -82,18 +84,30 @@ public class Motor extends PartesAuto {
 	public void aumentarRpm(double incrementoRPM) {
 		rpm += Math.exp(-obtenerRPM()/getRPMMaximo()/2)*incrementoRPM;
 		temperatura += ((getRPMMaximo() + temperatura))/getRPMMaximo();
-		if (rpm>=getRPMMaximo())
+		if (rpm>=getRPMMaximo()/(6-caja.getCambio()))
 			NecesitoCambio = true;
 	}
 	
 	public void disminuiRPM(double decrementoRPM){
 		rpm += decrementoRPM*((getRPMMaximo()+rpm)/getRPMMaximo());
 		temperatura -= ((getRPMMaximo() + temperatura))/getRPMMaximo();
-		if (rpm<getRPMMaximo())
+		if (rpm<getRPMMaximo()/(6-caja.getCambio()))
 			NecesitoCambio = false;
 	}
 
 	public double getRPMMaximo() {
 		return rpmMaximo;
+	}
+
+	public boolean necesitaCambio() {
+		return NecesitoCambio;
+	}
+
+	public void nuevoCambio() {
+		disminuiRPM(obtenerRPM()/2); //bajo las revoluciones a la mitad				
+	}
+
+	public void detenerse() {
+				
 	}
 }
