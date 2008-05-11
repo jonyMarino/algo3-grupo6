@@ -2,7 +2,7 @@ package auto.partesAuto.pedal;
 import auto.PartesAuto;
 import auto.partesAuto.Motor;
 
-public class Acelerador extends ParteAuto implements Pedal{
+public class Acelerador extends PartesAuto implements Pedal{
 	
 	private	Motor motor;
 
