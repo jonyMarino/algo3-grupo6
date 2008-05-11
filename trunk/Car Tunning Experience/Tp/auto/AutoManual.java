@@ -1,8 +1,10 @@
 package auto;
-import auto.partesAuto.carroceria.Carroceria;
-import auto.partesAuto.escape.Escape;
+import auto.partesAuto.Caja;
+import auto.partesAuto.Carroceria;
+import auto.partesAuto.Escape;
+import auto.partesAuto.Motor;
+import auto.partesAuto.Rueda;
 import auto.partesAuto.mezclador.Mezclador;
-import auto.partesAuto.rueda.Rueda;
 import auto.partesAuto.tanque.TanqueNafta;
 
 public class AutoManual extends Auto {
