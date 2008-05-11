@@ -5,9 +5,9 @@ import auto.partesAuto.Escape;
 import auto.partesAuto.mezclador.Mezclador;
 
 public class Motor extends PartesAuto {
-	private long rpmMaximo;
+	private double rpmMaximo;
 	private int rendimiento;
-	private long rpm;
+	private double rpm;
 	//private double cilindrada;
 	private Mezclador mezclador;
 	private int cambio;
@@ -15,7 +15,7 @@ public class Motor extends PartesAuto {
 	private Escape escape;
 	private double temperatura;
 	
-	public Motor(int rendimiento, long rpmMaximo, Mezclador mezclador, Escape escape){
+	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape){
 		super();
 		setRendimiento(rendimiento);
 		setRPMMaximo(rpmMaximo);
@@ -33,7 +33,7 @@ public class Motor extends PartesAuto {
 		else this.rendimiento=rendimiento;
 	}
 
-	private void setRPMMaximo(long rpmMaximo){
+	private void setRPMMaximo(double rpmMaximo){
 		if (rpmMaximo>100)
 			this.rpmMaximo=100;
 		else if (rpmMaximo < 0)
@@ -48,7 +48,7 @@ public class Motor extends PartesAuto {
 		aumentarRpm(realizarCombustión(mezcla));
 		actualizarVidaUtil();
 		}
-		else aumentarRpm(-2.0);
+		else disminuiRPM(2.0);
 	}
 	
 	private void actualizarVidaUtil() {
@@ -67,7 +67,7 @@ public class Motor extends PartesAuto {
 		return(escape.getEficiencia()*mezcla/100);
 	}
 
-	public long obtenerRPM(){
+	public double obtenerRPM(){
 		return rpm; 
 	}
 
@@ -89,7 +89,7 @@ public class Motor extends PartesAuto {
 			NecesitoCambio = false;
 	}
 
-	public long getRPMMaximo() {
+	public double getRPMMaximo() {
 		return rpmMaximo;
 	}
 }
