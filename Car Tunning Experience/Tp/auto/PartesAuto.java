@@ -31,7 +31,11 @@ public abstract class PartesAuto {
 	}
 	
 	public void setVidaUtil(double vidaUtil){
-		this.vidaUtil=vidaUtil;
+		if (vidaUtil<0)
+			this.vidaUtil=0;
+		else if (vidaUtil>100)
+			this.vidaUtil=100;
+		else this.vidaUtil=vidaUtil;
 	}
 	
 	public double getVidaUtil(){
