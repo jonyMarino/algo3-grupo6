@@ -1,15 +1,15 @@
 package auto;
-import auto.partesAuto.Caja;
 import auto.partesAuto.Carroceria;
-import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
-import auto.partesAuto.Motor;
 import auto.partesAuto.Rueda;
-import auto.partesAuto.Torque;
 import auto.partesAuto.mezclador.Mezclador;
 import auto.partesAuto.pedal.Acelerador;
 import auto.partesAuto.pedal.Freno;
 import auto.partesAuto.tanque.TanqueNafta;
+import auto.partesAuto.Motor;
+import auto.partesAuto.Caja;
+import auto.partesAuto.Eje;
+import auto.partesAuto.Torque;
 
 public abstract class Auto {
 	private double		   peso;
@@ -68,7 +68,7 @@ public double obtenerVelocidad(){
 
 public void calcularVelocidad(int segundosTranscurridos){
 	Eje ejeAux = this.getEje();
-	double fuerzas = ejeAux.getFuerza();
+	double fuerzas = ejeAux.getFuerza;
 	Carroceria carroceriaAux = this.getCarroceria();
 	double fuerzaAire = carroceriaAux.getFuerzaAire();
 	double incrementoVelocidad = 0;
@@ -123,9 +123,9 @@ public void setMotor(Motor motor) {
 	this.motor = motor;
 }
 
-public double getRPM(){
+public float getRPM(){
 	Motor motorAux = this.getMotor();
-	double rpm = motorAux.getRPM();
+	float rpm = motorAux.getRPM;
 	return rpm;
 }
 
@@ -155,9 +155,9 @@ public void setCaja(Caja caja) {
 	this.caja = caja;
 }
 
-public double getCambio(){
+public float getCambio(){
 	Caja cajaAux = this.getCaja();
-	double cambio = cajaAux.getCambio();
+	float cambio = cajaAux.getCambio();
 	return cambio;
 }
 
@@ -200,7 +200,7 @@ public void setRueda(Rueda rueda) {
 }
 
 
-//EJE
+//CALCULADOR DE VELOCIDAD
 public Eje getEje() {
 	return eje;
 }
@@ -265,9 +265,9 @@ private double calculadorPeso(){
 	this.peso += cajaAux.getPeso();
 	Rueda ruedaAux = this.getRueda();
 	this.peso += 4*(ruedaAux.getPeso());
-	
-	return this.peso;
+	return (this.getPeso());
 }
 
 /*********************************************************************************/
 }
+
