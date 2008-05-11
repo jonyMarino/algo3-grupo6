@@ -2,6 +2,7 @@ package pruebas;
 
 import junit.framework.TestCase;
 import auto.partesAuto.Escape;
+import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.motor.Motor;
 import auto.partesAuto.tanque.TanqueNafta;
@@ -15,6 +16,7 @@ public class MotorTest extends TestCase {
 	MezcladorNafta mezclador;
 	TanqueNafta tanque;
 	Nafta nafta;
+	Caja caja;
 	
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -22,7 +24,8 @@ public class MotorTest extends TestCase {
 		tanque = new TanqueNafta(50, nafta);
 		mezclador = new MezcladorNafta(100,tanque);
 		escape = new Escape(100);
-		motor=new Motor(100,7500,mezclador,escape);
+		caja = new Caja();
+		motor=new Motor(100,7500,mezclador,escape,caja);
 		tanque.llenarTanque(50);
 	}
 

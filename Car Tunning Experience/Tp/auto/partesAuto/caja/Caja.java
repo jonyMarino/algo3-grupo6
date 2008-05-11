@@ -1,13 +1,15 @@
-package auto.partesAuto;
-import auto.Auto;
-import auto.PartesAuto;
+package auto.partesAuto.caja;
 
+import auto.PartesAuto;
+import auto.partesAuto.Eje;
+import auto.partesAuto.Torque;
+import auto.partesAuto.motor.Motor;
 
 public abstract class Caja extends PartesAuto {
  
 	private int cambio;
 			 
-	private auto.partesAuto.motor.Motor motor;
+	private Motor motor;
 		 
 	private Torque torque;
 	 
@@ -16,19 +18,15 @@ public abstract class Caja extends PartesAuto {
 	public float convertir(double fuerza) {
 		return 0;
 	}
-	 
+	
 	public void setCambio(int cambio) {
-		if(cambio == getCambio()+1){
-			if(motor.necesitaCambio()){
-				motor.nuevoCambio();
-			}
-			else motor.detenerse();
-		}
-		else if(cambio == getCambio()-1)
-			
 		
 	}
-	 
+	
+	public Motor getMotor(){
+		return motor;
+	}
+	
 	public int getCambio() {
 		return cambio;
 	}
