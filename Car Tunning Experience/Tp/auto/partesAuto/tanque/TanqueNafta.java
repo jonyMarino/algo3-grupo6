@@ -1,6 +1,13 @@
 package auto.partesAuto.tanque;
 import combustible.Nafta;
 
+/**
+ * El tanque de nafta sirve para almacenar {@link Nafta}.
+ * 
+ * @see Tanque
+ * @see Nafta
+ *
+ */
 public class TanqueNafta extends Tanque{
 	
 	private Nafta  tipoNafta;

@@ -1,5 +1,11 @@
 package auto;
 
+/**
+ * Es la clase que se usa como base para todas las partes del auto ({@link Carrocería}, {@link Motor}, {@link Escape}, etc).
+ *
+ *Define las características básicas de todas las partes, como el costo, peso, vida útil y desgaste.
+ *
+ */
 public abstract class PartesAuto {
  
 	private double peso;
@@ -7,6 +13,7 @@ public abstract class PartesAuto {
 	private double vidaUtil;
 	private double desgaste;
 
+		
 	public PartesAuto(){
 		setPeso(0);
 		setCosto(0);
@@ -43,7 +50,7 @@ public abstract class PartesAuto {
 	}
 	
 	public double calcularDesgaste(int tiempo){
-		return (tiempo*getDesgaste());	
+		return (tiempo*getDesgaste());  //TODO: El desgaste NO (NO) es proporcional al tiempo
 	}
 	
 	public void setDesgaste(double desgaste){

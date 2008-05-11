@@ -1,15 +1,15 @@
 package auto;
 import auto.partesAuto.Carroceria;
+import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Rueda;
+import auto.partesAuto.Torque;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
+import auto.partesAuto.motor.Motor;
 import auto.partesAuto.pedal.Acelerador;
 import auto.partesAuto.pedal.Freno;
 import auto.partesAuto.tanque.TanqueNafta;
-import auto.partesAuto.Motor;
-import auto.partesAuto.Eje;
-import auto.partesAuto.Torque;
 
 public abstract class Auto {
 	private double		   peso;
