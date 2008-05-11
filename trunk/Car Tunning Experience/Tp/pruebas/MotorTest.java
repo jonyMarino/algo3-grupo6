@@ -48,7 +48,6 @@ public class MotorTest extends TestCase {
 		for(contador=0;contador<100;contador++)
 			motor.acelerar(1);
 		assertEquals(0.0, motor.getVidaUtil());
-		assertEquals(0.0, motor.obtenerRPM());
 	}
 
 

@@ -2,13 +2,12 @@ package auto.partesAuto;
 import auto.Auto;
 import auto.PartesAuto;
 
+
 public abstract class Caja extends PartesAuto {
  
 	private int cambio;
-	 
-	private Auto auto;
-	 
-	private Motor motor;
+			 
+	private auto.partesAuto.motor.Motor motor;
 		 
 	private Torque torque;
 	 
@@ -18,11 +17,20 @@ public abstract class Caja extends PartesAuto {
 		return 0;
 	}
 	 
-	public void setCambio(float cambio) {
+	public void setCambio(int cambio) {
+		if(cambio == getCambio()+1){
+			if(motor.necesitaCambio()){
+				motor.nuevoCambio();
+			}
+			else motor.detenerse();
+		}
+		else if(cambio == getCambio()-1)
+			
+		
 	}
 	 
 	public int getCambio() {
-		return 0;
+		return cambio;
 	}
 	 
 	public float obtenerRpsEntrada() {
