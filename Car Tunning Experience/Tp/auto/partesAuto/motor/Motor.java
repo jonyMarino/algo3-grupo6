@@ -16,6 +16,7 @@ public class Motor extends PartesAuto {
 	private double temperatura;
 	
 	public Motor(int rendimiento, long rpmMaximo, Mezclador mezclador, Escape escape){
+		super();
 		setRendimiento(rendimiento);
 		setRPMMaximo(rpmMaximo);
 		this.mezclador = mezclador;
@@ -40,16 +41,32 @@ public class Motor extends PartesAuto {
 		else this.rpmMaximo=rpmMaximo;
 	}
 	
-	public acelerar(){
+	public void acelerar(){
 		double mezcla;
-		mezcla=mezclador.obtenerMezcla(litrosDeMezcla);
-		realizarCombustión(mezcla);
+		if(getVidaUtil()>0){
+		mezcla=mezclador.obtenerMezcla(0.2);
+		aumentarRpm(realizarCombustión(mezcla));
+		actualizarVidaUtil();
+		}
+		else aumentarRpm(-2.0);
 	}
 	
-	private double realizarCombustión(double mezcla){
-		return (mezcla*getRendimiento()/100);
+	private void actualizarVidaUtil() {
+	    double deltaVidaUtil=temperatura/20;
+	    if (NecesitoCambio)
+	    	deltaVidaUtil *= 2;
+		setVidaUtil(getVidaUtil()-deltaVidaUtil);
 	}
-		
+
+	private double realizarCombustión(double mezcla){
+		return (evacuarGases(mezcla*getRendimiento()/100));
+	}
+	
+	private double evacuarGases(double mezcla) {
+		temperatura+=(100-escape.getEficiencia())/3;
+		return(escape.getEficiencia()*mezcla/100);
+	}
+
 	public long obtenerRPM(){
 		return rpm; 
 	}
@@ -58,9 +75,18 @@ public class Motor extends PartesAuto {
 		return rendimiento;
 	}
 
-	public void aumentarRpm(long incrementoRPM) {
+	public void aumentarRpm(double incrementoRPM) {
 		rpm += incrementoRPM*((getRPMMaximo()-rpm)/getRPMMaximo());
-		temperatura += 2*((getRPMMaximo()- temperatura));
+		temperatura += ((getRPMMaximo() + temperatura))/getRPMMaximo();
+		if (rpm>=getRPMMaximo())
+			NecesitoCambio = true;
+	}
+	
+	public void disminuiRPM(double decrementoRPM){
+		rpm += decrementoRPM*((getRPMMaximo()+rpm)/getRPMMaximo());
+		temperatura -= ((getRPMMaximo() + temperatura))/getRPMMaximo();
+		if (rpm<getRPMMaximo())
+			NecesitoCambio = false;
 	}
 
 	public long getRPMMaximo() {
