@@ -18,8 +18,7 @@ public Acelerador(Motor motor){
 
 /*********************************************************************************/
 public void presionar(double cantidad){
-	Motor motorAux = this.getMotor();
-	motorAux.acelerar(cantidad);
+	getMotor().acelerar(cantidad);
 }
 	
 public Motor getMotor() {

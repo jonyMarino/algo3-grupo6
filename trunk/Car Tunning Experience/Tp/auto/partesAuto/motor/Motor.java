@@ -54,6 +54,12 @@ public class Motor extends PartesAuto {
 		else this.rpmMaximo=rpmMaximo;
 	}
 	
+	/**
+	 * Pide {@link Combustible} mezclado con aire al {@link Mezclador} y luego realiza la combustión eliminando los gases por el {@link Escape}.
+	 * A partisr de la combustion, aumenta las RPM del Motor.
+	 * 
+	 * @param aceleracion No se refiere a la mágnitud física, sino a un número de 0 a 1  que indica cuanto se presionó el {@link Acelerador}.  
+	 */
 	public void acelerar(double aceleracion){  //No es aceleracion del punto de vista físico. aceleracion [0..1]
 		double mezcla;
 		if(getVidaUtil()>0){
