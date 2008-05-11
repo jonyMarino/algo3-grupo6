@@ -1,9 +1,9 @@
 package auto;
-import auto.partesAuto.Caja;
 import auto.partesAuto.Carroceria;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
 import auto.partesAuto.Rueda;
+import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
 import auto.partesAuto.tanque.TanqueNafta;
 

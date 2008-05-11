@@ -1,8 +1,8 @@
 package auto.partesAuto.motor;
 
 import auto.PartesAuto;
-import auto.partesAuto.Caja;
 import auto.partesAuto.Escape;
+import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
 
 public class Motor extends PartesAuto {
