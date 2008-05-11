@@ -2,6 +2,13 @@ package auto.partesAuto.mezclador;
 import auto.PartesAuto;
 import auto.partesAuto.tanque.TanqueNafta;
 
+/**
+ * El Mezclador es el encargado de obtener {@link Combustible} del {@link Tanque}, mezclarlo y dejarlo listo para el proceso de combustión.
+ * @see Tanque
+ * @see Motor
+ * @see PartesAuto
+ */
+
 public abstract class Mezclador extends PartesAuto{
 
 	private int eficiencia;

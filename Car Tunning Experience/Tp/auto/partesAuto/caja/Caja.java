@@ -14,7 +14,7 @@ import auto.partesAuto.motor.Motor;
  * @see PartesAuto
  * @see Motor
  * @see CajaManual
- * @see CajaAutomática
+ * @see CajaAutomatica
  *
  */
 public abstract class Caja extends PartesAuto {
