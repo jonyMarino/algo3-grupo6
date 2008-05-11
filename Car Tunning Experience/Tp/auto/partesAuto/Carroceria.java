@@ -4,6 +4,14 @@ import pista.Pista;
 import java.awt.Color;
 
 
+/**
+ * La parte exterior del {@link Auto}. 
+ * Una carrocería aerodinámica y liviana puede ayudar mucho a aumentear 
+ * la velocidad del auto, ya que la oposición que presente al viento será menor.
+ *
+ *@see PartesAuto
+ *@see Auto
+ */
 public class Carroceria extends PartesAuto{
 	
 	private Color color;
