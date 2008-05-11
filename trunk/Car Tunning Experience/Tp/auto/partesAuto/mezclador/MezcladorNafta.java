@@ -4,7 +4,7 @@ import combustible.Nafta;
 
 
 /**
- * El Mezclador es el encargado de obtener combustible del {@link Tanque}, mezclarlo y dejarlo listo para el proceso de combustión.
+ * El Mezclador es el encargado de obtener {@link Combustible} del {@link Tanque}, mezclarlo y dejarlo listo para el proceso de combustión.
  * @see Tanque
  * @see Motor
  * @see Mezclador

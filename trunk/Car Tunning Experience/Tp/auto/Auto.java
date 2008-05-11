@@ -11,6 +11,25 @@ import auto.partesAuto.pedal.Acelerador;
 import auto.partesAuto.pedal.Freno;
 import auto.partesAuto.tanque.TanqueNafta;
 
+
+
+/**
+ * Auto es una clase que intenta encapsular el comportamiento y las características de un auto.
+ * Cada Auto está formado por distintas {@link PartesAuto}, como ser el {@link Motor}, la {@link Caja}, el {@link Eje} o
+ * la {@link Carroceria}, entre otras.
+ * 
+ *   @see PartesAuto
+ *   @see Motor
+ *   @see Carroceria
+ *   @see Escape
+ *   @see Tanque
+ *   @see Caja
+ *   @see Acelerador
+ *   @see Freno
+ *   @see Rueda
+ *   @see Eje
+ *   @see Mezclador
+ */
 public abstract class Auto {
 	private double		   peso;
 	private Escape 		   escape;
