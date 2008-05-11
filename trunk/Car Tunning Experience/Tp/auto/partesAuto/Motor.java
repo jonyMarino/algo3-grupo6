@@ -1,4 +1,4 @@
-package auto;
+package auto.partesAuto;
 
 import java.math.*;
 

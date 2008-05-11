@@ -1,4 +1,4 @@
-package auto.partesAuto.carroceria;
+package auto.partesAuto;
 import auto.ParteAuto;
 import pista.Pista;
 import java.awt.Color;

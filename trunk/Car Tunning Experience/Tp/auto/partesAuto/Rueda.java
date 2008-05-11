@@ -1,4 +1,4 @@
-package auto.partesAuto.rueda;
+package auto.partesAuto;
 import auto.ParteAuto;
 
 public class Rueda extends ParteAuto {
