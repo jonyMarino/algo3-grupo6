@@ -1,7 +1,7 @@
 package auto.partesAuto;
-import auto.ParteAuto;
+import auto.PartesAuto;
 
-public class Escape extends ParteAuto{
+public class Escape extends PartesAuto{
 	
 	private double eficiencia;
 	
@@ -11,7 +11,7 @@ public class Escape extends ParteAuto{
 	}
 	
 	public void setEficiencia(double eficiencia){
-		if(eficiencia > 100))
+		if(eficiencia > 100)
 			this.eficiencia = 100;
 		else if(eficiencia < 0)
 			this.eficiencia = 0;

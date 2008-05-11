@@ -1,5 +1,6 @@
 package auto.partesAuto;
-
+import auto.Auto;
+import auto.partesAuto.pedal;
 
 public class Eje {
  
@@ -7,17 +8,11 @@ public class Eje {
 	 
 	private Torque torque;
 	 
-	private Torque torque;
-	 
 	private Rueda rueda;
 	 
 	private Auto auto;
 	 
-	private Auto auto;
-	 
 	private Caja caja;
-	 
-	private Auto auto;
 	 
 	public void getFuerza() {
 	}

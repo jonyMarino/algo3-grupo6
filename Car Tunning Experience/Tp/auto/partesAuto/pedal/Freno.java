@@ -1,5 +1,5 @@
 package auto.partesAuto.pedal;
-import auto.ParteAuto;
+import auto.PartesAuto;
 import auto.partesAuto.Torque;
 
 public class Freno extends ParteAuto implements Pedal {

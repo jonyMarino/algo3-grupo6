@@ -1,8 +1,11 @@
 package auto.partesAuto;
 
 import java.math.*;
+import auto.Auto;
+import auto.partesAuto.pedal;
+import auto.partesAuto.escape;
 
-public abstract class Motor extends ParteAuto {
+public abstract class Motor extends PartesAuto {
  
 	private long rpmMaximo;
 	 
