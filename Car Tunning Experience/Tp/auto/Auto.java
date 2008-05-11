@@ -265,6 +265,8 @@ private double calculadorPeso(){
 	this.peso += cajaAux.getPeso();
 	Rueda ruedaAux = this.getRueda();
 	this.peso += 4*(ruedaAux.getPeso());
+	
+	return this.peso;
 }
 
 /*********************************************************************************/
