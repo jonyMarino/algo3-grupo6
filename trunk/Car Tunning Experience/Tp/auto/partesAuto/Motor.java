@@ -2,8 +2,8 @@ package auto.partesAuto;
 
 import java.math.*;
 import auto.Auto;
-import auto.partesAuto.pedal;
-import auto.partesAuto.escape;
+import auto.partesAuto.pedal.Acelerador;
+import auto.partesAuto.Escape;
 
 public abstract class Motor extends PartesAuto {
  

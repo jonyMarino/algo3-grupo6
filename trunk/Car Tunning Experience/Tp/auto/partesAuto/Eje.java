@@ -1,6 +1,6 @@
 package auto.partesAuto;
 import auto.Auto;
-import auto.partesAuto.pedal;
+import auto.partesAuto.pedal.Freno;
 
 public class Eje {
  

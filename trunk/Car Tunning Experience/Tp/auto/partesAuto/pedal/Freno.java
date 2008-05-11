@@ -2,7 +2,7 @@ package auto.partesAuto.pedal;
 import auto.PartesAuto;
 import auto.partesAuto.Torque;
 
-public class Freno extends ParteAuto implements Pedal {
+public class Freno extends PartesAuto implements Pedal {
 
 	private Torque torque;
 

@@ -1,10 +1,10 @@
 package auto.partesAuto.motor;
 
 import auto.PartesAuto;
-import auto.partesAuto.escape.Escape;
+import auto.partesAuto.Escape;
 import auto.partesAuto.mezclador.Mezclador;
 
-public class Motor extends ParteAuto {
+public class Motor extends PartesAuto {
 	private long rpmMaximo;
 	private int rendimiento;
 	private long rpm;
