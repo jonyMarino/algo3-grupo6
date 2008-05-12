@@ -13,12 +13,13 @@ public class Acelerador extends PartesAuto implements Pedal{
 public Acelerador(Motor motor){
 	super();
 	this.setMotor(motor);
-	
 }
 
 /*********************************************************************************/
 public void presionar(double cantidad){
-	getMotor().acelerar(cantidad);
+	if(this.getVidaUtil() > 0){
+		getMotor().acelerar(cantidad);
+	}
 }
 	
 public Motor getMotor() {

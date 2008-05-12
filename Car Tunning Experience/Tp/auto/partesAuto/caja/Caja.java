@@ -19,16 +19,18 @@ public abstract class Caja extends PartesAuto {
  
 	private int cambio;	 
 	private Motor motor; 
-	private Torque torque;
 	private Eje eje;
 	 
 	
-	public Caja(){
-		super();	
+	public Caja(Eje eje){
+		super();
+		this.setEje(eje);
+		
 	}
 	
-	public double convertir(double fuerza) {
-		return 0;
+	public void convertir(double fuerza) {
+		Eje eje = this.getEje();
+		eje.setTorqueCaja(fuerza);
 	}
 	
 	public void setCambio(int cambio) {
@@ -45,6 +47,14 @@ public abstract class Caja extends PartesAuto {
 	
 	public float obtenerRpsEntrada() {
 		return 0;
+	}
+
+	public Eje getEje() {
+		return eje;
+	}
+
+	public void setEje(Eje eje) {
+		this.eje = eje;
 	}
 	 
 }

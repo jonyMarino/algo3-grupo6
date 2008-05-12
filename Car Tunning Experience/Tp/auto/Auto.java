@@ -5,7 +5,6 @@ import auto.partesAuto.Carroceria;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Rueda;
-import auto.partesAuto.Torque;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
 import auto.partesAuto.motor.Motor;
@@ -295,7 +294,7 @@ private void asignadorPedales(){
 }
 
 private void asignarEje(Freno freno) {
-	Eje eje = new Eje(this.getRuedaDelanteraDerecha(),freno);
+	Eje eje = new Eje(this.getRuedaDelanteraDerecha(),this.getFreno());
 	this.setEje(eje);
 	
 }
