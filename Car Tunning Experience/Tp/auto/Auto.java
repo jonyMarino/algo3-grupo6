@@ -1,4 +1,6 @@
 package auto;
+import java.util.LinkedList;
+
 import auto.partesAuto.Carroceria;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
@@ -40,22 +42,29 @@ public abstract class Auto {
 	private Caja 		   caja;
 	private Acelerador	   acelerador;
 	private Freno 		   freno;
-	private Rueda 	 	   rueda;
+	private LinkedList 	   ruedas;
 	private Eje            eje;
 	private Mezclador      mezclador;
 	private double		   velocidad;
 
 public Auto(Escape escape, Carroceria carroceria, Motor motor,
-            Caja caja, Rueda rueda, Mezclador mezclador, TanqueNafta tanqueNafta){
+            Caja caja, Mezclador mezclador, TanqueNafta tanqueNafta,
+            Rueda rueda1, Rueda rueda2, Rueda rueda3, Rueda rueda4){
 
 	this.escape = escape;
 	this.setCarroceria(carroceria);
 	this.setMotor(motor);
 	this.setCaja(caja);
-	this.setRueda(rueda);
 	this.mezclador = mezclador;
 	this.tanqueNafta = tanqueNafta;
 
+	//Ruedas
+	ruedas = new LinkedList();
+	ruedas.add(rueda1);
+	ruedas.add(rueda2);
+	ruedas.add(rueda3);
+	ruedas.add(rueda4);
+	
 	//Velocidad
 	this.setVelocidad(0);
 	
@@ -206,12 +215,36 @@ public void presionarFreno(double cantidad){
 
 
 //RUEDA
-public Rueda getRueda() {
-	return rueda;
+public Rueda getRuedaDelanteraDerecha() {
+	return ((Rueda)(ruedas.get(0)));
 }
 
-public void setRueda(Rueda rueda) {
-	this.rueda = rueda;
+public void setRuedaDelanteraDerecha(Rueda rueda) {
+	ruedas.set(0,rueda);
+}
+
+public Rueda getRuedaDelanteraIzquierda() {
+	return ((Rueda)(ruedas.get(1)));
+}
+
+public void setRuedaDelanteraIzquierda(Rueda rueda) {
+	ruedas.set(1,rueda);
+}
+
+public Rueda getRuedaTraseraDerecha() {
+	return ((Rueda)(ruedas.get(2)));
+}
+
+public void setRuedaTraseraDerecha(Rueda rueda) {
+	ruedas.set(2,rueda);
+}
+
+public Rueda getRuedaTraseraIzquierda() {
+	return ((Rueda)(ruedas.get(3)));
+}
+
+public void setRuedaTraseraIzquierda(Rueda rueda) {
+	ruedas.set(3,rueda);
 }
 
 
@@ -263,7 +296,7 @@ private void asignadorPedales(){
 }
 
 private void asignarEje() {
-	Eje eje = new Eje();
+	Eje eje = new Eje(this.getRuedaDelanteraDerecha());
 	this.setEje(eje);
 	
 }
@@ -280,8 +313,14 @@ private double calculadorPeso(){
 	this.peso += tanqueNaftaAux.getPeso();
 	Caja cajaAux = this.getCaja();
 	this.peso += cajaAux.getPeso();
-	Rueda ruedaAux = this.getRueda();
-	this.peso += 4*(ruedaAux.getPeso());
+	Rueda rueda1 = this.getRuedaDelanteraDerecha();
+	this.peso += rueda1.getPeso();
+	Rueda rueda2 = this.getRuedaDelanteraIzquierda();
+	this.peso += rueda2.getPeso();
+	Rueda rueda3 = this.getRuedaTraseraDerecha();
+	this.peso += rueda3.getPeso();
+	Rueda rueda4 = this.getRuedaTraseraIzquierda();
+	this.peso += rueda4.getPeso();
 	return (this.getPeso());
 }
 
