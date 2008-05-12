@@ -128,4 +128,12 @@ public class Motor extends PartesAuto {
 	public void detenerse() {
 				
 	}
+
+	public Escape getEscape() {
+		return escape;
+	}
+
+	public void setEscape(Escape escape) {
+		this.escape = escape;
+	}
 }
