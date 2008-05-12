@@ -30,12 +30,13 @@ public double obtenerMezcla(double litrosMezcla){
 	if(this.getVidaUtil() > 0){
 		double mezclaNecesaria = ((litrosMezcla*100)/this.getEficiencia());
 		double naftaNecesaria = ((mezclaNecesaria*100)/naftaAux.getOctanaje());
-		tanqueNaftaAux.usarNafta(naftaNecesaria);
-		mezclaProducida = litrosMezcla;
 		if(naftaNecesaria > tanqueNaftaAux.getCantidadNafta()){
 			double naftaUtilRestante = ((tanqueNaftaAux.getCantidadNafta()*naftaAux.getOctanaje())/100);
 			tanqueNaftaAux.usarNafta(tanqueNaftaAux.getCantidadNafta());
 			mezclaProducida = ((this.getEficiencia()*naftaUtilRestante)/100);
+		}else{
+			tanqueNaftaAux.usarNafta(naftaNecesaria);
+			mezclaProducida = litrosMezcla;
 		}
 	}
 	return mezclaProducida;
