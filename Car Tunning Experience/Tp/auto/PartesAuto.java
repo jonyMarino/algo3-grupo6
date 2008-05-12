@@ -49,9 +49,7 @@ public abstract class PartesAuto {
 		return this.vidaUtil;
 	}
 	
-	public double calcularDesgaste(int tiempo){
-		return (tiempo*getDesgaste());  //TODO: El desgaste NO (NO) es proporcional al tiempo
-	}
+	public abstract double calcularDesgaste(int tiempo); //para que cada parte defina su desgaste propio.En vez de la misma formula para todos.
 	
 	public void setDesgaste(double desgaste){
 		this.desgaste=desgaste;	
