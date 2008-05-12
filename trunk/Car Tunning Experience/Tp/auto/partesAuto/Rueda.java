@@ -36,10 +36,12 @@ public class Rueda extends PartesAuto {
 	}
 	
 	public void setCoeficienteEstatico(double coeficienteEstatico){
-		if ((coeficienteEstatico>=0)&&(coeficienteEstatico<=1))
-			this.coeficienteEstatico=coeficienteEstatico;
+		if (coeficienteEstatico < 0)
+			this.coeficienteEstatico = 0;
+		else if (coeficienteEstatico > 1)
+			this.coeficienteEstatico = 1;
 		else
-			this.coeficienteEstatico=0;
+			this.coeficienteEstatico = coeficienteEstatico;
 	}
 	
 	public double getCoeficienteEstatico(){
@@ -47,10 +49,12 @@ public class Rueda extends PartesAuto {
 	}
 	
 	public void setCoeficienteDinamico(double coeficienteDinamico){
-		if ((coeficienteDinamico>=0)&&(coeficienteDinamico<=1))
-			this.coeficienteDinamico=coeficienteDinamico;
+		if (coeficienteDinamico < 0)
+			this.coeficienteDinamico = 0;
+		else if (coeficienteDinamico > 1)
+			this.coeficienteDinamico = 1;
 		else
-			this.coeficienteDinamico=0;
+			this.coeficienteDinamico = coeficienteDinamico;
 	}
 	
 	public double getCoeficienteDinamico(){
