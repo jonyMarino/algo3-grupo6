@@ -67,7 +67,7 @@ public class Motor extends PartesAuto {
 		return rpm; 
 	}
 	
-	public double setRPM(double rpm){
+	public void setRPM(double rpm){
 		this.rpm=rpm; 
 	}
 
