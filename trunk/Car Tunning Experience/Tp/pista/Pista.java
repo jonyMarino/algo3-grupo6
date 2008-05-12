@@ -24,10 +24,10 @@ public class Pista {
 	
 	public void setCoeficienteDeRozamientoRelativo(double coeficienteDeRozamientoRelativo) {
 		if (coeficienteDeRozamientoRelativo > 1)
-			this.coeficienteDeRozamientoRelativo=1;
+			this.coeficienteDeRozamientoRelativo = 1;
 		else if (coeficienteDeRozamientoRelativo < 0)
-			this.coeficienteDeRozamientoRelativo=0;
-		else this.coeficienteDeRozamientoRelativo=coeficienteDeRozamientoRelativo;
+			this.coeficienteDeRozamientoRelativo = 0;
+		else this.coeficienteDeRozamientoRelativo = coeficienteDeRozamientoRelativo;
 	}
 	
 	public double getCoeficienteDeRozamientoRelativo() {
