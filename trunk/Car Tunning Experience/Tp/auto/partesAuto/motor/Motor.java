@@ -80,7 +80,7 @@ public class Motor extends PartesAuto {
 	}
 	
 	public Caja getCaja() {
-		return escape;
+		return caja;
 	}
 
 	public void setCaja(Caja caja) {
