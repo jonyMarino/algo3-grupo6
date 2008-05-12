@@ -5,8 +5,6 @@ import auto.partesAuto.Eje;
 import auto.partesAuto.Torque;
 import auto.partesAuto.motor.Motor;
 
-
-
 /**
  * La Caja transforma (se podría decir que lo "amplifica") el torque que genera el {@link Motor}.
  * La transformación del torque depende del cambio.
@@ -24,6 +22,11 @@ public abstract class Caja extends PartesAuto {
 	private Torque torque;
 	private Eje eje;
 	 
+	
+	public Caja(){
+		super();	
+	}
+	
 	public double convertir(double fuerza) {
 		return 0;
 	}
