@@ -29,23 +29,23 @@ public class TanqueNaftaTest extends TestCase {
 	}
 
 	public void testLlenarTanque() {
-		assertEquals(0.0, tanque.obtenerCantidadNafta());
+		assertEquals(0.0, tanque.getCantidadNafta());
 		tanque.llenarTanque(20);
-		assertEquals(20.0, tanque.obtenerCantidadNafta());
+		assertEquals(20.0, tanque.getCantidadNafta());
 		tanque.llenarTanque(20);
-		assertEquals(40.0, tanque.obtenerCantidadNafta());
+		assertEquals(40.0, tanque.getCantidadNafta());
 		tanque.llenarTanque(20);
-		assertEquals(50.0, tanque.obtenerCantidadNafta());
+		assertEquals(50.0, tanque.getCantidadNafta());
 	}
 
 	public void testUsarNafta() {
 		tanque.llenarTanque(20);
 		tanque.usarNafta(10);
-		assertEquals(10.0, tanque.obtenerCantidadNafta());
+		assertEquals(10.0, tanque.getCantidadNafta());
 		tanque.usarNafta(2.5);
-		assertEquals(7.5, tanque.obtenerCantidadNafta());
+		assertEquals(7.5, tanque.getCantidadNafta());
 		tanque.usarNafta(50);
-		assertEquals(0.0, tanque.obtenerCantidadNafta());
+		assertEquals(0.0, tanque.getCantidadNafta());
 	}
 
 }
