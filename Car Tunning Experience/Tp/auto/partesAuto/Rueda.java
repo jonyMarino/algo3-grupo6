@@ -35,7 +35,16 @@ public class Rueda extends PartesAuto {
 	public int getRodado(){
 		return this.rodado;
 	}
-
+	
+	
+	public double getRPM(){
+		return rpm; 
+	}
+	
+	private void setRPM(){
+		//FALTA EL CALCULO
+	}
+	
 	public void setCoeficienteEstatico(double coeficienteEstatico, Pista pista){
 		
 		this.coeficienteEstatico = this.getPeso()*pista.getCoeficienteDeRozamientoRelativo(); 
@@ -59,14 +68,7 @@ public class Rueda extends PartesAuto {
 	public double getCoeficienteDinamico(){
 		return this.coeficienteDinamico;
 	}
-	
-	public double getRPM(){
-		return rpm; 
-	}
-	
-	private void setRPM(double rpm){
-		this.rpm=rpm; 
-	}
+
 	
 	public double calcularDesgaste(int tiempo){
 		return (tiempo*getRPM())*getDesgaste();	
