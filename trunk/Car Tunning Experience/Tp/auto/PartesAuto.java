@@ -1,5 +1,7 @@
 package auto;
 
+import auto.partesAuto.Motor;
+
 /**
  * Es la clase que se usa como base para todas las partes del auto ({@link Carrocería}, {@link Motor}, {@link Escape}, etc).
  *

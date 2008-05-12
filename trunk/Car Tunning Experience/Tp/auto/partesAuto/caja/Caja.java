@@ -5,6 +5,8 @@ import auto.partesAuto.Eje;
 import auto.partesAuto.Torque;
 import auto.partesAuto.motor.Motor;
 
+
+
 /**
  * La Caja transforma (se podría decir que lo "amplifica") el torque que genera el {@link Motor}.
  * La transformación del torque depende del cambio.
@@ -17,44 +19,35 @@ import auto.partesAuto.motor.Motor;
  */
 public abstract class Caja extends PartesAuto {
  
-	private int cambio;	 
-	private Motor motor; 
-	private Eje eje;
-	 
+	private int cambio;
+			 
+	private Motor motor;
 	
-	public Caja(Eje eje){
-		super();
-		this.setEje(eje);
+	public Caja(Eje eje, Motor motor){
+		this.motor=motor;
+		eje.obtenerUnTorque().setMethod(getTorque);
+		
+		cambio=1; //empieza en primera
+	} 
+	 
+	protected abstract float convertir(double torque);
+	
+	private void getTorque() {
+		convertir(motor.getTorque());
+	}
+	/* // deMarino: si es Automatico no se puede hacer
+	public void setCambio(int cambio) {
 		
 	}
-	
-	public void convertir(double fuerza) {
-		Eje eje = this.getEje();
-		eje.setTorqueCaja(fuerza);
-	}
-	
-	public void setCambio(int cambio) {
-		this.cambio=cambio;
+	*/
+	public Motor getMotor(){
+		return motor;
 	}
 	
 	public int getCambio() {
 		return cambio;
 	}
-	
-	public Motor getMotor(){
-		return motor;
-	}
-	
-	public float obtenerRpsEntrada() {
-		return 0;
-	}
-
-	public Eje getEje() {
-		return eje;
-	}
-
-	public void setEje(Eje eje) {
-		this.eje = eje;
-	}
+	 
+	public abstract float obtenerRpsEntrada();
 	 
 }
