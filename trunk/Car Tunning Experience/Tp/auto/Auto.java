@@ -10,6 +10,7 @@ import auto.partesAuto.motor.Motor;
 import auto.partesAuto.pedal.Acelerador;
 import auto.partesAuto.pedal.Freno;
 import auto.partesAuto.tanque.TanqueNafta;
+import pista.Pista;
 
 
 
@@ -85,11 +86,11 @@ public double obtenerVelocidad(){
  * 
  */
 
-public void calcularVelocidad(int segundosTranscurridos){
+public void calcularVelocidad(int segundosTranscurridos,Pista pista){
 	Eje ejeAux = this.getEje();
-	double fuerzas = ejeAux.getFuerza;
+	double fuerzas = ejeAux.getFuerza();
 	Carroceria carroceriaAux = this.getCarroceria();
-	double fuerzaAire = carroceriaAux.getFuerzaAire();
+	double fuerzaAire = carroceriaAux.getFuerzaAire(pista);
 	double incrementoVelocidad = 0;
 	incrementoVelocidad = (((fuerzas-fuerzaAire)/this.getPeso())*segundosTranscurridos);
 	double velocidadActual = this.obtenerVelocidad() + incrementoVelocidad;
@@ -101,9 +102,9 @@ public double obtenerRps(){
 	return (cajaAux.obtenerRpsEntrada());
 }
 
-public float obtenerRpm(){
-	Eje ejeAux = this.getEje();
-	return (ejeAux.getRpm());
+public double obtenerRpm(){
+	Motor motorAux = this.getMotor();
+	return (motorAux.obtenerRPM());
 }
 
 private void setVelocidad(double velocidad){
@@ -142,9 +143,9 @@ public void setMotor(Motor motor) {
 	this.motor = motor;
 }
 
-public float getRPM(){
+public double getRPM(){
 	Motor motorAux = this.getMotor();
-	float rpm = motorAux.getRPM;
+	double rpm = motorAux.obtenerRPM();
 	return rpm;
 }
 
@@ -219,7 +220,7 @@ public void setRueda(Rueda rueda) {
 }
 
 
-//CALCULADOR DE VELOCIDAD
+//EJE
 public Eje getEje() {
 	return eje;
 }
@@ -259,8 +260,8 @@ private void asignadorPedales(){
 	this.setAcelerador(acelerador);
 	
 	//Freno
-	Torque torque = new Torque();
-	Freno freno =new Freno(torque);
+	Torque torque = new Torque(0);
+	Freno freno = new Freno(torque);
 	this.setFreno(freno);
 }
 
