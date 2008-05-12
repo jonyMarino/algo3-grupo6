@@ -163,7 +163,7 @@ public void setTanqueNafta(TanqueNafta tanqueNafta) {
 
 public double obtenerCantidadCombustible(){
 	TanqueNafta tanqueNaftaAux = this.getTanqueNafta();
-	double cantidadCombustible = tanqueNaftaAux.obtenerCantidadNafta();
+	double cantidadCombustible = tanqueNaftaAux.getCantidadNafta();
 	return cantidadCombustible;
 }
 
@@ -302,16 +302,11 @@ private void asignarEje(Freno freno) {
 
 private double calculadorPeso(){
 	this.peso = 0;
-	Escape escapeAux = this.getEscape();
-	this.peso += escapeAux.getPeso();
-	Carroceria carroceriaAux = this.getCarroceria();
-	this.peso += carroceriaAux.getPeso();
-	Motor motorAux = this.getMotor();
-	this.peso += motorAux.getPeso();
-	TanqueNafta tanqueNaftaAux = this.getTanqueNafta();
-	this.peso += tanqueNaftaAux.getPeso();
-	Caja cajaAux = this.getCaja();
-	this.peso += cajaAux.getPeso();
+	this.peso += this.escape.getPeso();
+	this.peso += this.carroceria.getPeso();
+	this.peso += this.motor.getPeso();
+	this.peso += this.tanqueNafta.getPeso();
+	this.peso += this.caja.getPeso();
 	Rueda rueda1 = this.getRuedaDelanteraDerecha();
 	this.peso += rueda1.getPeso();
 	Rueda rueda2 = this.getRuedaDelanteraIzquierda();
