@@ -45,6 +45,7 @@ public abstract class Auto {
 	private Eje            eje;
 	private Mezclador      mezclador;
 	private double		   velocidad;
+	private static double  gravedad = 9.8;
 
 public Auto(Escape escape, Carroceria carroceria, Motor motor,
             Caja caja, Mezclador mezclador, TanqueNafta tanqueNafta,
@@ -85,15 +86,8 @@ public double getVelocidad(){
 	return velocidad;
 }
 
-public void calcularVelocidad(int segundosTranscurridos,Pista pista){
-	Eje ejeAux = this.getEje();
-	double fuerzas = ejeAux.getFuerza();
-	Carroceria carroceriaAux = this.getCarroceria();
-	double fuerzaAire = carroceriaAux.getFuerzaAire(pista);
-	double incrementoVelocidad = 0;
-	incrementoVelocidad = (((fuerzas-fuerzaAire)/this.getPeso())*segundosTranscurridos);
-	double velocidadActual = this.getVelocidad() + incrementoVelocidad;
-	this.setVelocidad(velocidadActual);
+private void setVelocidad(double velocidad){
+	this.velocidad = velocidad;
 }
 
 public double obtenerRps(){
@@ -106,10 +100,16 @@ public double obtenerRpm(){
 	return (motorAux.getRPM());
 }
 
-private void setVelocidad(double velocidad){
-	this.velocidad = velocidad;
+public void calcularVelocidad(int segundosTranscurridos,Pista pista){
+	Eje eje = this.getEje();
+	Carroceria carroceria = this.getCarroceria();
+	double masaAuto = this.getPeso()/gravedad;
+	double fuerzaEje = eje.getFuerza();
+	double fuerzaAire = carroceria.getFuerzaAire(pista);
+	double incrementoVelocidad = (((fuerzaEje-fuerzaAire)/masaAuto)*segundosTranscurridos);
+		
+	this.setVelocidad(this.getVelocidad()+incrementoVelocidad);
 }
-
 
 //ESCAPE
 public Escape getEscape() {
@@ -316,7 +316,7 @@ private double calculadorPeso(){
 	this.peso += rueda4.getPeso();
 	return (this.getPeso());
 }
-
+	
 /*********************************************************************************/
 }
 
