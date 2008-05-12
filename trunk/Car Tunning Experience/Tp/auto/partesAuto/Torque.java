@@ -2,7 +2,7 @@ package auto.partesAuto;
 
 public class Torque {
  
-	private float magnitud;
+	private double magnitud;
 	
 	public Torque(double magnitud){
 		setMagnitud(magnitud);
@@ -12,7 +12,7 @@ public class Torque {
 		this.magnitud = magnitud;
 	}
 	 
-	public float getMagnitud() {
+	public double getMagnitud() {
 		return magnitud;
 	}
 	 
