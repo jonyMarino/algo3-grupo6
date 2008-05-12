@@ -1,5 +1,6 @@
 package auto.partesAuto.pedal;
 import auto.PartesAuto;
+import auto.partesAuto.Eje;
 import auto.partesAuto.Torque;
 
 /**
@@ -9,12 +10,11 @@ import auto.partesAuto.Torque;
  */
 public class Freno extends PartesAuto implements Pedal {
 
-	private Torque torqueFreno;
-
-	public Freno(){
+	private Eje eje;
+	
+	public Freno(Eje eje){
 		super();
-		Torque torqueFreno = new Torque(0);
-		this.setTorqueFreno(torqueFreno); 
+		this.setEje(eje);
 	}
 
 	/**
@@ -26,23 +26,17 @@ public class Freno extends PartesAuto implements Pedal {
 
 	public void presionar(double cantidad){
 		if (this.getVidaUtil() > 0){
-		Torque torqueAux = this.getTorqueFreno();
-		torqueAux.setMagnitud(cantidad);
+			Eje eje = this.getEje();
+			eje.setTorqueFreno(cantidad);
 		}
 	}
 
-	/**
-	*
-	*Devuelve la {@link Torque} asociada al Freno.
-	*
-	*@see Torque
-	*/
-	public Torque getTorqueFreno() {
-		return torqueFreno;
+	public Eje getEje() {
+		return eje;
 	}
 
-	private void setTorqueFreno(Torque torqueFreno){
-		this.torqueFreno = torqueFreno;
-	}	
+	private void setEje(Eje eje) {
+		this.eje = eje;
+	}
 
 }

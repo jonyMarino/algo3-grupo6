@@ -67,12 +67,12 @@ public Auto(Escape escape, Carroceria carroceria, Motor motor,
 	//Velocidad
 	this.setVelocidad(0);
 		
-	//Asignar Pedales
-	this.asignadorPedales();
-	
 	//Asignar Eje
 	this.asignarEje(this.getFreno());
 	
+	//Asignar Pedales
+	this.asignadorPedales();
+		
 	//Calculador Peso
 	this.calculadorPeso();
 	
@@ -289,12 +289,12 @@ private void asignadorPedales(){
 	this.setAcelerador(acelerador);
 	
 	//Freno
-	Freno freno = new Freno();
+	Freno freno = new Freno(this.getEje());
 	this.setFreno(freno);
 }
 
 private void asignarEje(Freno freno) {
-	Eje eje = new Eje(this.getRuedaDelanteraDerecha(),this.getFreno());
+	Eje eje = new Eje(this.getRuedaDelanteraDerecha());
 	this.setEje(eje);
 	
 }
