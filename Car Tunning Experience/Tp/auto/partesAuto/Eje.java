@@ -3,6 +3,7 @@ import auto.Auto;
 import auto.PartesAuto;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.pedal.Freno;
+import auto.partesAuto.Torque;
 
 /**
  * El Eje vincula la {@link Caja} con las {@link Rueda}s.
@@ -20,13 +21,41 @@ public class Eje extends PartesAuto{
 	private Rueda rueda;
 	private Auto auto;
 	private Caja caja;
-	 
-	public double getFuerza() {
+	
+	public Eje(Rueda rueda){
+		this.setRueda(rueda);
+		Torque torque = new Torque(0);
+		this.setTorque(torque);
 	}
-	 
+	
+	
+	public double getFuerza() {
+		return(0);
+	}
+
 	public Torque obtenerUnTorque() {
 		return null;
 	}
-	 
+
+
+	public Rueda getRueda() {
+		return rueda;
+	}
+
+
+	public void setRueda(Rueda rueda) {
+		this.rueda = rueda;
+	}
+
+
+	public Torque getTorque() {
+		return torque;
+	}
+
+
+	public void setTorque(Torque torque) {
+		this.torque = torque;
+	}
+
 }
  
