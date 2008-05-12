@@ -19,7 +19,7 @@ public Freno(Torque torque){
 /*********************************************************************************/
 public void presionar(double cantidad){
 	Torque torqueAux = this.getTorque();
-	torqueAux.setTorque(cantidad);
+	torqueAux.setMagnitud(cantidad);
 }
 
 public Torque getTorque() {
