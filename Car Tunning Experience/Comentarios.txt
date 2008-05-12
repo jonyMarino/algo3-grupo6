@@ -1,3 +1,14 @@
+Mon May 12 12:30:53 GMT-3 2008
+
+lucashpandolfo:  Revisar los TODO's que puse en el codigo. Puede haber mas de un error conceptual.
+    
+    
+
+    /****************************************************************************************/
+
+Sat May 10 8:23:07 GMT-3 2008
+
+Vero13:
 	Hola, voy a subir las modificaciones de Marino!
 	
 	De nuevo, modifique todos los paquetes... asi que hay que cambiarles 
@@ -14,4 +25,4 @@
 	Nada mas... me fui... manden mail cualquier cosa...
 	y les respondo si puedo, tengo q ir a de mi hna
 	
-	
+    

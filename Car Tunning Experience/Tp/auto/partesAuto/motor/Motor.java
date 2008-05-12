@@ -196,11 +196,16 @@ public class Motor extends PartesAuto {
 	    	deltaVidaUtil *= 2;
 		setVidaUtil(getVidaUtil()-deltaVidaUtil);
 	}
-
+/**
+*Dada una cantidad de mezcla realiza la Combustión
+*@param mezcla La cantidad de mezcla a quemar
+*@see Mezclador
+*/
 	private double realizarCombustión(double mezcla){
 		return (evacuarGases(mezcla*getRendimiento()/100));
 	}
-	
+
+//TODO: ¿El Escape no debería evacuar los gases? Escucho opiniones de implementación
 	private double evacuarGases(double mezcla) {
 		temperatura+=(100-escape.getEficiencia())/3;
 		return(escape.getEficiencia()*mezcla/100);
