@@ -35,6 +35,7 @@ public class Rueda extends PartesAuto {
 		return this.rodado;
 	}
 	
+	//MIRAR DIAGRAMA, coeficiente de rozamiento estatico???
 	public void setCoeficienteEstatico(double coeficienteEstatico){
 		if (coeficienteEstatico < 0)
 			this.coeficienteEstatico = 0;
