@@ -200,12 +200,7 @@ public void setFreno(Freno freno) {
 
 public void presionarAcelerador(double cantidad){
 	Acelerador aceleradorAux = this.getAcelerador();
-	if (cantidad > 1)
-		aceleradorAux.presionar(1);
-	else if (cantidad < 0)
-		aceleradorAux.presionar(0);
-	else
-		aceleradorAux.presionar(cantidad);
+	aceleradorAux.presionar(cantidad);
 }
 
 public void presionarFreno(double cantidad){
