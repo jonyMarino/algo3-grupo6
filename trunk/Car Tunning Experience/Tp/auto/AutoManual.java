@@ -17,7 +17,7 @@ public AutoManual(Escape escape, Carroceria carroceria, Motor motor,
 /*********************************************************************************/
 //CAJA
 
-public void ponerCambio(float cambio){
+public void ponerCambio(int cambio){
 	Caja cajaAux = this.getCaja();
 	cajaAux.setCambio(cambio);
 }
