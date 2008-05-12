@@ -10,9 +10,9 @@ import auto.partesAuto.tanque.TanqueNafta;
 public class AutoSecuencial extends Auto {
 
 public AutoSecuencial(Escape escape, Carroceria carroceria, Motor motor,
-        Caja caja, Rueda rueda, Mezclador mezclador, TanqueNafta tanqueNafta){
-	super(escape,carroceria,motor,caja,rueda,mezclador,tanqueNafta);
+	        Caja caja, Mezclador mezclador, TanqueNafta tanqueNafta,
+	        Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4){
+		super(escape,carroceria,motor,caja,mezclador,tanqueNafta,rueda1,rueda2,rueda3,rueda4);
 }
-
 /*********************************************************************************/
 }
