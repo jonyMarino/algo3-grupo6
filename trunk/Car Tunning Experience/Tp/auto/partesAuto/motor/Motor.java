@@ -23,19 +23,19 @@ public class Motor extends PartesAuto {
 	//private double cilindrada;
 	private Mezclador mezclador;
 	private Caja caja;
-	private boolean NecesitoCambio;
 	private Escape escape;
 	private double temperatura;
+	private boolean NecesitoCambio;
 	
 	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, 
 			     Escape escape, Caja caja){
 		super();
 		setRendimiento(rendimiento);
 		setRPMMaximo(rpmMaximo);
-		this.mezclador = mezclador;
-		this.escape=escape;
-		this.caja=caja;
-		rpm=0;
+		setMezclador(mezclador);
+		setEscape(escape);
+		setCaja(caja);
+		setRPM(0);
 		temperatura=0;
 	}
 	
@@ -46,13 +46,53 @@ public class Motor extends PartesAuto {
 			this.rendimiento=0;
 		else this.rendimiento=rendimiento;
 	}
-
+	
+	public int getRendimiento() {
+		return rendimiento;
+	}
+		
+	public double getRPMMaximo() {
+		return rpmMaximo;
+	}
+	
 	private void setRPMMaximo(double rpmMaximo){
 		if (rpmMaximo>100)
 			this.rpmMaximo=100;
 		else if (rpmMaximo < 0)
 			this.rpmMaximo=0;
 		else this.rpmMaximo=rpmMaximo;
+	}
+	
+	public double getRPM(){
+		return rpm; 
+	}
+	
+	public double setRPM(double rpm){
+		this.rpm=rpm; 
+	}
+
+	public Escape getEscape() {
+		return escape;
+	}
+
+	public void setEscape(Escape escape) {
+		this.escape = escape;
+	}
+	
+	public Caja getCaja() {
+		return escape;
+	}
+
+	public void setCaja(Caja caja) {
+		this.caja = caja;
+	}
+	
+	public Mezclador getMezclador() {
+		return mezclador;
+	}
+
+	public void setMezclador( Mezclador mezclador ) {
+		this.mezclador = mezclador ;
 	}
 	
 	/**
@@ -91,13 +131,7 @@ public class Motor extends PartesAuto {
 		return(escape.getEficiencia()*mezcla/100);
 	}
 
-	public double obtenerRPM(){
-		return rpm; 
-	}
 
-	public int getRendimiento() {
-		return rendimiento;
-	}
 
 	public void aumentarRPM(double incrementoRPM) {
 		rpm += Math.exp(-obtenerRPM()/getRPMMaximo()/2)*incrementoRPM;
@@ -113,10 +147,6 @@ public class Motor extends PartesAuto {
 			NecesitoCambio = false;
 	}
 
-	public double getRPMMaximo() {
-		return rpmMaximo;
-	}
-
 	public boolean necesitaCambio() {
 		return NecesitoCambio;
 	}
@@ -129,11 +159,4 @@ public class Motor extends PartesAuto {
 				
 	}
 
-	public Escape getEscape() {
-		return escape;
-	}
-
-	public void setEscape(Escape escape) {
-		this.escape = escape;
-	}
 }
