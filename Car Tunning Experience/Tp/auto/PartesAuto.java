@@ -49,7 +49,7 @@ public abstract class PartesAuto {
 		return this.vidaUtil;
 	}
 	
-	public abstract double calcularDesgaste(int tiempo); //para que cada parte defina su desgaste propio.En vez de la misma formula para todos.
+	public abstract double calcularDesgaste(int tiempo);
 	
 	public void setDesgaste(double desgaste){
 		this.desgaste=desgaste;	

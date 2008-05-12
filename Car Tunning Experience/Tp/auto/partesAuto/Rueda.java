@@ -4,6 +4,7 @@ import auto.partesAuto;
 public class Rueda extends PartesAuto {
 	
 	private int rodado;
+	private double rpm;
 	private double coeficienteEstatico;
 	private double coeficienteDinamico;
 	
@@ -57,6 +58,18 @@ public class Rueda extends PartesAuto {
 	
 	public double getCoeficienteDinamico(){
 		return this.coeficienteDinamico;
+	}
+	
+	public double getRPM(){
+		return rpm; 
+	}
+	
+	private void setRPM(double rpm){
+		this.rpm=rpm; 
+	}
+	
+	public double calcularDesgaste(int tiempo){
+		return (tiempo*getRPM())*getDesgaste();	
 	}
 
 }
