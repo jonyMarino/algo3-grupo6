@@ -47,6 +47,8 @@ public int getEficiencia(){
 	return eficiencia;
 }
 
+//si, es privado... la eficiencia del mezclador se define en el constructor... 
+// y despues no se puede modificar
 private void setEficiencia(int eficiencia) {
 	if(eficiencia < 0)
 	   this.eficiencia = 0;
