@@ -134,7 +134,7 @@ public class Motor extends PartesAuto {
 
 
 	public void aumentarRPM(double incrementoRPM) {
-		rpm += Math.exp(-obtenerRPM()/getRPMMaximo()/2)*incrementoRPM;
+		rpm += Math.exp(-getRPM()/getRPMMaximo()/2)*incrementoRPM;
 		temperatura += ((getRPMMaximo() + temperatura))/getRPMMaximo();
 		if (rpm>=getRPMMaximo()/(6-caja.getCambio()))
 			NecesitoCambio = true;
@@ -152,7 +152,7 @@ public class Motor extends PartesAuto {
 	}
 
 	public void nuevoCambio() {
-		disminuiRPM(obtenerRPM()/2); //bajo las revoluciones a la mitad				
+		disminuiRPM(getRPM()/2); //bajo las revoluciones a la mitad				
 	}
 
 	public void detenerse() {
