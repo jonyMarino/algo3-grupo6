@@ -3,7 +3,6 @@ import java.util.LinkedList;
 
 import auto.PartesAuto;
 import auto.partesAuto.caja.Caja;
-import auto.partesAuto.pedal.Freno;
 import auto.partesAuto.Torque;
 
 /**
@@ -29,17 +28,36 @@ public class Eje extends PartesAuto{
 		torques.add(torqueCaja);
 	}
 	
-	public double getFuerza() {
-		double fuerza = 0;
-		if(this.getVidaUtil() > 0){
-			int rodado = rueda.getRodado();
-			double coeficienteEstatico = rueda.getCoeficienteEstatico();	
-			double coeficienteDinamico = rueda.getCoeficienteDinamico();
-		
-		}
-		return(fuerza);
+	public double getFuerza(){
+		return 0;
 	}
-
+	
+	public double getFuerzaRozamientoDinamico(double masaAuto) {
+		double FuerzaRozamientoDinamico = 0;
+		if(this.getVidaUtil() > 0){
+			FuerzaRozamientoDinamico = rueda.getCoeficienteDinamico() * masaAuto;  	
+		}
+		return FuerzaRozamientoDinamico;
+	}
+	
+	public double getFuerzaRozamientoEstatico(double masaAuto) {
+		double FuerzaRozamientoEstatico = 0;
+		if(this.getVidaUtil() > 0){
+			FuerzaRozamientoEstatico = rueda.getCoeficienteEstatico() * masaAuto;
+		}
+		return FuerzaRozamientoEstatico;
+	}
+	
+	public double getSumatoriaTorques(){
+		double sumatoriaTorques = 0;
+		if(this.getVidaUtil() > 0){
+			Torque torqueFreno =  this.getTorqueFreno();
+			Torque torqueCaja = this.getTorqueCaja();
+			sumatoriaTorques = torqueFreno.getMagnitud() + torqueCaja.getMagnitud();
+		}
+		return sumatoriaTorques;
+	}
+	
 	public Torque getTorqueFreno() {
 		LinkedList torquesAux = this.getTorques();
 		return ((Torque)torquesAux.get(0));
