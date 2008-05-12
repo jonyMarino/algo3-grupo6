@@ -1,4 +1,6 @@
 package auto.partesAuto;
+import java.util.LinkedList;
+
 import auto.Auto;
 import auto.PartesAuto;
 import auto.partesAuto.caja.Caja;
@@ -17,19 +19,23 @@ import auto.partesAuto.Torque;
 public class Eje extends PartesAuto{
  
 	private Freno freno;
-	private Torque torque;
+	private LinkedList torques;
 	private Rueda rueda;
 	private Auto auto;
 	private Caja caja;
 	
 	public Eje(Rueda rueda){
 		this.setRueda(rueda);
-		Torque torque = new Torque(0);
-		this.setTorque(torque);
+		//Crea torques
 	}
 	
 	
 	public double getFuerza() {
+		//1 Obtiene los torques
+		int rodado= rueda.getRodado();
+		double coeficienteEstatico = rueda.getCoeficienteEstatico();	
+		double coeficienteDinamico = rueda.getCoeficienteDinamico();
+		
 		return(0);
 	}
 
@@ -48,14 +54,6 @@ public class Eje extends PartesAuto{
 	}
 
 
-	public Torque getTorque() {
-		return torque;
-	}
-
-
-	public void setTorque(Torque torque) {
-		this.torque = torque;
-	}
 
 }
  
