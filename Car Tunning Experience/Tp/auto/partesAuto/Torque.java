@@ -1,20 +1,17 @@
 package auto.partesAuto;
-
+import java.lang.reflect.*;
 public class Torque {
  
-	private double magnitud;
-	
-	public Torque(double magnitud){
-		setMagnitud(magnitud);
+	private Method getMagnitud;
+	 
+	public void setMethod(Method metodo) {
+		getMagnitud = metodo;
 	}
 	 
-	public void setMagnitud(double magnitud) {
-		this.magnitud = magnitud;
-	}
-	 
-	public double getMagnitud() {
-		return magnitud;
+	public float getMagnitud() {
+		return getMagnitud.invoke();
 	}
 	 
 }
  
+

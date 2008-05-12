@@ -95,11 +95,6 @@ public double obtenerRps(){
 	return (cajaAux.obtenerRpsEntrada());
 }
 
-public double obtenerRpm(){
-	Motor motorAux = this.getMotor();
-	return (motorAux.getRPM());
-}
-
 public void calcularVelocidad(int segundosTranscurridos,Pista pista){
 	Eje eje = this.getEje();
 	Carroceria carroceria = this.getCarroceria();

@@ -1,94 +1,43 @@
 package auto.partesAuto;
-import java.util.LinkedList;
-
+import auto.Auto;
 import auto.PartesAuto;
 import auto.partesAuto.caja.Caja;
-import auto.partesAuto.Torque;
+import auto.partesAuto.pedal.Freno;
 
 /**
  * El Eje vincula la {@link Caja} con las {@link Rueda}s.
  * Es el vínculo por el cual se transmite el torque hacia las {@link Rueda}s
  * 
  * @see Rueda
+ * @see Caja
  * @see PartesAuto
  *
  */
 public class Eje extends PartesAuto{
- 
+	 
+
 	private LinkedList torques;
+	 
 	private Rueda rueda;
-	
-	public Eje(Rueda rueda){
-		this.setRueda(rueda);
-		torques = new LinkedList();
-		//Almacena los torques de Freno y Caja
-		Torque torqueFreno = new Torque(0);
-		torques.add(torqueFreno);
-		Torque torqueCaja = new Torque(0);
-		torques.add(torqueCaja);
+	 
+	private Auto auto;
+	 
+	private Caja caja;
+	 
+	public double getFuerza() {
+		double torque=0;
+		for(Torque t:torques)
+			torque+=t.getMagnitud();
+		return torque/rueda.rodado();
 	}
-	
-	public double getFuerza(){
-		return 0;
+	 
+	public Torque obtenerUnTorque() {
+		Torque torque= new Torque();
+		torques.add(torque);
+		return torque;
 	}
-	
-	public double getFuerzaRozamientoDinamico(double masaAuto) {
-		double FuerzaRozamientoDinamico = 0;
-		if(this.getVidaUtil() > 0){
-			FuerzaRozamientoDinamico = rueda.getCoeficienteDinamico() * masaAuto;  	
-		}
-		return FuerzaRozamientoDinamico;
-	}
-	
-	public double getFuerzaRozamientoEstatico(double masaAuto) {
-		double FuerzaRozamientoEstatico = 0;
-		if(this.getVidaUtil() > 0){
-			FuerzaRozamientoEstatico = rueda.getCoeficienteEstatico() * masaAuto;
-		}
-		return FuerzaRozamientoEstatico;
-	}
-	
-	public double getSumatoriaTorques(){
-		double sumatoriaTorques = 0;
-		if(this.getVidaUtil() > 0){
-			Torque torqueFreno =  this.getTorqueFreno();
-			Torque torqueCaja = this.getTorqueCaja();
-			sumatoriaTorques = torqueFreno.getMagnitud() + torqueCaja.getMagnitud();
-		}
-		return sumatoriaTorques;
-	}
-	
-	public Torque getTorqueFreno() {
-		LinkedList torquesAux = this.getTorques();
-		return ((Torque)torquesAux.get(0));
-	}
-	
-	public void setTorqueFreno(double magnitud) {
-		Torque torqueFreno = this.getTorqueFreno();
-		torqueFreno.setMagnitud(magnitud);
-	}
-	
-	public Torque getTorqueCaja() {
-		LinkedList torquesAux = this.getTorques();
-		return ((Torque)torquesAux.get(1));
-	}
-	
-	public void setTorqueCaja(double magnitud) {
-		Torque torqueCaja = this.getTorqueCaja();
-		torqueCaja.setMagnitud(magnitud);
-	}
-
-	public Rueda getRueda() {
-		return rueda;
-	}
-
-	private void setRueda(Rueda rueda) {
-		this.rueda = rueda;
-	}
-	
-	private LinkedList getTorques(){
-		return torques;
-	}
-
+	 
 }
+ 
+
  
