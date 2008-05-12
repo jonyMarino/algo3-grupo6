@@ -104,7 +104,7 @@ public double obtenerRps(){
 
 public double obtenerRpm(){
 	Motor motorAux = this.getMotor();
-	return (motorAux.obtenerRPM());
+	return (motorAux.getRPM());
 }
 
 private void setVelocidad(double velocidad){
@@ -145,7 +145,7 @@ public void setMotor(Motor motor) {
 
 public double getRPM(){
 	Motor motorAux = this.getMotor();
-	double rpm = motorAux.obtenerRPM();
+	double rpm = motorAux.getRPM();
 	return rpm;
 }
 
@@ -157,6 +157,8 @@ public TanqueNafta getTanqueNafta() {
 
 public void setTanqueNafta(TanqueNafta tanqueNafta) {
 	this.tanqueNafta = tanqueNafta;
+	Mezclador mezcladorAux = this.getMezclador();
+	mezcladorAux.setTanqueNafta(this.getTanqueNafta());
 }
 
 public double obtenerCantidadCombustible(){
@@ -173,6 +175,8 @@ public Caja getCaja() {
 
 public void setCaja(Caja caja) {
 	this.caja = caja;
+	Motor motorAux = this.getMotor();
+	motorAux.setCaja(this.getCaja());
 }
 
 public float getCambio(){
@@ -237,6 +241,8 @@ public Mezclador getMezclador() {
 
 public void setMezclador(Mezclador mezclador) {
 	this.mezclador = mezclador;
+	Motor motorAux = this.getMotor();
+	motorAux.setMezclador(this.getMezclador());
 }
 
 
