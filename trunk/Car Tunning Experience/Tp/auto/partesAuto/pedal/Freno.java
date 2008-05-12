@@ -9,26 +9,40 @@ import auto.partesAuto.Torque;
  */
 public class Freno extends PartesAuto implements Pedal {
 
-	private Torque torque;
+	private Torque torqueFreno;
 
-public Freno(Torque torque){
-	super();
-	this.setTorque(torque); 
-}
+	public Freno(){
+		super();
+		Torque torqueFreno = new Torque(0);
+		this.setTorqueFreno(torqueFreno); 
+	}
 
-/*********************************************************************************/
-public void presionar(double cantidad){
-	Torque torqueAux = this.getTorque();
-	torqueAux.setMagnitud(cantidad);
-}
+	/**
+	 * 
+	 * Modifica la magnitud del Torque Freno.
+	 * 
+	 * @see Torque
+	 */
 
-public Torque getTorque() {
-	return torque;
-}
+	public void presionar(double cantidad){
+		if (this.getVidaUtil() > 0){
+		Torque torqueAux = this.getTorqueFreno();
+		torqueAux.setMagnitud(cantidad);
+		}
+	}
 
-public void setTorque(Torque torque) {
-	this.torque = torque;
-}	
+	/**
+	*
+	*Devuelve la {@link Torque} asociada al Freno.
+	*
+	*@see Torque
+	*/
+	public Torque getTorqueFreno() {
+		return torqueFreno;
+	}
 
-/*********************************************************************************/
+	private void setTorqueFreno(Torque torqueFreno){
+		this.torqueFreno = torqueFreno;
+	}	
+
 }
