@@ -32,11 +32,12 @@ public Mezclador(int eficiencia,TanqueNafta tanqueNafta) {
 
 /**
 *
-*
+* Devuelve la cantidad de Mezcla pedida por el Motor. En caso de no poseer la 
+* cantidad de nafta necesaria para realizar la Mezcla pedida, devuelve la
+* cantidad máxima de Mezcla que puede generar.
 *
 */
-//TODO: Revisar el significado de litrosDeMezcla. ¿Es la cantidad de Mezcla que le pido o el combustible que consume?
-public abstract double obtenerMezcla(double litrosDeMezcla);
+public abstract double obtenerMezcla(double litrosMezcla);
 
 /**
 *
@@ -46,8 +47,7 @@ public int getEficiencia(){
 	return eficiencia;
 }
 
-// TODO: ¿public o private?
-public void setEficiencia(int eficiencia) {
+private void setEficiencia(int eficiencia) {
 	if(eficiencia < 0)
 	   this.eficiencia = 0;
 	else if (eficiencia > 100)

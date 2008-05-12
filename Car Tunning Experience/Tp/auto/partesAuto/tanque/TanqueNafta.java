@@ -46,8 +46,8 @@ public Nafta getTipoNafta() {
 *@see Combustible
 */
 public void llenarTanque(float litros) {
-	if ((litros + this.obtenerCantidadNafta()) <= this.getCapacidad())
-		this.setCantidadNafta(obtenerCantidadNafta()+ litros);
+	if ((litros + this.getCantidadNafta()) <= this.getCapacidad())
+		this.setCantidadNafta(getCantidadNafta()+ litros);
 	else 
 		this.setCantidadNafta(this.getCapacidad());
 }
@@ -61,12 +61,14 @@ public void llenarTanque(float litros) {
 */
 public double usarNafta(double litros){
 	double naftaConsumo = 0;
-	if (litros <= this.obtenerCantidadNafta()){
-		this.cantidadNafta -= litros;
-		naftaConsumo = litros;
-	}else{ 
-		naftaConsumo = this.obtenerCantidadNafta();
-		this.cantidadNafta = 0;
+	if(this.getVidaUtil() > 0){
+		if (litros <= this.getCantidadNafta() && litros > 0){
+			this.cantidadNafta -= litros;
+			naftaConsumo = litros;
+		}else if(litros > this.getCantidadNafta()){ 
+			naftaConsumo = this.getCantidadNafta();
+			this.cantidadNafta = 0;
+		}
 	}
 	return naftaConsumo;
 }
@@ -80,7 +82,7 @@ public double usarNafta(double litros){
 */
 public double getPeso(){
 	Nafta tipoNaftaAux = this.getTipoNafta();
-	double peso= this.obtenerCantidadNafta() * tipoNaftaAux.getPesoEspecifico();
+	double peso= this.getCantidadNafta() * tipoNaftaAux.getPesoEspecifico();
 	return peso;
 }
 
@@ -90,7 +92,7 @@ public double getPeso(){
 *
 *@see Combustible
 */
-public double obtenerCantidadNafta() {
+public double getCantidadNafta() {
 	return cantidadNafta;
 }
 

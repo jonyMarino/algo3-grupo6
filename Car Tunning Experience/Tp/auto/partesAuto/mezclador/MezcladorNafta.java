@@ -23,18 +23,22 @@ public MezcladorNafta(int eficiencia, TanqueNafta tanqueNafta) {
 }
 
 //TODO: revisar definicion en Mezclador.java
-public double obtenerMezcla(double litrosDeMezcla){
+public double obtenerMezcla(double litrosMezcla){
 	TanqueNafta tanqueNaftaAux = this.getTanqueNafta();
 	Nafta naftaAux = tanqueNaftaAux.getTipoNafta();
-
-	double mezcla = 0;
-	if (tanqueNaftaAux.obtenerCantidadNafta() !=0){
-	mezcla = litrosDeMezcla+(litrosDeMezcla *(200 -(this.getEficiencia()+naftaAux.getOctanaje())));
-	double litrosUsados = tanqueNaftaAux.usarNafta(mezcla);
-	if(litrosUsados < mezcla)
-	       mezcla = litrosUsados;
+	double mezclaProducida = 0;
+	if(this.getVidaUtil() > 0){
+		double mezclaNecesaria = ((litrosMezcla*100)/this.getEficiencia());
+		double naftaNecesaria = ((mezclaNecesaria*100)/naftaAux.getOctanaje());
+		tanqueNaftaAux.usarNafta(naftaNecesaria);
+		mezclaProducida = litrosMezcla;
+		if(naftaNecesaria > tanqueNaftaAux.getCantidadNafta()){
+			double naftaUtilRestante = ((tanqueNaftaAux.getCantidadNafta()*naftaAux.getOctanaje())/100);
+			tanqueNaftaAux.usarNafta(tanqueNaftaAux.getCantidadNafta());
+			mezclaProducida = ((this.getEficiencia()*naftaUtilRestante)/100);
+		}
 	}
-	return mezcla;
+	return mezclaProducida;
 }
 	
 }
