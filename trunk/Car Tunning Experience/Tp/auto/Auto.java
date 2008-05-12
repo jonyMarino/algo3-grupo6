@@ -56,6 +56,9 @@ public Auto(Escape escape, Carroceria carroceria, Motor motor,
 	this.mezclador = mezclador;
 	this.tanqueNafta = tanqueNafta;
 
+	//Velocidad
+	this.setVelocidad(0);
+	
 	//Asignar Eje
 	this.asignarEje();
 	
@@ -65,26 +68,14 @@ public Auto(Escape escape, Carroceria carroceria, Motor motor,
 	//Calculador Peso
 	this.calculadorPeso();
 	
-	//Velocidad
-	this.setVelocidad(0);
-	
 }
 
 /*********************************************************************************/
 
 //VELOCIDAD
-public double obtenerVelocidad(){
+public double getVelocidad(){
 	return velocidad;
 }
-
-/* Quizas podriamos pones acalcularVelocidad como un metodo privado;
- * entonces hacemos 
- * obtenerVelocidad(Tiempo){
- *  	this.calcularVelocidad(segundos);
- *  	return velocidad;
- * }
- * 
- */
 
 public void calcularVelocidad(int segundosTranscurridos,Pista pista){
 	Eje ejeAux = this.getEje();
@@ -93,7 +84,7 @@ public void calcularVelocidad(int segundosTranscurridos,Pista pista){
 	double fuerzaAire = carroceriaAux.getFuerzaAire(pista);
 	double incrementoVelocidad = 0;
 	incrementoVelocidad = (((fuerzas-fuerzaAire)/this.getPeso())*segundosTranscurridos);
-	double velocidadActual = this.obtenerVelocidad() + incrementoVelocidad;
+	double velocidadActual = this.getVelocidad() + incrementoVelocidad;
 	this.setVelocidad(velocidadActual);
 }
 
