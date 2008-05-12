@@ -27,7 +27,8 @@ public class Motor extends PartesAuto {
 	private Escape escape;
 	private double temperatura;
 	
-	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape, Caja caja){
+	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, 
+			     Escape escape, Caja caja){
 		super();
 		setRendimiento(rendimiento);
 		setRPMMaximo(rpmMaximo);
@@ -68,7 +69,7 @@ public class Motor extends PartesAuto {
 			else if (aceleracion < 0)
 				aceleracion = 0;
 		mezcla=mezclador.obtenerMezcla(aceleracion);
-		aumentarRpm(realizarCombustión(mezcla));
+		aumentarRPM(realizarCombustión(mezcla));
 		actualizarVidaUtil();
 		}
 		else disminuiRPM(2.0);
@@ -98,7 +99,7 @@ public class Motor extends PartesAuto {
 		return rendimiento;
 	}
 
-	public void aumentarRpm(double incrementoRPM) {
+	public void aumentarRPM(double incrementoRPM) {
 		rpm += Math.exp(-obtenerRPM()/getRPMMaximo()/2)*incrementoRPM;
 		temperatura += ((getRPMMaximo() + temperatura))/getRPMMaximo();
 		if (rpm>=getRPMMaximo()/(6-caja.getCambio()))
