@@ -11,10 +11,18 @@ import combustible.Nafta;
  */
 public class MezcladorNafta extends Mezclador {
 
-	public MezcladorNafta(int eficiencia, TanqueNafta tanqueNafta) {
-		super(eficiencia, tanqueNafta);
-	}
-	
+/**
+*
+* Crea un nuevo MezcladorNafta con un {@link TanqueNafta} asociado.
+*
+*@see TanqueNafta
+*
+*/
+public MezcladorNafta(int eficiencia, TanqueNafta tanqueNafta) {
+	super(eficiencia, tanqueNafta);
+}
+
+//TODO: revisar definicion en Mezclador.java
 public double obtenerMezcla(double litrosDeMezcla){
 	TanqueNafta tanqueNaftaAux = this.getTanqueNafta();
 	Nafta naftaAux = tanqueNaftaAux.getTipoNafta();
@@ -28,7 +36,5 @@ public double obtenerMezcla(double litrosDeMezcla){
 	}
 	return mezcla;
 }
-
-	
 	
 }
