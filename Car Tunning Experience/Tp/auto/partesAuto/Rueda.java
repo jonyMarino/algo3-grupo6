@@ -1,6 +1,6 @@
 package auto.partesAuto;
 import auto.PartesAuto;
-
+import auto.partesAuto;
 public class Rueda extends PartesAuto {
 	
 	private int rodado;
@@ -34,15 +34,11 @@ public class Rueda extends PartesAuto {
 	public int getRodado(){
 		return this.rodado;
 	}
-	
-	//MIRAR DIAGRAMA, coeficiente de rozamiento estatico???
-	public void setCoeficienteEstatico(double coeficienteEstatico){
-		if (coeficienteEstatico < 0)
-			this.coeficienteEstatico = 0;
-		else if (coeficienteEstatico > 1)
-			this.coeficienteEstatico = 1;
-		else
-			this.coeficienteEstatico = coeficienteEstatico;
+
+	public void setCoeficienteEstatico(double coeficienteEstatico, Pista pista){
+		
+		this.coeficienteEstatico = this.getPeso()*pista.getCoeficienteDeRozamientoRelativo(); 
+
 	}
 	
 	public double getCoeficienteEstatico(){
@@ -57,6 +53,7 @@ public class Rueda extends PartesAuto {
 		else
 			this.coeficienteDinamico = coeficienteDinamico;
 	}
+	
 	
 	public double getCoeficienteDinamico(){
 		return this.coeficienteDinamico;
