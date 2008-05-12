@@ -27,6 +27,22 @@ public class Motor extends PartesAuto {
 	private double temperatura;
 	private boolean NecesitoCambio;
 	
+	/**
+	*
+	* Crea un nuevo Motor con un {@link Mezclador}, {@link Escape} y {@link Caja} dados.
+	*
+	*@param rendimiento (0..100),
+	*@param rpmMaximo  Las revoluciones maximas que pueda alcanzar el Motor
+	*@param Mezclador El {@link Mezclador} al cual el Motor pide {@link Combustible}
+	*@param Escape  El {@link} Escape a travez del cual se eliminan los gases de ombustion. 
+	*@param Caja  La {@link Caja} asociada al Motor
+	*
+	*@see PartesAuto
+	*@see Mezclador
+	*@see Escape
+	*@see Caja
+	*@see Combustible
+	*/
 	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, 
 			     Escape escape, Caja caja){
 		super();
@@ -47,10 +63,20 @@ public class Motor extends PartesAuto {
 		else this.rendimiento=rendimiento;
 	}
 	
+	/**
+	*
+	* Devuelve el rendimiento del Motor (0..100)
+	*
+	*/	
 	public int getRendimiento() {
 		return rendimiento;
 	}
-		
+	
+	/**
+	*
+	* Las maximas revoluciones por minuto que puede alcanzar el Motor.
+	*
+	*/
 	public double getRPMMaximo() {
 		return rpmMaximo;
 	}
@@ -63,33 +89,82 @@ public class Motor extends PartesAuto {
 		else this.rpmMaximo=rpmMaximo;
 	}
 	
+	/**
+	*
+	* Devuelve las revoluciones por minuto actuales del Motor.
+	*
+	*/	
 	public double getRPM(){
 		return rpm; 
 	}
 	
-	public void setRPM(double rpm){
+	private void setRPM(double rpm){
 		this.rpm=rpm; 
 	}
 
+	/**
+	*
+	*Devuelve el {@link Escape} asociado al Motor.
+	*@see Escape
+	*/
 	public Escape getEscape() {
 		return escape;
 	}
 
+	/**
+	*
+	*Asocia un {@link Escape} al Motor.
+	*
+	*@param escape El {@link Escape} el cual quiero asignar al Motor.
+	*
+	*@see Escape
+	*/
 	public void setEscape(Escape escape) {
 		this.escape = escape;
 	}
 	
+	/**
+	*
+	*Devuelve la {@link Caja} asociada al Motor.
+	*
+	*@see Caja
+	*/
 	public Caja getCaja() {
 		return caja;
 	}
+
+	/**
+	*
+	*Asigna una {@link Caja} al Motor.
+	*
+	*@param caja  La {@link Caja} a asignar.
+	*
+	*@see Caja
+	*/
 
 	public void setCaja(Caja caja) {
 		this.caja = caja;
 	}
 	
+	/**
+	*
+	*Devuelve el {@link Mezclador} asociado al Motor.
+	*
+	*@see Mezclador
+	*/
+	
 	public Mezclador getMezclador() {
 		return mezclador;
 	}
+
+	/**
+	*
+	*Asocia un {@link Mezclador} al Motor.
+	*
+	*@param mezclador El {@link Mezclador} el cual quiero asignar al Motor.
+	*
+	*@see Mezclador
+	*/
 
 	public void setMezclador( Mezclador mezclador ) {
 		this.mezclador = mezclador ;
@@ -133,28 +208,44 @@ public class Motor extends PartesAuto {
 
 
 
-	public void aumentarRPM(double incrementoRPM) {
+	private void aumentarRPM(double incrementoRPM) {
 		rpm += Math.exp(-getRPM()/getRPMMaximo()/2)*incrementoRPM;
 		temperatura += ((getRPMMaximo() + temperatura))/getRPMMaximo();
 		if (rpm>=getRPMMaximo()/(6-caja.getCambio()))
 			NecesitoCambio = true;
 	}
 	
-	public void disminuiRPM(double decrementoRPM){
+	private void disminuiRPM(double decrementoRPM){
 		rpm += decrementoRPM*((getRPMMaximo()+rpm)/getRPMMaximo());
 		temperatura -= ((getRPMMaximo() + temperatura))/getRPMMaximo();
 		if (rpm<getRPMMaximo()/(6-caja.getCambio()))
 			NecesitoCambio = false;
 	}
 
+	/**
+	*
+	*Devuelve True si el Motor posee las revoluciones suficientes como para pasar al siguiente cambio.
+	*
+	*@see Caja
+	*/
 	public boolean necesitaCambio() {
 		return NecesitoCambio;
 	}
 
+	/**
+	*
+	*Notifica al Motor que quiero pasar un Cambio.
+	*
+	*@see Caja
+	*/
 	public void nuevoCambio() {
 		disminuiRPM(getRPM()/2); //bajo las revoluciones a la mitad				
 	}
 
+	/**
+	*
+	*Detiene al Motor.
+	*/
 	public void detenerse() {
 				
 	}
