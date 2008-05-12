@@ -39,9 +39,9 @@ public class MotorTest extends TestCase {
 	}
 
 	public void testAcelerar() {
-		assertEquals(0.0, motor.obtenerRPM());
+		assertEquals(0.0, motor.getRPM());
 		motor.acelerar(0.2);
-		assertEquals(1.2, motor.obtenerRPM());
+		assertEquals(1.2, motor.getRPM());
 		motor.acelerar(1);
 }
 	
