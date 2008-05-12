@@ -1,6 +1,8 @@
 package auto.partesAuto.caja;
 
+import auto.partesAuto.Eje;
 import auto.partesAuto.motor.Motor;
+
 
 /**
  * Un caso particular de {@link Caja}. Su principal característica es que los cambios deben ser pasados por el usuario.
@@ -10,8 +12,8 @@ import auto.partesAuto.motor.Motor;
  */
 public class CajaManual extends Caja {
 
-	public CajaManual() {
-		super();
+	public CajaManual(Eje eje) {
+		super(eje);
 	}
 
 /**

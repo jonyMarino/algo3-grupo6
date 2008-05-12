@@ -1,6 +1,6 @@
 package auto.partesAuto.caja;
 
-
+import auto.partesAuto.Eje;
 
 /**
  * Un caso particular de {@link Caja}.
@@ -13,8 +13,8 @@ package auto.partesAuto.caja;
  */
 public class CajaAutomatica extends Caja {
 
-	public CajaAutomatica() {
-		super();
+	public CajaAutomatica(Eje eje) {
+		super(eje);
 	}
 	
 }
