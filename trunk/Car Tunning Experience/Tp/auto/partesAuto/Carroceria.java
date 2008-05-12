@@ -64,7 +64,9 @@ public class Carroceria extends PartesAuto{
 	}
 	
 	public double getFuerzaAire(Pista pista){
+		if(this.getVidaUtil()>0)
 		return pista.getVelocidadAire()/getAeroDinamia();
+		else return pista.getVelocidadAire();
 	}
 
 }
