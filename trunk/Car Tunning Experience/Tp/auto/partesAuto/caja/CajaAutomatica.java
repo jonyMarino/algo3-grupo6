@@ -1,7 +1,7 @@
 package auto.partesAuto.caja;
 
 import auto.partesAuto.Eje;
-import auto.partesAuto.motor.*;
+import auto.partesAuto.Motor;
 /**
  * Un caso particular de {@link Caja}.
  * Su principal característica es que no es necesario que el usuario pase los cambios.
@@ -13,11 +13,13 @@ import auto.partesAuto.motor.*;
  */
 public class CajaAutomatica extends Caja {
 
+	private static final int MAX_CAMBIO = 5; //TODO: fix rápido para getTorque, no sé cual era la idea
+
 	public CajaAutomatica(Eje eje,Motor motor) {
 		super(eje,motor);
 	}
 	public double getTorque() {
-		if(getMotor().getRPM()>getMotor().getRPMMaximo()*3/4 && cambio<MAX_CAMBIO)
+		if(getMotor().obtenerRPM()>getMotor().getRPMMaximo()*3/4 && getCambio()<MAX_CAMBIO)
 			incCambio();
 		return convertir(getMotor().getTorque());
 	}

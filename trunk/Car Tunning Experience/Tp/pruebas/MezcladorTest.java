@@ -31,6 +31,8 @@ public class MezcladorTest extends TestCase {
 	}
 	
 	public void testObtenerMezclaMaximaEficiencia() {
+		//mezclador.setEficiencia(100);
+		assertEquals(6.6, mezclador.obtenerMezcla(0.01));
 		mezclador= new MezcladorNafta(100,tanque);
 		assertEquals(6.6, mezclador.obtenerMezcla(1.1));
 		assertEquals(35.4, mezclador.obtenerMezcla(5.9));
@@ -39,13 +41,13 @@ public class MezcladorTest extends TestCase {
 	}
 	
 	public void testObtenerMezclaMínimaEficiencia() {
-		mezclador= new MezcladorNafta(0,tanque);
+		//mezclador.setEficiencia(0);
 		assertEquals(10.6, mezclador.obtenerMezcla(0.1));
 		
 	}
 	
 	public void testObtenerMezclaMediaEficiencia() {
-		mezclador= new MezcladorNafta(50,tanque);
+		//mezclador.setEficiencia(50);
 		assertEquals(11.2, mezclador.obtenerMezcla(0.2));
 		
 	}

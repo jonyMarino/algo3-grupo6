@@ -1,17 +1,18 @@
 package auto;
 import java.util.LinkedList;
 
+import pista.Pista;
 import auto.partesAuto.Carroceria;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
+import auto.partesAuto.Motor;
 import auto.partesAuto.Rueda;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
-import auto.partesAuto.motor.Motor;
 import auto.partesAuto.pedal.Acelerador;
 import auto.partesAuto.pedal.Freno;
+import auto.partesAuto.tanque.Tanque;
 import auto.partesAuto.tanque.TanqueNafta;
-import pista.Pista;
 
 
 
@@ -114,7 +115,7 @@ public Escape getEscape() {
 public void setEscape(Escape escape) {
 	this.escape = escape;
 	Motor motorAux = this.getMotor();
-	motorAux.setEscape(this.getEscape());
+	// motorAux.setEscape(this.getEscape()); TODO: setEscape no existe, Crearlo, o borrar esta línea
 }
 
 
@@ -139,7 +140,7 @@ public void setMotor(Motor motor) {
 
 public double getRPM(){
 	Motor motorAux = this.getMotor();
-	double rpm = motorAux.getRPM();
+	 double rpm = motorAux.obtenerRPM(); 
 	return rpm;
 }
 
@@ -170,7 +171,7 @@ public Caja getCaja() {
 public void setCaja(Caja caja) {
 	this.caja = caja;
 	Motor motorAux = this.getMotor();
-	motorAux.setCaja(this.getCaja());
+	// motorAux.setCaja(this.getCaja()); TODO: setCaja no existe.
 }
 
 public float getCambio(){
@@ -260,7 +261,7 @@ public Mezclador getMezclador() {
 public void setMezclador(Mezclador mezclador) {
 	this.mezclador = mezclador;
 	Motor motorAux = this.getMotor();
-	motorAux.setMezclador(this.getMezclador());
+	//motorAux.setMezclador(this.getMezclador()); TODO:setMezclador no existe
 }
 
 

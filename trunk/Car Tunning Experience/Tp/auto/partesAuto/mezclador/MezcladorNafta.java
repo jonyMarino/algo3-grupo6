@@ -41,5 +41,11 @@ public double obtenerMezcla(double litrosMezcla){
 	}
 	return mezclaProducida;
 }
+
+@Override
+public boolean desgastar(int tiempo) {
+	// TODO Auto-generated method stub
+	return false;
+}
 	
 }
