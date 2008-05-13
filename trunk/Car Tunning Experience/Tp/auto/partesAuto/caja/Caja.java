@@ -44,7 +44,7 @@ public abstract class Caja extends PartesAuto implements Torqueador{
 		
 	}
 	*/
-	protected void setCambio(int cambio) {
+	protected void setCambio(int cambio) { //TODO: si es protegido, el auto no puede pasar cambios.
 		this.cambio=cambio;
 	}
 	public Motor getMotor(){
