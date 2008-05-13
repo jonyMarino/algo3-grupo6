@@ -13,11 +13,10 @@ public class TanqueNafta extends Tanque{
 	private Nafta  tipoNafta;
 	private double cantidadNafta;
 
-//TODO: Aclaro que se crea vacio, quizas por eso las pruebas
-//de mezclador te tiran siempre 0
+
 /**
 *
-*Crea un nuevo TanqueNafta la capacidad especificada, pero vacío.
+*Crea un nuevo TanqueNafta (vacío) con la capacidad especificada.
 *
 *@param capacidad La capacidad del Tanque.
 *@param tipoNafta El tipo de {@link Nafta} que almacena.
@@ -48,10 +47,12 @@ public Nafta getTipoNafta() {
 *@see Combustible
 */
 public void llenarTanque(float litros) {
-	if ((litros + this.getCantidadNafta()) <= this.getCapacidad())
-		this.setCantidadNafta(getCantidadNafta()+ litros);
-	else 
-		this.setCantidadNafta(this.getCapacidad());
+	if (litros > 0) {
+		if ((litros + this.getCantidadNafta()) <= this.getCapacidad())
+			this.setCantidadNafta(getCantidadNafta()+ litros);
+		else 
+			this.setCantidadNafta(this.getCapacidad());
+	}
 }
 
 /**
