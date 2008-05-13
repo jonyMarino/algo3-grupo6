@@ -1,9 +1,8 @@
 package auto.partesAuto;
-import auto.Auto;
+import java.util.LinkedList;
+
 import auto.PartesAuto;
 import auto.partesAuto.caja.Caja;
-import auto.partesAuto.pedal.Freno;
-import java.util.*;
 /**
  * El Eje vincula la {@link Caja} con las {@link Rueda}s.
  * Es el vínculo por el cual se transmite el torque hacia las {@link Rueda}s

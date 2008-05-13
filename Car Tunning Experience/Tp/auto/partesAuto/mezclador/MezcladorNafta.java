@@ -22,7 +22,6 @@ public MezcladorNafta(int eficiencia, TanqueNafta tanqueNafta) {
 	super(eficiencia, tanqueNafta);
 }
 
-//TODO: revisar definicion en Mezclador.java
 public double obtenerMezcla(double litrosMezcla){
 	TanqueNafta tanqueNaftaAux = this.getTanqueNafta();
 	Nafta naftaAux = tanqueNaftaAux.getTipoNafta();
