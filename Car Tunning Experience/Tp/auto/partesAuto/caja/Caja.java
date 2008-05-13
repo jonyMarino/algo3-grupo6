@@ -3,7 +3,7 @@ package auto.partesAuto.caja;
 import auto.PartesAuto;
 import auto.partesAuto.*;
 import auto.partesAuto.Eje;
-import auto.partesAuto.motor.Motor;
+import auto.partesAuto.Motor;
 
 
 
@@ -35,7 +35,7 @@ public abstract class Caja extends PartesAuto implements Torqueador{
 		}
 	} 
 	 
-	private double convertir(double torque){
+	protected double convertir(double torque){
 		return torque * relaciones[cambio];
 	}	
 	public abstract double getTorque();
