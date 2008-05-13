@@ -41,13 +41,13 @@ public class Motor extends PartesAuto {
 //		temperatura=0;
 	}
 	
-	private void setRendimiento(int rendimiento){
+	private void setRendimiento(int rendimiento)throws BoundsException{
 		if (rendimiento>100 || rendimiento < 0)
 			throw new BoundsException;
 		else this.rendimiento=rendimiento;
 	}
 
-	private void setRPMMaximo(double rpmMaximo){
+	private void setRPMMaximo(double rpmMaximo)throws BoundsException{
 		if (rpmMaximo < 0)
 			throw new BoundsException;
 		this.rpmMaximo=rpmMaximo;
@@ -89,7 +89,7 @@ public class Motor extends PartesAuto {
 	}
 
 	public double obtenerRPM(){
-		return auto.obtenerRpm(); 
+		return caja.obtenerRpmEntrada(); 
 	}
 
 	public int getRendimiento() {
@@ -117,8 +117,4 @@ public class Motor extends PartesAuto {
 		disminuiRPM(obtenerRPM()/2); //bajo las revoluciones a la mitad				
 	}
 	*/
-
-	public void detenerse() {
-				
-	}
 }
