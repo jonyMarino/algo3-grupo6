@@ -35,8 +35,10 @@ public class Escape extends PartesAuto{
 	}
 	
 	public boolean desgastar(int tiempo){
+		 setVidaUtil(getVidaUtil()-tiempo);	
+		 return desgastado();
 		//return tiempo*getDesgaste();	//TODO: getDesgaste está comentado por algún motivo
-		return false;
+	
 	}
 	
 
