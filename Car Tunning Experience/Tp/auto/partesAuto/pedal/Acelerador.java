@@ -36,10 +36,9 @@ public void setMotor(Motor motor) {
 	this.motor = motor;
 }
 
-@Override
 public boolean desgastar(int tiempo) {
-	// TODO Auto-generated method stub
-	return false;
+	setVidaUtil(getVidaUtil()-tiempo/1000);
+	return desgastado();
 }
 
 /*********************************************************************************/

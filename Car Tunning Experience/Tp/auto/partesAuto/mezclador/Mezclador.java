@@ -12,7 +12,7 @@ import auto.partesAuto.tanque.TanqueNafta;
 
 public abstract class Mezclador extends PartesAuto{
 
-	private int eficiencia;
+	private int rendimiento;
 	private TanqueNafta tanqueNafta;
 	
 	/**
@@ -24,9 +24,9 @@ public abstract class Mezclador extends PartesAuto{
 	*@see Tanque
 	*/
 	//TODO: ¿recibe TanqueNafta o Tanque?
-public Mezclador(int eficiencia,TanqueNafta tanqueNafta) {
+public Mezclador(int rendimiento,TanqueNafta tanqueNafta) {
 		super();
-		this.setEficiencia(eficiencia);
+		this.setRendimiento(rendimiento);
 		this.setTanqueNafta(tanqueNafta);
 }
 
@@ -43,18 +43,20 @@ public abstract double obtenerMezcla(double litrosMezcla);
 *
 * Devuelve la eficiencia con la que opera el Mezclador
 */		
-public int getEficiencia(){
-	return eficiencia;
+public int getRendimiento(){
+	return rendimiento;
 }
 
 //si, es privado... la eficiencia del mezclador se define en el constructor... 
 // y despues no se puede modificar
-private void setEficiencia(int eficiencia) {
-	if(eficiencia < 0)
-	   this.eficiencia = 0;
-	else if (eficiencia > 100)
-		this.eficiencia = 100;
-	else this.eficiencia = eficiencia;
+//TODO: Vero13 se puede modificar el rendimiento, debido al desgaste. Ok! voy a tenerlo 
+//en cuenta.
+private void setRendimiento(int rendimiento) {
+	if(rendimiento < 0)
+	   this.rendimiento = 0;
+	else if (rendimiento > 100)
+		this.rendimiento = 100;
+	else this.rendimiento = rendimiento;
 }
 
 /**

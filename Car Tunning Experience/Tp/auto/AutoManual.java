@@ -21,6 +21,7 @@ public AutoManual(Escape escape, Carroceria carroceria, Motor motor,
 public void ponerCambio(int cambio){
 	Caja cajaAux = this.getCaja();
 	//cajaAux.setCambio(cambio); //TODO: setCambio por algún motivo es protegido
+	                             //DeVero13: Mirar Caja!!!! 
 }
 
 /*********************************************************************************/

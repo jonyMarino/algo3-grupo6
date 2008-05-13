@@ -1,7 +1,7 @@
 package auto.partesAuto.mezclador;
-import auto.partesAuto.tanque.TanqueNafta;
-import combustible.Nafta;
 
+import combustible.Nafta;
+import auto.partesAuto.tanque.TanqueNafta;
 
 /**
  * El Mezclador es el encargado de obtener {@link Combustible} del {@link Tanque}, mezclarlo y dejarlo listo para el proceso de combustión.
@@ -18,21 +18,26 @@ public class MezcladorNafta extends Mezclador {
 *@see TanqueNafta
 *
 */
-public MezcladorNafta(int eficiencia, TanqueNafta tanqueNafta) {
-	super(eficiencia, tanqueNafta);
+public MezcladorNafta(int rendimiento, TanqueNafta tanqueNafta) {
+	super(rendimiento, tanqueNafta);
 }
 
+/**
+ * Genera una mezcla formada por {@link Nafta} mezclado con aire, teniendo en
+ * cuenta su rendimiento y la calidad de la Nafta. 
+ * 
+ */
 public double obtenerMezcla(double litrosMezcla){
 	TanqueNafta tanqueNaftaAux = this.getTanqueNafta();
 	Nafta naftaAux = tanqueNaftaAux.getTipoNafta();
 	double mezclaProducida = 0;
-	if(this.getVidaUtil() > 0){
-		double mezclaNecesaria = ((litrosMezcla*100)/this.getEficiencia());
-		double naftaNecesaria = ((mezclaNecesaria*100)/naftaAux.getOctanaje());
+	if(this.getVidaUtil() > 0 && litrosMezcla >= 0){
+		double mezclaNecesaria = ((litrosMezcla*100)/this.getRendimiento());
+		double naftaNecesaria = ((mezclaNecesaria*100)/(naftaAux.getOctanaje()*2));
 		if(naftaNecesaria > tanqueNaftaAux.getCantidadNafta()){
-			double naftaUtilRestante = ((tanqueNaftaAux.getCantidadNafta()*naftaAux.getOctanaje())/100);
+			double naftaUtilRestante = ((tanqueNaftaAux.getCantidadNafta()*naftaAux.getOctanaje()*2)/100);
 			tanqueNaftaAux.usarNafta(tanqueNaftaAux.getCantidadNafta());
-			mezclaProducida = ((this.getEficiencia()*naftaUtilRestante)/100);
+			mezclaProducida = ((this.getRendimiento()*naftaUtilRestante)/100);
 		}else{
 			tanqueNaftaAux.usarNafta(naftaNecesaria);
 			mezclaProducida = litrosMezcla;
@@ -41,10 +46,9 @@ public double obtenerMezcla(double litrosMezcla){
 	return mezclaProducida;
 }
 
-@Override
 public boolean desgastar(int tiempo) {
-	// TODO Auto-generated method stub
-	return false;
+	setVidaUtil(getVidaUtil()-tiempo/1000);
+	return desgastado();
 }
 	
 }
