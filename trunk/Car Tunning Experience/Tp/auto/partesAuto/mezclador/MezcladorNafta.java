@@ -4,51 +4,74 @@ import combustible.Nafta;
 import auto.partesAuto.tanque.TanqueNafta;
 
 /**
- * El Mezclador es el encargado de obtener {@link Combustible} del {@link Tanque}, mezclarlo y dejarlo listo para el proceso de combustión.
- * @see Tanque
+ * El Mezclador es el encargado de obtener {@link Nafta} del {@link TanqueNafta},
+ * mezclarlo y dejarlo listo para el proceso de combustión.
+ * @see TanqueNafta
  * @see Motor
- * @see Mezclador
+ * @see Nafta
  */
 public class MezcladorNafta extends Mezclador {
 
-/**
-*
-* Crea un nuevo MezcladorNafta con un {@link TanqueNafta} asociado.
-*
-*@see TanqueNafta
-*
-*/
-public MezcladorNafta(int rendimiento, TanqueNafta tanqueNafta) {
-	super(rendimiento, tanqueNafta);
-}
+	//TODO:	Notar el cambio, ahora se le pasa al mezclador Nafta un Tanque Nafta
+	private TanqueNafta tanqueNafta;
 
-/**
- * Genera una mezcla formada por {@link Nafta} mezclado con aire, teniendo en
- * cuenta su rendimiento y la calidad de la Nafta. 
- * 
- */
-public double obtenerMezcla(double litrosMezcla){
-	TanqueNafta tanqueNaftaAux = this.getTanqueNafta();
-	Nafta naftaAux = tanqueNaftaAux.getTipoNafta();
-	double mezclaProducida = 0;
-	if(this.getVidaUtil() > 0 && litrosMezcla >= 0){
-		double mezclaNecesaria = ((litrosMezcla*100)/this.getRendimiento());
-		double naftaNecesaria = ((mezclaNecesaria*100)/(naftaAux.getOctanaje()));
-		if(naftaNecesaria > tanqueNaftaAux.getCantidadNafta()){
-			double naftaUtilRestante = ((tanqueNaftaAux.getCantidadNafta()*naftaAux.getOctanaje())/100);
-			tanqueNaftaAux.usarNafta(tanqueNaftaAux.getCantidadNafta());
-			mezclaProducida = ((this.getRendimiento()*naftaUtilRestante)/100);
-		}else{
-			tanqueNaftaAux.usarNafta(naftaNecesaria);
-			mezclaProducida = litrosMezcla;
-		}
+	/**
+	*
+	* Crea un nuevo MezcladorNafta con un {@link TanqueNafta} asociado.
+	*
+	*/
+	public MezcladorNafta(int rendimiento, TanqueNafta tanqueNafta) {
+		super(rendimiento);
+		this.setTanqueNafta(tanqueNafta);
 	}
-	return mezclaProducida;
-}
 
-public boolean desgastar(int tiempo) {
-	setVidaUtil(getVidaUtil()-tiempo/1000);
-	return desgastado();
-}
-	
+	/**
+	 * Genera una mezcla formada por {@link Nafta} mezclado con aire, teniendo en
+	 * cuenta su rendimiento y la calidad de la Nafta.
+	 *
+	 */
+	public double obtenerMezcla(double litrosMezcla){
+		TanqueNafta tanqueNafta = this.getTanqueNafta();
+		Nafta nafta = tanqueNafta.getTipoNafta();
+		double mezclaProducida = 0;
+		if(this.getVidaUtil() > 0 && litrosMezcla >= 0){
+			double mezclaNecesaria = ((litrosMezcla*100)/this.getRendimiento());
+			double naftaNecesaria = ((mezclaNecesaria*100)/(nafta.getOctanaje()));
+			if(naftaNecesaria > tanqueNafta.getCantidadCombustible()){
+				double naftaUtilRestante = ((tanqueNafta.getCantidadCombustible()*nafta.getOctanaje())/100);
+				tanqueNafta.usarCombustible(tanqueNafta.getCantidadCombustible());
+				mezclaProducida = ((this.getRendimiento()*naftaUtilRestante)/100);
+			}else{
+				tanqueNafta.usarCombustible(naftaNecesaria);
+				mezclaProducida = litrosMezcla;
+			}
+		}
+		return mezclaProducida;
+	}
+
+	public boolean desgastar(int tiempo) {
+		setVidaUtil(getVidaUtil()-tiempo/1000);
+		return desgastado();
+	}
+
+	/**
+	*
+	*Devuelve el {@link Tanque} asociado al Mezclador.
+	*@see Tanque
+	*/
+	public TanqueNafta getTanqueNafta() {
+		return tanqueNafta;
+	}
+
+	/**
+	*
+	* Asigna un {@link Tanque} al Mezclador
+	*
+	*@see Tanque
+	*/
+	public void setTanqueNafta(TanqueNafta tanqueNafta) {
+		this.tanqueNafta = tanqueNafta;
+	}
+
+
 }

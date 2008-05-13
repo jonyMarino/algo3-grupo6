@@ -2,111 +2,50 @@ package auto.partesAuto.tanque;
 import combustible.Nafta;
 
 /**
- * El tanque de nafta sirve para almacenar {@link Nafta}.
- * 
+ * El Tanque de Nafta sirve para almacenar {@link Nafta}.
+ *
  * @see Tanque
  * @see Nafta
  *
  */
-public class TanqueNafta extends Tanque{
-	
+public class TanqueNafta extends TanqueCombustible{
+
 	private Nafta  tipoNafta;
-	private double cantidadNafta;
 
-
-/**
-*
-*Crea un nuevo TanqueNafta (vacÌo) con la capacidad especificada.
-*
-*@param capacidad La capacidad del Tanque.
-*@param tipoNafta El tipo de {@link Nafta} que almacena.
-*
-*/	
-public TanqueNafta(int capacidad,Nafta tipoNafta){
-	super(capacidad);
-	this.setCantidadNafta(0);
-	this.setTipoNafta(tipoNafta);
-}
-
-//TODO: Modificado se puede cambiar de tipo de Nafta
-public void setTipoNafta(Nafta nafta) {
-	this.setCantidadNafta(0);
-	this.tipoNafta = nafta;
-}
-
-public Nafta getTipoNafta() {
-	return tipoNafta;
-}
-
-/**
-*
-* Carga el Tanque.
-*
-*@param litros Los litros a cargar en el tanque.
-*
-*@see Combustible
-*/
-public void llenarTanque(float litros) {
-	if (litros > 0) {
-		if ((litros + this.getCantidadNafta()) <= this.getCapacidad())
-			this.setCantidadNafta(getCantidadNafta()+ litros);
-		else 
-			this.setCantidadNafta(this.getCapacidad());
+	/**
+	*
+	*Crea un nuevo Tanque de Nafta (vacÌo) con la capacidad especificada.
+	*
+	*@param capacidad La capacidad del Tanque de Nafta
+	*@param tipoNafta El tipo de {@link Nafta} que almacena.
+	*
+	*/
+	public TanqueNafta(int capacidad,Nafta tipoNafta){
+		super(capacidad);
+		this.setTipoNafta(tipoNafta);
 	}
-}
 
-/**
-*
-* Le entrega combustible a quien se lo solicite.
-*
-*@param litros los litros de combustible a entregar.
-*@see Combustible
-*/
-public double usarNafta(double litros){
-	double naftaConsumo = 0;
-	if(this.getVidaUtil() > 0){
-		if (litros <= this.getCantidadNafta() && litros > 0){
-			this.cantidadNafta -= litros;
-			naftaConsumo = litros;
-		}else if(litros > this.getCantidadNafta()){ 
-			naftaConsumo = this.getCantidadNafta();
-			this.cantidadNafta = 0;
-		}
+	/**
+	*
+	* Calcula el peso del TanqueNafta de acuerdo a su cantidad de Nafta
+	*
+	*@see PartesAuto
+	*@see Combustible
+	*/
+	public double getPeso(){
+		Nafta tipoNaftaAux = this.getTipoNafta();
+		double peso= this.getCantidadCombustible() * tipoNaftaAux.getPesoEspecifico();
+		return peso;
 	}
-	return naftaConsumo;
-}
 
-/**
-*
-* Calcula el peso del Tanque de acuerdo a cu√°n lleno est√©.
-*
-*@see PartesAuto
-*@see Combustible
-*/
-public double getPeso(){
-	Nafta tipoNaftaAux = this.getTipoNafta();
-	double peso= this.getCantidadNafta() * tipoNaftaAux.getPesoEspecifico();
-	return peso;
-}
+	public void setTipoNafta(Nafta nafta) {
+		this.setCantidadCombustible(0);
+		this.tipoNafta = nafta;
+	}
 
-/**
-*
-*Devuelve la cantidad de {@link Combustible} que le queda.
-*
-*@see Combustible
-*/
-public double getCantidadNafta() {
-	return cantidadNafta;
-}
+	public Nafta getTipoNafta() {
+		return tipoNafta;
+	}
 
-private void setCantidadNafta(double cantidadNafta){
-	this.cantidadNafta = cantidadNafta;
-}
 
-public boolean desgastar(int tiempo) {
-	setVidaUtil(getVidaUtil()-tiempo/1000);
-	return desgastado();
-}
-
-/*********************************************************************************/
 }
