@@ -36,16 +36,13 @@ public class MotorTest extends TestCase {
 		escape = new Escape(100);
 		eje = new Eje(rueda);  // TODO: rueda no existe en este punto
 		carroceria = new Carroceria(5,5);
-		auto = new AutoManual(escape, carroceria, motor, caja, mezclador, tanque, rueda, rueda, rueda, rueda);
 		caja = new CajaManual(eje, motor);
 		rueda = new Rueda(1,0.0,0.0,auto); //TODO: ¿no puede una rueda pertenecer a otra cosa que no sea un auto?
 		motor=new Motor(100,7500.0,mezclador,escape,caja, auto); //TODO: idem
+		//TODO: tanto Motor, como rueda, poseen referencias a un auto que no existe.
 		tanque.llenarTanque(50);
-		auto.setMotor(motor);
-		auto.setCaja(caja);
-		//TODO: Fijense que por la forma en la que dependen los objetos entre sí, a auto, hay que pasarle un motor y ruedas que no existen.
-		//TODO: O si se quiere hacer al reves, hay que pasarle a las ruedas y al motor, un auto que no existe
-		//TODO: escucho argumentos y comentarios.
+		auto = new AutoManual(escape, carroceria, motor, caja, mezclador, tanque, rueda, rueda, rueda, rueda);
+
 	}
 
 	protected void tearDown() throws Exception {
