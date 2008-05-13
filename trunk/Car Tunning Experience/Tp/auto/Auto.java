@@ -115,7 +115,7 @@ public Escape getEscape() {
 public void setEscape(Escape escape) {
 	this.escape = escape;
 	Motor motorAux = this.getMotor();
-	// motorAux.setEscape(this.getEscape()); TODO: setEscape no existe, Crearlo, o borrar esta línea
+	 motorAux.setEscape(this.getEscape()); //TODO: setEscape no existía, implementado como fix rápido
 }
 
 
@@ -171,7 +171,7 @@ public Caja getCaja() {
 public void setCaja(Caja caja) {
 	this.caja = caja;
 	Motor motorAux = this.getMotor();
-	// motorAux.setCaja(this.getCaja()); TODO: setCaja no existe.
+	motorAux.setCaja(this.getCaja()); //TODO: setCaja no existía, implementado como fix rápido
 }
 
 public float getCambio(){
@@ -261,7 +261,7 @@ public Mezclador getMezclador() {
 public void setMezclador(Mezclador mezclador) {
 	this.mezclador = mezclador;
 	Motor motorAux = this.getMotor();
-	//motorAux.setMezclador(this.getMezclador()); TODO:setMezclador no existe
+	motorAux.setMezclador(this.getMezclador()); //TODO:setMezclador no existía, implementado como fix rápido
 }
 
 
