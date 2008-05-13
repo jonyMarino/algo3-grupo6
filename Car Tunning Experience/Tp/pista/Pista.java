@@ -26,7 +26,7 @@ public class Pista {
 		setLongitud(longitud);
 		setVelocidadAire(0);
 		setCoeficienteDeRozamientoRelativo(0);
-		autos = LinkedList<AutoPosicionado>();
+		autos = new LinkedList<AutoPosicionado>();
 	}
 	
 	public void addAuto(Auto auto){

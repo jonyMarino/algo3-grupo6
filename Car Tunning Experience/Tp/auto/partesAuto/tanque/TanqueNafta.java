@@ -100,5 +100,12 @@ private void setCantidadNafta(double cantidadNafta){
 	this.cantidadNafta = cantidadNafta;
 }
 
+
+@Override
+public boolean desgastar(int tiempo) {
+	// TODO Auto-generated method stub
+	return false;
+}
+
 /*********************************************************************************/
 }
