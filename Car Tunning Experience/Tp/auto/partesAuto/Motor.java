@@ -62,7 +62,7 @@ public class Motor extends PartesAuto implements Torqueador{
 	 */
 	public void acelerar(double acelerar)throws BoundsException{  //acelerar [0..1]
 		if(getVidaUtil()>0){
-			if (aceleracion>1 || aceleracion < 0)
+			if (acelerar>1 || acelerar < 0)
 				throw new BoundsException();	//deMarino: Creo que tiene mas sentido ya que los otros valores no son validos
 			this.aceleracion=acelerar;
 		}else
