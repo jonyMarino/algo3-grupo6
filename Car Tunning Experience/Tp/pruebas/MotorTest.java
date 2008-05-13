@@ -42,7 +42,7 @@ public class MotorTest extends TestCase {
 		motor=new Motor(100,7500.0,mezclador,escape,caja, auto); //TODO: idem
 		tanque.llenarTanque(50);
 		auto.setMotor(motor);
-		auto.setMezclador(mezclador);
+		auto.setCaja(caja);
 		//TODO: Fijense que por la forma en la que dependen los objetos entre sí, a auto, hay que pasarle un motor y ruedas que no existen.
 		//TODO: O si se quiere hacer al reves, hay que pasarle a las ruedas y al motor, un auto que no existe
 		//TODO: escucho argumentos y comentarios.

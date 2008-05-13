@@ -120,4 +120,17 @@ public class Motor extends PartesAuto implements Torqueador{
 		disminuiRPM(obtenerRPM()/2); //bajo las revoluciones a la mitad				
 	}
 	*/
+	
+	public void setMezclador(Mezclador mezclador){
+		this.mezclador = mezclador;
+	}
+
+	public void setCaja(Caja caja) {
+		this.caja=caja;
+		
+	}
+
+	public void setEscape(Escape escape) {
+		this.escape=escape;
+	}
 }
