@@ -61,7 +61,10 @@ public class Carroceria extends PartesAuto{
 	
 	public boolean desgastar(int tiempo){
 		// return tiempo*getDesgaste(); //TODO: getDesgaste por algún motivo no especificado está comentado.
-		return false;
+	 setVidaUtil(getVidaUtil()-tiempo);	
+	 return desgastado();                   
+	 										
+
 	}
 	
 	public double getFuerzaAire(Pista pista){
