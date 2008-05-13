@@ -1,5 +1,7 @@
 package auto.partesAuto.pedal;
 
+import auto.partesAuto.BoundsException;
+
 
 
 /**
@@ -10,7 +12,7 @@ package auto.partesAuto.pedal;
  */
 public interface Pedal {
 	
-public void presionar(double cantidad);
+public void presionar(double cantidad) throws BoundsException;
 
 /*********************************************************************************/
 }

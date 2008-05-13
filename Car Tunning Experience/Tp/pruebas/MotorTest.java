@@ -1,10 +1,14 @@
 package pruebas;
 
 import junit.framework.TestCase;
+import auto.Auto;
+import auto.AutoManual;
+import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
+import auto.partesAuto.Motor;
 import auto.partesAuto.caja.Caja;
+import auto.partesAuto.caja.CajaManual;
 import auto.partesAuto.mezclador.MezcladorNafta;
-import auto.partesAuto.motor.Motor;
 import auto.partesAuto.tanque.TanqueNafta;
 
 import combustible.Nafta;
@@ -24,8 +28,10 @@ public class MotorTest extends TestCase {
 		tanque = new TanqueNafta(50, nafta);
 		mezclador = new MezcladorNafta(100,tanque);
 		escape = new Escape(100);
-		caja = new Caja();
-		motor=new Motor(100,7500,mezclador,escape,caja);
+		Eje eje = new Eje();
+		caja = new CajaManual(eje);
+		AutoManual auto = new AutoManual();
+		motor=new Motor(100,7500.0,mezclador,escape,caja, auto);
 		tanque.llenarTanque(50);
 	}
 

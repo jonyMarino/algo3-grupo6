@@ -1,8 +1,7 @@
 package auto.partesAuto;
-import auto.PartesAuto;
-import auto.partesAuto;
-import auto.Auto;
 import pista.Pista;
+import auto.Auto;
+import auto.PartesAuto;
 
 public class Rueda extends PartesAuto {
 	
@@ -19,7 +18,7 @@ public class Rueda extends PartesAuto {
 		setCoeficienteEstatico(coeficienteEstatico);
 		setCoeficienteDinamico(coeficienteDinamico);
 	}
-	public setPista(Pista pista){
+	public void setPista(Pista pista){
 		this.pista=pista;
 	}
 	
@@ -30,7 +29,7 @@ public class Rueda extends PartesAuto {
 		setCoeficienteDinamico(coeficienteDinamico);
 		setPeso(peso);
 		setCosto(costo);
-		setDesgaste(desgaste);
+		//setDesgaste(desgaste); TODO: setDesgaste está comentado
 	}
 
 	public void setRodado(int rodado){
@@ -80,6 +79,11 @@ public class Rueda extends PartesAuto {
 	public boolean calcularDesgaste(int tiempo){
 		 setVidaUtil(getVidaUtil()-tiempo*getRPM()/100);	
 		 return desgastado();
+	}
+	@Override
+	public boolean desgastar(int tiempo) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
