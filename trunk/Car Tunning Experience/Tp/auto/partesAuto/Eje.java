@@ -3,7 +3,7 @@ import auto.Auto;
 import auto.PartesAuto;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.pedal.Freno;
-
+import java.util.*;
 /**
  * El Eje vincula la {@link Caja} con las {@link Rueda}s.
  * Es el vínculo por el cual se transmite el torque hacia las {@link Rueda}s
@@ -16,25 +16,32 @@ import auto.partesAuto.pedal.Freno;
 public class Eje extends PartesAuto{
 	 
 
-	private LinkedList torques;
+	private LinkedList<Torqueador> torques = new LinkedList<Torqueador>();
 	 
-	private Rueda rueda;
+	private Rueda ruedaTrasera;
 	 
-	private Auto auto;
-	 
-	private Caja caja;
+	public Eje(Rueda ruedaTrasera){
+		this.ruedaTrasera=ruedaTrasera;	
+	}
 	 
 	public double getFuerza() {
 		double torque=0;
-		for(Torque t:torques)
-			torque+=t.getMagnitud();
-		return torque/rueda.rodado();
+		for(Torqueador t:torques)
+			torque+=t.getTorque();
+		return torque/ruedaTrasera.getRodado();
 	}
 	 
-	public Torque obtenerUnTorque() {
-		Torque torque= new Torque();
-		torques.add(torque);
-		return torque;
+	public void addTorqueador(Torqueador t) {
+		if(t==null)
+			return;
+		torques.add(t);
+	}
+	public boolean desgastar(int tiempo){
+		setVidaUtil(getVidaUtil()-tiempo/1000);
+		return desgastado();
+	}
+	public double getRpm(){
+		return ruedaTrasera.getRPM();
 	}
 	 
 }

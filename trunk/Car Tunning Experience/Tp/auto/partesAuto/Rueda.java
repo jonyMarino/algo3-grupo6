@@ -1,18 +1,26 @@
 package auto.partesAuto;
 import auto.PartesAuto;
 import auto.partesAuto;
+import auto.Auto;
+import pista.Pista;
+
 public class Rueda extends PartesAuto {
 	
 	private int rodado;
-	private double rpm;
+//	private double rpm;	//deMarino: no tiene porque mantenerlo guardado, el valor se calcula a partir de la velocidad del auto
 	private double coeficienteEstatico;
 	private double coeficienteDinamico;
-	
-	public Rueda(int rodado,double coeficienteEstatico,double coeficienteDinamico){
+	private Auto auto;
+	private Pista pista=null;
+	public Rueda(int rodado,double coeficienteEstatico,double coeficienteDinamico,Auto auto){
 		super();
+		this.auto=auto;
 		setRodado(rodado);
 		setCoeficienteEstatico(coeficienteEstatico);
 		setCoeficienteDinamico(coeficienteDinamico);
+	}
+	public setPista(Pista pista){
+		this.pista=pista;
 	}
 	
 	public Rueda(double peso, double costo, double desgaste, int rodado,
@@ -38,21 +46,18 @@ public class Rueda extends PartesAuto {
 	
 	
 	public double getRPM(){
-		return rpm; 
+		return auto.getVelocidad()/rodado; 
 	}
 	
-	private void setRPM(){
-		//FALTA EL CALCULO
-	}
-	
-	public void setCoeficienteEstatico(double coeficienteEstatico, Pista pista){
-		
-		this.coeficienteEstatico = this.getPeso()*pista.getCoeficienteDeRozamientoRelativo(); 
+	public void setCoeficienteEstatico(double coeficienteEstatico){
+		this.coeficienteEstatico = coeficienteEstatico; 
 
 	}
 	
 	public double getCoeficienteEstatico(){
-		return this.coeficienteEstatico;
+		if(pista==null)
+			return 0;
+		return this.coeficienteEstatico*pista.getCoeficienteDeRozamientoRelativo();
 	}
 	
 	public void setCoeficienteDinamico(double coeficienteDinamico){
@@ -66,12 +71,15 @@ public class Rueda extends PartesAuto {
 	
 	
 	public double getCoeficienteDinamico(){
-		return this.coeficienteDinamico;
+		if(pista==null)
+			return 0;
+		return this.coeficienteDinamico*pista.getCoeficienteDeRozamientoRelativo();
 	}
 
 	
-	public double calcularDesgaste(int tiempo){
-		return (tiempo*getRPM())*getDesgaste();	
+	public boolean calcularDesgaste(int tiempo){
+		 setVidaUtil(getVidaUtil()-tiempo*getRPM()/100);	
+		 return desgastado();
 	}
 
 }

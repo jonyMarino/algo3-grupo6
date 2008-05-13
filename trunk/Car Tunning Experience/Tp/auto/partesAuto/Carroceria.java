@@ -59,7 +59,7 @@ public class Carroceria extends PartesAuto{
 		return this.aeroDinamia;
 	}
 	
-	public double calcularDesgaste(int tiempo){
+	public double desgastar(int tiempo){
 		return tiempo*getDesgaste();	
 	}
 	

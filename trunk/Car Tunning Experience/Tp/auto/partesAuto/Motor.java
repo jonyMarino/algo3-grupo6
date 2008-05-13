@@ -2,6 +2,7 @@ package auto.partesAuto;
 
 import auto.Auto;
 import auto.PartesAuto;
+import auto.partesAuto.BoundsException;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
 
@@ -15,27 +16,27 @@ import auto.partesAuto.mezclador.Mezclador;
  * @see Caja
  *
  */
-public class Motor extends PartesAuto {
+public class Motor extends PartesAuto implements Torqueador{
 	private double rpmMaximo;
 	private int rendimiento;
 	//private double rpm;	// deMarino: no tiene porque acumularlo el motor, es funcion del auto
 	private double cilindrada;	// // deMarino: acercamiento con el modelo real
 	private Mezclador mezclador;
 	private Caja caja;
-	private Auto auto;
+//	private Auto auto;
 	//private boolean NecesitoCambio;//// deMarino: no sigue el modelo que planteamos, Si es por la caja automática usar herencia
 	private Escape escape;
 	//private double temperatura;
 	private double aceleracion; // deMarino: tenemos que guardar la aceleracion para ir cambiando el torque a medida que lo pedimos
 	
-	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape, Caja caja,Auto auto){
+	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape, Caja caja,Auto auto)throws BoundsException{
 		super();
 		setRendimiento(rendimiento);
 		setRPMMaximo(rpmMaximo);
 		this.mezclador = mezclador;
 		this.escape=escape;
 		this.caja=caja;
-		this.auto = auto;
+//		this.auto = auto;
 		aceleracion=0;
 //		rpm=0;
 //		temperatura=0;
@@ -43,13 +44,13 @@ public class Motor extends PartesAuto {
 	
 	private void setRendimiento(int rendimiento)throws BoundsException{
 		if (rendimiento>100 || rendimiento < 0)
-			throw new BoundsException;
+			throw new BoundsException();
 		else this.rendimiento=rendimiento;
 	}
 
 	private void setRPMMaximo(double rpmMaximo)throws BoundsException{
 		if (rpmMaximo < 0)
-			throw new BoundsException;
+			throw new BoundsException();
 		this.rpmMaximo=rpmMaximo;
 	}
 	
@@ -60,11 +61,12 @@ public class Motor extends PartesAuto {
 	 * @param acelerar No se refiere a la mágnitud física, sino a un número de 0 a 1  que indica cuanto se presionó el {@link Acelerador}.  
 	 */
 	public void acelerar(double acelerar)throws BoundsException{  //acelerar [0..1]
-		double mezcla;
 		if(getVidaUtil()>0){
 			if (aceleracion>1 || aceleracion < 0)
-				throw new BoundsException;	//deMarino: Creo que tiene mas sentido ya que los otros valores no son validos
-		this.aceleracion=acelerar;
+				throw new BoundsException();	//deMarino: Creo que tiene mas sentido ya que los otros valores no son validos
+			this.aceleracion=acelerar;
+		}else
+			this.aceleracion=0;
 		/* deMarino: Lo siguiente lo tiene que hacer el metodo llamado por Torque
 		 * 
 		 * mezcla=mezclador.obtenerMezcla(aceleracion);
@@ -75,9 +77,10 @@ public class Motor extends PartesAuto {
 		*/
 	}
 	
-	private void actualizarVidaUtil(double tiempo) {	//deMarino: Nico quiere que dependa del tiempo.
+	public boolean desgastar(int tiempo) {	//deMarino: Nico quiere que dependa del tiempo.
 	    double deltaVidaUtil=obtenerRPM()/getRPMMaximo()/200*tiempo;
 		setVidaUtil(getVidaUtil()-deltaVidaUtil);
+		return getVidaUtil()==0;
 	}
 
 	private double realizarCombustion(double mezcla){

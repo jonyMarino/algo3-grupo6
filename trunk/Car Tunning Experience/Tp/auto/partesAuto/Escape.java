@@ -34,7 +34,7 @@ public class Escape extends PartesAuto{
 		return this.eficiencia;
 	}
 	
-	public double calcularDesgaste(int tiempo){
+	public double desgastar(int tiempo){
 		return tiempo*getDesgaste();	
 	}
 	
