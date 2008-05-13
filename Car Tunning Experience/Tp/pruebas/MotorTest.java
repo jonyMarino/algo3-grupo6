@@ -34,11 +34,11 @@ public class MotorTest extends TestCase {
 		tanque = new TanqueNafta(50, nafta);
 		mezclador = new MezcladorNafta(100,tanque);
 		escape = new Escape(100);
-		eje = new Eje(rueda);  // TODO: rueda no existe en este punto
 		carroceria = new Carroceria(5,5);
-		caja = new CajaManual(eje, motor);
 		rueda = new Rueda(1,0.0,0.0,auto); //TODO: ¿no puede una rueda pertenecer a otra cosa que no sea un auto?
-		motor=new Motor(100,7500.0,mezclador,escape,caja, auto); //TODO: idem
+		eje = new Eje(rueda);
+		motor=new Motor(100,7500,mezclador,escape,caja, auto); //TODO: idem
+		caja = new CajaManual(eje, motor);
 		//TODO: tanto Motor, como rueda, poseen referencias a un auto que no existe.
 		tanque.llenarTanque(50);
 		auto = new AutoManual(escape, carroceria, motor, caja, mezclador, tanque, rueda, rueda, rueda, rueda);
@@ -56,7 +56,7 @@ public class MotorTest extends TestCase {
 
 	public void testAcelerar() throws BoundsException {
 		assertEquals(0.0, motor.obtenerRPM());
-		motor.acelerar(0.2);
+		motor.acelerar(1);
 		assertEquals(1.2, motor.obtenerRPM());
 		motor.acelerar(1);
 }
@@ -64,7 +64,7 @@ public class MotorTest extends TestCase {
 	public void testAcelerarHastaFundir() throws BoundsException{
 		escape.setEficiencia(20);
 		int contador;
-		for(contador=0;contador<100;contador++)
+		for(contador=0;contador<300;contador++)
 			motor.acelerar(1);
 		assertEquals(0.0, motor.getVidaUtil());
 	}
