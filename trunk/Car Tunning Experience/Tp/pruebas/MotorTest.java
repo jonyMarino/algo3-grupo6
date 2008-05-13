@@ -58,13 +58,27 @@ public class MotorTest extends TestCase {
 		assertEquals(0.0, motor.obtenerRPM());
 		motor.acelerar(1);
 		assertEquals(1.2, motor.obtenerRPM());
-		motor.acelerar(1);
-}
+	}
+	
+	public void testAcelerarDeMas() throws BoundsException {
+		try{
+			motor.acelerar(20);
+			fail("Debería haberse generado una excepción.");
+		}
+		catch (BoundsException excepcion){
+		}
+		try{
+			motor.acelerar(-90);
+			fail("Debería haberse generado una excepción.");
+		}
+		catch (BoundsException excepcion){
+		}
+	}
 	
 	public void testAcelerarHastaFundir() throws BoundsException{
 		escape.setEficiencia(20);
 		int contador;
-		for(contador=0;contador<300;contador++)
+		for(contador=0;contador<900;contador++)
 			motor.acelerar(1);
 		assertEquals(0.0, motor.getVidaUtil());
 	}
