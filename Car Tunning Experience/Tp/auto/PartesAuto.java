@@ -13,14 +13,14 @@ public abstract class PartesAuto {
 	private double peso;
 	private double costo;
 	private double vidaUtil;
-	private double desgaste;
+//	private double desgaste;	//deMarino: Podemos directamente ir bajando la vida util y listo
 
 		
 	public PartesAuto(){
 		setPeso(0);
 		setCosto(0);
 		setVidaUtil(100);
-		setDesgaste(0);
+//		setDesgaste(0);
 	}
 	
 	public void setPeso(double peso){
@@ -42,7 +42,7 @@ public abstract class PartesAuto {
 	public void setVidaUtil(double vidaUtil){
 		if (vidaUtil<0)
 			this.vidaUtil=0;
-		else if (vidaUtil>100)
+		else if (vidaUtil>100)	
 			this.vidaUtil=100;
 		else this.vidaUtil=vidaUtil;
 	}
@@ -51,8 +51,14 @@ public abstract class PartesAuto {
 		return this.vidaUtil;
 	}
 	
-	public abstract double calcularDesgaste(int tiempo);
-	
+	public abstract boolean desgastar(int tiempo);	//deMarino: a double no le vi sentido, pero un boolean nos seria util para determinar si se rompio
+/*
+ * desgastado() indica si la parte ya esta totalmente desgastada
+ */
+	public boolean desgastado(){
+		return getVidaUtil()==0;
+	}
+	/*	
 	public void setDesgaste(double desgaste){
 		this.desgaste=desgaste;	
 	}
@@ -61,5 +67,5 @@ public abstract class PartesAuto {
 		return this.desgaste;
 	}
 
-	
+	*/
 }

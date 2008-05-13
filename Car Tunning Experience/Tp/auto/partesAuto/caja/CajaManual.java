@@ -12,36 +12,28 @@ import auto.partesAuto.motor.Motor;
  */
 public class CajaManual extends Caja {
 
-	public CajaManual(Eje eje) {
-		super(eje);
+	public CajaManual(Eje eje,Motor motor) {
+		super(eje,motor);
 	}
+	
+	public double getTorque(){
+			return convertir(getMotor().getTorque());
+		}
 
 /**
 *
-* Intenta pasar al cambio especificado, preguntandole al {@link Motor} si posee
-* las revoluciones suficientes. Si no pose las revoluciones suficientes el {@link Motor}
-* se detiene.
+* Pasa al cambio especificado.
 *
 * @param cambio El cambio a poner
 *
 *@see Motor
 */
-//TODO: Creo que la Caja sabe cosas que no deberìa saber. Por ejemplo, ¿como sabe que si las
-// revoluciones no son suficientes, el Motor se detiene? Habría que replantear el código
-// y hacerlo menos dependiente de Motor. Escucho ofertas.
-	public void setCambio(int cambio) {
-		Motor motor = getMotor();
-		if(cambio == getCambio()+1 && cambio <= 5){  //sube un cambio
-			if(motor.necesitaCambio()){
-				motor.nuevoCambio();
-			}
-			else motor.detenerse();
-		}
-		else if(cambio < getCambio() && cambio >= 0){  //baja uno o mas cambios
-			motor.nuevoCambio();
-		}
-		else if (cambio == getCambio()){}
-		else motor.detenerse(); //si intenta subir mas de un cambio se detiene
+	public void setCambioManual(int cambio) {
+		this.setCambio(cambio);
+	}
+	
+	public boolean desgastar(int tiempo){
+		return desgastado();
 	}
 	
 }

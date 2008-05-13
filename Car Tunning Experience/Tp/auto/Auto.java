@@ -41,7 +41,7 @@ public abstract class Auto {
 	private Caja 		   caja;
 	private Acelerador	   acelerador;
 	private Freno 		   freno;
-	private LinkedList 	   ruedas;
+	private LinkedList<Rueda> 	   ruedas;
 	private Eje            eje;
 	private Mezclador      mezclador;
 	private double		   velocidad;
@@ -59,7 +59,7 @@ public Auto(Escape escape, Carroceria carroceria, Motor motor,
 	this.tanqueNafta = tanqueNafta;
 
 	//Ruedas
-	ruedas = new LinkedList();
+	ruedas = new LinkedList<Rueda>();
 	ruedas.add(rueda1);
 	ruedas.add(rueda2);
 	ruedas.add(rueda3);
@@ -90,9 +90,8 @@ private void setVelocidad(double velocidad){
 	this.velocidad = velocidad;
 }
 
-public double obtenerRps(){
-	Caja cajaAux = this.getCaja();
-	return (cajaAux.obtenerRpsEntrada());
+public double obtenerRpm(){
+	return ruedas.get(0).getRPM();
 }
 
 public void calcularVelocidad(int segundosTranscurridos,Pista pista){

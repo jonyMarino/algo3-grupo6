@@ -1,8 +1,8 @@
 package auto.partesAuto.caja;
 
 import auto.PartesAuto;
+import auto.partesAuto.*;
 import auto.partesAuto.Eje;
-import auto.partesAuto.Torque;
 import auto.partesAuto.motor.Motor;
 
 
@@ -17,29 +17,36 @@ import auto.partesAuto.motor.Motor;
  * @see CajaAutomatica
  *
  */
-public abstract class Caja extends PartesAuto {
+public abstract class Caja extends PartesAuto implements Torqueador{
  
 	private int cambio;
-			 
+	private int[] relaciones;		 
 	private Motor motor;
+	private Eje eje;
 	
 	public Caja(Eje eje, Motor motor){
+		this.eje=eje;
+		eje.addTorqueador(this);
 		this.motor=motor;
-		eje.obtenerUnTorque().setMethod(getTorque);
-		
 		cambio=1; //empieza en primera
+		relaciones = new int[6];
+		for(int i=0;i<6;i++){
+			relaciones[i]=30-i*5;
+		}
 	} 
 	 
-	protected abstract float convertir(double torque);
-	
-	private void getTorque() {
-		convertir(motor.getTorque());
-	}
+	private double convertir(double torque){
+		return torque * relaciones[cambio];
+	}	
+	public abstract double getTorque();
 	/* // deMarino: si es Automatico no se puede hacer
 	public void setCambio(int cambio) {
 		
 	}
 	*/
+	protected void setCambio(int cambio) {
+		this.cambio=cambio;
+	}
 	public Motor getMotor(){
 		return motor;
 	}
@@ -47,7 +54,13 @@ public abstract class Caja extends PartesAuto {
 	public int getCambio() {
 		return cambio;
 	}
+	
+	protected void incCambio(){
+		cambio++;
+	}
 	 
-	public abstract float obtenerRpsEntrada();
+	public double obtenerRpmEntrada(){
+		return eje.getRpm()/relaciones[cambio];
+	}
 	 
 }
