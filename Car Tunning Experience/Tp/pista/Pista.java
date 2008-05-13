@@ -1,15 +1,38 @@
 package pista;
+import auto.Auto;
+import java.util.*;
 
 public class Pista {
 		
+	private class AutoPosicionado{
+		double posicion=0;
+		Auto auto;
+		public AutoPosicionado(Auto auto){
+			this.auto=auto;
+		}
+		public void setPosicion(double posicion){
+			this.posicion=posicion;
+		}
+		public double getPosicion(){
+			return this.posicion;
+		}
+	}
 	private double coeficienteDeRozamientoRelativo;
 	private double longitud;
 	private int velocidadAire;
+	private LinkedList<AutoPosicionado> autos;
 	
 	public Pista(double longitud){
 		setLongitud(longitud);
 		setVelocidadAire(0);
 		setCoeficienteDeRozamientoRelativo(0);
+		autos = LinkedList<AutoPosicionado>();
+	}
+	
+	public void addAuto(Auto auto){
+		if(auto==null)
+			return;
+		autos.add(new AutoPosicionado(auto));
 	}
 	
 	public void setLongitud(double longitud) {
