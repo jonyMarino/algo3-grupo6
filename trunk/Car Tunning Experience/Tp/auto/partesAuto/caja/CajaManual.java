@@ -1,7 +1,7 @@
 package auto.partesAuto.caja;
 
 import auto.partesAuto.Eje;
-import auto.partesAuto.motor.Motor;
+import auto.partesAuto.Motor;
 
 
 /**
