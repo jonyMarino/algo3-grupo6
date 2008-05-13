@@ -2,7 +2,7 @@ package auto.partesAuto.tanque;
 import auto.PartesAuto;
 /**
 *
-* Clase abstraca que encapsula el comportamiento y las caracterÃ­sticas 
+* Clase abstraca que encapsula el comportamiento y las características 
 * de un Tanque.
 *
 * @see PartesAuto
@@ -28,6 +28,7 @@ public Tanque(int capacidad) {
 /**
 *
 *Devuelve la capacidad del tanque.
+*
 */
 public double getCapacidad(){
 	return capacidad;

@@ -1,19 +1,24 @@
 package auto.partesAuto.pedal;
 import auto.PartesAuto;
 import auto.partesAuto.Eje;
+import auto.partesAuto.Torqueador;
 
 /**
  * El {@link Pedal} del freno.
  *@see Pedal
  *@see PartesAuto
  */
-public class Freno extends PartesAuto implements Pedal {
+public class Freno extends PartesAuto implements Pedal,Torqueador{
 
 	private Eje eje;
+	private double torque;
 	
 	public Freno(Eje eje){
 		super();
+		torque = 0;
 		this.setEje(eje);
+		eje.addTorqueador(this);
+		//TODO: Chekear
 	}
 
 	/**
@@ -25,9 +30,8 @@ public class Freno extends PartesAuto implements Pedal {
 
 	public void presionar(double cantidad){
 		if (this.getVidaUtil() > 0){
-			Eje eje = this.getEje();
-			//eje.setTorqueFreno(cantidad);  //TODO: ¿set torque freno o set torque con un parametro negativo?
-										   //TODO: de todas formas, no existe ninguno de los dos
+			this.setTorque(-cantidad);
+			//TODO: Chekear
 		}
 	}
 
@@ -39,10 +43,17 @@ public class Freno extends PartesAuto implements Pedal {
 		this.eje = eje;
 	}
 
-	@Override
 	public boolean desgastar(int tiempo) {
-		// TODO Auto-generated method stub
-		return false;
+		setVidaUtil(getVidaUtil()-tiempo/1000);
+		return desgastado();
+	}
+
+	public double getTorque() {
+		return torque;
+	}
+	
+	public void setTorque(double cantidad) {
+		this.torque = cantidad;
 	}
 
 }

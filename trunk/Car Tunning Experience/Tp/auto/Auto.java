@@ -34,20 +34,20 @@ import auto.partesAuto.tanque.TanqueNafta;
  *   @see Mezclador
  */
 public abstract class Auto {
-	private double		   peso;
-	private Escape 		   escape;
-	private Carroceria 	   carroceria;
-	private Motor 		   motor;
-	private TanqueNafta	   tanqueNafta;
-	private Caja 		   caja;
-	private Acelerador	   acelerador;
-	private Freno 		   freno;
-	private LinkedList<Rueda> 	   ruedas;
-	private Eje            eje;
-	private Mezclador      mezclador;
-	private double		   velocidad;
-	private static double  gravedad = 9.8;
+	private double		      peso;
+	private Escape 		      escape;
+	private Carroceria 	      carroceria;
+	private Motor 		      motor;
+	private TanqueNafta	      tanqueNafta;
+	private Caja 		      caja;
+	private Acelerador	      acelerador;
+	private Freno 		      freno;
+	private LinkedList<Rueda> ruedas;
+	private Eje               eje;
+	private Mezclador         mezclador;
+	private double		      velocidad;
 	//private LinkedList<ParteAuto> partes;
+	private static double     aceleracionGravedad = 9.8;
 
 public Auto(Escape escape, Carroceria carroceria, Motor motor,
             Caja caja, Mezclador mezclador, TanqueNafta tanqueNafta,
@@ -99,7 +99,7 @@ public double obtenerRpm(){
 public void calcularVelocidad(int segundosTranscurridos,Pista pista){
 	Eje eje = this.getEje();
 	Carroceria carroceria = this.getCarroceria();
-	double masaAuto = this.getPeso()*gravedad;	//deMarino: Multiplica la gravedad
+	double masaAuto = this.getPeso()*aceleracionGravedad;
 	double fuerzaEje = eje.getFuerza();
 	double fuerzaAire = carroceria.getFuerzaAire(pista);
 	double incrementoVelocidad = (((fuerzaEje-fuerzaAire)/masaAuto)*segundosTranscurridos);
@@ -115,7 +115,7 @@ public Escape getEscape() {
 public void setEscape(Escape escape) {
 	this.escape = escape;
 	Motor motorAux = this.getMotor();
-	 motorAux.setEscape(this.getEscape()); //TODO: setEscape no existía, implementado como fix rápido
+	motorAux.setEscape(this.getEscape());
 }
 
 
@@ -171,7 +171,7 @@ public Caja getCaja() {
 public void setCaja(Caja caja) {
 	this.caja = caja;
 	Motor motorAux = this.getMotor();
-	motorAux.setCaja(this.getCaja()); //TODO: setCaja no existía, implementado como fix rápido
+	motorAux.setCaja(this.getCaja());
 }
 
 public float getCambio(){
@@ -261,7 +261,7 @@ public Mezclador getMezclador() {
 public void setMezclador(Mezclador mezclador) {
 	this.mezclador = mezclador;
 	Motor motorAux = this.getMotor();
-	motorAux.setMezclador(this.getMezclador()); //TODO:setMezclador no existía, implementado como fix rápido
+	motorAux.setMezclador(this.getMezclador()); 
 }
 
 
