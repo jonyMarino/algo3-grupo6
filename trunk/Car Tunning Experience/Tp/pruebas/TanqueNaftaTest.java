@@ -49,6 +49,12 @@ public class TanqueNaftaTest extends TestCase {
 		assertEquals(0.0, tanque.getCantidadNafta());
 	}
 	
+	public void testUsarNaftaNegativa() {
+		tanque.llenarTanque(20);
+		tanque.usarNafta(-10);
+		assertEquals(20.0, tanque.getCantidadNafta());
+	}
+	
 	public void testConsumoDeNaftaAlMezclarMaximaEficiencia() {
 		mezclador= new MezcladorNafta(100,tanque);
 		tanque.llenarTanque(50);
@@ -82,4 +88,12 @@ public class TanqueNaftaTest extends TestCase {
 		
 	}
 
+	public void testLlenarTanqueNegativo() {
+		mezclador= new MezcladorNafta(100,tanque);
+		tanque.llenarTanque(-50);
+		assertEquals(0.0, tanque.getCantidadNafta());
+		mezclador = null;
+		
+	}
+	
 }

@@ -46,5 +46,11 @@ public class MezcladorTest extends TestCase {
 		assertEquals(0.2, mezclador.obtenerMezcla(0.2));
 		mezclador = null;
 	}
+	
+	public void testObtenerMezclaNegativa() {
+		mezclador= new MezcladorNafta(100,tanque);
+		assertEquals(0.0, mezclador.obtenerMezcla(-90));
+		mezclador = null;
+	}
 
 }
