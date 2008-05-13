@@ -46,6 +46,7 @@ public abstract class Auto {
 	private Mezclador      mezclador;
 	private double		   velocidad;
 	private static double  gravedad = 9.8;
+	//private LinkedList<ParteAuto> partes;
 
 public Auto(Escape escape, Carroceria carroceria, Motor motor,
             Caja caja, Mezclador mezclador, TanqueNafta tanqueNafta,
@@ -75,7 +76,7 @@ public Auto(Escape escape, Carroceria carroceria, Motor motor,
 	this.asignadorPedales();
 		
 	//Calculador Peso
-	this.calculadorPeso();
+	this.calcularPeso();
 	
 }
 
@@ -97,7 +98,7 @@ public double obtenerRpm(){
 public void calcularVelocidad(int segundosTranscurridos,Pista pista){
 	Eje eje = this.getEje();
 	Carroceria carroceria = this.getCarroceria();
-	double masaAuto = this.getPeso()/gravedad;
+	double masaAuto = this.getPeso()*gravedad;	//deMarino: Multiplica la gravedad
 	double fuerzaEje = eje.getFuerza();
 	double fuerzaAire = carroceria.getFuerzaAire(pista);
 	double incrementoVelocidad = (((fuerzaEje-fuerzaAire)/masaAuto)*segundosTranscurridos);
@@ -266,7 +267,7 @@ public void setMezclador(Mezclador mezclador) {
 //PESO
 public double getPeso(){
 	//Se actualiza constantemente
-	this.setPeso(this.calculadorPeso()); 
+	this.setPeso(this.calcularPeso()); 
 	return peso;
 }
 
@@ -293,7 +294,7 @@ private void asignarEje(Freno freno) {
 	
 }
 
-private double calculadorPeso(){
+private double calcularPeso(){
 	this.peso = 0;
 	this.peso += this.escape.getPeso();
 	this.peso += this.carroceria.getPeso();
