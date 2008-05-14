@@ -6,30 +6,33 @@ import auto.partesAuto.caja.Caja;
 /**
  * El Eje vincula la {@link Caja} con las {@link Rueda}s.
  * Es el vínculo por el cual se transmite el torque hacia las {@link Rueda}s
- * 
+ *
  * @see Rueda
  * @see Caja
  * @see PartesAuto
  *
  */
 public class Eje extends PartesAuto{
-	 
 
 	private LinkedList<Torqueador> torques = new LinkedList<Torqueador>();
-	 
+
 	private Rueda ruedaTrasera;
-	 
+
 	public Eje(Rueda ruedaTrasera){
-		this.ruedaTrasera=ruedaTrasera;	
+		this.ruedaTrasera=ruedaTrasera;
 	}
-	 
+
+	//TODO: Agrego desliz (DeMarino)
 	public double getFuerza() {
 		double torque=0;
 		for(Torqueador t:torques)
 			torque+=t.getTorque();
-		return torque/ruedaTrasera.getRodado();
+		double fuerza= torque/ruedaTrasera.getRodado();
+		if(fuerza>=ruedaTrasera.getFuerzaRozamientoEstatico())	//deMarino: Verifica que no haya dezliz
+			return - ruedaTrasera.getFuerzaRozamientoDinamico();
+		return fuerza;
 	}
-	 
+
 	public void addTorqueador(Torqueador t) {
 		if(t==null)
 			return;
@@ -42,8 +45,8 @@ public class Eje extends PartesAuto{
 	public double getRpm(){
 		return ruedaTrasera.getRPM();
 	}
-	 
-}
- 
 
- 
+}
+
+
+
