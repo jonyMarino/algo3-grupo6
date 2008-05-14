@@ -2,7 +2,6 @@ package auto.partesAuto.tanque;
 
 import auto.PartesAuto;
 
-//TODO: Actualize version TanqueCombustible, TanqueNafta
 /**
 *
 * Clase abstracta que encapsula el comportamiento y las características
@@ -32,8 +31,9 @@ public abstract class TanqueCombustible extends PartesAuto{
 
 	/**
 	*
-	*Devuelve la capacidad del tanque.
+	*Devuelve la capacidad del Tanque.
 	*
+	*@return la capacidad del Tanque
 	*/
 	public double getCapacidad(){
 		return capacidad;
@@ -47,6 +47,7 @@ public abstract class TanqueCombustible extends PartesAuto{
 	*
 	*Devuelve la cantidad de {@link Combustible} que le queda.
 	*
+	*@return la cantidad de {@link Combustible} restante
 	*@see Combustible
 	*/
 	public double getCantidadCombustible() {
@@ -80,6 +81,7 @@ public abstract class TanqueCombustible extends PartesAuto{
 	* Le entrega combustible a quien se lo solicite.
 	*
 	*@param litros los litros de combustible a entregar.
+	*@return litros de combustible que pudo entregar.
 	*@see Combustible
 	*/
 	public double usarCombustible(double litros){
@@ -100,6 +102,7 @@ public abstract class TanqueCombustible extends PartesAuto{
 	*
 	* Calcula el peso del Tanque Combutible de acuerdo a su cantidad de combustible.
 	*
+	*@return el peso del tanque y su contenido
 	*@see PartesAuto
 	*@see Combustible
 	*/

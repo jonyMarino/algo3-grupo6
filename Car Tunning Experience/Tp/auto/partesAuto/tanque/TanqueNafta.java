@@ -4,7 +4,7 @@ import combustible.Nafta;
 /**
  * El Tanque de Nafta sirve para almacenar {@link Nafta}.
  *
- * @see Tanque
+ * @see TanqueCombustible
  * @see Nafta
  *
  */
@@ -27,8 +27,9 @@ public class TanqueNafta extends TanqueCombustible{
 
 	/**
 	*
-	* Calcula el peso del TanqueNafta de acuerdo a su cantidad de Nafta
+	* Calcula el peso del TanqueNafta de acuerdo a la cantidad de Nafta que almacena
 	*
+	*@return el peso del Tanque y su contenido
 	*@see PartesAuto
 	*@see Combustible
 	*/
@@ -38,11 +39,19 @@ public class TanqueNafta extends TanqueCombustible{
 		return peso;
 	}
 
+	/**
+	 * Especifíca que tipo de Nafta va a almacenar el TanqueNafta
+	 * @param nafta la nueva clase de Nafta a almacenar
+	 */
 	public void setTipoNafta(Nafta nafta) {
 		this.setCantidadCombustible(0);
 		this.tipoNafta = nafta;
 	}
 
+	/**
+	 * Devuelve el tipo de Nafta que almacena.
+	 * @return un objeto de la clase de Nafta que almacena
+	 */
 	public Nafta getTipoNafta() {
 		return tipoNafta;
 	}
