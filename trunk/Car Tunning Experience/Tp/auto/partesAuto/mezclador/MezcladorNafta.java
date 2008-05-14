@@ -12,7 +12,6 @@ import auto.partesAuto.tanque.TanqueNafta;
  */
 public class MezcladorNafta extends Mezclador {
 
-	//TODO:	Notar el cambio, ahora se le pasa al mezclador Nafta un Tanque Nafta
 	private TanqueNafta tanqueNafta;
 
 	/**
@@ -26,9 +25,10 @@ public class MezcladorNafta extends Mezclador {
 	}
 
 	/**
-	 * Genera una mezcla formada por {@link Nafta} mezclado con aire, teniendo en
+	 * Genera una mezcla formada por {@link Nafta} mezclada con aire, teniendo en
 	 * cuenta su rendimiento y la calidad de la Nafta.
 	 *
+	 *æreturn la cantidad de mezcla que fue posible obtener
 	 */
 	public double obtenerMezcla(double litrosMezcla){
 		TanqueNafta tanqueNafta = this.getTanqueNafta();
@@ -51,8 +51,9 @@ public class MezcladorNafta extends Mezclador {
 
 	/**
 	*
-	*Devuelve el {@link Tanque} asociado al Mezclador.
-	*@see Tanque
+	*Devuelve el {@link TanqueNafta} asociado al MezcladorNafta.
+	*@return el {@link TanqueNafta} asociado al MezcladorNafta
+	*@see TanqueNafta
 	*/
 	public TanqueNafta getTanqueNafta() {
 		return tanqueNafta;
@@ -60,9 +61,9 @@ public class MezcladorNafta extends Mezclador {
 
 	/**
 	*
-	* Asigna un {@link Tanque} al Mezclador
+	* Asigna un {@link TanqueNafta} al Mezclador
 	*
-	*@see Tanque
+	*@see TanqueNafta
 	*/
 	public void setTanqueNafta(TanqueNafta tanqueNafta) {
 		this.tanqueNafta = tanqueNafta;
