@@ -8,7 +8,6 @@ import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
 import auto.partesAuto.Rueda;
 import auto.partesAuto.caja.Caja;
-import auto.partesAuto.mezclador.Mezclador;
 import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.pedal.Acelerador;
 import auto.partesAuto.pedal.Freno;
@@ -25,13 +24,13 @@ import auto.partesAuto.tanque.TanqueNafta;
  *   @see Motor
  *   @see Carroceria
  *   @see Escape
- *   @see Tanque
+ *   @see TanqueNafta
  *   @see Caja
  *   @see Acelerador
  *   @see Freno
  *   @see Rueda
  *   @see Eje
- *   @see Mezclador
+ *   @see MezcladorNafta
  */
 public abstract class Auto {
 	private double		      peso;
@@ -311,7 +310,7 @@ private double calcularPeso(){
 	this.peso += rueda3.getPeso();
 	Rueda rueda4 = this.getRuedaTraseraIzquierda();
 	this.peso += rueda4.getPeso();
-	return this.peso; //TODO: no se puede hacer esto (this.getPeso()), entra a un loop infinito que desemboca en un stack overflow
+	return (this.peso);
 }
 
 /*********************************************************************************/

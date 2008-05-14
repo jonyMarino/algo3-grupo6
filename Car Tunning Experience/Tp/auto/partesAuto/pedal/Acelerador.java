@@ -8,7 +8,7 @@ import auto.partesAuto.Motor;
  *@see PartesAuto
  */
 public class Acelerador extends PartesAuto implements Pedal{
-	
+
 	private	Motor motor;
 
 public Acelerador(Motor motor){
@@ -27,7 +27,7 @@ public void presionar(double cantidad){
 		}
 	}
 }
-	
+
 public Motor getMotor() {
 	return motor;
 }

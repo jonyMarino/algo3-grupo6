@@ -49,11 +49,6 @@ public class MezcladorNafta extends Mezclador {
 		return mezclaProducida;
 	}
 
-	public boolean desgastar(int tiempo) {
-		setVidaUtil(getVidaUtil()-tiempo/1000);
-		return desgastado();
-	}
-
 	/**
 	*
 	*Devuelve el {@link Tanque} asociado al Mezclador.
