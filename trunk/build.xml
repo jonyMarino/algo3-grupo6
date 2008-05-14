@@ -3,36 +3,47 @@
     <property environment="env"/>
     <property name="src" location="Car Tunning Experience/Tp/" />
     <property name="dest" location="bin/" />
+    <property name="pruebas" location="${src}/pruebas/" />
     <property name="doc" location="doc/" />
-    <property name="junit.output.dir" value="pruebas"/>
+    <property name="junit.output.dir" value="${dest}/pruebas/"/>
     <target name="ayuda" >
     	<echo> Debe escribir "ant" y especificar una acción: </echo>
     	<echo>		compilar:   compila el proyecto en ${dest}.</echo>
     	<echo>		probar:     corre las prubas unitarias.</echo>
     	<echo>		reporte:    crea un reporte acerca de las pruebas.</echo>
     	<echo>		documentar: crea la documentación Javadoc en ${doc}.</echo>
-    	<echo>		limpiar:    borra el directorio ${dest}, y todo su contenido.</echo>
+    	<echo>		todo:       compila, prueba, crea los reportes y la documentación.</echo>
+    	<echo>		limpiar:    borra el directorio ${dest} y ${doc}, y sus contenidos.</echo>
     	<echo>		ayuda:      muestra esta pantalla.</echo>
     	<echo></echo>
     	<echo>Nota: para construír y/o correr las prubas, es necesario que el directorio que contiene junit.jar se encuentre en el classpath</echo>
     </target>
     <target name="inicializar">
-        <mkdir dir="${bin}"/>
+        <mkdir dir="${dest}"/>
     </target>
     <target name="limpiar">
-        <delete dir="bin"/>
+        <delete dir="${dest}"/>
+        <delete dir="${doc}"/>
     </target>
     <target depends="inicializar" name="compilar">
-        <javac destdir="${bin}" srcdir="${src}"/>
+        <javac destdir="${dest}" srcdir="${src}"/>
     </target>
-    <target name="probar">
+    <target depends="compilar" name="probar">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
+        	<classpath>
+				<pathelement location="${dest}"/>
+    			<pathelement path="${java.class.path}"/>
+  			</classpath>
             <formatter type="xml"/>
-            <test name="pruebas.*" todir="${junit.output.dir}"/>
+            <batchtest fork="yes" todir="${junit.output.dir}">
+            	<fileset dir="${dest}">
+            		<include name="**/*Test*.class"/>
+            	</fileset>
+            </batchtest>
         </junit>
     </target>
-    <target name="reporte">
+    <target depends="probar" name="reporte">
         <junitreport todir="${junit.output.dir}">
             <fileset dir="${junit.output.dir}">
                 <include name="TEST-*.xml"/>
@@ -41,6 +52,8 @@
         </junitreport>
     </target>
     <target name="documentar">
+    	<mkdir dir="${doc}" />
         <javadoc sourcepath="${src}" destdir="${doc}"/>
     </target>
+    <target depends="reporte,documentar" name="todo" />
 </project>
