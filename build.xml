@@ -1,83 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. -->
-<project basedir="." default="build" name="ALGO3">
+<project basedir="." default="ayuda" name="algo3-grupo6">
     <property environment="env"/>
+    <property name="src" location="Car Tunning Experience/Tp/" />
+    <property name="dest" location="bin/" />
+    <property name="doc" location="doc/" />
     <property name="junit.output.dir" value="pruebas"/>
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.6"/>
-    <property name="source" value="1.6"/>
-    <path id="JUnit 3.libraryclasspath">
-        <pathelement location="../../Desktop/eclipse/plugins/org.junit_3.8.2.v200706111738/junit.jar"/>
-    </path>
-    <path id="ALGO3.classpath">
-        <pathelement location="bin"/>
-        <path refid="JUnit 3.libraryclasspath"/>
-    </path>
-    <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="Car Tunning Experience/Tp" excludes="**/*.launch, **/*.java"/>
-        </copy>
+    <target name="ayuda" >
+    	<echo> Debe escribir "ant" y especificar una acción: </echo>
+    	<echo>		compilar:   compila el proyecto en ${dest}.</echo>
+    	<echo>		probar:     corre las prubas unitarias.</echo>
+    	<echo>		reporte:    crea un reporte acerca de las pruebas.</echo>
+    	<echo>		documentar: crea la documentación Javadoc en ${doc}.</echo>
+    	<echo>		limpiar:    borra el directorio ${dest}, y todo su contenido.</echo>
+    	<echo>		ayuda:      muestra esta pantalla.</echo>
+    	<echo></echo>
+    	<echo>Nota: para construír y/o correr las prubas, es necesario que el directorio que contiene junit.jar se encuentre en el classpath</echo>
     </target>
-    <target name="clean">
+    <target name="inicializar">
+        <mkdir dir="${bin}"/>
+    </target>
+    <target name="limpiar">
         <delete dir="bin"/>
     </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
-            <src path="Car Tunning Experience/Tp"/>
-            <classpath refid="ALGO3.classpath"/>
-        </javac>
+    <target depends="inicializar" name="compilar">
+        <javac destdir="${bin}" srcdir="${src}"/>
     </target>
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-        <copy todir="${ant.library.dir}">
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </copy>
-        <unzip dest="${ant.library.dir}">
-            <patternset includes="jdtCompilerAdapter.jar"/>
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </unzip>
-    </target>
-    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-        <antcall target="build"/>
-    </target>
-    <target name="MezcladorTest">
+    <target name="probar">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="pruebas.MezcladorTest" todir="${junit.output.dir}"/>
-            <classpath refid="ALGO3.classpath"/>
+            <test name="pruebas.*" todir="${junit.output.dir}"/>
         </junit>
     </target>
-    <target name="MotorTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="pruebas.MotorTest" todir="${junit.output.dir}"/>
-            <classpath refid="ALGO3.classpath"/>
-        </junit>
-    </target>
-    <target name="TanqueNaftaTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="pruebas.TanqueNaftaTest" todir="${junit.output.dir}"/>
-            <classpath refid="ALGO3.classpath"/>
-        </junit>
-    </target>
-    <target name="junitreport">
+    <target name="reporte">
         <junitreport todir="${junit.output.dir}">
             <fileset dir="${junit.output.dir}">
                 <include name="TEST-*.xml"/>
             </fileset>
             <report format="frames" todir="${junit.output.dir}"/>
         </junitreport>
+    </target>
+    <target name="documentar">
+        <javadoc sourcepath="${src}" destdir="${doc}"/>
     </target>
 </project>
