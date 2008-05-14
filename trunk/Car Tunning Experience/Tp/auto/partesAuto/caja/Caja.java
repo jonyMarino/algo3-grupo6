@@ -18,12 +18,12 @@ import auto.partesAuto.Motor;
  *
  */
 public abstract class Caja extends PartesAuto implements Torqueador{
- 
+
 	private int cambio;
-	private int[] relaciones;		 
+	private int[] relaciones;
 	private Motor motor;
 	private Eje eje;
-	
+
 	public Caja(Eje eje, Motor motor){
 		this.eje=eje;
 		eje.addTorqueador(this);
@@ -33,15 +33,15 @@ public abstract class Caja extends PartesAuto implements Torqueador{
 		for(int i=0;i<6;i++){
 			relaciones[i]=30-i*5;
 		}
-	} 
-	 
+	}
+
 	protected double convertir(double torque){
 		return torque * relaciones[cambio];
-	}	
+	}
 	public abstract double getTorque();
 	/* // deMarino: si es Automatico no se puede hacer
 	public void setCambio(int cambio) {
-		
+
 	}
 	*/
 	protected void setCambio(int cambio) { //TODO: si es protegido, el auto no puede pasar cambios.
@@ -50,17 +50,17 @@ public abstract class Caja extends PartesAuto implements Torqueador{
 	public Motor getMotor(){
 		return motor;
 	}
-	
+
 	public int getCambio() {
 		return cambio;
 	}
-	
+
 	protected void incCambio(){
 		cambio++;
 	}
-	 
+
 	public double obtenerRpmEntrada(){
-		return eje.getRpm()/relaciones[cambio];
+		return eje.getRpm()*relaciones[cambio];
 	}
-	 
+
 }

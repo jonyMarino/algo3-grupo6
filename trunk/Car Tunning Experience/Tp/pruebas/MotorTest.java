@@ -35,9 +35,9 @@ public class MotorTest extends TestCase {
 		mezclador = new MezcladorNafta(100,tanque);
 		escape = new Escape(100);
 		carroceria = new Carroceria(5,5);
-		rueda = new Rueda(1,0.0,0.0,auto); //TODO: ¿no puede una rueda pertenecer a otra cosa que no sea un auto?
+		rueda = new Rueda(1,0.0,0.0,auto); //TODO: ¿no puede una rueda pertenecer a otra cosa que no sea un auto
 		eje = new Eje(rueda);
-		motor=new Motor(100,7500,mezclador,escape,caja, auto); //TODO: idem
+		motor=new Motor(100,7500,mezclador,escape,caja, auto); //TODO: Idem, creo que auto le puede pasar la velocidad alas ruedas.De esta forma Rueda no tiene que guardar una referencia de Auto.
 		caja = new CajaManual(eje, motor);
 		//TODO: tanto Motor, como rueda, poseen referencias a un auto que no existe.
 		tanque.llenarTanque(50);
