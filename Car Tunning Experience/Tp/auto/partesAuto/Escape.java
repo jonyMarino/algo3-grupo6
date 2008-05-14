@@ -35,10 +35,8 @@ public class Escape extends PartesAuto{
 	}
 	
 	public boolean desgastar(int tiempo){
-		 setVidaUtil(getVidaUtil()-tiempo/getEficiencia());	//hice este calculo para que aquellos de mayor eficiciencia se desganten mas lento
+		 setVidaUtil(getVidaUtil()-tiempo/getEficiencia());	//TODO:consultar formula
 		 return desgastado();
-		//return tiempo*getDesgaste();	//TODO: getDesgaste está comentado por algún motivo
-	
 	}
 	
 

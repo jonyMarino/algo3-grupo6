@@ -6,7 +6,6 @@ import auto.PartesAuto;
 public class Rueda extends PartesAuto {
 	
 	private int rodado;
-//	private double rpm;	//deMarino: no tiene porque mantenerlo guardado, el valor se calcula a partir de la velocidad del auto
 	private double coeficienteEstatico;
 	private double coeficienteDinamico;
 	private Auto auto;
@@ -29,7 +28,6 @@ public class Rueda extends PartesAuto {
 		setCoeficienteDinamico(coeficienteDinamico);
 		setPeso(peso);
 		setCosto(costo);
-		//setDesgaste(desgaste); TODO: setDesgaste está comentado
 	}
 
 	public void setRodado(int rodado){
@@ -75,15 +73,8 @@ public class Rueda extends PartesAuto {
 		return this.coeficienteDinamico*pista.getCoeficienteDeRozamientoRelativo();
 	}
 
-	
-	public boolean calcularDesgaste(int tiempo){
-		 setVidaUtil(getVidaUtil()-tiempo*getRPM()/100);	
+	public boolean desgastar(int tiempo) {
+		 setVidaUtil(getVidaUtil()-tiempo*getRPM()/100);//TODO:consultar formula
 		 return desgastado();
 	}
-	@Override
-	public boolean desgastar(int tiempo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }
