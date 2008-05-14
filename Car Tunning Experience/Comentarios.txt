@@ -1,8 +1,25 @@
+/*****************************************************/
+Vero13:
+       Ya termine Mezclador y Tanque.
+       Hice modificaciones, deje anotaciones tambien.
+
+
+/*****************************************************/
+De Marino:
+Muy importante!!!!
+En los diagramas que hicimos, getMagnitud puede estar
+obteniendo siempre el mismo valor si es que no se actualizan
+los valores de torque
+por eso es que ahora getMagnitud de Torque tiene que llamar
+a una referencia a Method
+el metodo que le pasemos Torque tiene que ser el responsable de
+en ese momento calcular el torque y devolverlo.
+
 Mon May 12 12:30:53 GMT-3 2008
 
 lucashpandolfo:  Revisar los TODO's que puse en el codigo. Puede haber mas de un error conceptual.
-    
-    
+
+
 
     /****************************************************************************************/
 
@@ -10,19 +27,18 @@ Sat May 10 8:23:07 GMT-3 2008
 
 Vero13:
 	Hola, voy a subir las modificaciones de Marino!
-	
-	De nuevo, modifique todos los paquetes... asi que hay que cambiarles 
+
+	De nuevo, modifique todos los paquetes... asi que hay que cambiarles
 	los packege a todos :( (y no lo hice);
-	
+
 	Perdon pero ya me tengo que ir, por hoy
-	
+
 	Lucas: si hay algo mas de tanque y mezclador, que te puedo decir
 	modificalo. Pero lee mi mail (si lo entendes)
-	
+
 	Que les sea leve, Buenas Noches!
-	
+
 	Pd: Marino creo que le faltan terminar unas cosas...
 	Nada mas... me fui... manden mail cualquier cosa...
 	y les respondo si puedo, tengo q ir a de mi hna
-	
-    
+
