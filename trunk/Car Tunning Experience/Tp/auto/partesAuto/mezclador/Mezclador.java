@@ -18,8 +18,6 @@ public abstract class Mezclador extends PartesAuto{
 	*@param rendimiento El rendmiento con la que opera el Mezclador (0..100)
 	*
 	*/
-	//TODO: ¿recibe TanqueNafta o Tanque?
-	//TODO: no recibe nada es un mezclador generico
 	public Mezclador(int rendimiento) {
 		super();
 		this.setRendimiento(rendimiento);
@@ -43,10 +41,12 @@ public abstract class Mezclador extends PartesAuto{
 		return rendimiento;
 	}
 
-	//si, es privado... la eficiencia del mezclador se define en el constructor...
-	// y despues no se puede modificar
-	//TODO: Vero13 se puede modificar el rendimiento, debido al desgaste. Ok! voy a tenerlo
-	//en cuenta.
+	public boolean desgastar(int tiempo) {
+		setVidaUtil(getVidaUtil()-tiempo/1000);
+		setRendimiento(getRendimiento()-tiempo/1000);
+		return desgastado();
+	}
+
 	private void setRendimiento(int rendimiento) {
 		if(rendimiento < 0)
 		   this.rendimiento = 0;

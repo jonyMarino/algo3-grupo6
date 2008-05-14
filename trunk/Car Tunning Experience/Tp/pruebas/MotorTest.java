@@ -27,7 +27,7 @@ public class MotorTest extends TestCase {
 	Eje eje;
 	AutoManual auto;
 	Carroceria carroceria;
-	
+
 	protected void setUp() throws Exception {
 		super.setUp();
 		nafta = new Nafta(95,20);
@@ -42,7 +42,6 @@ public class MotorTest extends TestCase {
 		//TODO: tanto Motor, como rueda, poseen referencias a un auto que no existe.
 		tanque.llenarTanque(50);
 		auto = new AutoManual(escape, carroceria, motor, caja, mezclador, tanque, rueda, rueda, rueda, rueda);
-
 	}
 
 	protected void tearDown() throws Exception {
@@ -59,7 +58,7 @@ public class MotorTest extends TestCase {
 		motor.acelerar(1);
 		assertEquals(1.2, motor.obtenerRPM());
 	}
-	
+
 	public void testAcelerarDeMas() throws BoundsException {
 		try{
 			motor.acelerar(20);
@@ -74,7 +73,7 @@ public class MotorTest extends TestCase {
 		catch (BoundsException excepcion){
 		}
 	}
-	
+
 	public void testAcelerarHastaFundir() throws BoundsException{
 		escape.setEficiencia(20);
 		int contador;

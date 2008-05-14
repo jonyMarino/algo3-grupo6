@@ -6,7 +6,6 @@ import auto.partesAuto.BoundsException;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
 
-
 /**
  * Es el encargado del proceso de combustión del {@link Combustible}, que obtiene a traves del {@link Mezclador}.
  * A partir del proceso de combustión genera un torque que luego pasa por la {@link Caja}.
@@ -28,7 +27,7 @@ public class Motor extends PartesAuto implements Torqueador{
 	private Escape escape;
 	//private double temperatura;
 	private double aceleracion; // deMarino: tenemos que guardar la aceleracion para ir cambiando el torque a medida que lo pedimos
-	
+
 	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape, Caja caja,Auto auto)throws BoundsException{
 		super();
 		setRendimiento(rendimiento);
@@ -41,7 +40,7 @@ public class Motor extends PartesAuto implements Torqueador{
 //		rpm=0;
 //		temperatura=0;
 	}
-	
+
 	private void setRendimiento(int rendimiento)throws BoundsException{
 		if (rendimiento>100 || rendimiento < 0)
 			throw new BoundsException();
@@ -53,12 +52,12 @@ public class Motor extends PartesAuto implements Torqueador{
 			throw new BoundsException();
 		this.rpmMaximo=rpmMaximo;
 	}
-	
+
 	/**
 	 * Pide {@link Combustible} mezclado con aire al {@link Mezclador} y luego realiza la combustión eliminando los gases por el {@link Escape}.
 	 * // ConstMarino: A partir de la fuerza generada, el auto aumenta las RPM de las Ruedas, por ende del Motor tambien.
-	 * 
-	 * @param acelerar No se refiere a la mágnitud física, sino a un número de 0 a 1  que indica cuanto se presionó el {@link Acelerador}.  
+	 *
+	 * @param acelerar No se refiere a la mágnitud física, sino a un número de 0 a 1  que indica cuanto se presionó el {@link Acelerador}.
 	 */
 	public void acelerar(double acelerar)throws BoundsException{  //acelerar [0..1]
 		if(getVidaUtil()>0){
@@ -68,7 +67,7 @@ public class Motor extends PartesAuto implements Torqueador{
 		}else
 			this.aceleracion=0;
 		/* deMarino: Lo siguiente lo tiene que hacer el metodo llamado por Torque
-		 * 
+		 *
 		 * mezcla=mezclador.obtenerMezcla(aceleracion);
 		aumentarRpm(realizarCombustión(mezcla));
 		actualizarVidaUtil();
@@ -76,7 +75,7 @@ public class Motor extends PartesAuto implements Torqueador{
 		else disminuiRPM(2.0);
 		*/
 	}
-	
+
 	public boolean desgastar(int tiempo) {	//deMarino: Nico quiere que dependa del tiempo.
 	    double deltaVidaUtil=obtenerRPM()/getRPMMaximo()/200*tiempo;
 		setVidaUtil(getVidaUtil()-deltaVidaUtil);
@@ -86,13 +85,13 @@ public class Motor extends PartesAuto implements Torqueador{
 	private double realizarCombustion(double mezcla){
 		return (evacuarGases(mezcla*getRendimiento()/100));
 	}
-	
+
 	private double evacuarGases(double mezcla) {
 		return(escape.getEficiencia()*mezcla/100);
 	}
 
 	public double obtenerRPM(){
-		return caja.obtenerRpmEntrada(); 
+		return caja.obtenerRpmEntrada();
 	}
 
 	public int getRendimiento() {
@@ -105,7 +104,7 @@ public class Motor extends PartesAuto implements Torqueador{
 		double torque = -1/rpmMaximo * obtenerRPM() +1; // es una función lineal de imagen [0..1] (En realidad con un rebaje se puede hacer negativo)
 		double mezcla=mezclador.obtenerMezcla(aceleracion*cilindrada);	//deMarino: No importa si es mayor que 1
 		double energiaDeCombustion=realizarCombustion(mezcla);
-		torque*=energiaDeCombustion; 
+		torque*=energiaDeCombustion;
 		//temperatura += obtenerRPM()/getRPMMaximo()+ temperatura;	//deMarino: Me parece mejor no modelar la temperatura, nunca lo hablamos
 		return torque;
 
@@ -117,17 +116,17 @@ public class Motor extends PartesAuto implements Torqueador{
 
 	/* deMarino : El motor no tiene pq enterarse directamente de esto, la caja disminuye la fuerza y por ende tambien lo haran las rpm
 	public void nuevoCambio() {
-		disminuiRPM(obtenerRPM()/2); //bajo las revoluciones a la mitad				
+		disminuiRPM(obtenerRPM()/2); //bajo las revoluciones a la mitad
 	}
 	*/
-	
+
 	public void setMezclador(Mezclador mezclador){
 		this.mezclador = mezclador;
 	}
 
 	public void setCaja(Caja caja) {
 		this.caja=caja;
-		
+
 	}
 
 	public void setEscape(Escape escape) {
