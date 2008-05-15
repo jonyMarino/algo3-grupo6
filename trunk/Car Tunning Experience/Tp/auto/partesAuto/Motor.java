@@ -1,10 +1,11 @@
 package auto.partesAuto;
 
-import auto.Auto;
 import auto.PartesAuto;
-import auto.partesAuto.BoundsException;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
+import auto.partesAuto.pedal.Acelerador;
+
+import combustible.Combustible;
 
 /**
  * Es el encargado del proceso de combustión del {@link Combustible}, que obtiene a traves del {@link Mezclador}.
@@ -28,7 +29,7 @@ public class Motor extends PartesAuto implements Torqueador{
 	//private double temperatura;
 	private double aceleracion; // deMarino: tenemos que guardar la aceleracion para ir cambiando el torque a medida que lo pedimos
 
-	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape, Caja caja,Auto auto)throws BoundsException{
+	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape, Caja caja, double cilindrada)throws BoundsException{
 		super();
 		setRendimiento(rendimiento);
 		setRPMMaximo(rpmMaximo);
@@ -37,6 +38,7 @@ public class Motor extends PartesAuto implements Torqueador{
 		this.caja=caja;
 //		this.auto = auto;
 		aceleracion=0;
+		this.cilindrada = cilindrada;
 //		rpm=0;
 //		temperatura=0;
 	}
