@@ -27,7 +27,7 @@ public class Eje extends PartesAuto{
 		for(Torqueador t:torques)
 			torque+=t.getTorque();
 		double fuerza= torque/ruedaTrasera.getRodado();
-		if(fuerza>=ruedaTrasera.getFuerzaRozamientoEstatico()){	//deMarino: Verifica que no haya dezliz
+		if(fuerza>=ruedaTrasera.getFuerzaRozamientoEstatico()){	// Verifica que no haya dezliz
 			if(getRpm()>0)
 				return - ruedaTrasera.getFuerzaRozamientoDinamico();
 			return 0;

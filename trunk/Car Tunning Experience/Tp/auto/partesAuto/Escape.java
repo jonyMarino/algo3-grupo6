@@ -20,6 +20,7 @@ public class Escape extends PartesAuto{
 		super();
 		setEficiencia(eficiencia);
 	}
+	
 
 	public void setEficiencia(double eficiencia){
 		if(eficiencia > 100)
