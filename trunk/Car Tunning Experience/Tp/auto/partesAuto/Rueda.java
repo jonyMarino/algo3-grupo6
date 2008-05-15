@@ -57,6 +57,7 @@ public class Rueda extends PartesAuto {
 		return this.coeficienteEstatico*pista.getCoeficienteDeRozamientoRelativo();
 	}
 
+	//TODO: agrego, modifica eje(desliz)
 	public double getFuerzaRozamientoEstatico(){
 		return this.getCoeficienteEstatico()*auto.getPeso();
 	}
@@ -77,6 +78,7 @@ public class Rueda extends PartesAuto {
 		return this.coeficienteDinamico*pista.getCoeficienteDeRozamientoRelativo();
 	}
 
+	//TODO: agrego, modifica eje
 	public double getFuerzaRozamientoDinamico(){
 		return getCoeficienteDinamico()*auto.getPeso();
 	}

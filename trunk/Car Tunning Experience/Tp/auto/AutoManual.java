@@ -20,7 +20,7 @@ public AutoManual(Escape escape, Carroceria carroceria, Motor motor,
 
 	public void ponerCambio(int cambio){
 		CajaManual cajaManual = this.getCajaManual();
-		cajaManual.setCambio(cambio);
+		cajaManual.setCambioManual(cambio);
 	}
 
 	public float getCambio(){
