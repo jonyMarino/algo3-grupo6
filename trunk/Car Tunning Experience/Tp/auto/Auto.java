@@ -7,12 +7,10 @@ import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
 import auto.partesAuto.Rueda;
-import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.pedal.Acelerador;
 import auto.partesAuto.pedal.Freno;
 import auto.partesAuto.tanque.TanqueNafta;
-
 
 
 /**
@@ -25,7 +23,6 @@ import auto.partesAuto.tanque.TanqueNafta;
  *   @see Carroceria
  *   @see Escape
  *   @see TanqueNafta
- *   @see Caja
  *   @see Acelerador
  *   @see Freno
  *   @see Rueda
@@ -38,7 +35,7 @@ public abstract class Auto {
 	private Carroceria 	      carroceria;
 	private Motor 		      motor;
 	private TanqueNafta       tanqueNafta;
-	private Caja 		      caja;
+	//private Caja 		      caja;
 	private Acelerador	      acelerador;
 	private Freno 		      freno;
 	private LinkedList<Rueda> ruedas;
@@ -50,13 +47,13 @@ public abstract class Auto {
 	private static double     aceleracionGravedad = 9.8;
 
 public Auto(Escape escape, Carroceria carroceria, Motor motor,
-            Caja caja, MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
+            /*Caja caja,*/MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
             Rueda rueda1, Rueda rueda2, Rueda rueda3, Rueda rueda4){
 
 	this.escape = escape;
 	this.setCarroceria(carroceria);
 	this.setMotor(motor);
-	this.setCaja(caja);
+	//this.setCaja(caja);
 	this.mezcladorNafta = mezcladorNafta;
 	this.tanqueNafta = tanqueNafta;
 
@@ -76,9 +73,7 @@ public Auto(Escape escape, Carroceria carroceria, Motor motor,
 	//Asignar Pedales
 	this.asignadorPedales();
 
-	//Calculador Peso
-	this.calcularPeso();
-
+	this.setPeso(0);
 }
 
 /*********************************************************************************/
@@ -161,25 +156,6 @@ public double obtenerCantidadCombustible(){
 	double cantidadCombustible = tanqueNafta.getCantidadCombustible();
 	return cantidadCombustible;
 }
-
-
-//CAJA
-public Caja getCaja() {
-	return caja;
-}
-
-public void setCaja(Caja caja) {
-	this.caja = caja;
-	Motor motor = this.getMotor();
-	motor.setCaja(this.getCaja());
-}
-
-public float getCambio(){
-	Caja caja = this.getCaja();
-	float cambio = caja.getCambio();
-	return cambio;
-}
-
 
 //PEDALES
 public Acelerador getAcelerador() {
@@ -266,14 +242,14 @@ public void setMezcladorNafta(MezcladorNafta mezcladorNafta) {
 
 
 //PESO
-public double getPeso(){
-	//Se actualiza constantemente
-	this.setPeso(this.calcularPeso());
-	return peso;
+public abstract double getPeso();
+
+protected void setPeso(double peso){
+	this.peso = peso;
 }
 
-private void setPeso(double peso){
-	this.peso = peso;
+protected void incrementarPeso(double peso){
+	this.peso += peso;
 }
 
 /***********************************************************/
@@ -295,24 +271,6 @@ private void asignarEje(Freno freno) {
 
 }
 
-private double calcularPeso(){
-	this.peso = 0;
-	this.peso += this.escape.getPeso();
-	this.peso += this.carroceria.getPeso();
-	this.peso += this.motor.getPeso();
-	this.peso += this.tanqueNafta.getPeso();
-	this.peso += this.caja.getPeso();
-	Rueda rueda1 = this.getRuedaDelanteraDerecha();
-	this.peso += rueda1.getPeso();
-	Rueda rueda2 = this.getRuedaDelanteraIzquierda();
-	this.peso += rueda2.getPeso();
-	Rueda rueda3 = this.getRuedaTraseraDerecha();
-	this.peso += rueda3.getPeso();
-	Rueda rueda4 = this.getRuedaTraseraIzquierda();
-	this.peso += rueda4.getPeso();
-	return (this.peso);
-}
 
-/*********************************************************************************/
 }
 

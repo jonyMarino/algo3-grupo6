@@ -8,7 +8,6 @@ import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
 import auto.partesAuto.Rueda;
-import auto.partesAuto.caja.Caja;
 import auto.partesAuto.caja.CajaManual;
 import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.tanque.TanqueNafta;
@@ -22,7 +21,7 @@ public class MotorTest extends TestCase {
 	MezcladorNafta mezclador;
 	TanqueNafta tanque;
 	Nafta nafta;
-	Caja caja;
+	CajaManual caja;
 	Rueda rueda;
 	Eje eje;
 	AutoManual auto;
