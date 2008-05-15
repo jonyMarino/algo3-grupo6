@@ -15,6 +15,7 @@ import auto.partesAuto.mezclador.Mezclador;
  *
  */
 public class Motor extends PartesAuto implements Torqueador{
+	
 	private double rpmMaximo;
 	private int rendimiento;
 	private double cilindrada;

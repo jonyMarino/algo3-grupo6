@@ -18,6 +18,7 @@ public class Rueda extends PartesAuto {
 		setCoeficienteEstatico(coeficienteEstatico);
 		setCoeficienteDinamico(coeficienteDinamico);
 	}
+	
 	public void setPista(Pista pista){
 		this.pista=pista;
 	}
@@ -69,7 +70,6 @@ public class Rueda extends PartesAuto {
 		else
 			this.coeficienteDinamico = coeficienteDinamico;
 	}
-
 
 	public double getCoeficienteDinamico(){
 		if(pista==null)

@@ -31,9 +31,6 @@ public int getOctanaje(){
 	return octanaje;
 }
 
-/* (non-Javadoc)
- * @see combustible.Combustible#getPesoEspecifico()
- */
 public double getPesoEspecifico(){
 	return pesoEspecifico;
 }
