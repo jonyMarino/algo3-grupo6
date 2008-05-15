@@ -15,11 +15,8 @@ public class CajaAutomatica extends Caja {
 
 	private static final int MAX_CAMBIO = 5; //TODO: fix rápido para getTorque, no sé cual era la idea
 
-		private int cambio;
-
 	public CajaAutomatica(Eje eje,Motor motor) {
 		super(eje,motor);
-		cambio = 1;//empieza en primera
 	}
 	public double getTorque() {
 		if(getMotor().obtenerRPM()>getMotor().getRPMMaximo()*3/4 && getCambio()<MAX_CAMBIO)
@@ -29,24 +26,6 @@ public class CajaAutomatica extends Caja {
 
 	public boolean desgastar(int tiempo){
 		return desgastado();
-	}
-
-	public int getCambio() {
-		return cambio;
-	}
-
-	protected void incCambio(){
-		cambio++;
-	}
-
-	public double obtenerRpmEntrada(){
-		int[] relaciones = getRelaciones();
-		return getEje().getRpm()*relaciones[cambio];
-	}
-
-	public double convertir(double torque){
-		int[] relaciones = getRelaciones();
-		return torque * relaciones[cambio];
 	}
 
 }
