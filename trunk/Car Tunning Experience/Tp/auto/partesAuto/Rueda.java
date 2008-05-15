@@ -11,21 +11,13 @@ public class Rueda extends PartesAuto {
 	private Auto auto;
 	private Pista pista=null;
 
-	public Rueda(int rodado,double coeficienteEstatico,double coeficienteDinamico,Auto auto){
-		super();
-		this.auto= auto;
-		setRodado(rodado);
-		setCoeficienteEstatico(coeficienteEstatico);
-		setCoeficienteDinamico(coeficienteDinamico);
-	}
-	
 	public Rueda(int rodado,double coeficienteEstatico,double coeficienteDinamico){
 		super();
+		this.auto= null;
 		setRodado(rodado);
 		setCoeficienteEstatico(coeficienteEstatico);
 		setCoeficienteDinamico(coeficienteDinamico);
 	}
-	
 	public void setPista(Pista pista){
 		this.pista=pista;
 	}
@@ -38,7 +30,6 @@ public class Rueda extends PartesAuto {
 		setPeso(peso);
 		setCosto(costo);
 	}
-
 
 	public void setRodado(int rodado){
 		if(rodado>0)
@@ -66,7 +57,6 @@ public class Rueda extends PartesAuto {
 		return this.coeficienteEstatico*pista.getCoeficienteDeRozamientoRelativo();
 	}
 
-	//TODO: agrego, modifica eje(desliz)
 	public double getFuerzaRozamientoEstatico(){
 		return this.getCoeficienteEstatico()*auto.getPeso();
 	}
@@ -87,7 +77,6 @@ public class Rueda extends PartesAuto {
 		return this.coeficienteDinamico*pista.getCoeficienteDeRozamientoRelativo();
 	}
 
-	//TODO: agrego, modifica eje
 	public double getFuerzaRozamientoDinamico(){
 		return getCoeficienteDinamico()*auto.getPeso();
 	}
@@ -98,11 +87,11 @@ public class Rueda extends PartesAuto {
 	}
 
 	public boolean desgastar(int tiempo) {
-		 setVidaUtil(getVidaUtil()-tiempo*getRPM()/100);//TODO:consultar formula
+		 setVidaUtil(getVidaUtil()-tiempo*getRPM()/100);
 		 return desgastado();
 	}
-	
+
 	public void setAuto(Auto auto){
-		this.auto = auto;		
+		this.auto = auto;
 	}
 }

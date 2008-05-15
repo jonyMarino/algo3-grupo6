@@ -37,8 +37,6 @@ public abstract double getPesoEspecifico();
  * Devuelve el costo por litro del combustible.
  * @return el costo por litro del combustible
  */
-//TODO: no tiene mucha importancia, pero ¿Es el costo por litro? Si, creo que podemos poner eso por ahora.
-
 public double getCosto() {
 	return costo;
 }

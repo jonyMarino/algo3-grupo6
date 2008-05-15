@@ -9,18 +9,18 @@ public class CarroceriaTest extends TestCase {
 
 	Carroceria carroceria;
 	Pista pista;
-	
+
 	public void testFuerzaAire() {
 		pista=new Pista(5);
-		carroceria= new Carroceria(5,5);
+		carroceria= new Carroceria(5,5,30);
 		assertEquals(0.0, carroceria.getFuerzaAire(pista));
 		pista.setVelocidadAire(15);
 		carroceria.setAeroDinamia(10);
 		assertEquals(1.5, carroceria.getFuerzaAire(pista));
 	}
-	
+
 	public void testFuerzaAireCarroceriaDesgastada() {
-		carroceria= new Carroceria(25,6);
+		carroceria= new Carroceria(25,6,40);
 		pista=new Pista(5);
 		carroceria.setVidaUtil(-1);
 		pista.setVelocidadAire(25);

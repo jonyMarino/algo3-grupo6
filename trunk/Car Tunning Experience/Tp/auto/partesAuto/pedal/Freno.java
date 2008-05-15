@@ -11,11 +11,15 @@ import auto.partesAuto.Torqueador;
 public class Freno extends PartesAuto implements Pedal,Torqueador{
 
 	private double torque;
+	private boolean usado;
+	private double pastilladeFreno;
 
-	public Freno(Eje eje){
+	public Freno(Eje eje, double pastillaDeFreno){
 		super();
 		torque = 0;
+		usado = false;
 		eje.addTorqueador(this);
+		this.setPastilladeFreno(pastilladeFreno);
 	}
 
 	/**
@@ -24,17 +28,20 @@ public class Freno extends PartesAuto implements Pedal,Torqueador{
 	 *
 	 * @see Torque
 	 */
-
-	//TODO: Chekear
 	public void presionar(double cantidad){
+		usado = true;
 		if (this.getVidaUtil() > 0){
-			this.setTorque(-cantidad);
+			this.setTorque(-(cantidad*pastilladeFreno));
 		}
 	}
 
 	public boolean desgastar(int tiempo) {
-		setVidaUtil(getVidaUtil()-tiempo/1000);
-		return desgastado();
+		if(usado){
+			setVidaUtil(getVidaUtil()-tiempo/1000);
+			return desgastado();
+		}else{
+			return usado;
+		}
 	}
 
 	public double getTorque() {
@@ -43,6 +50,14 @@ public class Freno extends PartesAuto implements Pedal,Torqueador{
 
 	public void setTorque(double cantidad) {
 		this.torque = cantidad;
+	}
+
+	public double getPastilladeFreno() {
+		return pastilladeFreno;
+	}
+
+	public void setPastilladeFreno(double pastilladeFreno) {
+		this.pastilladeFreno = pastilladeFreno;
 	}
 
 }

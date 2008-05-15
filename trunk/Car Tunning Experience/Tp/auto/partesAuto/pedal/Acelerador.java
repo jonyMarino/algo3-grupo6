@@ -10,18 +10,20 @@ import auto.partesAuto.Motor;
 public class Acelerador extends PartesAuto implements Pedal{
 
 	private	Motor motor;
+	private boolean usado;
 
 	public Acelerador(Motor motor){
 		super();
 		this.setMotor(motor);
+		usado = false;
 	}
 
 	public void presionar(double cantidad){
+		usado = true;
 		if(this.getVidaUtil() > 0){
 			try {
 				getMotor().acelerar(cantidad);
 			} catch (BoundsException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -36,8 +38,12 @@ public class Acelerador extends PartesAuto implements Pedal{
 	}
 
 	public boolean desgastar(int tiempo) {
+		if(usado){
 		setVidaUtil(getVidaUtil()-tiempo/1000);
 		return desgastado();
+		}else{
+			return usado;
+		}
 	}
 
 }

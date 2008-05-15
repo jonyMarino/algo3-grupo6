@@ -22,14 +22,16 @@ public class Eje extends PartesAuto{
 		this.ruedaTrasera=ruedaTrasera;
 	}
 
-	//TODO: Agrego desliz (DeMarino)
 	public double getFuerza() {
 		double torque=0;
 		for(Torqueador t:torques)
 			torque+=t.getTorque();
 		double fuerza= torque/ruedaTrasera.getRodado();
-		if(fuerza>=ruedaTrasera.getFuerzaRozamientoEstatico())	//deMarino: Verifica que no haya dezliz
-			return - ruedaTrasera.getFuerzaRozamientoDinamico();
+		if(fuerza>=ruedaTrasera.getFuerzaRozamientoEstatico()){	//deMarino: Verifica que no haya dezliz
+			if(getRpm()>0)
+				return - ruedaTrasera.getFuerzaRozamientoDinamico();
+			return 0;
+		}
 		return fuerza;
 	}
 
