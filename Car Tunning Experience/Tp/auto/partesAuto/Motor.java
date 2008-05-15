@@ -17,7 +17,7 @@ import auto.partesAuto.mezclador.Mezclador;
 public class Motor extends PartesAuto implements Torqueador{
 	private double rpmMaximo;
 	private int rendimiento;
-	private double cilindrada;	// // deMarino: acercamiento con el modelo real
+	private double cilindrada;
 	private Mezclador mezclador;
 	private Caja caja;
 	private Escape escape;
@@ -52,7 +52,7 @@ public class Motor extends PartesAuto implements Torqueador{
 	 *
 	 * @param acelerar No se refiere a la mágnitud física, sino a un número de 0 a 1  que indica cuanto se presionó el {@link Acelerador}.
 	 */
-	public void acelerar(double acelerar)throws BoundsException{  //acelerar [0..1]
+	public void acelerar(double acelerar)throws BoundsException{
 		if(getVidaUtil()>0){
 			if (acelerar>1 || acelerar < 0)
 				throw new BoundsException();
@@ -61,7 +61,7 @@ public class Motor extends PartesAuto implements Torqueador{
 			this.aceleracion=0;
 	}
 
-	public boolean desgastar(int tiempo) {	//deMarino: Nico quiere que dependa del tiempo.
+	public boolean desgastar(int tiempo) {	
 	    double deltaVidaUtil=obtenerRPM()/getRPMMaximo()/200*tiempo;
 		setVidaUtil(getVidaUtil()-deltaVidaUtil);
 		return getVidaUtil()==0;
@@ -86,11 +86,11 @@ public class Motor extends PartesAuto implements Torqueador{
 		return rendimiento;
 	}
 
-	public double getTorque() {	//deMarino: Es llamado por Caja. Esto es un cambio a lo que habiamos planteado originalmente
+	public double getTorque() {
 		if(aceleracion==0)
 			return 0;
-		double torque = -1/rpmMaximo * obtenerRPM() +1; // es una función lineal de imagen [0..1] (En realidad con un rebaje se puede hacer negativo)
-		double mezcla=mezclador.obtenerMezcla(aceleracion*cilindrada);	//deMarino: No importa si es mayor que 1
+		double torque = -1/rpmMaximo * obtenerRPM() +1; 
+		double mezcla=mezclador.obtenerMezcla(aceleracion*cilindrada);	
 		double energiaDeCombustion=realizarCombustion(mezcla);
 		torque*=energiaDeCombustion;
 		return torque;
