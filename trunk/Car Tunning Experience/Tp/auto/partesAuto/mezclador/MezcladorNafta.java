@@ -69,5 +69,4 @@ public class MezcladorNafta extends Mezclador {
 		this.tanqueNafta = tanqueNafta;
 	}
 
-
 }
