@@ -1,7 +1,5 @@
 package combustible;
 
-
-
 /**
  *  El Combustible es necesario para que el {@link Auto} se mueva. Sin él no se podría realizar el proceso de combustión.
  *  La clase Combustible es abstracta y sirve de base a distintos tipos de Combustible.

@@ -40,10 +40,12 @@ public class Eje extends PartesAuto{
 			return;
 		torques.add(t);
 	}
+	
 	public boolean desgastar(int tiempo){
 		setVidaUtil(getVidaUtil()-tiempo/1000);
 		return desgastado();
 	}
+	
 	public double getRpm(){
 		return ruedaTrasera.getRPM();
 	}

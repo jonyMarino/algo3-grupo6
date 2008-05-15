@@ -12,9 +12,9 @@ public class AutoManual extends Auto {
 
 	CajaManual cajaManual;
 
-public AutoManual(Escape escape, Carroceria carroceria, Motor motor,
-		        CajaManual cajaManual, MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
-		        Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4){
+	public AutoManual(Escape escape, Carroceria carroceria, Motor motor,
+		             CajaManual cajaManual, MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
+		             Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4){
 		super(escape,carroceria,motor,cajaManual,mezcladorNafta,tanqueNafta,rueda1,rueda2,rueda3,rueda4);
 			this.setCajaManual(cajaManual);
 
