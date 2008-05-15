@@ -1,7 +1,7 @@
 package auto.partesAuto.caja;
-
 import auto.partesAuto.Eje;
 import auto.partesAuto.Motor;
+
 /**
  * Un caso particular de {@link Caja}.
  * Su principal característica es que no es necesario que el usuario pase los cambios.

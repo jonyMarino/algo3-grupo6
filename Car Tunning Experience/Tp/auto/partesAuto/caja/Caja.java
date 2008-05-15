@@ -23,9 +23,6 @@ public abstract class Caja extends PartesAuto implements Torqueador{
 	private Eje eje;
 
 	public Caja(){
-		//this.eje=eje;
-
-		//this.motor=motor;
 		cambio=1; //empieza en primera
 		relaciones = new int[6];
 		for(int i=0;i<6;i++){
