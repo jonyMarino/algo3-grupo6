@@ -13,15 +13,19 @@ import auto.partesAuto.Motor;
  */
 public class CajaAutomatica extends Caja {
 
-	private static final int MAX_CAMBIO = 5; //TODO: fix rápido para getTorque, no sé cual era la idea
+	private static final int MAX_CAMBIO = 5;
 
 	public CajaAutomatica(Eje eje,Motor motor) {
-		super(eje,motor);
+		super();
 	}
 	public double getTorque() {
-		if(getMotor().obtenerRPM()>getMotor().getRPMMaximo()*3/4 && getCambio()<MAX_CAMBIO)
-			incCambio();
-		return convertir(getMotor().getTorque());
+		Motor m=getMotor();
+		if(m!=null){
+			if(getMotor().obtenerRPM()>getMotor().getRPMMaximo()*3/4 && getCambio()<MAX_CAMBIO)
+				incCambio();
+			return convertir(getMotor().getTorque());
+		}
+		return 0;
 	}
 
 	public boolean desgastar(int tiempo){

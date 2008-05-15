@@ -12,13 +12,16 @@ import auto.partesAuto.Motor;
  */
 public class CajaManual extends Caja {
 
-	public CajaManual(Eje eje,Motor motor) {
-		super(eje,motor);
+	public CajaManual() {
+		super();
 	}
 
 	public double getTorque(){
-			return convertir(getMotor().getTorque());
-		}
+	Motor m = getMotor();
+	if(m!=null)
+		return convertir(m.getTorque());
+	return 0;
+	}
 
 /**
 *

@@ -7,11 +7,11 @@ import auto.PartesAuto;
  *@see  PartesAuto
  */
 public class Escape extends PartesAuto{
-	
+
 	private double eficiencia;
-	
-	
-	
+
+
+
 	/**
 	 * Crea un nuevo Escape con la eficiencia especificada.
 	 * @param eficiencia La eficiencia del escape (0..100)
@@ -20,7 +20,7 @@ public class Escape extends PartesAuto{
 		super();
 		setEficiencia(eficiencia);
 	}
-	
+
 	public void setEficiencia(double eficiencia){
 		if(eficiencia > 100)
 			this.eficiencia = 100;
@@ -29,15 +29,16 @@ public class Escape extends PartesAuto{
 		else
 			this.eficiencia = eficiencia;
 	}
-	
+
 	public double getEficiencia(){
 		return this.eficiencia;
 	}
-	
+
 	public boolean desgastar(int tiempo){
-		 setVidaUtil(getVidaUtil()-tiempo/getEficiencia());	//TODO:consultar formula
+		 setVidaUtil(getVidaUtil()-tiempo/getEficiencia());
 		 return desgastado();
 	}
-	
+
 
 }
+

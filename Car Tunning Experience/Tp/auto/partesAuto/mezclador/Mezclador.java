@@ -28,7 +28,7 @@ public abstract class Mezclador extends PartesAuto{
 	* Devuelve la cantidad de Mezcla pedida por el Motor. En caso de no poseer la
 	* cantidad de nafta necesaria para realizar la Mezcla pedida, devuelve la
 	* cantidad máxima de Mezcla que puede generar.
-	* 
+	*
 	* @param litrosMezcla la cantidad de mezcla que le quiero pedir
 	*
 	*@return cantidad de mezcla que pudo generar

@@ -3,6 +3,7 @@ import java.util.LinkedList;
 
 import pista.Pista;
 import auto.partesAuto.Carroceria;
+import auto.PartesAuto;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
@@ -11,7 +12,7 @@ import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.pedal.Acelerador;
 import auto.partesAuto.pedal.Freno;
 import auto.partesAuto.tanque.TanqueNafta;
-
+import auto.partesAuto.caja.Caja;
 
 /**
  * Auto es una clase que intenta encapsular el comportamiento y las características de un auto.
@@ -35,25 +36,22 @@ public abstract class Auto {
 	private Carroceria 	      carroceria;
 	private Motor 		      motor;
 	private TanqueNafta       tanqueNafta;
-	//private Caja 		      caja;
 	private Acelerador	      acelerador;
 	private Freno 		      freno;
 	private LinkedList<Rueda> ruedas;
 	private Eje               eje;
 	private MezcladorNafta    mezcladorNafta;
 	private double		      velocidad;
-	//private LinkedList<ParteAuto> partes;
-	//TODO: No recuerdo para que queremos una lista...
+	private LinkedList<PartesAuto> partes;
 	private static double     aceleracionGravedad = 9.8;
 
 public Auto(Escape escape, Carroceria carroceria, Motor motor,
-            /*Caja caja,*/MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
+            Caja caja,MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
             Rueda rueda1, Rueda rueda2, Rueda rueda3, Rueda rueda4){
 
 	this.escape = escape;
 	this.setCarroceria(carroceria);
 	this.setMotor(motor);
-	//this.setCaja(caja);
 	this.mezcladorNafta = mezcladorNafta;
 	this.tanqueNafta = tanqueNafta;
 
@@ -63,17 +61,38 @@ public Auto(Escape escape, Carroceria carroceria, Motor motor,
 	ruedas.add(rueda2);
 	ruedas.add(rueda3);
 	ruedas.add(rueda4);
-
+	for(Rueda r : ruedas)
+		r.setAuto(this);
 	//Velocidad
 	this.setVelocidad(0);
 
+
+
 	//Asignar Eje
-	this.asignarEje(this.getFreno());
+	this.asignarEje();
+
+	caja.setEje(getEje());
+	caja.setMotor(getMotor());
+
+	motor.setCaja(caja);
 
 	//Asignar Pedales
 	this.asignadorPedales();
 
-	this.setPeso(0);
+	partes = new LinkedList<PartesAuto>();
+	partes.add(escape);
+	partes.add(carroceria);
+	partes.add(motor);
+	partes.add(mezcladorNafta);
+	partes.add(tanqueNafta);
+	partes.add(rueda1);
+	partes.add(rueda2);
+	partes.add(rueda3);
+	partes.add(rueda4);
+	partes.add(freno);
+	partes.add(acelerador);
+	partes.add(caja);
+
 }
 
 /*********************************************************************************/
@@ -100,6 +119,8 @@ public void calcularVelocidad(int segundosTranscurridos,Pista pista){
 	double incrementoVelocidad = (((fuerzaEje-fuerzaAire)/masaAuto)*segundosTranscurridos);
 
 	this.setVelocidad(this.getVelocidad()+incrementoVelocidad);
+	for(PartesAuto p:partes)
+		p.desgastar(segundosTranscurridos);
 }
 
 //ESCAPE
@@ -240,17 +261,25 @@ public void setMezcladorNafta(MezcladorNafta mezcladorNafta) {
 	motor.setMezclador(this.getMezcladorNafta());
 }
 
-
+protected LinkedList<PartesAuto> getPartes(){
+	return partes;
+}
+protected void addParte(PartesAuto parte){
+	partes.add(parte);
+}
 //PESO
-public abstract double getPeso();
-
-protected void setPeso(double peso){
-	this.peso = peso;
+public double getPeso(){
+	//Se actualiza constantemente
+	return this.calcularPeso();
 }
 
-protected void incrementarPeso(double peso){
-	this.peso += peso;
+private double calcularPeso(){
+	int peso = 0;
+	for(PartesAuto p:getPartes())
+		peso += p.getPeso();
+	return peso;
 }
+
 
 /***********************************************************/
 //Funciones internas
@@ -261,11 +290,11 @@ private void asignadorPedales(){
 	this.setAcelerador(acelerador);
 
 	//Freno
-	Freno freno = new Freno(this.getEje());
+	Freno freno = new Freno(this.getEje(),100);
 	this.setFreno(freno);
 }
 
-private void asignarEje(Freno freno) {
+private void asignarEje() {
 	Eje eje = new Eje(this.getRuedaDelanteraDerecha());
 	this.setEje(eje);
 
@@ -273,4 +302,3 @@ private void asignarEje(Freno freno) {
 
 
 }
-

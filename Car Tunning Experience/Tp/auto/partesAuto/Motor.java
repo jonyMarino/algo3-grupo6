@@ -1,11 +1,9 @@
 package auto.partesAuto;
 
 import auto.PartesAuto;
+import auto.partesAuto.BoundsException;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
-import auto.partesAuto.pedal.Acelerador;
-
-import combustible.Combustible;
 
 /**
  * Es el encargado del proceso de combustión del {@link Combustible}, que obtiene a traves del {@link Mezclador}.
@@ -19,28 +17,21 @@ import combustible.Combustible;
 public class Motor extends PartesAuto implements Torqueador{
 	private double rpmMaximo;
 	private int rendimiento;
-	//private double rpm;	// deMarino: no tiene porque acumularlo el motor, es funcion del auto
 	private double cilindrada;	// // deMarino: acercamiento con el modelo real
 	private Mezclador mezclador;
 	private Caja caja;
-//	private Auto auto;
-	//private boolean NecesitoCambio;//// deMarino: no sigue el modelo que planteamos, Si es por la caja automática usar herencia
 	private Escape escape;
-	//private double temperatura;
-	private double aceleracion; // deMarino: tenemos que guardar la aceleracion para ir cambiando el torque a medida que lo pedimos
+	private double aceleracion;
 
-	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape, Caja caja, double cilindrada)throws BoundsException{
+	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape,double cilindrada)throws BoundsException{
 		super();
 		setRendimiento(rendimiento);
 		setRPMMaximo(rpmMaximo);
 		this.mezclador = mezclador;
 		this.escape=escape;
-		this.caja=caja;
-//		this.auto = auto;
+		this.caja=null;
+		this.cilindrada=cilindrada;
 		aceleracion=0;
-		this.cilindrada = cilindrada;
-//		rpm=0;
-//		temperatura=0;
 	}
 
 	private void setRendimiento(int rendimiento)throws BoundsException{
@@ -64,18 +55,10 @@ public class Motor extends PartesAuto implements Torqueador{
 	public void acelerar(double acelerar)throws BoundsException{  //acelerar [0..1]
 		if(getVidaUtil()>0){
 			if (acelerar>1 || acelerar < 0)
-				throw new BoundsException();	//deMarino: Creo que tiene mas sentido ya que los otros valores no son validos
+				throw new BoundsException();
 			this.aceleracion=acelerar;
 		}else
 			this.aceleracion=0;
-		/* deMarino: Lo siguiente lo tiene que hacer el metodo llamado por Torque
-		 *
-		 * mezcla=mezclador.obtenerMezcla(aceleracion);
-		aumentarRpm(realizarCombustión(mezcla));
-		actualizarVidaUtil();
-		}
-		else disminuiRPM(2.0);
-		*/
 	}
 
 	public boolean desgastar(int tiempo) {	//deMarino: Nico quiere que dependa del tiempo.
@@ -93,7 +76,10 @@ public class Motor extends PartesAuto implements Torqueador{
 	}
 
 	public double obtenerRPM(){
-		return caja.obtenerRpmEntrada();
+		if(caja==null)
+			return 0;
+		else
+			return caja.obtenerRpmEntrada();
 	}
 
 	public int getRendimiento() {
@@ -107,7 +93,6 @@ public class Motor extends PartesAuto implements Torqueador{
 		double mezcla=mezclador.obtenerMezcla(aceleracion*cilindrada);	//deMarino: No importa si es mayor que 1
 		double energiaDeCombustion=realizarCombustion(mezcla);
 		torque*=energiaDeCombustion;
-		//temperatura += obtenerRPM()/getRPMMaximo()+ temperatura;	//deMarino: Me parece mejor no modelar la temperatura, nunca lo hablamos
 		return torque;
 
 	}
@@ -115,12 +100,6 @@ public class Motor extends PartesAuto implements Torqueador{
 	public double getRPMMaximo() {
 		return rpmMaximo;
 	}
-
-	/* deMarino : El motor no tiene pq enterarse directamente de esto, la caja disminuye la fuerza y por ende tambien lo haran las rpm
-	public void nuevoCambio() {
-		disminuiRPM(obtenerRPM()/2); //bajo las revoluciones a la mitad
-	}
-	*/
 
 	public void setMezclador(Mezclador mezclador){
 		this.mezclador = mezclador;
@@ -134,4 +113,5 @@ public class Motor extends PartesAuto implements Torqueador{
 	public void setEscape(Escape escape) {
 		this.escape=escape;
 	}
+
 }

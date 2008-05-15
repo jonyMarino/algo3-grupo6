@@ -5,65 +5,66 @@ import java.awt.Color;
 
 
 /**
- * La parte exterior del {@link Auto}. 
- * Una carrocería aerodinámica y liviana puede ayudar mucho a aumentear 
+ * La parte exterior del {@link Auto}.
+ * Una carrocería aerodinámica y liviana puede ayudar mucho a aumentear
  * la velocidad del auto, ya que la oposición que presente al viento será menor.
  *
  *@see PartesAuto
  *@see Auto
  */
 public class Carroceria extends PartesAuto{
-	
+
 	private Color color;
 	private double volumen;
 	private int aeroDinamia;
 
-	public Carroceria(double volumen,int aeroDinamia){
+	public Carroceria(double volumen,int aeroDinamia,double peso){
 		super();
 		setVolumen(volumen);
 		setAeroDinamia(aeroDinamia);
 		setColor(0,0,0);
+		this.setPeso(peso);
 	}
-	
+
 	public void setColor(int R,int G,int B){
 		if (R>=0 && R<255 && G>=0 && G<255 && G>=0 && G<255)
 			this.color=new Color(R,G,B);
-		else 
+		else
 			this.color=new Color(0,0,0);
-			
+
 	}
-	
+
 	public Color getColor(){
 		return this.color;
 	}
-	
+
 	public void setVolumen(double volumen){
 		if(volumen>0)
 			this.volumen=volumen;
-		else 
+		else
 			this.volumen=0;
 	}
-	
+
 	public double getVolumen(){
 		return this.volumen;
 	}
-	
+
 	public void setAeroDinamia(int aeroDinamia){
 		if(aeroDinamia>0)
 			this.aeroDinamia=aeroDinamia;
-		else 
+		else
 			this.aeroDinamia=0;
 	}
-	
+
 	public double getAeroDinamia(){
 		return this.aeroDinamia;
 	}
-	
+
 	public boolean desgastar(int tiempo){
-		setVidaUtil(getVidaUtil()-tiempo/100);	
-		return desgastado();                   									
+		setVidaUtil(getVidaUtil()-tiempo/100);
+		return desgastado();
 	}
-	
+
 	public double getFuerzaAire(Pista pista){
 		if(this.getVidaUtil()>0)
 		return pista.getVelocidadAire()/getAeroDinamia();

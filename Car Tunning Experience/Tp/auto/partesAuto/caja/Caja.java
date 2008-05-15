@@ -5,8 +5,6 @@ import auto.partesAuto.*;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Motor;
 
-
-
 /**
  * La Caja transforma (se podría decir que lo "amplifica") el torque que genera el {@link Motor}.
  * La transformación del torque depende del cambio.
@@ -24,10 +22,10 @@ public abstract class Caja extends PartesAuto implements Torqueador{
 	private Motor motor;
 	private Eje eje;
 
-	public Caja(Eje eje, Motor motor){
-		this.eje=eje;
-		eje.addTorqueador(this);
-		this.motor=motor;
+	public Caja(){
+		//this.eje=eje;
+
+		//this.motor=motor;
 		cambio=1; //empieza en primera
 		relaciones = new int[6];
 		for(int i=0;i<6;i++){
@@ -39,16 +37,26 @@ public abstract class Caja extends PartesAuto implements Torqueador{
 		return torque * relaciones[cambio];
 	}
 	public abstract double getTorque();
-	/* // deMarino: si es Automatico no se puede hacer
-	public void setCambio(int cambio) {
 
-	}
-	*/
-	protected void setCambio(int cambio) { //TODO: si es protegido, el auto no puede pasar cambios.
+	protected void setCambio(int cambio) {
 		this.cambio=cambio;
+	}
+
+	public void setMotor(Motor m ){
+		motor=m;
 	}
 	public Motor getMotor(){
 		return motor;
+	}
+
+	public void setEje(Eje e ){
+		if(eje!=null)
+			return;
+		eje=e;
+		eje.addTorqueador(this);
+	}
+	public Eje getEje(){
+		return eje;
 	}
 
 	public int getCambio() {
@@ -60,6 +68,8 @@ public abstract class Caja extends PartesAuto implements Torqueador{
 	}
 
 	public double obtenerRpmEntrada(){
+		if(eje==null)
+			return 0;
 		return eje.getRpm()*relaciones[cambio];
 	}
 

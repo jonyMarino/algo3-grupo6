@@ -1,5 +1,6 @@
 package pruebas;
 
+import pista.Pista;
 import junit.framework.TestCase;
 import auto.AutoManual;
 import auto.partesAuto.BoundsException;
@@ -26,22 +27,23 @@ public class MotorTest extends TestCase {
 	Eje eje;
 	AutoManual auto;
 	Carroceria carroceria;
+	Pista pista;
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		pista = new Pista(100);
 		nafta = new Nafta(95,20);
 		tanque = new TanqueNafta(50, nafta);
 		mezclador = new MezcladorNafta(100,tanque);
 		escape = new Escape(100);
-		carroceria = new Carroceria(5,5);
-		rueda = new Rueda(1,0.0,0.0); //TODO: ¿no puede una rueda pertenecer a otra cosa que no sea un auto
-		eje = new Eje(rueda);
-		caja = new CajaManual(eje, motor);
-		motor=new Motor(100,7500,mezclador,escape,caja, 300); //TODO: Idem, creo que auto le puede pasar la velocidad alas ruedas.De esta forma Rueda no tiene que guardar una referencia de Auto.
-		//TODO: tanto Motor, como rueda, poseen referencias a un auto que no existe.
+		carroceria = new Carroceria(5,5,200);
+		rueda = new Rueda(1,0.9,0.6);
+		motor=new Motor(100,7500,mezclador,escape,2.0);
+		caja = new CajaManual();
+
 		tanque.llenarTanque(50);
 		auto = new AutoManual(escape, carroceria, motor, caja, mezclador, tanque, rueda, rueda, rueda, rueda);
-		rueda.setAuto(auto);
+		rueda.setPista(pista);
 	}
 
 	protected void tearDown() throws Exception {
@@ -54,9 +56,13 @@ public class MotorTest extends TestCase {
 	}
 
 	public void testAcelerar() throws BoundsException {
-		assertEquals(0.0, motor.getTorque());
+		assertEquals(0.0, motor.obtenerRPM());
 		motor.acelerar(1);
-		assertEquals(47.5, motor.getTorque());
+		auto.calcularVelocidad(10, pista);
+		double rpm = motor.obtenerRPM();
+		System.out.println(rpm);
+		int result =(int)(motor.obtenerRPM()*100);//comparo contra 2 decimales
+		assertEquals(538, result);
 	}
 
 	public void testAcelerarDeMas() throws BoundsException {
@@ -77,8 +83,10 @@ public class MotorTest extends TestCase {
 	public void testAcelerarHastaFundir() throws BoundsException{
 		escape.setEficiencia(20);
 		int contador;
+		motor.acelerar(1);
+
 		for(contador=0;contador<900;contador++)
-			motor.acelerar(1);
+			auto.calcularVelocidad(60000, pista);
 		assertEquals(0.0, motor.getVidaUtil());
 	}
 

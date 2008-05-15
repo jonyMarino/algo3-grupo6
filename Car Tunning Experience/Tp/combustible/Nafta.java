@@ -9,10 +9,10 @@ public class Nafta extends Combustible{
 
 	private int           octanaje;
 	private static double pesoEspecifico = 0.75;
-	
+
 /**
  * Crea un nuevo objeto de tipo nafta.
- * 
+ *
  * @param octanaje el octanaje de la Nafta
  * @param costo el costo por litro de la Nafta
  */
