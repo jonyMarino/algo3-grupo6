@@ -14,6 +14,7 @@ public class AutoSecuencial extends Auto {
 	public AutoSecuencial(Escape escape, Carroceria carroceria, Motor motor,
 	                      CajaAutomatica cajaAutomatica, MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
 	                      Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4){
+
 		super(escape,carroceria,motor,cajaAutomatica,mezcladorNafta,tanqueNafta,rueda1,rueda2,rueda3,rueda4);
 		this.setCajaAutomatica(cajaAutomatica);
 
