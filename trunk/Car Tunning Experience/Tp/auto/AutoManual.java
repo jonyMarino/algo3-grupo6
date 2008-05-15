@@ -1,4 +1,3 @@
-
 package auto;
 import auto.partesAuto.Carroceria;
 import auto.partesAuto.Escape;
@@ -12,13 +11,14 @@ public class AutoManual extends Auto {
 
 	CajaManual cajaManual;
 
-	public AutoManual(Escape escape, Carroceria carroceria, Motor motor,
+public AutoManual(Escape escape, Carroceria carroceria, Motor motor,
 		             CajaManual cajaManual, MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
 		             Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4){
-		super(escape,carroceria,motor,cajaManual,mezcladorNafta,tanqueNafta,rueda1,rueda2,rueda3,rueda4);
-			this.setCajaManual(cajaManual);
 
-		}
+		super(escape,carroceria,motor,cajaManual,mezcladorNafta,tanqueNafta,rueda1,rueda2,rueda3,rueda4);
+		this.setCajaManual(cajaManual);
+
+	}
 
 	public void ponerCambio(int cambio){
 		CajaManual cajaManual = this.getCajaManual();
@@ -38,5 +38,4 @@ public class AutoManual extends Auto {
 	public void setCajaManual(CajaManual cajaManual) {
 		this.cajaManual = cajaManual;
 	}
-
 }
