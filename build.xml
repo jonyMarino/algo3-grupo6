@@ -5,18 +5,19 @@
     <property name="dest" location="bin/" />
     <property name="pruebas" location="${src}/pruebas/" />
     <property name="doc" location="doc/" />
-    <property name="junit.output.dir" value="${dest}/pruebas/"/>
+    <property name="junit.out" value="${dest}/pruebas/resultados"/>
+    <property name="junit.reporte" value="${dest}/pruebas/reporte"/>
     <target name="ayuda" >
-    	<echo> Debe escribir "ant" y especificar una acción: </echo>
+    	<echo> Debe escribir "ant" y especificar una accion: </echo>
     	<echo>		compilar:   compila el proyecto en ${dest}.</echo>
     	<echo>		probar:     corre las prubas unitarias.</echo>
     	<echo>		reporte:    crea un reporte acerca de las pruebas.</echo>
-    	<echo>		documentar: crea la documentación Javadoc en ${doc}.</echo>
-    	<echo>		todo:       compila, prueba, crea los reportes y la documentación.</echo>
+    	<echo>		documentar: crea la documentacion Javadoc en ${doc}.</echo>
+    	<echo>		todo:       compila, prueba, crea los reportes y la documentacion.</echo>
     	<echo>		limpiar:    borra el directorio ${dest} y ${doc}, y sus contenidos.</echo>
     	<echo>		ayuda:      muestra esta pantalla.</echo>
     	<echo></echo>
-    	<echo>Nota: para construír y/o correr las prubas, es necesario que el directorio que contiene junit.jar se encuentre en el classpath</echo>
+    	<echo>Nota: para construir y/o correr las prubas, es necesario que el directorio que contiene junit.jar se encuentre en el classpath</echo>
     </target>
     <target name="inicializar">
         <mkdir dir="${dest}"/>
@@ -29,14 +30,14 @@
         <javac destdir="${dest}" srcdir="${src}"/>
     </target>
     <target depends="compilar" name="probar">
-        <mkdir dir="${junit.output.dir}"/>
+        <mkdir dir="${junit.out}"/>
         <junit fork="yes" printsummary="withOutAndErr">
         	<classpath>
 				<pathelement location="${dest}"/>
     			<pathelement path="${java.class.path}"/>
   			</classpath>
             <formatter type="xml"/>
-            <batchtest fork="yes" todir="${junit.output.dir}">
+            <batchtest fork="yes" todir="${junit.out}">
             	<fileset dir="${dest}">
             		<include name="**/*Test*.class"/>
             	</fileset>
@@ -44,11 +45,12 @@
         </junit>
     </target>
     <target depends="probar" name="reporte">
-        <junitreport todir="${junit.output.dir}">
-            <fileset dir="${junit.output.dir}">
+        <mkdir dir="${junit.reporte}"/>
+        <junitreport todir="${junit.reporte}">
+            <fileset dir="${junit.out}">
                 <include name="TEST-*.xml"/>
             </fileset>
-            <report format="frames" todir="${junit.output.dir}"/>
+            <report format="frames" todir="${junit.reporte}"/>
         </junitreport>
     </target>
     <target name="documentar">
