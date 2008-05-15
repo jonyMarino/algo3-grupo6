@@ -40,7 +40,6 @@ public class MotorTest extends TestCase {
 		rueda = new Rueda(1,0.9,0.6);
 		motor=new Motor(100,7500,mezclador,escape,2.0);
 		caja = new CajaManual();
-
 		tanque.llenarTanque(50);
 		auto = new AutoManual(escape, carroceria, motor, caja, mezclador, tanque, rueda, rueda, rueda, rueda);
 		rueda.setPista(pista);
