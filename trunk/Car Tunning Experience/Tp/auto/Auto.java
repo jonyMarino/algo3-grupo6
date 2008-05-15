@@ -44,6 +44,20 @@ public abstract class Auto {
 	private LinkedList<PartesAuto> partes;
 	private static double          aceleracionGravedad = 9.8;
 
+	/**
+	 * Crea un nuevo auto con las partes especificadas.
+	 * 
+	 * @param escape el escape
+	 * @param carroceria la carrocería
+	 * @param motor el motor
+	 * @param caja la caja
+	 * @param mezcladorNafta el mezclador
+	 * @param tanqueNafta el tanque de nafta
+	 * @param rueda1 la rueda  delantera derecha
+	 * @param rueda2 la rueda delantera izquierda
+	 * @param rueda3 la rueda trasera derecha
+	 * @param rueda4 la rueda trasera derecha
+	 */
 	public Auto(Escape escape, Carroceria carroceria, Motor motor,
 	            Caja caja,MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
 	            Rueda rueda1, Rueda rueda2, Rueda rueda3, Rueda rueda4){
@@ -92,14 +106,34 @@ public abstract class Auto {
 
 
 //VELOCIDAD
+	
+	/**
+	 * Devuelve la velocidad actual del Auto.
+	 * 
+	 * @return La velocidad actual del Auto.
+	 */
 	public double getVelocidad(){
 		return velocidad;
 	}
 
+	/**
+	 * Devuelve las revoluciones por minuto de las Ruedas.
+	 * 
+	 * @return Las Rpm de las Ruedas
+	 * @see Rueda
+	 */
 	public double obtenerRpm(){
 		return ruedas.get(0).getRPM();
 	}
 
+	/**
+	 * Calcula la velocidad para el Auto despues de transcurridos t segundos.
+	 * 
+	 * @param segundosTranscurridos los segundos transcurridos
+	 * @param pista la pista por la que se mueve el auto
+	 * 
+	 * @see Pista
+	 */
 	public void calcularVelocidad(int segundosTranscurridos,Pista pista){
 		Eje eje = this.getEje();
 		Carroceria carroceria = this.getCarroceria();
@@ -117,10 +151,25 @@ public abstract class Auto {
 	}
 
 //ESCAPE
+	/**
+	 * Devuelve el {@link Escape} asociado al Auto.
+	 * 
+	 * @return El {@link Escape} asociado.
+	 * 
+	 * @see Escape
+	 */
 	public Escape getEscape() {
 		return escape;
 	}
 
+	/**
+	 * 
+	 * Le asigna un {@link Escape} al Auto.
+	 * 
+	 * @param escape el {@link Escape} a asignar.
+	 * 
+	 * @see Escape
+	 */
 	public void setEscape(Escape escape) {
 		this.escape = escape;
 		Motor motor = this.getMotor();
@@ -129,24 +178,62 @@ public abstract class Auto {
 
 
 //CARROCERIA
+	/**
+	 * Devuelve la {@link Carroceria} asociada al Auto.
+	 * 
+	 * @return La {@link Carroceria} asociada.
+	 * 
+	 * @see Carroceria
+	 */
 	public Carroceria getCarroceria() {
 		return carroceria;
 	}
 
+	/** 
+	 * Asigna una {@link Carroceria} al Auto.
+	 * 
+	 * @param carroceria La {@link Carroceria} a asignar
+	 * 
+	 * @see Carroceria
+	 */
 	public void setCarroceria(Carroceria carroceria) {
 		this.carroceria = carroceria;
 	}
 
 
 //MOTOR
+	
+	/**
+	 * Devuelve el {@link Motor} asociado al Auto
+	 * 
+	 * @return El {@link Motor} asociado.
+	 * 
+	 * @see Motor
+	 */
 	public Motor getMotor() {
 		return motor;
 	}
 
+	
+	/**
+	 * Asigna un {@link Motor} al Auto.
+	 * 
+	 * @param motor El {@link Motor} a asignar.
+	 * 
+	 * @see Motor
+	 */
 	public void setMotor(Motor motor) {
 		this.motor = motor;
 	}
 
+	
+	/**
+	 * Devuelve las revoluciones por minuto del {@link Motor}.
+	 * 
+	 * @return Las RPM del {@link Motor}.
+	 * 
+	 * @see Motor
+	 */
 	public double getRPM(){
 		Motor motor = this.getMotor();
 		double rpm = motor.obtenerRPM();
