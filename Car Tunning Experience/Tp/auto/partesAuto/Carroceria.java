@@ -3,7 +3,6 @@ import auto.PartesAuto;
 import pista.Pista;
 import java.awt.Color;
 
-
 /**
  * La parte exterior del {@link Auto}.
  * Una carrocería aerodinámica y liviana puede ayudar mucho a aumentear
