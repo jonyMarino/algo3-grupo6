@@ -39,8 +39,8 @@ public class Acelerador extends PartesAuto implements Pedal{
 
 	public boolean desgastar(int tiempo) {
 		if(usado){
-		setVidaUtil(getVidaUtil()-tiempo/1000);
-		return desgastado();
+			setVidaUtil(getVidaUtil()-tiempo/1000);
+			return desgastado();
 		}else{
 			return usado;
 		}
