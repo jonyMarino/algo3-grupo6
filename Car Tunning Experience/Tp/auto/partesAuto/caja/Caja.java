@@ -4,7 +4,7 @@ import auto.PartesAuto;
 import auto.partesAuto.*;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Motor;
-
+import java.lang.RuntimeException;
 /**
  * La Caja transforma (se podría decir que lo "amplifica") el torque que genera el {@link Motor}.
  * La transformación del torque depende del cambio.
@@ -46,10 +46,10 @@ public abstract class Caja extends PartesAuto implements Torqueador{
 		return motor;
 	}
 
-	public void setEje(Eje e ){
-		if(eje!=null)
-			return;
-		eje=e;
+	public void setEje(Eje nuevoEje ){
+		if(eje==null)
+			throw new RuntimeException();
+		eje=nuevoEje;
 		eje.addTorqueador(this);
 	}
 	public Eje getEje(){

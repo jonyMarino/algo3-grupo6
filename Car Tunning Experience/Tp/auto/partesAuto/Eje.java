@@ -1,8 +1,12 @@
 package auto.partesAuto;
 import java.util.LinkedList;
-
+import java.lang.RuntimeException;
 import auto.PartesAuto;
 import auto.partesAuto.caja.Caja;
+
+class NoTorqueadorException extends RuntimeException{
+	static final long serialVersionUID=1;
+}
 /**
  * El Eje vincula la {@link Caja} con las {@link Rueda}s.
  * Es el vínculo por el cual se transmite el torque hacia las {@link Rueda}s
@@ -12,6 +16,8 @@ import auto.partesAuto.caja.Caja;
  * @see PartesAuto
  *
  */
+
+
 public class Eje extends PartesAuto{
 
 	private LinkedList<Torqueador> torques = new LinkedList<Torqueador>();
@@ -37,7 +43,7 @@ public class Eje extends PartesAuto{
 
 	public void addTorqueador(Torqueador t) {
 		if(t==null)
-			return;
+			throw new NoTorqueadorException();
 		torques.add(t);
 	}
 	

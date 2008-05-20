@@ -19,13 +19,10 @@ public class Escape extends PartesAuto{
 		setEficiencia(eficiencia);
 	}
 
-	public void setEficiencia(double eficiencia){
-		if(eficiencia > 100)
-			this.eficiencia = 100;
-		else if(eficiencia < 0)
-			this.eficiencia = 0;
-		else
-			this.eficiencia = eficiencia;
+	public void setEficiencia(double eficiencia)throws BoundsException{
+		if(eficiencia < 0 || eficiencia > 100)
+			throw new BoundsException("Valor de eficiencia de escape");
+		this.eficiencia = eficiencia;
 	}
 
 	public double getEficiencia(){

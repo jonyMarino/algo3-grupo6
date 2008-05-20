@@ -4,6 +4,7 @@ import auto.PartesAuto;
 import auto.partesAuto.BoundsException;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
+import java.lang.RuntimeException;
 
 /**
  * Es el encargado del proceso de combustión del {@link Combustible}, que obtiene a traves del {@link Mezclador}.
@@ -24,6 +25,14 @@ public class Motor extends PartesAuto implements Torqueador{
 	private Escape escape;
 	private double aceleracion;
 
+	public Motor(int rendimiento, double rpmMaximo,double cilindrada)throws BoundsException{
+		super();
+		setRendimiento(rendimiento);
+		setRPMMaximo(rpmMaximo);
+		this.cilindrada=cilindrada;
+		aceleracion=0;
+	}
+	
 	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape,double cilindrada)throws BoundsException{
 		super();
 		setRendimiento(rendimiento);
@@ -37,7 +46,7 @@ public class Motor extends PartesAuto implements Torqueador{
 
 	private void setRendimiento(int rendimiento)throws BoundsException{
 		if (rendimiento>100 || rendimiento < 0)
-			throw new BoundsException();
+			throw new BoundsException("Valor del rendimiento del motor inv"+(char)160+"lido.");
 		else this.rendimiento=rendimiento;
 	}
 
@@ -56,7 +65,7 @@ public class Motor extends PartesAuto implements Torqueador{
 	public void acelerar(double acelerar)throws BoundsException{
 		if(getVidaUtil()>0){
 			if (acelerar>1 || acelerar < 0)
-				throw new BoundsException();
+				throw new BoundsException("Valor de aceleracion incorrecto.");
 			this.aceleracion=acelerar;
 		}else
 			this.aceleracion=0;
@@ -88,6 +97,8 @@ public class Motor extends PartesAuto implements Torqueador{
 	}
 
 	public double getTorque() {
+		if(escape==null || mezclador == null || caja==null)
+			throw new RuntimeException("Faltan partes en el motor para que funcione.");
 		if(aceleracion==0)
 			return 0;
 		double torque = -1/rpmMaximo * obtenerRPM() +1; 

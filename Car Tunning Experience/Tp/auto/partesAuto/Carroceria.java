@@ -2,7 +2,7 @@ package auto.partesAuto;
 import auto.PartesAuto;
 import pista.Pista;
 import java.awt.Color;
-
+import java.lang.Exception;
 /**
  * La parte exterior del {@link Auto}.
  * Una carrocería aerodinámica y liviana puede ayudar mucho a aumentear
@@ -25,34 +25,34 @@ public class Carroceria extends PartesAuto{
 		this.setPeso(peso);
 	}
 
-	public void setColor(int R,int G,int B){
-		if (R>=0 && R<255 && G>=0 && G<255 && G>=0 && G<255)
-			this.color=new Color(R,G,B);
-		else
-			this.color=new Color(0,0,0);
-
+	public void setColor(int R,int G,int B)throws BoundsException{
+		if (R<0 || R>255)
+			throw new BoundsException("Valor de R incorrecto.");
+		if( G<0 || G>255)
+			throw new BoundsException("Valor de G incorrecto.");
+		if(B<0 || B>255)
+			throw new BoundsException("Valor de B incorrecto.");
+		this.color=new Color(R,G,B);
 	}
 
 	public Color getColor(){
 		return this.color;
 	}
 
-	public void setVolumen(double volumen){
-		if(volumen>0)
-			this.volumen=volumen;
-		else
-			this.volumen=0;
+	public void setVolumen(double volumen)throws BoundsException{
+		if(volumen<0)
+			throw new BoundsException("Valor de volumen: "+volumen+" incorrecto.");
+		this.volumen=volumen;
 	}
 
 	public double getVolumen(){
 		return this.volumen;
 	}
 
-	public void setAeroDinamia(int aeroDinamia){
-		if(aeroDinamia>0)
-			this.aeroDinamia=aeroDinamia;
-		else
-			this.aeroDinamia=0;
+	public void setAeroDinamia(int aeroDinamia)throws BoundsException{
+		if(aeroDinamia<0)
+			throw new BoundsException("Valor de aerodinamia incorrecto.");
+		this.aeroDinamia=aeroDinamia;
 	}
 
 	public double getAeroDinamia(){
@@ -66,8 +66,9 @@ public class Carroceria extends PartesAuto{
 
 	public double getFuerzaAire(Pista pista){
 		if(this.getVidaUtil()>0)
-		return pista.getVelocidadAire()/getAeroDinamia();
-		else return pista.getVelocidadAire();
+			return pista.getVelocidadAire()/getAeroDinamia();
+		else 
+			return pista.getVelocidadAire();
 	}
 
 }
