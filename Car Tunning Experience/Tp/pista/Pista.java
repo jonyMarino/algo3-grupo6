@@ -10,13 +10,18 @@ public class Pista {
 		public AutoPosicionado(Auto auto){
 			this.auto=auto;
 		}
+		
 		public void setPosicion(double posicion){
+			if(posicion<0)
+				throw new BoundsException("Valor de la posicion incorrecto");
 			this.posicion=posicion;
 		}
+		
 		public double getPosicion(){
 			return this.posicion;
 		}
 	}
+	
 	private double coeficienteDeRozamientoRelativo;
 	private double longitud;
 	private int velocidadAire;
@@ -36,9 +41,9 @@ public class Pista {
 	}
 
 	public void setLongitud(double longitud) {
-		if (longitud < 0)
-			this.longitud = 0;
-		else this.longitud = longitud;
+		if(longitud<0)
+			throw new BoundsException("Valor de la longitud incorrecto");
+		this.longitud=longitud;
 	}
 
 	public double getLongitud() {
@@ -46,11 +51,9 @@ public class Pista {
 	}
 
 	public void setCoeficienteDeRozamientoRelativo(double coeficienteDeRozamientoRelativo) {
-		if (coeficienteDeRozamientoRelativo > 1)
-			this.coeficienteDeRozamientoRelativo = 1;
-		else if (coeficienteDeRozamientoRelativo < 0)
-			this.coeficienteDeRozamientoRelativo = 0;
-		else this.coeficienteDeRozamientoRelativo = coeficienteDeRozamientoRelativo;
+		if( (coeficienteDeRozamientoRelativo < 0)||(coeficienteDeRozamientoRelativo > 1) )
+			throw new BoundsException("Valor del coeficiente de rozamient relativa incorrecto.");
+		this.coeficienteDeRozamientoRelativo = coeficienteDeRozamientoRelativo;
 	}
 
 	public double getCoeficienteDeRozamientoRelativo() {
@@ -59,9 +62,9 @@ public class Pista {
 
 
 	public void setVelocidadAire(int velocidadAire) {
-		if(velocidadAire>=0)
-			this.velocidadAire=velocidadAire;
-		else this.velocidadAire=0;
+		if(velocidadAire<0)
+			throw new BoundsException("Valor de la velocidad del aire incorrecto");
+		this.velocidadAire=velocidadAire;
 	}
 
 	public int getVelocidadAire(){
