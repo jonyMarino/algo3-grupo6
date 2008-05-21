@@ -1,5 +1,6 @@
 package auto.partesAuto.tanque;
 
+import combustible.Combustible;
 import auto.PartesAuto;
 
 /**
@@ -23,7 +24,7 @@ public abstract class TanqueCombustible extends PartesAuto{
 	*@param capacidad La capacidad del tanque.
 	*
 	*/
-	public TanqueCombustible(int capacidad) {
+	public TanqueCombustible(int capacidad,Combustible combustible) {
 			super();
 			this.setCapacidad(capacidad);
 			this.setCantidadCombustible(0);

@@ -1,11 +1,14 @@
 package auto.partesAuto.mezclador;
+
 import auto.PartesAuto;
+import auto.partesAuto.tanque.TanqueCombustible;
 
 /**
  * El Mezclador es el encargado de obtener {@link Combustible} del {@link TanqueCombustible},
  * mezclarlo y dejarlo listo para el proceso de combustión.
  * @see Motor
  * @see PartesAuto
+ * @see TanqueCombustible
  */
 
 public abstract class Mezclador extends PartesAuto{
@@ -18,7 +21,7 @@ public abstract class Mezclador extends PartesAuto{
 	*@param rendimiento El rendmiento con el que opera el Mezclador (0..100)
 	*
 	*/
-	public Mezclador(int rendimiento) {
+	public Mezclador(int rendimiento,TanqueCombustible tanque) {
 		super();
 		this.setRendimiento(rendimiento);
 }
@@ -58,6 +61,6 @@ public abstract class Mezclador extends PartesAuto{
 			this.rendimiento = 100;
 		else this.rendimiento = rendimiento;
 	}
-
+	
 }
 

@@ -20,7 +20,7 @@ public class MezcladorNafta extends Mezclador {
 	*
 	*/
 	public MezcladorNafta(int rendimiento, TanqueNafta tanqueNafta) {
-		super(rendimiento);
+		super(rendimiento,tanqueNafta);
 		this.setTanqueNafta(tanqueNafta);
 	}
 
@@ -28,7 +28,7 @@ public class MezcladorNafta extends Mezclador {
 	 * Genera una mezcla formada por {@link Nafta} mezclada con aire, teniendo en
 	 * cuenta su rendimiento y la calidad de la Nafta.
 	 *
-	 *æreturn la cantidad de mezcla que fue posible obtener
+	 *@return la cantidad de mezcla que fue posible obtener
 	 */
 	public double obtenerMezcla(double litrosMezcla){
 		TanqueNafta tanqueNafta = this.getTanqueNafta();
@@ -48,7 +48,7 @@ public class MezcladorNafta extends Mezclador {
 		}
 		return mezclaProducida;
 	}
-
+	
 	/**
 	*
 	*Devuelve el {@link TanqueNafta} asociado al MezcladorNafta.
@@ -68,5 +68,6 @@ public class MezcladorNafta extends Mezclador {
 	public void setTanqueNafta(TanqueNafta tanqueNafta) {
 		this.tanqueNafta = tanqueNafta;
 	}
+
 
 }

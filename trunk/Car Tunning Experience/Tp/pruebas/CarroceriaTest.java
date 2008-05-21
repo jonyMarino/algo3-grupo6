@@ -2,6 +2,7 @@ package pruebas;
 
 import junit.framework.TestCase;
 
+import auto.partesAuto.BoundsException;
 import auto.partesAuto.Carroceria;
 import pista.Pista;
 
@@ -10,7 +11,7 @@ public class CarroceriaTest extends TestCase {
 	Carroceria carroceria;
 	Pista pista;
 
-	public void testFuerzaAire() {
+	public void testFuerzaAire() throws BoundsException {
 		pista=new Pista(5);
 		carroceria= new Carroceria(5,5,30);
 		assertEquals(0.0, carroceria.getFuerzaAire(pista));

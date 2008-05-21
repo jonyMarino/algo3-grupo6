@@ -7,17 +7,16 @@ import auto.partesAuto.caja.CajaManual;
 import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.tanque.TanqueNafta;
 
-public class AutoManual extends Auto {
+public class AutoManual extends AutoNaftero {
 
 	CajaManual cajaManual;
 
 public AutoManual(Escape escape, Carroceria carroceria, Motor motor,
-		             CajaManual cajaManual, MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
-		             Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4){
+		          CajaManual cajaManual, MezcladorNafta mezclador, TanqueNafta tanque,
+		          Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4){
 
-		super(escape,carroceria,motor,cajaManual,mezcladorNafta,tanqueNafta,rueda1,rueda2,rueda3,rueda4);
+		super(escape,carroceria,motor,cajaManual,mezclador,tanque,rueda1,rueda2,rueda3,rueda4);
 		this.setCajaManual(cajaManual);
-
 	}
 
 	public void ponerCambio(int cambio){
@@ -38,4 +37,5 @@ public AutoManual(Escape escape, Carroceria carroceria, Motor motor,
 	public void setCajaManual(CajaManual cajaManual) {
 		this.cajaManual = cajaManual;
 	}
+	
 }

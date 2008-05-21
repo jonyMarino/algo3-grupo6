@@ -2,7 +2,7 @@ package auto.partesAuto;
 import auto.PartesAuto;
 import pista.Pista;
 import java.awt.Color;
-import java.lang.Exception;
+
 /**
  * La parte exterior del {@link Auto}.
  * Una carrocería aerodinámica y liviana puede ayudar mucho a aumentear
@@ -19,9 +19,21 @@ public class Carroceria extends PartesAuto{
 
 	public Carroceria(double volumen,int aeroDinamia,double peso){
 		super();
-		setVolumen(volumen);
-		setAeroDinamia(aeroDinamia);
-		setColor(0,0,0);
+		try {
+			setVolumen(volumen);
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
+		try {
+			setAeroDinamia(aeroDinamia);
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
+		try {
+			setColor(0,0,0);
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
 		this.setPeso(peso);
 	}
 

@@ -40,8 +40,8 @@ public class MotorTest extends TestCase {
 		rueda = new Rueda(1,0.9,0.6);
 		motor=new Motor(100,7500,mezclador,escape,2.0);
 		caja = new CajaManual();
-		tanque.llenarTanque(50);
 		auto = new AutoManual(escape, carroceria, motor, caja, mezclador, tanque, rueda, rueda, rueda, rueda);
+		tanque.llenarTanque(50);
 		rueda.setPista(pista);
 	}
 
@@ -64,6 +64,7 @@ public class MotorTest extends TestCase {
 		assertEquals(538, result);
 	}
 
+	
 	public void testAcelerarDeMas() throws BoundsException {
 		try{
 			motor.acelerar(20);
@@ -88,6 +89,7 @@ public class MotorTest extends TestCase {
 			auto.calcularVelocidad(60000, pista);
 		assertEquals(0.0, motor.getVidaUtil());
 	}
+	
 
 
 }

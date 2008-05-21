@@ -1,4 +1,5 @@
 package auto.partesAuto.tanque;
+
 import combustible.Nafta;
 
 /**
@@ -21,7 +22,7 @@ public class TanqueNafta extends TanqueCombustible{
 	*
 	*/
 	public TanqueNafta(int capacidad,Nafta tipoNafta){
-		super(capacidad);
+		super(capacidad,tipoNafta);
 		this.setTipoNafta(tipoNafta);
 	}
 
@@ -34,13 +35,14 @@ public class TanqueNafta extends TanqueCombustible{
 	*@see Combustible
 	*/
 	public double getPeso(){
-		Nafta tipoNaftaAux = this.getTipoNafta();
-		double peso= this.getCantidadCombustible() * tipoNaftaAux.getPesoEspecifico();
+		Nafta tipoNafta = this.getTipoNafta();
+		double peso= this.getCantidadCombustible()*tipoNafta.getPesoEspecifico();
 		return peso;
 	}
 
 	/**
-	 * Especifíca que tipo de Nafta va a almacenar el TanqueNafta
+	 * Especifíca que tipo de Nafta va a almacenar el TanqueNafta, eliminando la
+	 * cantidad de tipo de Nafta anterior.
 	 * @param nafta la nueva clase de Nafta a almacenar
 	 */
 	public void setTipoNafta(Nafta nafta) {
