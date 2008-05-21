@@ -16,7 +16,11 @@ public class Escape extends PartesAuto{
 	 */
 	public Escape(double eficiencia){
 		super();
-		setEficiencia(eficiencia);
+		try {
+			setEficiencia(eficiencia);
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setEficiencia(double eficiencia)throws BoundsException{

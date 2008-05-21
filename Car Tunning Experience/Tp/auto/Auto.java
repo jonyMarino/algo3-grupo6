@@ -7,10 +7,10 @@ import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
 import auto.partesAuto.Rueda;
-import auto.partesAuto.mezclador.MezcladorNafta;
+import auto.partesAuto.mezclador.Mezclador;
 import auto.partesAuto.pedal.Acelerador;
 import auto.partesAuto.pedal.Freno;
-import auto.partesAuto.tanque.TanqueNafta;
+import auto.partesAuto.tanque.TanqueCombustible;
 import auto.partesAuto.caja.Caja;
 
 /**
@@ -23,23 +23,21 @@ import auto.partesAuto.caja.Caja;
  *   @see Caja
  *   @see Carroceria
  *   @see Escape
- *   @see TanqueNafta
+ *   @see TanqueCombustible
  *   @see Acelerador
  *   @see Freno
  *   @see Rueda
  *   @see Eje
- *   @see MezcladorNafta
+ *   @see Mezclador
  */
 public abstract class Auto {
 	private Escape 		           escape;
 	private Carroceria 	           carroceria;
 	private Motor 		           motor;
-	private TanqueNafta            tanqueNafta;
 	private Acelerador	           acelerador;
 	private Freno 		           freno;
 	private LinkedList<Rueda>      ruedas;
 	private Eje                    eje;
-	private MezcladorNafta         mezcladorNafta;
 	private double		           velocidad;
 	private LinkedList<PartesAuto> partes;
 	private static double          aceleracionGravedad = 9.8;
@@ -52,22 +50,20 @@ public abstract class Auto {
 	 * @param motor el motor
 	 * @param caja la caja
 	 * @param mezcladorNafta el mezclador
-	 * @param tanqueNafta el tanque de nafta
+	 * @param tanque el tanque
 	 * @param rueda1 la rueda  delantera derecha
 	 * @param rueda2 la rueda delantera izquierda
 	 * @param rueda3 la rueda trasera derecha
 	 * @param rueda4 la rueda trasera derecha
 	 */
 	public Auto(Escape escape, Carroceria carroceria, Motor motor,
-	            Caja caja,MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
+	            Caja caja,Mezclador mezclador, TanqueCombustible tanque,
 	            Rueda rueda1, Rueda rueda2, Rueda rueda3, Rueda rueda4){
 
 		this.escape = escape;
 		this.setCarroceria(carroceria);
 		this.setMotor(motor);
-		this.mezcladorNafta = mezcladorNafta;
-		this.tanqueNafta = tanqueNafta;
-
+		
 		//Ruedas
 		ruedas = new LinkedList<Rueda>();
 		ruedas.add(rueda1);
@@ -93,8 +89,8 @@ public abstract class Auto {
 		partes.add(escape);
 		partes.add(carroceria);
 		partes.add(motor);
-		partes.add(mezcladorNafta);
-		partes.add(tanqueNafta);
+		partes.add(mezclador);
+		partes.add(tanque);
 		partes.add(rueda1);
 		partes.add(rueda2);
 		partes.add(rueda3);
@@ -175,8 +171,7 @@ public abstract class Auto {
 		Motor motor = this.getMotor();
 		motor.setEscape(this.getEscape());
 	}
-
-
+	
 //CARROCERIA
 	/**
 	 * Devuelve la {@link Carroceria} asociada al Auto.
@@ -238,24 +233,6 @@ public abstract class Auto {
 		Motor motor = this.getMotor();
 		double rpm = motor.obtenerRPM();
 		return rpm;
-	}
-
-
-//TANQUE
-	public TanqueNafta getTanqueNafta() {
-		return tanqueNafta;
-	}
-
-	public void setTanqueNafta(TanqueNafta tanqueNafta) {
-		this.tanqueNafta = tanqueNafta;
-		MezcladorNafta mezcladorNafta = this.getMezcladorNafta();
-		mezcladorNafta.setTanqueNafta(this.getTanqueNafta());
-	}
-
-	public double obtenerCantidadCombustible(){
-		TanqueNafta tanqueNafta = this.getTanqueNafta();
-		double cantidadCombustible = tanqueNafta.getCantidadCombustible();
-		return cantidadCombustible;
 	}
 
 //PEDALES
@@ -329,25 +306,6 @@ public abstract class Auto {
 		this.eje = eje;
 	}
 
-
-//MEZCLADOR
-	public MezcladorNafta getMezcladorNafta() {
-		return mezcladorNafta;
-	}
-
-	public void setMezcladorNafta(MezcladorNafta mezcladorNafta) {
-		this.mezcladorNafta = mezcladorNafta;
-		Motor motor = this.getMotor();
-		motor.setMezclador(this.getMezcladorNafta());
-	}
-
-	protected LinkedList<PartesAuto> getPartes(){
-		return partes;
-	}
-	protected void addParte(PartesAuto parte){
-		partes.add(parte);
-	}
-
 //PESO
 	public double getPeso(){
 		//Se actualiza constantemente
@@ -359,6 +317,13 @@ public abstract class Auto {
 		for(PartesAuto p:getPartes())
 			peso += p.getPeso();
 		return peso;
+	}
+	
+	protected LinkedList<PartesAuto> getPartes(){
+		return partes;
+	}
+	protected void addParte(PartesAuto parte){
+		partes.add(parte);
 	}
 
 	private void asignadorPedales(){

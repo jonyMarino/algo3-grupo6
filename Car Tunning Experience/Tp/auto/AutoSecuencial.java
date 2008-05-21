@@ -7,15 +7,15 @@ import auto.partesAuto.caja.CajaAutomatica;
 import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.tanque.TanqueNafta;
 
-public class AutoSecuencial extends Auto {
+public class AutoSecuencial extends AutoNaftero {
 
 		private CajaAutomatica cajaAutomatica;
 
 	public AutoSecuencial(Escape escape, Carroceria carroceria, Motor motor,
-	                      CajaAutomatica cajaAutomatica, MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
+	                      CajaAutomatica cajaAutomatica, MezcladorNafta mezclador, TanqueNafta tanque,
 	                      Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4){
 
-		super(escape,carroceria,motor,cajaAutomatica,mezcladorNafta,tanqueNafta,rueda1,rueda2,rueda3,rueda4);
+		super(escape,carroceria,motor,cajaAutomatica,mezclador,tanque,rueda1,rueda2,rueda3,rueda4);
 		this.setCajaAutomatica(cajaAutomatica);
 
 	}
