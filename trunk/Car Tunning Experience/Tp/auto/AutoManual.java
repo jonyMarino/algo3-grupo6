@@ -7,9 +7,11 @@ import auto.partesAuto.caja.CajaManual;
 import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.tanque.TanqueNafta;
 
-public class AutoManual extends AutoNaftero {
+public class AutoManual extends Auto {
 
 	CajaManual cajaManual;
+	private TanqueNafta    tanqueNafta;
+	private MezcladorNafta mezcladorNafta;
 
 public AutoManual(Escape escape, Carroceria carroceria, Motor motor,
 		          CajaManual cajaManual, MezcladorNafta mezclador, TanqueNafta tanque,
@@ -36,6 +38,35 @@ public AutoManual(Escape escape, Carroceria carroceria, Motor motor,
 
 	public void setCajaManual(CajaManual cajaManual) {
 		this.cajaManual = cajaManual;
+	}
+	
+	//TODO: Falta modificar
+	//TANQUE NAFTA
+	public TanqueNafta getTanqueNafta() {
+		return tanqueNafta;
+	}
+
+	public void setTanqueNafta(TanqueNafta tanqueNafta) {
+		this.tanqueNafta = tanqueNafta;
+		MezcladorNafta mezcladorNafta = this.getMezcladorNafta();
+		mezcladorNafta.setTanqueNafta(this.getTanqueNafta());
+	}
+	
+	public double obtenerCantidadNafta(){
+		TanqueNafta tanqueNafta = this.getTanqueNafta();
+		double cantidadCombustible = tanqueNafta.getCantidadCombustible();
+		return cantidadCombustible;
+	}
+	
+	//MEZCLADOR NAFTA
+	public MezcladorNafta getMezcladorNafta() {
+		return mezcladorNafta;
+	}
+
+	public void setMezcladorNafta(MezcladorNafta mezcladorNafta) {
+		this.mezcladorNafta = mezcladorNafta;
+		Motor motor = this.getMotor();
+		motor.setMezclador(this.getMezcladorNafta());
 	}
 	
 }
