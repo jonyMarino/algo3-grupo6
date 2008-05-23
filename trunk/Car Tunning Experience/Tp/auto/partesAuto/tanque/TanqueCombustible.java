@@ -2,6 +2,7 @@ package auto.partesAuto.tanque;
 
 import combustible.Combustible;
 import auto.PartesAuto;
+import auto.partesAuto.BoundsException;
 
 /**
 *
@@ -16,7 +17,7 @@ public abstract class TanqueCombustible extends PartesAuto{
 
 	private int capacidad;
 	private double cantidadCombustible;
-
+//TODO: Agrego excepciones
 	/**
 	*
 	* Crea un nuevo TanqueCombustible (vacío) con la capacidad especificada.
@@ -26,8 +27,12 @@ public abstract class TanqueCombustible extends PartesAuto{
 	*/
 	public TanqueCombustible(int capacidad,Combustible combustible) {
 			super();
-			this.setCapacidad(capacidad);
-			this.setCantidadCombustible(0);
+				try {
+					this.setCapacidad(capacidad);
+				} catch (BoundsException e) {
+					e.printStackTrace();
+				}
+				this.setCantidadCombustible(0);
 	}
 
 	/**
@@ -40,8 +45,10 @@ public abstract class TanqueCombustible extends PartesAuto{
 		return capacidad;
 	}
 
-	private void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
+	private void setCapacidad(int capacidad)throws BoundsException {
+		if(capacidad < 0)
+			throw new BoundsException("Valor capacidad negativo");
+		else this.capacidad = capacidad;
 	}
 
 	/**
@@ -49,13 +56,14 @@ public abstract class TanqueCombustible extends PartesAuto{
 	*Devuelve la cantidad de {@link Combustible} que le queda.
 	*
 	*@return la cantidad de {@link Combustible} restante
+	*
 	*@see Combustible
 	*/
 	public double getCantidadCombustible() {
 		return cantidadCombustible;
 	}
 
-	protected void setCantidadCombustible(double cantidadCombustible){
+	protected void setCantidadCombustible(double cantidadCombustible) {
 		this.cantidadCombustible = cantidadCombustible;
 	}
 
@@ -68,13 +76,12 @@ public abstract class TanqueCombustible extends PartesAuto{
 	*
 	*@see Combustible
 	*/
-	public void llenarTanque(float litros) {
-		if (litros > 0) {
-			if ((litros + this.getCantidadCombustible()) <= this.getCapacidad())
-				this.setCantidadCombustible(getCantidadCombustible()+ litros);
-			else
-				this.setCantidadCombustible(this.getCapacidad());
-		}
+	public void llenarTanque(float litros) throws BoundsException {		
+		if(litros < 0)
+				throw new BoundsException("Llenar Tanque con litros negativos");
+		else if ((litros + this.getCantidadCombustible()) > this.getCapacidad())
+				throw new BoundsException("Se supera la capacidad del Tanque");
+		else this.setCantidadCombustible(getCantidadCombustible() + litros);
 	}
 
 	/**
@@ -85,16 +92,17 @@ public abstract class TanqueCombustible extends PartesAuto{
 	*@return litros de combustible que pudo entregar.
 	*@see Combustible
 	*/
-	public double usarCombustible(double litros){
+	public double usarCombustible(double litros) throws BoundsException{
 		double combustibleConsumo = 0;
 		if(this.getVidaUtil() > 0){
-			if (litros <= this.getCantidadCombustible() && litros > 0){
-				this.cantidadCombustible -= litros;
-				combustibleConsumo = litros;
-			}else if(litros > this.getCantidadCombustible()){
-				combustibleConsumo = this.getCantidadCombustible();
-				this.cantidadCombustible = 0;
-			}
+				if (litros > this.getCantidadCombustible())
+					throw new BoundsException("No se posee la cantidad de combustible pedida");
+				else if(litros < 0)
+					throw new BoundsException("Se quiere usar una cantidad de combustible negativa");
+				else{
+					this.setCantidadCombustible(this.getCantidadCombustible() - litros);
+					combustibleConsumo = litros;
+				}
 		}
 		return combustibleConsumo;
 	}

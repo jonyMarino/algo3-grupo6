@@ -59,7 +59,7 @@ public class Rueda extends PartesAuto {
 
 	public void setRodado(int rodado) throws BoundsException{
 		if(rodado<0)
-			throw new BoundsException("Valor del rodado incorrecto.");
+			throw new BoundsException("Valor del rodado incorrecto");
 		this.rodado=rodado;
 	}
 
