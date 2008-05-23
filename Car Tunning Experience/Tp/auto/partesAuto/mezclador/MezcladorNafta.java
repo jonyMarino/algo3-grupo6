@@ -1,6 +1,7 @@
 package auto.partesAuto.mezclador;
 
 import combustible.Nafta;
+import auto.partesAuto.BoundsException;
 import auto.partesAuto.tanque.TanqueNafta;
 
 /**
@@ -12,6 +13,7 @@ import auto.partesAuto.tanque.TanqueNafta;
  */
 public class MezcladorNafta extends Mezclador {
 
+	//TODO: Se modifico codigo
 	private TanqueNafta tanqueNafta;
 
 	/**
@@ -29,22 +31,37 @@ public class MezcladorNafta extends Mezclador {
 	 * cuenta su rendimiento y la calidad de la Nafta.
 	 *
 	 *@return la cantidad de mezcla que fue posible obtener
+	 *@throws BoundsException 
 	 */
-	public double obtenerMezcla(double litrosMezcla){
-		TanqueNafta tanqueNafta = this.getTanqueNafta();
-		Nafta nafta = tanqueNafta.getTipoNafta();
+	public double obtenerMezcla(double litrosMezcla) throws BoundsException {
 		double mezclaProducida = 0;
-		if(this.getVidaUtil() > 0 && litrosMezcla >= 0){
+		if(this.getVidaUtil() > 0){
+				if (litrosMezcla < 0)
+					throw new BoundsException("Litros mezcla negativa");
+				else{ 
+					double mezclaNecesaria = ((litrosMezcla*100)/this.getRendimiento());
+					double naftaNecesaria = ((mezclaNecesaria*100)/(this.getTanqueNafta().getTipoNafta().getOctanaje()));
+					
+					if(naftaNecesaria > this.getTanqueNafta().getCantidadCombustible())
+							throw new BoundsException("Faltante de nafta necesaria para la mezcla pedida");			
+					else{
+						this.getTanqueNafta().usarCombustible(naftaNecesaria);
+						mezclaProducida = litrosMezcla;
+					}			
+				}
+				
+			/*
 			double mezclaNecesaria = ((litrosMezcla*100)/this.getRendimiento());
-			double naftaNecesaria = ((mezclaNecesaria*100)/(nafta.getOctanaje()));
-			if(naftaNecesaria > tanqueNafta.getCantidadCombustible()){
-				double naftaUtilRestante = ((tanqueNafta.getCantidadCombustible()*nafta.getOctanaje())/100);
-				tanqueNafta.usarCombustible(tanqueNafta.getCantidadCombustible());
+			double naftaNecesaria = ((mezclaNecesaria*100)/(this.getTanqueNafta().getTipoNafta().getOctanaje()));
+			if(naftaNecesaria > this.getTanqueNafta().getCantidadCombustible()){
+				double naftaUtilRestante = ((this.getTanqueNafta().getCantidadCombustible()*this.getTanqueNafta().getTipoNafta().getOctanaje())/100);
+				this.getTanqueNafta().usarCombustible(this.getTanqueNafta().getCantidadCombustible());
 				mezclaProducida = ((this.getRendimiento()*naftaUtilRestante)/100);
 			}else{
-				tanqueNafta.usarCombustible(naftaNecesaria);
+				this.getTanqueNafta().usarCombustible(naftaNecesaria);
 				mezclaProducida = litrosMezcla;
 			}
+			*/
 		}
 		return mezclaProducida;
 	}

@@ -26,6 +26,7 @@ public class TanqueNafta extends TanqueCombustible{
 		this.setTipoNafta(tipoNafta);
 	}
 
+	//TODO: se modifico codigo
 	/**
 	*
 	* Calcula el peso del TanqueNafta de acuerdo a la cantidad de Nafta que almacena
@@ -35,11 +36,11 @@ public class TanqueNafta extends TanqueCombustible{
 	*@see Combustible
 	*/
 	public double getPeso(){
-		Nafta tipoNafta = this.getTipoNafta();
-		double peso= this.getCantidadCombustible()*tipoNafta.getPesoEspecifico();
+		double peso= this.getCantidadCombustible()*this.getTipoNafta().getPesoEspecifico();
 		return peso;
 	}
 
+	//TODO: agrego excepciones
 	/**
 	 * Especifíca que tipo de Nafta va a almacenar el TanqueNafta, eliminando la
 	 * cantidad de tipo de Nafta anterior.
@@ -57,6 +58,5 @@ public class TanqueNafta extends TanqueCombustible{
 	public Nafta getTipoNafta() {
 		return tipoNafta;
 	}
-
 
 }

@@ -1,6 +1,7 @@
 package auto.partesAuto.mezclador;
 
 import auto.PartesAuto;
+import auto.partesAuto.BoundsException;
 import auto.partesAuto.tanque.TanqueCombustible;
 
 /**
@@ -23,8 +24,12 @@ public abstract class Mezclador extends PartesAuto{
 	*/
 	public Mezclador(int rendimiento,TanqueCombustible tanque) {
 		super();
-		this.setRendimiento(rendimiento);
-}
+		try {
+			this.setRendimiento(rendimiento);
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	*
@@ -35,8 +40,9 @@ public abstract class Mezclador extends PartesAuto{
 	* @param litrosMezcla la cantidad de mezcla que le quiero pedir
 	*
 	*@return cantidad de mezcla que pudo generar
+	* @throws BoundsException 
 	*/
-	public abstract double obtenerMezcla(double litrosMezcla);
+	public abstract double obtenerMezcla(double litrosMezcla) throws BoundsException;
 
 	/**
 	*
@@ -50,15 +56,19 @@ public abstract class Mezclador extends PartesAuto{
 
 	public boolean desgastar(int tiempo) {
 		setVidaUtil(getVidaUtil()-tiempo/1000);
-		setRendimiento(getRendimiento()-tiempo/1000);
+		try {
+			setRendimiento(getRendimiento()-tiempo/1000);
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
 		return desgastado();
 	}
 
-	private void setRendimiento(int rendimiento) {
+	private void setRendimiento(int rendimiento) throws BoundsException {
 		if(rendimiento < 0)
-		   this.rendimiento = 0;
+		   throw new BoundsException("Rendimiento Mezclador negativo");
 		else if (rendimiento > 100)
-			this.rendimiento = 100;
+		   throw new BoundsException("Rendimiento Mezclador excesivo");
 		else this.rendimiento = rendimiento;
 	}
 	
