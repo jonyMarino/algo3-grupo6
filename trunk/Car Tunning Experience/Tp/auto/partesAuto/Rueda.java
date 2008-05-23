@@ -1,9 +1,9 @@
 package auto.partesAuto;
 import pista.Pista;
 import auto.Auto;
-import auto.PartesAuto;
+import auto.ParteAuto;
 
-public class Rueda extends PartesAuto {
+public class Rueda extends ParteAuto {
 
 	private int rodado;
 	private double coeficienteEstatico;

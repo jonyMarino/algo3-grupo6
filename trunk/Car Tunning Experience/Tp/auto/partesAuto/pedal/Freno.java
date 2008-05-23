@@ -1,5 +1,6 @@
 package auto.partesAuto.pedal;
-import auto.PartesAuto;
+
+import auto.ParteAuto;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Torqueador;
 
@@ -8,7 +9,7 @@ import auto.partesAuto.Torqueador;
  *@see Pedal
  *@see PartesAuto
  */
-public class Freno extends PartesAuto implements Pedal,Torqueador{
+public class Freno extends ParteAuto implements Pedal,Torqueador{
 
 	private double torque;
 	private boolean usado;

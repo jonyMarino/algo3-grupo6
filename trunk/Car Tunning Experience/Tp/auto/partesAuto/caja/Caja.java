@@ -1,6 +1,6 @@
 package auto.partesAuto.caja;
 
-import auto.PartesAuto;
+import auto.ParteAuto;
 import auto.partesAuto.*;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Motor;
@@ -15,7 +15,7 @@ import java.lang.RuntimeException;
  * @see CajaAutomatica
  *
  */
-public abstract class Caja extends PartesAuto implements Torqueador{
+public abstract class Caja extends ParteAuto implements Torqueador{
 
 	private int cambio;
 	private int[] relaciones;

@@ -1,4 +1,5 @@
 package auto;
+import auto.partesAuto.BoundsException;
 import auto.partesAuto.Carroceria;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
@@ -46,6 +47,14 @@ public class AutoSecuencial extends Auto {
 		TanqueNafta tanqueNafta = this.getTanqueNafta();
 		double cantidadCombustible = tanqueNafta.getCantidadCombustible();
 		return cantidadCombustible;
+	}
+	
+	public void cargarCombustible(double litros){
+		try {
+			this.getTanqueNafta().llenarTanque(litros);
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//MEZCLADOR NAFTA

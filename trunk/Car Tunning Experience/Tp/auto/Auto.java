@@ -2,7 +2,7 @@ package auto;
 import java.util.LinkedList;
 import pista.Pista;
 import auto.partesAuto.Carroceria;
-import auto.PartesAuto;
+import auto.ParteAuto;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
@@ -40,7 +40,7 @@ public abstract class Auto {
 	private LinkedList<Rueda>      ruedas;
 	private Eje                    eje;
 	private double		           velocidad;
-	private LinkedList<PartesAuto> partes;
+	private LinkedList<ParteAuto>  partes;
 	private static double          aceleracionGravedad = 9.8;
 
 	/**
@@ -86,7 +86,7 @@ public abstract class Auto {
 		//Asignar Pedales
 		this.asignadorPedales();
 
-		partes = new LinkedList<PartesAuto>();
+		partes = new LinkedList<ParteAuto>();
 		partes.add(escape);
 		partes.add(carroceria);
 		partes.add(motor);
@@ -137,7 +137,7 @@ public abstract class Auto {
 		double fuerzaAire = this.getCarroceria().getFuerzaAire(pista);
 		double incrementoVelocidad = (((fuerzaEje-fuerzaAire)/masaAuto)*segundosTranscurridos);
 		this.setVelocidad(this.getVelocidad()+incrementoVelocidad);
-		for(PartesAuto partesAuto:this.getPartes())
+		for(ParteAuto partesAuto:this.getPartes())
 			partesAuto.desgastar(segundosTranscurridos);
 	}
 
@@ -427,15 +427,15 @@ public abstract class Auto {
 
 	private double calcularPeso(){
 		int peso = 0;
-		for(PartesAuto p:getPartes())
+		for(ParteAuto p:getPartes())
 			peso += p.getPeso();
 		return peso;
 	}
 	
-	protected LinkedList<PartesAuto> getPartes(){
+	protected LinkedList<ParteAuto> getPartes(){
 		return partes;
 	}
-	protected void addParte(PartesAuto parte){
+	protected void addParte(ParteAuto parte){
 		partes.add(parte);
 	}
 

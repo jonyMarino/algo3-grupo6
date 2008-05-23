@@ -30,8 +30,8 @@ public class MezcladorNafta extends Mezclador {
 	 * Genera una mezcla formada por {@link Nafta} mezclada con aire, teniendo en
 	 * cuenta su rendimiento y la calidad de la Nafta.
 	 *
-	 *@return la cantidad de mezcla que fue posible obtener
-	 *@throws BoundsException 
+	 * @return la cantidad de mezcla obtenida, sino se pudo realizar devuelve 0.
+	 * @throws BoundsException 
 	 */
 	public double obtenerMezcla(double litrosMezcla) throws BoundsException {
 		double mezclaProducida = 0;
@@ -69,8 +69,8 @@ public class MezcladorNafta extends Mezclador {
 	/**
 	*
 	*Devuelve el {@link TanqueNafta} asociado al MezcladorNafta.
-	*@return el {@link TanqueNafta} asociado al MezcladorNafta
-	*@see TanqueNafta
+	* @return el {@link TanqueNafta} asociado al MezcladorNafta
+	* @see TanqueNafta
 	*/
 	public TanqueNafta getTanqueNafta() {
 		return tanqueNafta;

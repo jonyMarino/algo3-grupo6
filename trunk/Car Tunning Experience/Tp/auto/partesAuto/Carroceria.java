@@ -1,5 +1,5 @@
 package auto.partesAuto;
-import auto.PartesAuto;
+import auto.ParteAuto;
 import pista.Pista;
 import java.awt.Color;
 
@@ -11,7 +11,7 @@ import java.awt.Color;
  *@see PartesAuto
  *@see Auto
  */
-public class Carroceria extends PartesAuto{
+public class Carroceria extends ParteAuto{
 
 	private Color color;
 	private double volumen;

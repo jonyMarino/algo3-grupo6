@@ -1,5 +1,6 @@
 package auto.partesAuto.pedal;
-import auto.PartesAuto;
+
+import auto.ParteAuto;
 import auto.partesAuto.BoundsException;
 import auto.partesAuto.Motor;
 /**
@@ -7,7 +8,7 @@ import auto.partesAuto.Motor;
  *@see Pedal
  *@see PartesAuto
  */
-public class Acelerador extends PartesAuto implements Pedal{
+public class Acelerador extends ParteAuto implements Pedal{
 
 	private	Motor motor;
 	private boolean usado;
