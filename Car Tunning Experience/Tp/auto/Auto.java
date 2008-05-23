@@ -13,6 +13,7 @@ import auto.partesAuto.pedal.Freno;
 import auto.partesAuto.tanque.TanqueCombustible;
 import auto.partesAuto.caja.Caja;
 
+//TODO: Se modifico codigo y se comento el codigo
 /**
  * Auto es una clase que intenta encapsular el comportamiento y las características de un auto.
  * Cada Auto está formado por distintas {@link PartesAuto}, como ser el {@link Motor}, la {@link Caja}, el {@link Eje} o
@@ -131,15 +132,13 @@ public abstract class Auto {
 	 * @see Pista
 	 */
 	public void calcularVelocidad(int segundosTranscurridos,Pista pista){
-		Eje eje = this.getEje();
-		Carroceria carroceria = this.getCarroceria();
 		double masaAuto = this.getPeso()*aceleracionGravedad;
-		double fuerzaEje = eje.getFuerza();
-		double fuerzaAire = carroceria.getFuerzaAire(pista);
+		double fuerzaEje = this.getEje().getFuerza();
+		double fuerzaAire = this.getCarroceria().getFuerzaAire(pista);
 		double incrementoVelocidad = (((fuerzaEje-fuerzaAire)/masaAuto)*segundosTranscurridos);
 		this.setVelocidad(this.getVelocidad()+incrementoVelocidad);
-		for(PartesAuto p:partes)
-			p.desgastar(segundosTranscurridos);
+		for(PartesAuto partesAuto:this.getPartes())
+			partesAuto.desgastar(segundosTranscurridos);
 	}
 
 	private void setVelocidad(double velocidad){
@@ -147,6 +146,7 @@ public abstract class Auto {
 	}
 
 //ESCAPE
+	
 	/**
 	 * Devuelve el {@link Escape} asociado al Auto.
 	 * 
@@ -168,11 +168,11 @@ public abstract class Auto {
 	 */
 	public void setEscape(Escape escape) {
 		this.escape = escape;
-		Motor motor = this.getMotor();
-		motor.setEscape(this.getEscape());
+		this.getMotor().setEscape(this.getEscape());
 	}
 	
 //CARROCERIA
+	
 	/**
 	 * Devuelve la {@link Carroceria} asociada al Auto.
 	 * 
@@ -195,7 +195,6 @@ public abstract class Auto {
 		this.carroceria = carroceria;
 	}
 
-
 //MOTOR
 	
 	/**
@@ -209,7 +208,6 @@ public abstract class Auto {
 		return motor;
 	}
 
-	
 	/**
 	 * Asigna un {@link Motor} al Auto.
 	 * 
@@ -221,7 +219,6 @@ public abstract class Auto {
 		this.motor = motor;
 	}
 
-	
 	/**
 	 * Devuelve las revoluciones por minuto del {@link Motor}.
 	 * 
@@ -230,83 +227,199 @@ public abstract class Auto {
 	 * @see Motor
 	 */
 	public double getRPM(){
-		Motor motor = this.getMotor();
-		double rpm = motor.obtenerRPM();
+		double rpm = this.getMotor().obtenerRPM();
 		return rpm;
 	}
 
 //PEDALES
+	
+	/**
+	 * Devuelve el {@link Acelerador} asociado al Auto
+	 * 
+	 * @return El {@link Acelerador} asociado.
+	 * 
+	 * @see Acelerador
+	 */
 	public Acelerador getAcelerador() {
 		return acelerador;
 	}
 
+	/**
+	 * Asigna un {@link Acelerador} al Auto.
+	 * 
+	 * @param acelerador El {@link Acelerador} a asignar.
+	 * 
+	 * @see Acelerador
+	 */
 	public void setAcelerador(Acelerador acelerador) {
 		this.acelerador = acelerador;
 	}
-
+	
+	/**
+	 * Devuelve el {@link Freno} asociado al Auto
+	 * 
+	 * @return El {@link Freno} asociado.
+	 * 
+	 * @see Freno
+	 */
 	public Freno getFreno() {
 		return freno;
 	}
 
+	/**
+	 * Asigna un {@link Freno} al Auto.
+	 * 
+	 * @param freno El {@link Freno} a asignar.
+	 * 
+	 * @see Freno
+	 */
 	public void setFreno(Freno freno) {
 		this.freno = freno;
 	}
 
-	public void presionarAcelerador(double cantidad){
-		Acelerador acelerador = this.getAcelerador();
-		acelerador.presionar(cantidad);
+	/**
+	 * Pisa el Pedal del Acelerador
+	 * 
+	 * @param intensidad Intensidad es grado de fuerza que se le aplica al Acelerador  
+	 * 
+	 * @see Acelerador
+	 */
+	public void presionarAcelerador(double intensidad){
+		this.getAcelerador().presionar(intensidad);
 	}
 
-	public void presionarFreno(double cantidad){
-		Freno frenoAux = this.getFreno();
-		frenoAux.presionar(cantidad);
+	/**
+	 * Pisa el Pedal del Freno
+	 * 
+	 * @param intensidad Intensidad es grado de fuerza que se le aplica al Freno  
+	 * 
+	 * @see Freno
+	 */
+	public void presionarFreno(double intensidad){
+		this.getFreno().presionar(intensidad);
 	}
-
 
 //RUEDA
+	
+	/**
+	 * Devuelve la {@link Rueda} asociado al Auto
+	 * 
+	 * @return La {@link Rueda} delatera derecha asociado.
+	 * 
+	 * @see Rueda
+	 */
 	public Rueda getRuedaDelanteraDerecha() {
 		return ((Rueda)(ruedas.get(0)));
 	}
 
+	/**
+	 * Asigna una {@link Rueda} al Auto.
+	 * 
+	 * @param rueda delantera derecha La {@link Rueda} a asignar.
+	 * 
+	 * @see Rueda
+	 */
 	public void setRuedaDelanteraDerecha(Rueda rueda) {
 		ruedas.set(0,rueda);
 	}
 
+	/**
+	 * Devuelve la {@link Rueda} asociado al Auto
+	 * 
+	 * @return La {@link Rueda} delatera izquierda asociado.
+	 * 
+	 * @see Rueda
+	 */
 	public Rueda getRuedaDelanteraIzquierda() {
 		return ((Rueda)(ruedas.get(1)));
 	}
 
+	/**
+	 * Asigna una {@link Rueda} al Auto.
+	 * 
+	 * @param rueda delantera izquierda La {@link Rueda} a asignar.
+	 * 
+	 * @see Rueda
+	 */	
 	public void setRuedaDelanteraIzquierda(Rueda rueda) {
 		ruedas.set(1,rueda);
 	}
 
+	/**
+	 * Devuelve la {@link Rueda} asociado al Auto
+	 * 
+	 * @return La {@link Rueda} trasera derecha asociado.
+	 * 
+	 * @see Rueda
+	 */
 	public Rueda getRuedaTraseraDerecha() {
 		return ((Rueda)(ruedas.get(2)));
 	}
 
+	/**
+	 * Asigna una {@link Rueda} al Auto.
+	 * 
+	 * @param rueda trasera derecha La {@link Rueda} a asignar.
+	 * 
+	 * @see Rueda
+	 */
 	public void setRuedaTraseraDerecha(Rueda rueda) {
 		ruedas.set(2,rueda);
 	}
 
+	/**
+	 * Devuelve la {@link Rueda} asociado al Auto
+	 * 
+	 * @return La {@link Rueda} trasera izquierda asociado.
+	 * 
+	 * @see Rueda
+	 */
 	public Rueda getRuedaTraseraIzquierda() {
 		return ((Rueda)(ruedas.get(3)));
 	}
 
+	/**
+	 * Asigna una {@link Rueda} al Auto.
+	 * 
+	 * @param rueda trasera izquierda La {@link Rueda} a asignar.
+	 * 
+	 * @see Rueda
+	 */
 	public void setRuedaTraseraIzquierda(Rueda rueda) {
 		ruedas.set(3,rueda);
 	}
 
-
 //EJE
+	
+	/**
+	 * Devuelve el {@link Eje} asociado al Auto
+	 * 
+	 * @return El {@link Eje} asociado.
+	 * 
+	 * @see Eje
+	 */
 	public Eje getEje() {
 		return eje;
 	}
 
+	/**
+	 * Asigna un {@link Eje} al Auto.
+	 * 
+	 * @param El {@link Eje} a asignar.
+	 * 
+	 * @see Eje
+	 */
 	public void setEje(Eje eje) {
 		this.eje = eje;
 	}
 
 //PESO
+	
+	/**
+	 * Devuelve el peso actual del Auto
+	 * 
+	 * @return El peso actual del Auto.
+	 */
 	public double getPeso(){
 		//Se actualiza constantemente
 		return this.calcularPeso();
