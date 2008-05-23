@@ -7,7 +7,7 @@ import auto.partesAuto.Carroceria;
 import pista.Pista;
 
 public class CarroceriaTest extends TestCase {
-
+//TODO: Se modifico excepciones
 	Carroceria carroceria;
 	Pista pista;
 
@@ -24,7 +24,11 @@ public class CarroceriaTest extends TestCase {
 		carroceria= new Carroceria(25,6,40);
 		pista=new Pista(5);
 		carroceria.setVidaUtil(-1);
-		pista.setVelocidadAire(25);
+		try {
+			pista.setVelocidadAire(25);
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
 		assertEquals(25.0,carroceria.getFuerzaAire(pista));
 	}
 
