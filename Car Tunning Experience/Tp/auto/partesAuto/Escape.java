@@ -1,12 +1,12 @@
 package auto.partesAuto;
-import auto.PartesAuto;
+import auto.ParteAuto;
 
 /**
  * El escape es necesario para el funcionamiento del motor.
  * Un escape con buen rendimiento, ayuda a evacuar mejor los gases de la combustión y mejoran el desempeño del motor.
  *@see  PartesAuto
  */
-public class Escape extends PartesAuto{
+public class Escape extends ParteAuto{
 
 	private double eficiencia;
 

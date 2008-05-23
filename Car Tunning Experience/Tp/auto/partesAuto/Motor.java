@@ -1,6 +1,6 @@
 package auto.partesAuto;
 
-import auto.PartesAuto;
+import auto.ParteAuto;
 import auto.partesAuto.BoundsException;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
@@ -15,7 +15,7 @@ import java.lang.RuntimeException;
  * @see Caja
  *
  */
-public class Motor extends PartesAuto implements Torqueador{
+public class Motor extends ParteAuto implements Torqueador{
 	
 	private double rpmMaximo;
 	private int rendimiento;
@@ -102,7 +102,13 @@ public class Motor extends PartesAuto implements Torqueador{
 		if(aceleracion==0)
 			return 0;
 		double torque = -1/rpmMaximo * obtenerRPM() +1; 
-		double mezcla=mezclador.obtenerMezcla(aceleracion*cilindrada);	
+		double mezcla = 0;
+		try {
+			mezcla = mezclador.obtenerMezcla(aceleracion*cilindrada);
+		} catch (BoundsException e) {
+			// TODO Auto-generated catch block. Ver excepciones del Mezclador
+			e.printStackTrace();
+		}	
 		double energiaDeCombustion=realizarCombustion(mezcla);
 		torque*=energiaDeCombustion;
 		return torque;

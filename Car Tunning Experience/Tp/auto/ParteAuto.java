@@ -8,13 +8,13 @@ import auto.partesAuto.Motor;
  *Define las características básicas de todas las partes, como el costo, peso, vida útil y desgaste.
  *
  */
-public abstract class PartesAuto {
+public abstract class ParteAuto {
 
 	private double peso;
 	private double costo;
 	private double vidaUtil;
 
-	public PartesAuto(){
+	public ParteAuto(){
 		setPeso(0);
 		setCosto(0);
 		setVidaUtil(100);

@@ -6,12 +6,14 @@ import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.tanque.TanqueNafta;
 import junit.framework.TestCase;
 
-//TODO: Se agrego excepciones, falta hacer algo en los bloques catch señalados
+//TODO: Se agrego excepciones
 public class TanqueNaftaTest extends TestCase {
 
 	TanqueNafta tanque;
 	Nafta nafta;
 	private MezcladorNafta mezclador;
+	double naftaUtilRestante;
+	double mezclaMinima;
 
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -42,21 +44,23 @@ public class TanqueNaftaTest extends TestCase {
 			e.printStackTrace();
 		}
 		assertEquals(20.0, tanque.getCantidadCombustible());
-
 		try {
 			tanque.llenarTanque(20);
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
 		assertEquals(40.0, tanque.getCantidadCombustible());
-	
+		//TODO: Se agrego bloque catch
 		try {
 			tanque.llenarTanque(100);
 		} catch (BoundsException e) {
-			//FALTA HACER ALGO ACA SI SUPERA LA CAPACIDAD DEL TANQUE
 			e.printStackTrace();
+			if("Se supera la capacidad del Tanque" == e.getMessage())
+				try {
+					tanque.llenarTanque(tanque.getCapacidad() - tanque.getCantidadCombustible());
+				} catch (BoundsException e1) {}
 		}
-		assertEquals(40.0, tanque.getCantidadCombustible());
+		assertEquals(50.0, tanque.getCantidadCombustible());
 	}
 
 	public void testUsarNafta() {
@@ -71,28 +75,23 @@ public class TanqueNaftaTest extends TestCase {
 			e.printStackTrace();
 		}
 		assertEquals(10.0, tanque.getCantidadCombustible());
-	
 		try {
 			tanque.usarCombustible(2.5);
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
 		assertEquals(7.5, tanque.getCantidadCombustible());
-
-		try {
-			tanque.usarCombustible(-2);
-		} catch (BoundsException e) {
-				e.printStackTrace();
-				//FALTA HACER ALGO SI EL COMBUSTIBLE ES NEGATIVO
-		}
-		assertEquals(7.5, tanque.getCantidadCombustible());
-		
+		//TODO: Se agrego bloque catch
 		try {
 			tanque.usarCombustible(50);
 		} catch (BoundsException e) {
-			//FALTA HACER ALGO SI NO SE POSEE EL COMBUSTIBLE
+			e.printStackTrace();
+			if("No se posee la cantidad de combustible pedida" == e.getMessage())
+				try {
+					tanque.usarCombustible(tanque.getCantidadCombustible());
+				} catch (BoundsException e1) {}
 		}
-		assertEquals(7.5, tanque.getCantidadCombustible());
+		assertEquals(0.0, tanque.getCantidadCombustible());
 		
 	}
 
@@ -112,6 +111,9 @@ public class TanqueNaftaTest extends TestCase {
 
 	public void testConsumoDeNaftaAlMezclarMaximaEficiencia() {
 		mezclador= new MezcladorNafta(100,tanque);
+		naftaUtilRestante = 0;
+		mezclaMinima = 0;
+
 		try {
 			tanque.llenarTanque(50);
 		} catch (BoundsException e) {
@@ -139,9 +141,14 @@ public class TanqueNaftaTest extends TestCase {
 			mezclador.obtenerMezcla(90);
 		} catch (BoundsException e) {
 			e.printStackTrace();
-			//FALTA HACER ALGO SI NO SE POSEE LA NAFTA NECESARIA PARA LA MEZCLA
+			if("Faltante de nafta necesaria para la mezcla pedida" == e.getMessage())
+				naftaUtilRestante = ((tanque.getCantidadCombustible()*tanque.getTipoNafta().getOctanaje())/100);
+				mezclaMinima = ((mezclador.getRendimiento()*naftaUtilRestante)/100);	
+				try {
+					mezclador.obtenerMezcla(mezclaMinima);
+				} catch (BoundsException e1) {}		
 		}
-		assertEquals(33.15, tanque.getCantidadCombustible(), 0.4);
+		assertEquals(0.0, tanque.getCantidadCombustible(), 0.4);
 		mezclador = null;
 
 	}

@@ -7,7 +7,7 @@ import auto.partesAuto.tanque.TanqueNafta;
 
 import combustible.Nafta;
 
-//TODO: Se agrego excepciones, falta hacer algo en los bloques catch señalados
+//TODO: Se agrego excepciones
 public class MezcladorTest extends TestCase {
 
 	MezcladorNafta mezclador;

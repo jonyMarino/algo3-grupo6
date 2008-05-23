@@ -1,7 +1,7 @@
 package auto.partesAuto;
 import java.util.LinkedList;
 import java.lang.RuntimeException;
-import auto.PartesAuto;
+import auto.ParteAuto;
 import auto.partesAuto.caja.Caja;
 
 class NoTorqueadorException extends RuntimeException{
@@ -18,7 +18,7 @@ class NoTorqueadorException extends RuntimeException{
  */
 
 
-public class Eje extends PartesAuto{
+public class Eje extends ParteAuto{
 
 	private LinkedList<Torqueador> torques = new LinkedList<Torqueador>();
 
