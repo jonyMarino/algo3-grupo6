@@ -1,11 +1,13 @@
 package pruebas;
 
 import junit.framework.TestCase;
+import auto.partesAuto.BoundsException;
 import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.tanque.TanqueNafta;
 
 import combustible.Nafta;
 
+//TODO: Se agrego excepciones, falta hacer algo en los bloques catch señalados
 public class MezcladorTest extends TestCase {
 
 	MezcladorNafta mezclador;
@@ -27,29 +29,57 @@ public class MezcladorTest extends TestCase {
 	
 	public void testObtenerMezclaMaximaEficiencia() {
 		mezclador= new MezcladorNafta(100,tanque);
-		assertEquals(0.01, mezclador.obtenerMezcla(0.01));
-		assertEquals(1.1, mezclador.obtenerMezcla(1.1));
-		assertEquals(5.9, mezclador.obtenerMezcla(5.9));
-		assertEquals(40.49, mezclador.obtenerMezcla(90));
+		try {
+			assertEquals(0.01, mezclador.obtenerMezcla(0.01));
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
+		try {
+			assertEquals(1.1, mezclador.obtenerMezcla(1.1));
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
+		try {
+			assertEquals(5.9, mezclador.obtenerMezcla(5.9));
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
+		try {
+			assertEquals(40.49, mezclador.obtenerMezcla(90));
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
 		mezclador = null;
 		
 	}
 	
 	public void testObtenerMezclaMínimaEficiencia() {
 		mezclador= new MezcladorNafta(100,tanque);
-		assertEquals(0.1, mezclador.obtenerMezcla(0.1));
+		try {
+			assertEquals(0.1, mezclador.obtenerMezcla(0.1));
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
 		mezclador = null;
 	}
 	
 	public void testObtenerMezclaMediaEficiencia() {
 		mezclador= new MezcladorNafta(100,tanque);
-		assertEquals(0.2, mezclador.obtenerMezcla(0.2));
+		try {
+			assertEquals(0.2, mezclador.obtenerMezcla(0.2));
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
 		mezclador = null;
 	}
 	
 	public void testObtenerMezclaNegativa() {
 		mezclador= new MezcladorNafta(100,tanque);
-		assertEquals(0.0, mezclador.obtenerMezcla(-90));
+		try {
+			assertEquals(0.0, mezclador.obtenerMezcla(-90));
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		}
 		mezclador = null;
 	}
 
