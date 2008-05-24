@@ -1,5 +1,5 @@
 package auto;
-import auto.partesAuto.BoundsException;
+
 import auto.partesAuto.Carroceria;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
@@ -11,8 +11,6 @@ import auto.partesAuto.tanque.TanqueNafta;
 public class AutoSecuencial extends Auto {
 
 		private CajaAutomatica cajaAutomatica;
-		private TanqueNafta    tanqueNafta;
-		private MezcladorNafta mezcladorNafta;
 
 	public AutoSecuencial(Escape escape, Carroceria carroceria, Motor motor,
 	                      CajaAutomatica cajaAutomatica, MezcladorNafta mezclador, TanqueNafta tanque,
@@ -30,42 +28,4 @@ public class AutoSecuencial extends Auto {
 	public void setCajaAutomatica(CajaAutomatica cajaAutomatica) {
 		this.cajaAutomatica = cajaAutomatica;
 	}
-	
-	//TODO: Falta modificar
-	//TANQUE NAFTA
-	public TanqueNafta getTanqueNafta() {
-		return tanqueNafta;
-	}
-
-	public void setTanqueNafta(TanqueNafta tanqueNafta) {
-		this.tanqueNafta = tanqueNafta;
-		MezcladorNafta mezcladorNafta = this.getMezcladorNafta();
-		mezcladorNafta.setTanqueNafta(this.getTanqueNafta());
-	}
-	
-	public double obtenerCantidadNafta(){
-		TanqueNafta tanqueNafta = this.getTanqueNafta();
-		double cantidadCombustible = tanqueNafta.getCantidadCombustible();
-		return cantidadCombustible;
-	}
-	
-	public void cargarCombustible(double litros){
-		try {
-			this.getTanqueNafta().llenarTanque(litros);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	//MEZCLADOR NAFTA
-	public MezcladorNafta getMezcladorNafta() {
-		return mezcladorNafta;
-	}
-
-	public void setMezcladorNafta(MezcladorNafta mezcladorNafta) {
-		this.mezcladorNafta = mezcladorNafta;
-		Motor motor = this.getMotor();
-		motor.setMezclador(this.getMezcladorNafta());
-	}	
-
 }
