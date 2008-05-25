@@ -1,6 +1,6 @@
 package auto;
 
-import auto.partesAuto.Motor;
+import auto.partesAuto.BoundsException;
 
 /**
  * Es la clase que se usa como base para todas las partes del auto ({@link Carrocería}, {@link Motor}, {@link Escape}, etc).
@@ -9,38 +9,29 @@ import auto.partesAuto.Motor;
  *
  */
 public abstract class ParteAuto {
-
+	//TODO: se elimino lo del costo y se agregaron excepciones
 	private double peso;
-	private double costo;
 	private double vidaUtil;
 
 	public ParteAuto(){
 		setPeso(0);
-		setCosto(0);
 		setVidaUtil(100);
 	}
 
 	public void setPeso(double peso){
-		this.peso=peso;
+		if(peso < 0)
+			throw new BoundsException("Valor de peso incorrecto.");
+		else this.peso=peso;
+		
 	}
 
 	public double getPeso(){
 		return this.peso;
 	}
-
-	public void setCosto(double costo){
-		this.costo=costo;
-	}
-
-	public double getCosto(){
-		return this.costo;
-	}
-
+	
 	public void setVidaUtil(double vidaUtil){
-		if (vidaUtil<0)
-			this.vidaUtil=0;
-		else if (vidaUtil>100)
-			this.vidaUtil=100;
+		if( (vidaUtil < 0) || (vidaUtil > 100) )
+			throw new BoundsException("Valor de la vida util incorrecto");
 		else this.vidaUtil=vidaUtil;
 	}
 

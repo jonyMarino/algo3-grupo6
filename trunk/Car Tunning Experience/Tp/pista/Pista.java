@@ -6,28 +6,12 @@ import java.util.*;
 
 public class Pista {
 //TODO: Se modifico excepciones
-	private class AutoPosicionado{
-		double posicion=0;
-		Auto auto;
-		public AutoPosicionado(Auto auto){
-			this.auto=auto;
-		}
-		
-		public void setPosicion(double posicion) throws BoundsException{
-			if(posicion<0)
-				throw new BoundsException("Valor de la posicion incorrecto");
-			this.posicion=posicion;
-		}
-		
-		public double getPosicion(){
-			return this.posicion;
-		}
-	}
+//TODO: Se modifico excepciones y se elimino la clase AutoPosicionado
 	
 	private double coeficienteDeRozamientoRelativo;
 	private double longitud;
 	private int velocidadAire;
-	private LinkedList<AutoPosicionado> autos;
+	private LinkedList<Auto> autos;
 
 	public Pista(double longitud){
 		try {
@@ -45,12 +29,12 @@ public class Pista {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
-		autos = new LinkedList<AutoPosicionado>();
+		autos = new LinkedList<Auto>();
 	}
 
 	public void addAuto(Auto auto){
 		if(auto==null)
-			return;
+			throw new BoundsException("Valor de auto incorrecto");
 		autos.add(new AutoPosicionado(auto));
 	}
 
