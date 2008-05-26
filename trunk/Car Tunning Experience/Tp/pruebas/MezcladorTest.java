@@ -28,8 +28,9 @@ public class MezcladorTest extends TestCase {
 	}
 	
 	public void testObtenerMezclaMaximaEficiencia() {
-		mezclador= new MezcladorNafta(100,tanque);
+		
 		try {
+			mezclador= new MezcladorNafta(100,tanque);
 			assertEquals(0.01, mezclador.obtenerMezcla(0.01));
 		} catch (BoundsException e) {
 			e.printStackTrace();
@@ -54,8 +55,9 @@ public class MezcladorTest extends TestCase {
 	}
 	
 	public void testObtenerMezclaMínimaEficiencia() {
-		mezclador= new MezcladorNafta(100,tanque);
+		
 		try {
+			mezclador= new MezcladorNafta(100,tanque);
 			assertEquals(0.1, mezclador.obtenerMezcla(0.1));
 		} catch (BoundsException e) {
 			e.printStackTrace();
@@ -64,8 +66,9 @@ public class MezcladorTest extends TestCase {
 	}
 	
 	public void testObtenerMezclaMediaEficiencia() {
-		mezclador= new MezcladorNafta(100,tanque);
+		
 		try {
+			mezclador= new MezcladorNafta(100,tanque);
 			assertEquals(0.2, mezclador.obtenerMezcla(0.2));
 		} catch (BoundsException e) {
 			e.printStackTrace();
@@ -74,8 +77,9 @@ public class MezcladorTest extends TestCase {
 	}
 	
 	public void testObtenerMezclaNegativa() {
-		mezclador= new MezcladorNafta(100,tanque);
+		
 		try {
+			mezclador= new MezcladorNafta(100,tanque);
 			assertEquals(0.0, mezclador.obtenerMezcla(-90));
 		} catch (BoundsException e) {
 			e.printStackTrace();

@@ -22,13 +22,14 @@ public abstract class Mezclador extends ParteAuto{
 	* @param rendimiento El rendmiento con el que opera el Mezclador (0..100)
 	*
 	*/
-	public Mezclador(int rendimiento,TanqueCombustible tanque) {
+	public Mezclador(int rendimiento,TanqueCombustible tanque)throws BoundsException {
 		super();
-		try {
+		//try {
 			this.setRendimiento(rendimiento);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		}
+		//} catch (BoundsException e) {
+		//	e.printStackTrace();		//deMarino: Hay que preguntarse si este es quien lo debe imprimir
+		//	throw e;
+		//}
 	}
 
 	/**
