@@ -36,7 +36,7 @@ public class Rueda extends ParteAuto {
 		this.pista=pista;
 	}
 
-	public Rueda(double peso, double costo, double desgaste, int rodado,
+	public Rueda(double peso, double desgaste, int rodado,
 		double coeficienteEstatico, double coeficienteDinamico){
 		try {
 			setRodado(rodado);
@@ -50,11 +50,11 @@ public class Rueda extends ParteAuto {
 		}
 		try {
 			setCoeficienteDinamico(coeficienteDinamico);
+			setPeso(peso);
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
-		setPeso(peso);
-		setCosto(costo);
+		
 	}
 
 	public void setRodado(int rodado) throws BoundsException{
@@ -102,14 +102,17 @@ public class Rueda extends ParteAuto {
 	public double getFuerzaRozamientoDinamico(){
 		return getCoeficienteDinamico()*auto.getPeso();
 	}
-
-	public boolean calcularDesgaste(int tiempo){
-		 setVidaUtil(getVidaUtil()-tiempo*getRPM()/100);
-		 return desgastado();
-	}
-
+	
 	public boolean desgastar(int tiempo) {
-		 setVidaUtil(getVidaUtil()-tiempo*getRPM()/100);
+		try{
+			if(getVidaUtil()!=0)
+				 setVidaUtil(getVidaUtil()-tiempo*getRPM()/100);
+		}catch(BoundsException e){
+			try{
+				setVidaUtil(0);			
+			}catch(BoundsException f){}
+		}
+
 		 return desgastado();
 	}
 

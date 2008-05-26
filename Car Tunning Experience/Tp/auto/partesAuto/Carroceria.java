@@ -17,7 +17,7 @@ public class Carroceria extends ParteAuto{
 	private double volumen;
 	private int aeroDinamia;
 
-	public Carroceria(double volumen,int aeroDinamia,double peso){
+	public Carroceria(double volumen,int aeroDinamia,double peso)throws BoundsException{
 		super();
 		try {
 			setVolumen(volumen);
@@ -72,7 +72,15 @@ public class Carroceria extends ParteAuto{
 	}
 
 	public boolean desgastar(int tiempo){
-		setVidaUtil(getVidaUtil()-tiempo/100);
+		try{
+			if(getVidaUtil()!=0)
+				setVidaUtil(getVidaUtil()-tiempo/100);
+		}catch(BoundsException e){
+			try{
+				setVidaUtil(0);			
+			}catch(BoundsException f){}
+		}
+		
 		return desgastado();
 	}
 

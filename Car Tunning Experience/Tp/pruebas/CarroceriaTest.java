@@ -20,10 +20,10 @@ public class CarroceriaTest extends TestCase {
 		assertEquals(1.5, carroceria.getFuerzaAire(pista));
 	}
 
-	public void testFuerzaAireCarroceriaDesgastada() {
+	public void testFuerzaAireCarroceriaDesgastada()throws BoundsException {
 		carroceria= new Carroceria(25,6,40);
 		pista=new Pista(5);
-		carroceria.setVidaUtil(-1);
+		carroceria.setVidaUtil(0);
 		try {
 			pista.setVelocidadAire(25);
 		} catch (BoundsException e) {

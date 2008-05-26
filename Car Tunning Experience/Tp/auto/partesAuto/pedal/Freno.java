@@ -4,7 +4,7 @@ import auto.ParteAuto;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Torqueador;
 import auto.partesAuto.mezclador.MezcladorNafta;
-
+import auto.partesAuto.BoundsException;
 /**
  * El {@link Pedal} del freno.
  *@see Pedal
@@ -37,12 +37,17 @@ public class Freno extends ParteAuto implements Pedal,Torqueador{
 	}
 
 	public boolean desgastar(int tiempo) {
-		if(usado){
-			setVidaUtil(getVidaUtil()-tiempo/1000);
-			return desgastado();
-		}else{
-			return usado;
+		try{
+			if(usado && getVidaUtil()!=0){
+				setVidaUtil(getVidaUtil()-tiempo/1000);
+			}
 		}
+		catch(BoundsException e){	//me pase??
+			try{
+				setVidaUtil(0);	
+			}catch(BoundsException f){}
+		}
+		return desgastado();
 	}
 
 	/**

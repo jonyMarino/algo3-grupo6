@@ -60,11 +60,17 @@ public abstract class Mezclador extends ParteAuto{
 	* @return 
 	*/
 	public boolean desgastar(int tiempo) {
-		setVidaUtil(getVidaUtil()-tiempo/1000);
+		
 		try {
-			setRendimiento(getRendimiento()-tiempo/1000);
+			if(getVidaUtil()!=0){
+				setVidaUtil(getVidaUtil()-tiempo/1000);
+				setRendimiento(getRendimiento()-tiempo/1000);
+			}
 		} catch (BoundsException e) {
-			e.printStackTrace();
+			try{
+				setVidaUtil(0);
+				setRendimiento(0);
+			}catch(BoundsException f){}
 		}
 		return desgastado();
 	}
