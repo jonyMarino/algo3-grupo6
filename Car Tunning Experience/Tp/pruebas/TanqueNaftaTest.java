@@ -110,11 +110,12 @@ public class TanqueNaftaTest extends TestCase {
 	}
 
 	public void testConsumoDeNaftaAlMezclarMaximaEficiencia() {
-		mezclador= new MezcladorNafta(100,tanque);
-		naftaUtilRestante = 0;
-		mezclaMinima = 0;
+		
 
 		try {
+			mezclador= new MezcladorNafta(100,tanque);
+			naftaUtilRestante = 0;
+			mezclaMinima = 0;
 			tanque.llenarTanque(50);
 		} catch (BoundsException e) {
 			e.printStackTrace();
@@ -154,8 +155,9 @@ public class TanqueNaftaTest extends TestCase {
 	}
 
 	public void testConsumoDeNaftaAlMezclarMinimaEficiencia() {
-		mezclador= new MezcladorNafta(1,tanque);
+		
 		try {
+			mezclador= new MezcladorNafta(1,tanque);
 			tanque.llenarTanque(50);
 		} catch (BoundsException e) {
 			e.printStackTrace();
@@ -171,8 +173,9 @@ public class TanqueNaftaTest extends TestCase {
 	}
 
 	public void testConsumoDeNaftaAlMezclarMediaEficiencia() {
-		mezclador= new MezcladorNafta(50,tanque);
+		
 		try {
+			mezclador= new MezcladorNafta(50,tanque);
 			tanque.llenarTanque(50);
 		} catch (BoundsException e) {
 			e.printStackTrace();
@@ -187,9 +190,9 @@ public class TanqueNaftaTest extends TestCase {
 
 	}
 
-	public void testLlenarTanqueNegativo() {
-		mezclador= new MezcladorNafta(100,tanque);
+	public void testLlenarTanqueNegativo() {	
 		try {
+			mezclador= new MezcladorNafta(100,tanque);
 			tanque.llenarTanque(-50);
 		} catch (BoundsException e) {
 			e.printStackTrace();

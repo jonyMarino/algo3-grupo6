@@ -21,7 +21,7 @@ public class MezcladorNafta extends Mezclador {
 	* Crea un nuevo MezcladorNafta con un {@link TanqueNafta} asociado.
 	*
 	*/
-	public MezcladorNafta(int rendimiento, TanqueNafta tanqueNafta) {
+	public MezcladorNafta(int rendimiento, TanqueNafta tanqueNafta) throws BoundsException{
 		super(rendimiento,tanqueNafta);
 		this.setTanqueNafta(tanqueNafta);
 	}

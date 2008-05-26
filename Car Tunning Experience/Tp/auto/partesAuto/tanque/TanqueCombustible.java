@@ -3,7 +3,6 @@ package auto.partesAuto.tanque;
 import combustible.Combustible;
 import auto.ParteAuto;
 import auto.partesAuto.BoundsException;
-
 /**
 *
 * Clase abstracta que encapsula el comportamiento y las características
@@ -25,13 +24,13 @@ public abstract class TanqueCombustible extends ParteAuto{
 	* @param capacidad La capacidad del tanque.
 	*
 	*/
-	public TanqueCombustible(int capacidad,Combustible combustible) {
+	public TanqueCombustible(int capacidad,Combustible combustible) throws BoundsException{
 			super();
-				try {
+			//	try {
 					this.setCapacidad(capacidad);
-				} catch (BoundsException e) {
-					e.printStackTrace();
-				}
+			//	} catch (BoundsException e) {
+			//		e.printStackTrace();
+			//	}
 				this.setCantidadCombustible(0);
 	}
 
