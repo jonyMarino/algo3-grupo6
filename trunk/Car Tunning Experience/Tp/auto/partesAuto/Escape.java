@@ -34,7 +34,15 @@ public class Escape extends ParteAuto{
 	}
 
 	public boolean desgastar(int tiempo){
-		 setVidaUtil(getVidaUtil()-tiempo/getEficiencia());
+		try{
+			if(getVidaUtil()!=0)
+				setVidaUtil(getVidaUtil()-tiempo/getEficiencia());
+		}catch(BoundsException e){
+			try{
+				setVidaUtil(0);			
+			}catch(BoundsException f){}
+		}
+		 
 		 return desgastado();
 	}
 

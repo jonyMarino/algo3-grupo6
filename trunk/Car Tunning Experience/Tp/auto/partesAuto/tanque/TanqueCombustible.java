@@ -119,7 +119,15 @@ public abstract class TanqueCombustible extends ParteAuto{
 	public abstract double getPeso();
 
 	public boolean desgastar(int tiempo) {
-		setVidaUtil(getVidaUtil()-tiempo/1000);
+		try{
+			if(getVidaUtil()!=0)
+				setVidaUtil(getVidaUtil()-tiempo/1000);
+		}catch(BoundsException e){
+			try{
+				setVidaUtil(0);
+			}catch(BoundsException f){}
+		}
+		
 		return desgastado();
 	}
 

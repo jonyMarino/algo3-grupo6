@@ -72,8 +72,19 @@ public class Motor extends ParteAuto implements Torqueador{
 	}
 
 	public boolean desgastar(int tiempo) {	
-	    double deltaVidaUtil=obtenerRPM()/getRPMMaximo()/200*tiempo;
-		setVidaUtil(getVidaUtil()-deltaVidaUtil);
+		try{
+			if(getVidaUtil()!=0){
+				double deltaVidaUtil=obtenerRPM()/getRPMMaximo()/200*tiempo;
+				setVidaUtil(getVidaUtil()-deltaVidaUtil);
+			}
+		}catch(BoundsException e){
+			try{
+				setVidaUtil(0);			
+			}catch(BoundsException f){
+				
+			}
+		}
+		
 		return getVidaUtil()==0;
 	}
 

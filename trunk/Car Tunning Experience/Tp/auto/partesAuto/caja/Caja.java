@@ -47,7 +47,7 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	}
 
 	public void setEje(Eje nuevoEje ){
-		if(eje==null)
+		if(nuevoEje==null)
 			throw new RuntimeException();
 		eje=nuevoEje;
 		eje.addTorqueador(this);

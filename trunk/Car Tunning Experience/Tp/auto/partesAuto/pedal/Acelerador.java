@@ -19,15 +19,11 @@ public class Acelerador extends ParteAuto implements Pedal{
 		usado = false;
 	}
 
-	public void presionar(double intensidad){
-		usado = true;
-		if(this.getVidaUtil() > 0){
-			try {
-				getMotor().acelerar(intensidad);
-			} catch (BoundsException e) {
-				e.printStackTrace();
-			}
-		}
+	public void presionar(double intensidad)throws BoundsException{
+		usado = intensidad>0;	//deMarino: esta siendo usado se la aceleracion no es 0
+		//if(this.getVidaUtil() > 0){ //deMarino: en caso de ser cero tiene su funcion
+		getMotor().acelerar(intensidad); //deMarino: el caso de excepcion es el mismo
+		//}
 	}
 
 	/**
@@ -53,12 +49,17 @@ public class Acelerador extends ParteAuto implements Pedal{
 	}
 
 	public boolean desgastar(int tiempo) {
-		if(usado){
-			setVidaUtil(getVidaUtil()-tiempo/1000);
-			return desgastado();
-		}else{
-			return usado;
+		try{
+			if(usado && getVidaUtil()!=0){
+				setVidaUtil(getVidaUtil()-tiempo/1000);
+			}
 		}
+		catch(BoundsException e){	//me pase??
+			try{
+				setVidaUtil(0);	
+			}catch(BoundsException f){}
+		}
+		return desgastado();	//deMarino:siempre devuelve si esta desgastado, por lo que deberia estar en una abstract class!!!!
 	}
 
 }

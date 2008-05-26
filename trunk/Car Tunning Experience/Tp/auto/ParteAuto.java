@@ -14,11 +14,14 @@ public abstract class ParteAuto {
 	private double vidaUtil;
 
 	public ParteAuto(){
-		setPeso(0);
-		setVidaUtil(100);
+		try{
+			setPeso(0);
+			setVidaUtil(100);
+		}catch(BoundsException e){}
+			
 	}
 
-	public void setPeso(double peso){
+	public void setPeso(double peso)throws BoundsException{
 		if(peso < 0)
 			throw new BoundsException("Valor de peso incorrecto.");
 		else this.peso=peso;
@@ -29,7 +32,7 @@ public abstract class ParteAuto {
 		return this.peso;
 	}
 	
-	public void setVidaUtil(double vidaUtil){
+	public void setVidaUtil(double vidaUtil)throws BoundsException{
 		if( (vidaUtil < 0) || (vidaUtil > 100) )
 			throw new BoundsException("Valor de la vida util incorrecto");
 		else this.vidaUtil=vidaUtil;

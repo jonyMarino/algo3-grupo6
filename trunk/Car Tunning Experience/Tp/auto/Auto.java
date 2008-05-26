@@ -275,7 +275,6 @@ public abstract class Auto {
 	 * Asigna un {@link Freno} al Auto.
 	 *
 	 * @param freno El {@link Freno} a asignar.
-	 *
 	 * @see Freno
 	 */
 	public void setFreno(Freno freno) {
@@ -289,7 +288,7 @@ public abstract class Auto {
 	 *
 	 * @see Acelerador
 	 */
-	public void presionarAcelerador(double intensidad){
+	public void presionarAcelerador(double intensidad)throws BoundsException{
 		this.getAcelerador().presionar(intensidad);
 	}
 

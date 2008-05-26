@@ -32,10 +32,10 @@ public class Pista {
 		autos = new LinkedList<Auto>();
 	}
 
-	public void addAuto(Auto auto){
+	public void addAuto(Auto auto)throws NullPointerException{
 		if(auto==null)
-			throw new BoundsException("Valor de auto incorrecto");
-		autos.add(new AutoPosicionado(auto));
+			throw new NullPointerException("Referencia a auto null.");
+		autos.add(auto);
 	}
 
 	public void setLongitud(double longitud) throws BoundsException {
