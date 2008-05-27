@@ -82,7 +82,7 @@ public class MezcladorNafta extends Mezclador {
 	*
 	*@see TanqueNafta
 	*/
-	public void setTanqueNafta(TanqueNafta tanqueNafta) throws BoundsException {
+    public void setTanqueNafta(TanqueNafta tanqueNafta) throws BoundsException { //Si, ya sé, despues creo otro tipo de excepción
 	    if(tanqueNafta instanceof TanqueNafta )
 		setTanqueCombustible(tanqueNafta);
 	    else throw new BoundsException();
