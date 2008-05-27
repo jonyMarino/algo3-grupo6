@@ -47,8 +47,9 @@ public class MezcladorTest extends TestCase {
 		}
 		try {
 			assertEquals(40.49, mezclador.obtenerMezcla(90));
+			fail("Debería haberse lanzado una excepción");
 		} catch (BoundsException e) {
-			e.printStackTrace();
+			//prueba exitosa
 		}
 		mezclador = null;
 		
@@ -81,8 +82,9 @@ public class MezcladorTest extends TestCase {
 		try {
 			mezclador= new MezcladorNafta(100,tanque);
 			assertEquals(0.0, mezclador.obtenerMezcla(-90));
+			fail("Debería haberse lanzado una excepción");
 		} catch (BoundsException e) {
-			e.printStackTrace();
+			//prueba exitosa
 		}
 		mezclador = null;
 	}

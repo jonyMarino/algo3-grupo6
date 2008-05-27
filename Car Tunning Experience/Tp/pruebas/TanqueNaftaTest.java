@@ -53,8 +53,8 @@ public class TanqueNaftaTest extends TestCase {
 		//TODO: Se agrego bloque catch
 		try {
 			tanque.llenarTanque(100);
+			fail("No se puede superar la capacidad máxima del tanque");
 		} catch (BoundsException e) {
-			e.printStackTrace();
 			if("Se supera la capacidad del Tanque" == e.getMessage())
 				try {
 					tanque.llenarTanque(tanque.getCapacidad() - tanque.getCantidadCombustible());
@@ -84,8 +84,8 @@ public class TanqueNaftaTest extends TestCase {
 		//TODO: Se agrego bloque catch
 		try {
 			tanque.usarCombustible(50);
+			fail("No se puede utilizar mas Nafta de la disponible");
 		} catch (BoundsException e) {
-			e.printStackTrace();
 			if("No se posee la cantidad de combustible pedida" == e.getMessage())
 				try {
 					tanque.usarCombustible(tanque.getCantidadCombustible());
@@ -103,8 +103,9 @@ public class TanqueNaftaTest extends TestCase {
 		}
 		try {
 			tanque.usarCombustible(-10);
+			fail("No se pueden usar cantidades negativas de combustible");
 		} catch (BoundsException e) {
-			e.printStackTrace();
+			//prueba exitosa
 		}
 		assertEquals(20.0, tanque.getCantidadCombustible());
 	}
@@ -140,8 +141,8 @@ public class TanqueNaftaTest extends TestCase {
 		assertEquals(33.15, tanque.getCantidadCombustible(), 0.4);
 		try {
 			mezclador.obtenerMezcla(90);
+			fail("No se puede obtener esa cantidad de mezcla");
 		} catch (BoundsException e) {
-			e.printStackTrace();
 			if("Faltante de nafta necesaria para la mezcla pedida" == e.getMessage())
 				naftaUtilRestante = ((tanque.getCantidadCombustible()*tanque.getTipoNafta().getOctanaje())/100);
 				mezclaMinima = ((mezclador.getRendimiento()*naftaUtilRestante)/100);	
@@ -194,8 +195,9 @@ public class TanqueNaftaTest extends TestCase {
 		try {
 			mezclador= new MezcladorNafta(100,tanque);
 			tanque.llenarTanque(-50);
+			fail("No se puede llenar el Tanque con una cantidad de litros negativa");
 		} catch (BoundsException e) {
-			e.printStackTrace();
+			//Prueba exitosa
 		}
 		assertEquals(0.0, tanque.getCantidadCombustible());
 		mezclador = null;
