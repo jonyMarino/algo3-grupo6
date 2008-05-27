@@ -14,14 +14,14 @@ import auto.partesAuto.tanque.TanqueNafta;
 public class MezcladorNafta extends Mezclador {
 
 	//TODO: Se modifico codigo
-	private TanqueNafta tanqueNafta;
+        //private TanqueNafta tanqueNafta;
 
 	/**
 	*
 	* Crea un nuevo MezcladorNafta con un {@link TanqueNafta} asociado.
 	*
 	*/
-	public MezcladorNafta(int rendimiento, TanqueNafta tanqueNafta) {
+	public MezcladorNafta(int rendimiento, TanqueNafta tanqueNafta) throws BoundsException{
 		super(rendimiento,tanqueNafta);
 		this.setTanqueNafta(tanqueNafta);
 	}
@@ -73,7 +73,7 @@ public class MezcladorNafta extends Mezclador {
 	* @see TanqueNafta
 	*/
 	public TanqueNafta getTanqueNafta() {
-		return tanqueNafta;
+		return (TanqueNafta)getTanqueCombustible();
 	}
 
 	/**
@@ -82,8 +82,10 @@ public class MezcladorNafta extends Mezclador {
 	*
 	*@see TanqueNafta
 	*/
-	public void setTanqueNafta(TanqueNafta tanqueNafta) {
-		this.tanqueNafta = tanqueNafta;
+	public void setTanqueNafta(TanqueNafta tanqueNafta) throws BoundsException {
+	    if(tanqueNafta instanceof TanqueNafta )
+		setTanqueCombustible(tanqueNafta);
+	    else throw new BoundsException();
 	}
 
 
