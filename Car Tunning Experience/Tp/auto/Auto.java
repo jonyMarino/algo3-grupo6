@@ -26,7 +26,7 @@ import auto.partesAuto.caja.Caja;
  *   @see Caja
  *   @see Carroceria
  *   @see Escape
- *   @see TanqueNafta
+ *   @see TanqueCombustible
  *   @see Acelerador
  *   @see Freno
  *   @see Rueda
@@ -42,7 +42,7 @@ public abstract class Auto {
 	private LinkedList<Rueda>      ruedas;
 	private Eje                    eje;
 	private TanqueCombustible            tanqueCombustible;
-	private Mezclador         mezcladorNafta;
+	private Mezclador         mezclador;
 	private double		           velocidad;
 	private LinkedList<ParteAuto>  partes;
 	private static double          aceleracionGravedad = 9.8;
@@ -54,7 +54,7 @@ public abstract class Auto {
 	 * @param carroceria la carrocería
 	 * @param motor el motor
 	 * @param caja la caja
-	 * @param mezcladorNafta el mezclador
+	 * @param mezclador el mezclador
 	 * @param tanque el tanque
 	 * @param rueda1 la rueda  delantera derecha
 	 * @param rueda2 la rueda delantera izquierda
@@ -62,13 +62,13 @@ public abstract class Auto {
 	 * @param rueda4 la rueda trasera derecha
 	 */
 	public Auto(Escape escape, Carroceria carroceria, Motor motor,
-	            Caja caja,Mezclador mezcladorNafta, TanqueCombustible tanqueCombustible,
+	            Caja caja,Mezclador mezclador, TanqueCombustible tanqueCombustible,
 	            Rueda rueda1, Rueda rueda2, Rueda rueda3, Rueda rueda4){
 
 		this.escape = escape;
 		this.setCarroceria(carroceria);
 		this.setMotor(motor);
-		this.setMezclador(mezcladorNafta);
+		this.setMezclador(mezclador);
 		this.setTanqueCombustible(tanqueCombustible);
 
 		//Ruedas
@@ -96,7 +96,7 @@ public abstract class Auto {
 		partes.add(escape);
 		partes.add(carroceria);
 		partes.add(motor);
-		partes.add(mezcladorNafta);
+		partes.add(mezclador);
 		partes.add(tanqueCombustible);
 		partes.add(rueda1);
 		partes.add(rueda2);
@@ -393,7 +393,7 @@ public abstract class Auto {
 		ruedas.set(3,rueda);
 	}
 
-//TANQUE NAFTA
+//TANQUE COMBUSTIBLE
 
 	/**
 	 * Devuelve el {@link TanqueCombustible} asociado al Auto
@@ -419,13 +419,13 @@ public abstract class Auto {
 	}
 
 	/**
-	 * Devuelve la cantidad de Nafta que posee el Auto
+	 * Devuelve la cantidad de Combustible que posee el Auto
 	 *
-	 * @return La cantidad de Nafta asociada.
+	 * @return La cantidad de Combustible asociada.
 	 *
 	 * @see TanqueCombustible
 	 */
-	public double obtenerCantidadNafta(){
+	public double obtenerCantidadCombustible(){
 		return this.getTanqueCombustible().getCantidadCombustible();
 	}
 
@@ -444,7 +444,7 @@ public abstract class Auto {
 		}
 	}
 
-//MEZCLADOR NAFTA
+//MEZCLADOR
 
 	/**
 	 * Devuelve el {@link Mezclador} asociado al Auto
@@ -454,7 +454,7 @@ public abstract class Auto {
 	 * @see Mezclador
 	 */
 	public Mezclador getMezclador() {
-		return mezcladorNafta;
+		return mezclador;
 	}
 
 	/**
@@ -464,8 +464,8 @@ public abstract class Auto {
 	 *
 	 * @see Mezclador
 	 */
-	public void setMezclador(Mezclador mezcladorNafta) {
-		this.mezcladorNafta = mezcladorNafta;
+	public void setMezclador(Mezclador mezclador) {
+		this.mezclador = mezclador;
 		this.getMotor().setMezclador(this.getMezclador());
 	}
 
