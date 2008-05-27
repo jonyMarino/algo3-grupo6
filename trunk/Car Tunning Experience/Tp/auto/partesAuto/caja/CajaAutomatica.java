@@ -19,8 +19,7 @@ public class CajaAutomatica extends Caja {
 		super();
 	}
 	public double getTorque() {
-		Motor m=getMotor();
-		if(m!=null){
+		if(this.getMotor()!=null){
 			if(getMotor().obtenerRPM()>getMotor().getRPMMaximo()*3/4 && getCambio()<MAX_CAMBIO)
 				incCambio();
 			return convertir(getMotor().getTorque());
