@@ -58,8 +58,6 @@ public class MotorTest extends TestCase {
 		assertEquals(0.0, motor.obtenerRPM());
 		motor.acelerar(1);
 		auto.calcularVelocidad(10, pista);
-		double rpm = motor.obtenerRPM();
-		System.out.println(rpm);
 		int result =(int)(motor.obtenerRPM()*100);//comparo contra 2 decimales
 		assertEquals(538, result);
 	}
