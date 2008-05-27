@@ -17,7 +17,6 @@ class NoTorqueadorException extends RuntimeException{
  *
  */
 
-
 public class Eje extends ParteAuto{
 
 	private LinkedList<Torqueador> torques = new LinkedList<Torqueador>();
@@ -28,10 +27,20 @@ public class Eje extends ParteAuto{
 		this.ruedaTrasera=ruedaTrasera;
 	}
 
+
+    /**
+     *
+     *   Devuelve un fuerza en funcion de los torques aplicados al {@link Eje}
+     *   y de la fuerza de rozamiento a la cual estan sometidas las {@link Rueda}s
+     *   @return La fuerza neta generada
+     *
+     *   @see Torqueador
+     *   @see Rueda
+     */
 	public double getFuerza() {
 		double torque=0;
-		for(Torqueador t:torques)
-			torque+=t.getTorque();
+		for(Torqueador iteradorTorques:torques)
+			torque+=iteradorTorques.getTorque();
 		double fuerza= torque/ruedaTrasera.getRodado();
 		if(fuerza>=ruedaTrasera.getFuerzaRozamientoEstatico()){	// Verifica que no haya dezliz
 			if(getRpm()>0)
@@ -41,10 +50,17 @@ public class Eje extends ParteAuto{
 		return fuerza;
 	}
 
-	public void addTorqueador(Torqueador t) {
-		if(t==null)
+    /**
+     *
+     *  Agrega un nuevo {@link Torqueador} al {@link Eje}
+     *
+     *  @see Torqueador
+     */
+
+	public void addTorqueador(Torqueador iteradorTorques) {
+		if(iteradorTorques==null)
 			throw new NoTorqueadorException();
-		torques.add(t);
+		torques.add(iteradorTorques);
 	}
 	
 	public boolean desgastar(int tiempo){
@@ -59,6 +75,14 @@ public class Eje extends ParteAuto{
 		return desgastado();
 	}
 	
+
+    /**
+     *
+     *   Calcula las RPM del {@link Eje}
+     *
+     *   @return Las RPM del {@link Eje}
+     */
+
 	public double getRpm(){
 		return ruedaTrasera.getRPM();
 	}
