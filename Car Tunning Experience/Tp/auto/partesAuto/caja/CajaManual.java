@@ -14,9 +14,8 @@ public class CajaManual extends Caja {
 	}
 
 	public double getTorque(){
-	Motor m = getMotor();
-	if(m!=null)
-		return convertir(m.getTorque());
+	if(this.getMotor()!= null)
+		return convertir(this.getMotor().getTorque());
 	return 0;
 	}
 

@@ -22,14 +22,9 @@ public abstract class Mezclador extends ParteAuto{
 	* @param rendimiento El rendmiento con el que opera el Mezclador (0..100)
 	*
 	*/
-	public Mezclador(int rendimiento,TanqueCombustible tanque)throws BoundsException {
+	public Mezclador(int rendimiento,TanqueCombustible tanque) {
 		super();
-		//try {
-			this.setRendimiento(rendimiento);
-		//} catch (BoundsException e) {
-		//	e.printStackTrace();		//deMarino: Hay que preguntarse si este es quien lo debe imprimir
-		//	throw e;
-		//}
+		this.setRendimiento(rendimiento);
 	}
 
 	/**
@@ -76,12 +71,8 @@ public abstract class Mezclador extends ParteAuto{
 		return desgastado();
 	}
 
-	private void setRendimiento(int rendimiento) throws BoundsException {
-		if(rendimiento < 0)
-		   throw new BoundsException("Rendimiento Mezclador negativo");
-		else if (rendimiento > 100)
-		   throw new BoundsException("Rendimiento Mezclador excesivo");
-		else this.rendimiento = rendimiento;
+	private void setRendimiento(int rendimiento) {
+		this.rendimiento = rendimiento;
 	}
 	
 }

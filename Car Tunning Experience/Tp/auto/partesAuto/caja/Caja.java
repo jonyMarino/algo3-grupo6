@@ -39,17 +39,17 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 		this.cambio=cambio;
 	}
 
-	public void setMotor(Motor m ){
-		motor=m;
+	public void setMotor(Motor motor){
+		this.motor = motor;
 	}
 	public Motor getMotor(){
 		return motor;
 	}
 
-	public void setEje(Eje nuevoEje ){
-		if(nuevoEje==null)
+	public void setEje(Eje eje){
+		if(eje==null)
 			throw new RuntimeException();
-		eje=nuevoEje;
+		this.eje=eje;
 		eje.addTorqueador(this);
 	}
 	public Eje getEje(){

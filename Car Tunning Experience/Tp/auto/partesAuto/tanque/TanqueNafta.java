@@ -1,8 +1,8 @@
 package auto.partesAuto.tanque;
 
 import combustible.Nafta;
-import auto.partesAuto.BoundsException;
 
+//TODO: Se modifico excepciones
 /**
  * El Tanque de Nafta sirve para almacenar {@link Nafta}.
  *
@@ -22,12 +22,11 @@ public class TanqueNafta extends TanqueCombustible{
 	*@param tipoNafta El tipo de {@link Nafta} que almacena.
 	*
 	*/
-	public TanqueNafta(int capacidad,Nafta tipoNafta)throws BoundsException{
+	public TanqueNafta(int capacidad,Nafta tipoNafta) {
 		super(capacidad,tipoNafta);
 		this.setTipoNafta(tipoNafta);
 	}
 
-	//TODO: se modifico codigo
 	/**
 	*
 	* Calcula el peso del TanqueNafta de acuerdo a la cantidad de Nafta que almacena
@@ -41,7 +40,6 @@ public class TanqueNafta extends TanqueCombustible{
 		return peso;
 	}
 
-	//TODO: agrego excepciones
 	/**
 	 * Especifíca que tipo de Nafta va a almacenar el TanqueNafta, eliminando la
 	 * cantidad de tipo de Nafta anterior.
