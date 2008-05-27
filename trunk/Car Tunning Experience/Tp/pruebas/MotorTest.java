@@ -47,11 +47,16 @@ public class MotorTest extends TestCase {
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
+		pista = null;
 		nafta = null;
 		tanque = null;
 		mezclador = null;
 		escape = null;
+		carroceria = null;
+		rueda = null;
 		motor = null;
+		caja = null;
+		auto = null;
 	}
 
 	public void testAcelerar() throws BoundsException {
