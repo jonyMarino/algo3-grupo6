@@ -15,6 +15,7 @@ import auto.partesAuto.tanque.TanqueCombustible;
 public abstract class Mezclador extends ParteAuto{
 
 	private int rendimiento;
+        private TanqueCombustible tanque;
 
 	/**
 	* Crea un nuevo Mezclador.
@@ -25,6 +26,7 @@ public abstract class Mezclador extends ParteAuto{
 	public Mezclador(int rendimiento,TanqueCombustible tanque) {
 		super();
 		this.setRendimiento(rendimiento);
+		this.tanque = tanque;
 	}
 
 	/**
@@ -47,6 +49,14 @@ public abstract class Mezclador extends ParteAuto{
 	*/
 	public int getRendimiento(){
 		return rendimiento;
+	}
+
+        public TanqueCombustible getTanqueCombustible(){
+	    return tanque;
+	}
+
+        public void setTanqueCombustible(TanqueCombustible tanque){
+	    this.tanque=tanque;
 	}
 
 	/**

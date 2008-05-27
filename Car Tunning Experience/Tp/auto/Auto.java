@@ -9,10 +9,10 @@ import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
 import auto.partesAuto.Rueda;
-import auto.partesAuto.mezclador.MezcladorNafta;
+import auto.partesAuto.mezclador.Mezclador;
 import auto.partesAuto.pedal.Acelerador;
 import auto.partesAuto.pedal.Freno;
-import auto.partesAuto.tanque.TanqueNafta;
+import auto.partesAuto.tanque.TanqueCombustible;
 import auto.partesAuto.caja.Caja;
 
 //TODO: Se modifico codigo y se comento el codigo
@@ -31,7 +31,7 @@ import auto.partesAuto.caja.Caja;
  *   @see Freno
  *   @see Rueda
  *   @see Eje
- *   @see MezcladorNafta
+ *   @see Mezclador
  */
 public abstract class Auto {
 	private Escape 		           escape;
@@ -41,8 +41,8 @@ public abstract class Auto {
 	private Freno 		           freno;
 	private LinkedList<Rueda>      ruedas;
 	private Eje                    eje;
-	private TanqueNafta            tanqueNafta;
-	private MezcladorNafta         mezcladorNafta;
+	private TanqueCombustible            tanqueCombustible;
+	private Mezclador         mezcladorNafta;
 	private double		           velocidad;
 	private LinkedList<ParteAuto>  partes;
 	private static double          aceleracionGravedad = 9.8;
@@ -62,14 +62,14 @@ public abstract class Auto {
 	 * @param rueda4 la rueda trasera derecha
 	 */
 	public Auto(Escape escape, Carroceria carroceria, Motor motor,
-	            Caja caja,MezcladorNafta mezcladorNafta, TanqueNafta tanqueNafta,
+	            Caja caja,Mezclador mezcladorNafta, TanqueCombustible tanqueCombustible,
 	            Rueda rueda1, Rueda rueda2, Rueda rueda3, Rueda rueda4){
 
 		this.escape = escape;
 		this.setCarroceria(carroceria);
 		this.setMotor(motor);
-		this.setMezcladorNafta(mezcladorNafta);
-		this.setTanqueNafta(tanqueNafta);
+		this.setMezclador(mezcladorNafta);
+		this.setTanqueCombustible(tanqueCombustible);
 
 		//Ruedas
 		ruedas = new LinkedList<Rueda>();
@@ -97,7 +97,7 @@ public abstract class Auto {
 		partes.add(carroceria);
 		partes.add(motor);
 		partes.add(mezcladorNafta);
-		partes.add(tanqueNafta);
+		partes.add(tanqueCombustible);
 		partes.add(rueda1);
 		partes.add(rueda2);
 		partes.add(rueda3);
@@ -396,26 +396,26 @@ public abstract class Auto {
 //TANQUE NAFTA
 
 	/**
-	 * Devuelve el {@link TanqueNafta} asociado al Auto
+	 * Devuelve el {@link TanqueCombustible} asociado al Auto
 	 *
-	 * @return El {@link TanqueNafta} asociado.
+	 * @return El {@link TanqueCombustible} asociado.
 	 *
-	 * @see TanqueNafta
+	 * @see TanqueCombustible
 	 */
-	public TanqueNafta getTanqueNafta() {
-		return tanqueNafta;
+	public TanqueCombustible getTanqueCombustible() {
+		return tanqueCombustible;
 	}
 
 	/**
-	 * Asigna un {@link TanqueNafta} al Auto.
+	 * Asigna un {@link TanqueCombustible} al Auto.
 	 *
-	 * @param El {@link TanqueNafta} a asignar.
+	 * @param El {@link TanqueCombustible} a asignar.
 	 *
-	 * @see TanqueNafta
+	 * @see TanqueCombustible
 	 */
-	public void setTanqueNafta(TanqueNafta tanqueNafta) {
-		this.tanqueNafta = tanqueNafta;
-		this.getMezcladorNafta().setTanqueNafta(this.getTanqueNafta());
+	public void setTanqueCombustible(TanqueCombustible tanqueCombustible) {
+		this.tanqueCombustible = tanqueCombustible;
+		this.getMezclador().setTanqueCombustible(this.getTanqueCombustible());
 	}
 
 	/**
@@ -423,22 +423,22 @@ public abstract class Auto {
 	 *
 	 * @return La cantidad de Nafta asociada.
 	 *
-	 * @see TanqueNafta
+	 * @see TanqueCombustible
 	 */
 	public double obtenerCantidadNafta(){
-		return this.getTanqueNafta().getCantidadCombustible();
+		return this.getTanqueCombustible().getCantidadCombustible();
 	}
 
 	/**
-	 * Carga el {@link TanqueNafta} de Combustible.
+	 * Carga el {@link TanqueCombustible} de Combustible.
 	 *
 	 * @param El combustible a asignar.
 	 *
-	 * @see TanqueNafta
+	 * @see TanqueCombustible
 	 */
 	public void cargarCombustible(double litros){
 		try {
-			this.getTanqueNafta().llenarTanque(litros);
+			this.getTanqueCombustible().llenarTanque(litros);
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
@@ -447,26 +447,26 @@ public abstract class Auto {
 //MEZCLADOR NAFTA
 
 	/**
-	 * Devuelve el {@link MezcladorNafta} asociado al Auto
+	 * Devuelve el {@link Mezclador} asociado al Auto
 	 *
-	 * @return El {@link MezcladorNafta} asociado.
+	 * @return El {@link Mezclador} asociado.
 	 *
-	 * @see MezcladorNafta
+	 * @see Mezclador
 	 */
-	public MezcladorNafta getMezcladorNafta() {
+	public Mezclador getMezclador() {
 		return mezcladorNafta;
 	}
 
 	/**
-	 * Asigna un {@link MezcladorNafta} al Auto.
+	 * Asigna un {@link Mezclador} al Auto.
 	 *
-	 * @param El {@link MezcladorNafta} a asignar.
+	 * @param El {@link Mezclador} a asignar.
 	 *
-	 * @see MezcladorNafta
+	 * @see Mezclador
 	 */
-	public void setMezcladorNafta(MezcladorNafta mezcladorNafta) {
+	public void setMezclador(Mezclador mezcladorNafta) {
 		this.mezcladorNafta = mezcladorNafta;
-		this.getMotor().setMezclador(this.getMezcladorNafta());
+		this.getMotor().setMezclador(this.getMezclador());
 	}
 
 //EJE
