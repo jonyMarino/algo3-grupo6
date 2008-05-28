@@ -1,3 +1,5 @@
+package programaAuto;
+
 import auto.*;
 import auto.partesAuto.*;
 import auto.partesAuto.caja.*;
@@ -18,16 +20,21 @@ public class ProgramaAuto {
 		this.pista=null;	
 	}
 		
-	public Auto autoInicial(){
+	public static Auto autoInicial(){
+		Auto auto=null;
 		Nafta nafta = new Nafta(85,15);
 		TanqueNafta tanque = new TanqueNafta(70, nafta);
-		Carroceria carroceria = new Carroceria(5,5,250);
-		Rueda rueda = new Rueda(1,0.7,0.4);
-		MezcladorNafta mezclador = new MezcladorNafta(100,tanque);
-		Escape escape = new Escape(100);
-		Motor motor=new Motor(100,5000,mezclador,escape,2.0);
-		CajaManual caja = new CajaManual();
-		Auto auto = new AutoManual(escape,carroceria,motor,caja,mezclador,tanque,rueda,rueda,rueda,rueda);
+		try{
+			Carroceria carroceria = new Carroceria(5,5,250);
+			MezcladorNafta mezclador = new MezcladorNafta(100,tanque);
+			Escape escape = new Escape(100);
+			Motor motor=new Motor(100,5000,mezclador,escape,2.0);
+			Rueda rueda = new Rueda(1,0.7,0.4);
+			CajaManual caja = new CajaManual();
+			auto = new AutoManual(escape,carroceria,motor,caja,mezclador,tanque,rueda,rueda,rueda,rueda);
+
+		}catch(BoundsException e){}
+			
 		return auto;
 	}
 	
