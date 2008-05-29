@@ -8,11 +8,16 @@ import java.util.Iterator;
 
 import excepciones.NotEnoughMoneyException;
 import excepciones.NotInIndexException;
+import excepciones.WrongPartClassException;
 
 import programaAuto.Usuario;
 
+import auto.Auto;
 import auto.ParteAuto;
+import auto.partesAuto.Carroceria;
+import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
+import auto.partesAuto.caja.Caja;
 
 public class Taller {
 
@@ -90,7 +95,31 @@ public class Taller {
 		if(! (hashDePartes.containsKey("PARTE_"+indiceEnElCatalogo)) )
 			throw new NotInIndexException("No existe ese número de parte en el catalogo.");
 		else hashDePartes.remove("PARTE_"+indiceEnElCatalogo);
-
+	}
+	
+	public ParteAuto ensamblarParteAuto(Auto unAuto, ParteAuto unaParte) throws WrongPartClassException{
+		ParteAuto parteTemporal = unaParte;
+		
+		if(unaParte instanceof Escape){
+			parteTemporal = unAuto.getEscape();
+			unAuto.setEscape((Escape) unaParte);
+		}
+		else if(unaParte instanceof Carroceria){
+			parteTemporal = unAuto.getCarroceria();
+			unAuto.setCarroceria((Carroceria) unaParte);
+		}
+		else if(unaParte instanceof Caja){
+			parteTemporal = unAuto.getCaja();
+			((Caja)unaParte).setEje(unAuto.getEje());
+			((Caja)unaParte).setMotor(unAuto.getMotor());
+			unAuto.setCaja((Caja) unaParte);
+		}
+		else if(unaParte instanceof Motor){
+			parteTemporal = unAuto.getMotor();
+			unAuto.setMotor((Motor) unaParte);
+		}
+		
+		return parteTemporal;
 	}
 	
 }

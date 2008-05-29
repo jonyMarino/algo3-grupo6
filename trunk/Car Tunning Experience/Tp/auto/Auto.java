@@ -1,6 +1,8 @@
 package auto;
 
 import java.util.LinkedList;
+
+import excepciones.WrongPartClassException;
 import pista.Pista;
 import auto.partesAuto.Carroceria;
 import auto.ParteAuto;
@@ -41,10 +43,11 @@ public abstract class Auto {
 	private Freno 		           freno;
 	private LinkedList<Rueda>      ruedas;
 	private Eje                    eje;
-	private TanqueCombustible            tanqueCombustible;
-	private Mezclador         mezclador;
+	private TanqueCombustible      tanqueCombustible;
+	private Mezclador         	   mezclador;
 	private double		           velocidad;
 	private LinkedList<ParteAuto>  partes;
+	private Caja 				   caja;
 	private static double          aceleracionGravedad = 9.8;
 
 	/**
@@ -533,6 +536,16 @@ public abstract class Auto {
 		Eje eje = new Eje(this.getRuedaTraseraDerecha());
 		this.setEje(eje);
 
+	}
+
+// CAJA
+
+	public void setCaja(Caja caja) throws WrongPartClassException{
+		this.caja = caja;
+	}
+	
+	public Caja getCaja() {
+		return caja;
 	}
 
 }
