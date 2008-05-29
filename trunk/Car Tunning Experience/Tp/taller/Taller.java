@@ -2,6 +2,8 @@ package taller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.Iterator;
 
 import excepciones.NotEnoughMoneyException;
@@ -33,16 +35,21 @@ public class Taller {
 		}
 	}
 	
-	private ArrayList<InformacionParteAutoEnElTaller> listaDePartes;
+	private ArrayList<Integer> listaDePartes;
+	private Hashtable<String, InformacionParteAutoEnElTaller> hashDePartes;
 	
 	public Taller(){
-		listaDePartes = new ArrayList<InformacionParteAutoEnElTaller>();
+		listaDePartes = new ArrayList<Integer>();
 		ultimoNumeroDeParteEnElCatalogo=0;
+		hashDePartes = new Hashtable<String, InformacionParteAutoEnElTaller>();
 	}
 	
 	public int catalogar(ParteAuto parte, int precioEnAlgo$) {
-		listaDePartes.add(new InformacionParteAutoEnElTaller(parte, precioEnAlgo$));
 		ultimoNumeroDeParteEnElCatalogo++;
+		listaDePartes.add(new Integer(ultimoNumeroDeParteEnElCatalogo));
+		String clave = new String("PARTE_"+ ultimoNumeroDeParteEnElCatalogo);
+		InformacionParteAutoEnElTaller informacion =  new InformacionParteAutoEnElTaller(parte, precioEnAlgo$);
+		hashDePartes.put(clave, informacion);
 		return ultimoNumeroDeParteEnElCatalogo;
 	}
 
@@ -54,12 +61,10 @@ public class Taller {
 		return ((ArrayList)listaDePartes.clone()).iterator();
 	}
 
-	public Class getTipoDeParte(Object object) throws NotInIndexException {
-		return ((InformacionParteAutoEnElTaller) object).getTipoDeParte();
+	public Class getTipoDeParte(Object indiceEnElCatalogo) throws NotInIndexException {
+		if ( !(indiceEnElCatalogo instanceof Integer))
+			throw new NotInIndexException("No existe tal parte, el índice es incorrecto");
+		return hashDePartes.get("PARTE_"+indiceEnElCatalogo).getTipoDeParte();
 	}
 	
-	
-	
-	
-
 }
