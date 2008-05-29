@@ -87,6 +87,16 @@ public class Eje extends ParteAuto{
 		return ruedaTrasera.getRPM();
 	}
 
+
+	public Rueda getRuedaTrasera() {
+		return ruedaTrasera;
+	}
+
+
+	public void setRuedaTrasera(Rueda ruedaTrasera) {
+		this.ruedaTrasera = ruedaTrasera;
+	}
+
 }
 
 

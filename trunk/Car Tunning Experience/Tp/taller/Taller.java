@@ -15,9 +15,11 @@ import programaAuto.Usuario;
 import auto.Auto;
 import auto.ParteAuto;
 import auto.partesAuto.Carroceria;
+import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
 import auto.partesAuto.caja.Caja;
+import auto.partesAuto.mezclador.Mezclador;
 
 public class Taller {
 
@@ -62,13 +64,14 @@ public class Taller {
 		return ultimoNumeroDeParteEnElCatalogo;
 	}
 
-	public void comprar(Usuario usuario, int indiceDelCatalogo) throws NotEnoughMoneyException,NotInIndexException{
+	public void comprar(Usuario usuario, int indiceDelCatalogo) throws NotEnoughMoneyException,NotInIndexException, WrongPartClassException{
 		InformacionParteAutoEnElTaller informacionDeEstaParte = getParteAutoEnElTaller(indiceDelCatalogo);
 		if (informacionDeEstaParte.getPrecio() > usuario.getDinero())
 			throw new NotEnoughMoneyException("El usuario no posee dinero suficiente para comprar esta parte.");
 		else{
 			usuario.gastarDinero(informacionDeEstaParte.getPrecio());
-			usuario.ensamblarParte(informacionDeEstaParte.getParte());
+			//usuario.ensamblarParte(informacionDeEstaParte.getParte());
+			ensamblarParteAuto(usuario.getAuto(), informacionDeEstaParte.getParte());
 			eliminarParteAutoEnElTaller(indiceDelCatalogo);
 			
 		}
@@ -101,25 +104,73 @@ public class Taller {
 		ParteAuto parteTemporal = unaParte;
 		
 		if(unaParte instanceof Escape){
-			parteTemporal = unAuto.getEscape();
-			unAuto.setEscape((Escape) unaParte);
+			return ensamblarEscape(unAuto, (Escape) unaParte);
 		}
 		else if(unaParte instanceof Carroceria){
-			parteTemporal = unAuto.getCarroceria();
-			unAuto.setCarroceria((Carroceria) unaParte);
+			return ensamblarCarroceria(unAuto, (Carroceria) unaParte);
 		}
 		else if(unaParte instanceof Caja){
-			parteTemporal = unAuto.getCaja();
-			((Caja)unaParte).setEje(unAuto.getEje());
-			((Caja)unaParte).setMotor(unAuto.getMotor());
-			unAuto.setCaja((Caja) unaParte);
+			return ensamblarCaja(unAuto, (Caja)unaParte);
 		}
 		else if(unaParte instanceof Motor){
-			parteTemporal = unAuto.getMotor();
-			unAuto.setMotor((Motor) unaParte);
+			return ensamblarMotor(unAuto, (Motor)unaParte);
+		}
+		else if( unaParte instanceof Eje){
+			return ensamblarEje(unAuto, (Eje)unaParte);
+		}
+		else if( unaParte instanceof Mezclador){
+			return ensamblarMezclador(unAuto, (Mezclador)unaParte);
 		}
 		
 		return parteTemporal;
 	}
 	
+	private ParteAuto ensamblarMezclador(Auto unAuto, Mezclador unMezclador) throws WrongPartClassException {
+		Mezclador parteTemporal = unAuto.getMezclador();
+		if( ! (unMezclador.getClass() == parteTemporal.getClass()) ){
+			throw new WrongPartClassException("No se puede ensamblar la parte. Se requiere de " + parteTemporal.getClass() + " pero se tiene " + unMezclador.getClass());
+		}
+		return parteTemporal;
+	}
+
+	private ParteAuto ensamblarEje(Auto unAuto, Eje unEje) {
+		Eje parteTemporal = unAuto.getEje();
+		unEje.setRuedaTrasera(parteTemporal.getRuedaTrasera());
+		parteTemporal.setRuedaTrasera(null);
+		unAuto.setEje(unEje);
+		return parteTemporal;
+	}
+
+	private Escape ensamblarEscape(Auto unAuto, Escape unEscape){
+		Escape parteTemporal = unAuto.getEscape();
+		unAuto.setEscape(unEscape);
+		return parteTemporal;
+	}
+	
+	private Carroceria ensamblarCarroceria(Auto unAuto, Carroceria unaCarroceria){
+		Carroceria parteTemporal = unAuto.getCarroceria();
+		unAuto.setCarroceria(unaCarroceria);
+		return parteTemporal;
+	}
+
+	private Caja ensamblarCaja(Auto unAuto, Caja unaCaja) throws WrongPartClassException{
+		Caja parteTemporal = unAuto.getCaja();
+		unaCaja.setEje(unAuto.getEje());
+		unaCaja.setMotor(unAuto.getMotor());
+		parteTemporal.setMotor(null);
+		parteTemporal.setEje(null);
+		unAuto.setCaja(unaCaja);
+		return parteTemporal;
+	}
+	private Motor ensamblarMotor(Auto unAuto, Motor unMotor){
+		Motor parteTemporal = unAuto.getMotor();
+		unMotor.setCaja(unAuto.getCaja());
+		unMotor.setEscape(unAuto.getEscape());
+		unMotor.setMezclador(unAuto.getMezclador());
+		parteTemporal.setCaja(null);
+		parteTemporal.setEscape(null);
+		parteTemporal.setMezclador(null);
+		unAuto.setMotor(unMotor);
+		return parteTemporal;
+	}
 }

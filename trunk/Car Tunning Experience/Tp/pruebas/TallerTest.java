@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import excepciones.NotEnoughMoneyException;
 import excepciones.NotInIndexException;
+import excepciones.WrongPartClassException;
 import junit.framework.TestCase;
 import pista.Pista;
 import programaAuto.ProgramaAuto;
@@ -44,6 +45,8 @@ public class TallerTest extends TestCase {
 			assertTrue(true);
 		} catch (NotInIndexException e) {
 			fail("No debería lanzar esta excepción, la parte existe.");
+		} catch (WrongPartClassException e) {
+			e.printStackTrace();
 		}	
 	}
 	public void testCompraExitosa(){
@@ -58,6 +61,8 @@ public class TallerTest extends TestCase {
 			fail("No deberia lanzar excepcion");
 		} catch (NotInIndexException e) {
 			fail("Se supone que la parte existe.");
+		} catch (WrongPartClassException e) {
+			e.printStackTrace();
 		}	
 	}
 	public void testCompraInexistente(){
@@ -68,6 +73,8 @@ public class TallerTest extends TestCase {
 			assertTrue(true);
 		} catch (NotEnoughMoneyException e) {
 			fail("Se supone que el dinero no era problema.");
+		} catch (WrongPartClassException e) {
+			e.printStackTrace();
 		}	
 		try{
 			taller.comprar(usuario,-1);
@@ -76,6 +83,9 @@ public class TallerTest extends TestCase {
 			assertTrue(true);
 		} catch (NotEnoughMoneyException e) {
 			fail("Se supone que el dinero no era problema.");
+		} catch (WrongPartClassException e) {
+
+			e.printStackTrace();
 		}	
 	}
 	
