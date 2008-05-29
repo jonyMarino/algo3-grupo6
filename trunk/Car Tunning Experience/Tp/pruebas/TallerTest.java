@@ -31,7 +31,7 @@ public class TallerTest extends TestCase {
 	protected void setUp() throws BoundsException{
 		motor = new Motor(100,10000,4.0); // muy buen motor(caro)
 		Auto auto = ProgramaAuto.autoInicial();
-		usuario = new Usuario(); //TODO: new Usuario(auto)
+		usuario = new Usuario(auto);
 		usuario.setDinero(1000);
 		taller = new Taller();
 		indiceTmp=taller.catalogar(motor,4000); 
@@ -53,7 +53,7 @@ public class TallerTest extends TestCase {
 		try{
 			taller.comprar(usuario,indice);
 			assertEquals(800.0, usuario.getDinero());
-			//TODO: assertEquals(escape,usuario.getAuto().getEscape());
+			assertEquals(escape,usuario.getAuto().getEscape());
 		}catch(NotEnoughMoneyException e){
 			fail("No deberia lanzar excepcion");
 		} catch (NotInIndexException e) {

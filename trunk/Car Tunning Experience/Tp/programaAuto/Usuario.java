@@ -1,11 +1,17 @@
 package programaAuto;
 import excepciones.NotEnoughMoneyException;
 import auto.Auto;
+import auto.ParteAuto;
+import auto.partesAuto.Escape;
 
 public class Usuario {
 	private double dinero;
 	private Auto auto;
 	
+	public Usuario(Auto miAuto) {
+		setAuto(miAuto);
+		setDinero(0);
+	}
 	public void setAuto(Auto miAuto) {
 		this.auto = miAuto;
 	}
@@ -24,6 +30,8 @@ public class Usuario {
 		else setDinero(getDinero()-cantidadDeDineroAGastar);
 		return true;
 	}
-	
-	
+	public void ensamblarParte(ParteAuto miParte){
+		if(miParte instanceof Escape)
+			getAuto().setEscape((Escape) miParte);
+	}
 }
