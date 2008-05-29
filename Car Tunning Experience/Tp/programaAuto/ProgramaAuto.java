@@ -6,6 +6,7 @@ import auto.partesAuto.caja.*;
 import auto.partesAuto.tanque.*;
 import auto.partesAuto.mezclador.*;
 import combustible.Nafta;
+import excepciones.WrongPartClassException;
 import pista.*;
 
 //TODO:esta en proceso todavia, se que falta completar, pero por ahora esta lo que
@@ -31,7 +32,11 @@ public class ProgramaAuto {
 			Motor motor=new Motor(100,5000,mezclador,escape,2.0);
 			Rueda rueda = new Rueda(1,0.7,0.4);
 			CajaManual caja = new CajaManual();
-			auto = new AutoManual(escape,carroceria,motor,caja,mezclador,tanque,rueda,rueda,rueda,rueda);
+			try {
+				auto = new AutoManual(escape,carroceria,motor,caja,mezclador,tanque,rueda,rueda,rueda,rueda);
+			} catch (WrongPartClassException e) {
+				e.printStackTrace();
+			}
 
 		}catch(BoundsException e){}
 			

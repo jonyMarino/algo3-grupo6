@@ -1,4 +1,6 @@
 package programaAuto;
+import java.util.ArrayList;
+
 import excepciones.NotEnoughMoneyException;
 import auto.Auto;
 import auto.ParteAuto;
@@ -7,10 +9,12 @@ import auto.partesAuto.Escape;
 public class Usuario {
 	private double dinero;
 	private Auto auto;
+	private ArrayList<ParteAuto> partesDisponibles;
 	
 	public Usuario(Auto miAuto) {
 		setAuto(miAuto);
 		setDinero(0);
+		partesDisponibles = new ArrayList<ParteAuto>();
 	}
 	public void setAuto(Auto miAuto) {
 		this.auto = miAuto;
