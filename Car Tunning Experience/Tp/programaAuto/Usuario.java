@@ -1,4 +1,5 @@
 package programaAuto;
+import excepciones.NotEnoughMoneyException;
 import auto.Auto;
 
 public class Usuario {
@@ -16,6 +17,12 @@ public class Usuario {
 	}
 	public double getDinero() {
 		return dinero;
+	}
+	public boolean gastarDinero(double cantidadDeDineroAGastar) throws NotEnoughMoneyException{
+		if(cantidadDeDineroAGastar > getDinero())
+			throw new NotEnoughMoneyException("El usuario no puede gastar mas dinero del que tiene.");
+		else setDinero(getDinero()-cantidadDeDineroAGastar);
+		return true;
 	}
 	
 	
