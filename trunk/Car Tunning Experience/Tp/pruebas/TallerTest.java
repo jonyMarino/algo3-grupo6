@@ -43,7 +43,7 @@ public class TallerTest extends TestCase {
 		}catch(NotEnoughMoneyException e){
 			assertTrue(true);
 		} catch (NotInIndexException e) {
-			e.printStackTrace();
+			fail("No debería lanzar esta excepción, la parte existe.");
 		}	
 	}
 	public void testCompraExitosa(){

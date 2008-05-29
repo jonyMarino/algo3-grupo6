@@ -54,7 +54,10 @@ public class Taller {
 	}
 
 	public void comprar(Usuario usuario, int indiceDelCatalogo) throws NotEnoughMoneyException,NotInIndexException{
-		
+		InformacionParteAutoEnElTaller informacionDeEstaParte = getParteAutoEnElTaller(indiceDelCatalogo);
+		if (informacionDeEstaParte.getPrecio() > usuario.getDinero())
+			throw new NotEnoughMoneyException("El usuario no posee dinero suficiente para comprar esta parte.");
+		else usuario.gastarDinero(informacionDeEstaParte.getPrecio());
 	}
 
 	public Iterator getCatalogo() {
@@ -64,7 +67,14 @@ public class Taller {
 	public Class getTipoDeParte(Object indiceEnElCatalogo) throws NotInIndexException {
 		if ( !(indiceEnElCatalogo instanceof Integer))
 			throw new NotInIndexException("No existe tal parte, el índice es incorrecto");
-		return hashDePartes.get("PARTE_"+indiceEnElCatalogo).getTipoDeParte();
+		return getParteAutoEnElTaller((Integer)(indiceEnElCatalogo)).getTipoDeParte();
+	}
+	
+	private InformacionParteAutoEnElTaller getParteAutoEnElTaller(Integer indiceEnElCatalogo) throws NotInIndexException{
+		if(! (hashDePartes.containsKey(indiceEnElCatalogo)) )
+			throw new NotInIndexException("No existe ese número de parte en el catalogo.");
+		else return hashDePartes.get("PARTE_"+indiceEnElCatalogo);
+		
 	}
 	
 }
