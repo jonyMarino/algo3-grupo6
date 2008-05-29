@@ -33,6 +33,10 @@ public class Taller {
 		public int getPrecio(){
 			return precio;
 		}
+		
+		public ParteAuto getParte(){
+			return parte;
+		}
 	}
 	
 	private ArrayList<Integer> listaDePartes;
@@ -57,7 +61,12 @@ public class Taller {
 		InformacionParteAutoEnElTaller informacionDeEstaParte = getParteAutoEnElTaller(indiceDelCatalogo);
 		if (informacionDeEstaParte.getPrecio() > usuario.getDinero())
 			throw new NotEnoughMoneyException("El usuario no posee dinero suficiente para comprar esta parte.");
-		else usuario.gastarDinero(informacionDeEstaParte.getPrecio());
+		else{
+			usuario.gastarDinero(informacionDeEstaParte.getPrecio());
+			usuario.ensamblarParte(informacionDeEstaParte.getParte());
+			eliminarParteAutoEnElTaller(indiceDelCatalogo);
+			
+		}
 	}
 
 	public Iterator getCatalogo() {
@@ -75,6 +84,13 @@ public class Taller {
 			throw new NotInIndexException("No existe ese número de parte en el catalogo.");
 		else return hashDePartes.get("PARTE_"+indiceEnElCatalogo);
 		
+	}
+	
+	private void eliminarParteAutoEnElTaller(Integer indiceEnElCatalogo) throws NotInIndexException{
+		if(! (hashDePartes.containsKey("PARTE_"+indiceEnElCatalogo)) )
+			throw new NotInIndexException("No existe ese número de parte en el catalogo.");
+		else hashDePartes.remove("PARTE_"+indiceEnElCatalogo);
+
 	}
 	
 }
