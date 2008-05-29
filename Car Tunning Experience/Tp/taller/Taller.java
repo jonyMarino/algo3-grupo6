@@ -71,7 +71,7 @@ public class Taller {
 	}
 	
 	private InformacionParteAutoEnElTaller getParteAutoEnElTaller(Integer indiceEnElCatalogo) throws NotInIndexException{
-		if(! (hashDePartes.containsKey(indiceEnElCatalogo)) )
+		if(! (hashDePartes.containsKey("PARTE_"+indiceEnElCatalogo)) )
 			throw new NotInIndexException("No existe ese número de parte en el catalogo.");
 		else return hashDePartes.get("PARTE_"+indiceEnElCatalogo);
 		
