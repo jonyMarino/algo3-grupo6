@@ -19,6 +19,7 @@ import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
 import auto.partesAuto.Rueda;
+import auto.partesAuto.caja.CajaAutomatica;
 import auto.partesAuto.caja.CajaManual;
 import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.tanque.TanqueNafta;
@@ -35,7 +36,7 @@ public class TallerTest extends TestCase {
 		usuario = new Usuario(auto);
 		usuario.setDinero(1000);
 		taller = new Taller();
-		indiceTmp=taller.catalogar(motor,4000); 
+		indiceTmp=taller.catalogar(motor,4000, "Motor Super Ultra BlahBlah"); 
 	}
 	public void testCompraFallida(){
 		try{
@@ -49,10 +50,10 @@ public class TallerTest extends TestCase {
 			e.printStackTrace();
 		}	
 	}
+	
 	public void testCompraExitosa(){
 		Escape escape = new Escape(80);
-		
-		int indice = taller.catalogar(escape,200);
+		int indice = taller.catalogar(escape,200, "Un escape maso");
 		try{
 			taller.comprar(usuario,indice);
 			assertEquals(800.0, usuario.getDinero());
@@ -65,6 +66,45 @@ public class TallerTest extends TestCase {
 			e.printStackTrace();
 		}	
 	}
+	
+	public void testCatalogarDosVeces(){
+		Escape escape = new Escape(80);
+		Escape otroEscape = new Escape(80);
+		int indice = taller.catalogar(escape,200, "Un escape maso");
+		int otroindice = taller.catalogar(otroEscape,200, "Un escape maso");
+		assertEquals(indice, otroindice);
+		try{
+			taller.comprar(usuario,indice);
+			assertEquals(800.0, usuario.getDinero());
+			assertEquals(escape,usuario.getAuto().getEscape());
+			taller.comprar(usuario,indice);
+			assertEquals(600.0, usuario.getDinero());
+			//TODO: anotacion personal para no olvidar modificar algo, NO BORRAR
+			assertEquals(escape,usuario.getAuto().getEscape()); 
+		}catch(NotEnoughMoneyException e){
+			fail("No deberia lanzar excepcion");
+		} catch (NotInIndexException e) {
+			fail("Se supone que la parte existe.");
+		} catch (WrongPartClassException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public void testComprarParteErronea(){
+		CajaAutomatica caja = new CajaAutomatica(null, null);
+		int indice = taller.catalogar(caja,200, "Cajita Automatica");
+		try{
+			taller.comprar(usuario,indice);
+			assertEquals(800.0, usuario.getDinero());
+		}catch(NotEnoughMoneyException e){
+			fail("No deberia lanzar excepcion");
+		} catch (NotInIndexException e) {
+			fail("Se supone que la parte existe.");
+		} catch (WrongPartClassException e) {
+			assertTrue(true);       //No puedo ponerle una CajaAutomatica al Auto Manual ¿O si?
+		}	
+	}
+	
 	public void testCompraInexistente(){
 		try{
 			taller.comprar(usuario,2);
@@ -84,7 +124,6 @@ public class TallerTest extends TestCase {
 		} catch (NotEnoughMoneyException e) {
 			fail("Se supone que el dinero no era problema.");
 		} catch (WrongPartClassException e) {
-
 			e.printStackTrace();
 		}	
 	}

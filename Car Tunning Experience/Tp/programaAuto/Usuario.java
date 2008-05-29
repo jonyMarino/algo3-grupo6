@@ -34,8 +34,4 @@ public class Usuario {
 		else setDinero(getDinero()-cantidadDeDineroAGastar);
 		return true;
 	}
-	public void ensamblarParte(ParteAuto miParte){
-		if(miParte instanceof Escape)
-			getAuto().setEscape((Escape) miParte);
-	}
 }
