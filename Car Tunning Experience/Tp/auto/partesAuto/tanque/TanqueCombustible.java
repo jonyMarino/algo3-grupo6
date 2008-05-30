@@ -3,37 +3,40 @@ package auto.partesAuto.tanque;
 import combustible.Combustible;
 import auto.ParteAuto;
 import auto.partesAuto.BoundsException;
+
 /**
-*
 * Clase abstracta que encapsula el comportamiento y las características
 * de un Tanque de Combustible.
 *
 * @see PartesAuto
 * @see Combustible
-*
+* @see TanqueNafta
 */
-public abstract class TanqueCombustible extends ParteAuto{
+public abstract class TanqueCombustible extends ParteAuto {
 
-	private int capacidad;
-	private double cantidadCombustible;
-//TODO: Debe modificarse
+	private int         capacidad;
+	private double      cantidadCombustible;
+	private Combustible combustible;
+
 	/**
 	* Crea un nuevo TanqueCombustible (vacío) con la capacidad especificada.
 	*
 	* @param capacidad La capacidad del tanque.
+	* @param combustible El tipo de {@link Combustible} que almacena.
 	*/
 	public TanqueCombustible(int capacidad,Combustible combustible) {
 			super();
 			this.setCapacidad(capacidad);
 			this.setCantidadCombustible(0);
+			this.setCombustible(combustible);
 	}
 
 	/**
-	*Devuelve la capacidad del Tanque.
+	* Devuelve la capacidad del TanqueCombustible.
 	*
 	* @return la capacidad del Tanque
 	*/
-	public double getCapacidad(){
+	public double getCapacidad() {
 		return capacidad;
 	}
 
@@ -42,11 +45,9 @@ public abstract class TanqueCombustible extends ParteAuto{
 	}
 
 	/**
-	*Devuelve la cantidad de {@link Combustible} que le queda.
+	* Devuelve la cantidad de {@link Combustible} que le queda.
 	*
-	* @return la cantidad de {@link Combustible} restante
-	*
-	* @see Combustible
+	* @return la cantidad de {@link Combustible} restante.
 	*/
 	public double getCantidadCombustible() {
 		return cantidadCombustible;
@@ -56,14 +57,13 @@ public abstract class TanqueCombustible extends ParteAuto{
 		this.cantidadCombustible = cantidadCombustible;
 	}
 
-	//DESPUES LO ARREGLO
 	/**
 	* Carga el Tanque.
 	*
-	* @param litros Los litros a cargar en el tanque, del tipo de Combustible
+	* @param litros Los litros a cargar en el tanque, del tipo de {@link Combustible}
 	*       que almacena el Tanque.
+	*
 	* @throws BoundsException
-	* @see Combustible
 	*/
 	public void llenarTanque(double litros) throws BoundsException {
 		if(litros < 0)
@@ -73,14 +73,14 @@ public abstract class TanqueCombustible extends ParteAuto{
 		else this.setCantidadCombustible(getCantidadCombustible() + litros);
 	}
 
-	//DESPUES LO ARREGLO
 	/**
-	* Le entrega combustible a quien se lo solicite.
+	* Le entrega {@link Combustible} a quien se lo solicite.
 	*
-	* @param litros los litros de combustible a entregar.
+	* @param litros Los litros de combustible a entregar.
+	*
 	* @return litros de combustible que pudo entregar.
+	*
 	* @throws BoundsException
-	* @see Combustible
 	*/
 	public double usarCombustible(double litros) throws BoundsException{
 		double combustibleConsumo = 0;
@@ -98,11 +98,9 @@ public abstract class TanqueCombustible extends ParteAuto{
 	}
 
 	/**
-	* Calcula el peso del Tanque Combutible de acuerdo a su cantidad de combustible.
+	* Calcula el peso del Tanque Combutible de acuerdo a la cantidad y tipo de {@link Combustible}.
 	*
-	* @return el peso del tanque y su contenido
-	* @see PartesAuto
-	* @see Combustible
+	* @return el peso del tanque.
 	*/
 	public abstract double getPeso();
 
@@ -117,6 +115,25 @@ public abstract class TanqueCombustible extends ParteAuto{
 		}
 
 		return desgastado();
+	}
+
+	/**
+	 * Devuelve el tipo de {@link Combustible) que almacena.
+	 *
+	 * @return un objeto de la clase de {@link Combustible) que almacena.
+	 */
+	public Combustible getCombustible() {
+		return combustible;
+	}
+
+	/**
+	 * Especifíca que tipo {@link Combustible) de va a almacenar el TanqueCombustible, eliminando la
+	 * cantidad de tipo de Combustible anterior.
+	 *
+	 * @param combustible La nueva clase de {@link Combustible) a almacenar.
+	 */
+	public void setCombustible(Combustible combustible) {
+		this.combustible = combustible;
 	}
 
 }

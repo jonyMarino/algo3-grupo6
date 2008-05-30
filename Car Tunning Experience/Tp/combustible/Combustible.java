@@ -14,22 +14,24 @@ public abstract class Combustible {
 	/**
 	 * Crea un nuevo Combustible con el costo especificado.
 	 *
-	 * @param costo el costo del nuevo combustible
+	 * @param costo El costo del nuevo Combustible.
 	 */
-	public Combustible(double costo){
+	public Combustible(double costo) {
 		this.setCosto(costo);
 	}
 
 	/**
 	 * Devuelve el peso específico del combustible.
-	 * @return peso específico del combustible
+	 *
+	 * @return peso específico del combustible.
 	 */
 	public abstract double getPesoEspecifico();
 
 
 	/**
 	 * Devuelve el costo por litro del combustible.
-	 * @return el costo por litro del combustible
+	 *
+	 * @return el costo por litro del combustible.
 	 */
 	public double getCosto() {
 		return costo;

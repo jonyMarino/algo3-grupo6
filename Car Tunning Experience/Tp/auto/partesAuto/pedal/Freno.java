@@ -11,7 +11,7 @@ import auto.partesAuto.BoundsException;
  *@see PartesAuto
  */
 public class Freno extends ParteAuto implements Pedal,Torqueador{
-//TODO: Se agrego comentario
+
 	private double torque;
 	private boolean usado;
 	private double pastilladeFreno;
@@ -44,7 +44,7 @@ public class Freno extends ParteAuto implements Pedal,Torqueador{
 		}
 		catch(BoundsException e){	//me pase??
 			try{
-				setVidaUtil(0);	
+				setVidaUtil(0);
 			}catch(BoundsException f){}
 		}
 		return desgastado();

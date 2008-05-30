@@ -7,13 +7,12 @@ import auto.partesAuto.tanque.TanqueNafta;
 
 import combustible.Nafta;
 
-//TODO: Se agrego excepciones
 public class MezcladorTest extends TestCase {
 
 	MezcladorNafta mezclador;
 	TanqueNafta tanque;
 	Nafta nafta;
-	
+
 	protected void setUp() throws Exception {
 		super.setUp();
 		nafta = new Nafta(95,10);
@@ -26,9 +25,9 @@ public class MezcladorTest extends TestCase {
 		tanque = null;
 		nafta = null;
 	}
-	
+
 	public void testObtenerMezclaMaximaEficiencia() {
-		
+
 		try {
 			mezclador= new MezcladorNafta(100,tanque);
 			assertEquals(0.01, mezclador.obtenerMezcla(0.01));
@@ -52,11 +51,11 @@ public class MezcladorTest extends TestCase {
 			//prueba exitosa
 		}
 		mezclador = null;
-		
+
 	}
-	
+
 	public void testObtenerMezclaMínimaEficiencia() {
-		
+
 		try {
 			mezclador= new MezcladorNafta(100,tanque);
 			assertEquals(0.1, mezclador.obtenerMezcla(0.1));
@@ -65,9 +64,9 @@ public class MezcladorTest extends TestCase {
 		}
 		mezclador = null;
 	}
-	
+
 	public void testObtenerMezclaMediaEficiencia() {
-		
+
 		try {
 			mezclador= new MezcladorNafta(100,tanque);
 			assertEquals(0.2, mezclador.obtenerMezcla(0.2));
@@ -76,9 +75,9 @@ public class MezcladorTest extends TestCase {
 		}
 		mezclador = null;
 	}
-	
+
 	public void testObtenerMezclaNegativa() {
-		
+
 		try {
 			mezclador= new MezcladorNafta(100,tanque);
 			assertEquals(0.0, mezclador.obtenerMezcla(-90));
