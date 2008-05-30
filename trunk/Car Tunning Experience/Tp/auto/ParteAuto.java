@@ -9,7 +9,7 @@ import auto.partesAuto.BoundsException;
  *
  */
 public abstract class ParteAuto {
-	//TODO: se elimino lo del costo y se agregaron excepciones
+
 	private double peso;
 	private double vidaUtil;
 
@@ -18,20 +18,20 @@ public abstract class ParteAuto {
 			setPeso(0);
 			setVidaUtil(100);
 		}catch(BoundsException e){}
-			
+
 	}
 
 	public void setPeso(double peso)throws BoundsException{
 		if(peso < 0)
 			throw new BoundsException("Valor de peso incorrecto.");
 		else this.peso=peso;
-		
+
 	}
 
 	public double getPeso(){
 		return this.peso;
 	}
-	
+
 	public void setVidaUtil(double vidaUtil)throws BoundsException{
 		if( (vidaUtil < 0) || (vidaUtil > 100) )
 			throw new BoundsException("Valor de la vida util incorrecto");

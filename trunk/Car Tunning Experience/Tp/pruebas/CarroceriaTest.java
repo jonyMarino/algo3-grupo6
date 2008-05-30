@@ -7,7 +7,7 @@ import auto.partesAuto.Carroceria;
 import pista.Pista;
 
 public class CarroceriaTest extends TestCase {
-//TODO: Se modifico excepciones
+
 	Carroceria carroceria;
 	Pista pista;
 

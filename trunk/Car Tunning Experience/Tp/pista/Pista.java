@@ -5,9 +5,7 @@ import auto.partesAuto.BoundsException;
 import java.util.*;
 
 public class Pista {
-//TODO: Se modifico excepciones
-//TODO: Se modifico excepciones y se elimino la clase AutoPosicionado
-	
+
 	private double coeficienteDeRozamientoRelativo;
 	private double longitud;
 	private int velocidadAire;
