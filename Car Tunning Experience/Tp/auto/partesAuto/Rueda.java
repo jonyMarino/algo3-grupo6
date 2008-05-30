@@ -11,7 +11,6 @@ public class Rueda extends ParteAuto {
 	private Auto auto;
 	private Pista pista=null;
 
-	//TODO: Modifico Excepciones
 	public Rueda(int rodado,double coeficienteEstatico,double coeficienteDinamico){
 		super();
 		this.auto= null;
@@ -31,7 +30,7 @@ public class Rueda extends ParteAuto {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setPista(Pista pista){
 		this.pista=pista;
 	}
@@ -54,7 +53,7 @@ public class Rueda extends ParteAuto {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void setRodado(int rodado) throws BoundsException{
@@ -102,14 +101,14 @@ public class Rueda extends ParteAuto {
 	public double getFuerzaRozamientoDinamico(){
 		return getCoeficienteDinamico()*auto.getPeso();
 	}
-	
+
 	public boolean desgastar(int tiempo) {
 		try{
 			if(getVidaUtil()!=0)
 				 setVidaUtil(getVidaUtil()-tiempo*getRPM()/100);
 		}catch(BoundsException e){
 			try{
-				setVidaUtil(0);			
+				setVidaUtil(0);
 			}catch(BoundsException f){}
 		}
 

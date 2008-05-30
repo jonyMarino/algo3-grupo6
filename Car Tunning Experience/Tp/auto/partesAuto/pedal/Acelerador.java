@@ -9,7 +9,7 @@ import auto.partesAuto.Motor;
  *@see PartesAuto
  */
 public class Acelerador extends ParteAuto implements Pedal{
-//TODO: Se agrego comentarios
+
 	private	Motor motor;
 	private boolean usado;
 
@@ -56,7 +56,7 @@ public class Acelerador extends ParteAuto implements Pedal{
 		}
 		catch(BoundsException e){	//me pase??
 			try{
-				setVidaUtil(0);	
+				setVidaUtil(0);
 			}catch(BoundsException f){}
 		}
 		return desgastado();	//deMarino:siempre devuelve si esta desgastado, por lo que deberia estar en una abstract class!!!!
