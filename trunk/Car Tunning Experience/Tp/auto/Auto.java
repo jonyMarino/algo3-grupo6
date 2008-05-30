@@ -1,5 +1,6 @@
 package auto;
 
+//import java.util.Collection;
 import java.util.LinkedList;
 import excepciones.WrongPartClassException;
 import pista.Pista;

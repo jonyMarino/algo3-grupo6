@@ -24,7 +24,6 @@ public class MezcladorNafta extends Mezclador {
 	*/
 	public MezcladorNafta(int rendimiento, TanqueNafta tanqueNafta) throws BoundsException {
 		super(rendimiento,tanqueNafta);
-		this.setTanqueNafta(tanqueNafta);
 	}
 
 	/**
@@ -42,12 +41,12 @@ public class MezcladorNafta extends Mezclador {
 					throw new BoundsException("Litros mezcla negativa");
 				else{
 					double mezclaNecesaria = ((litrosMezcla*100)/this.getRendimiento());
-					double naftaNecesaria = ((mezclaNecesaria*100)/(this.getTanqueNafta().getCombustible().getOctanaje()));
+					double naftaNecesaria = ((mezclaNecesaria*100)/(this.getTanqueCombustible().getCombustible().getOctanaje()));
 
-					if(naftaNecesaria > this.getTanqueNafta().getCantidadCombustible())
+					if(naftaNecesaria > this.getTanqueCombustible().getCantidadCombustible())
 							throw new BoundsException("Faltante de nafta necesaria para la mezcla pedida");
 					else{
-						this.getTanqueNafta().usarCombustible(naftaNecesaria);
+						this.getTanqueCombustible().usarCombustible(naftaNecesaria);
 						mezclaProducida = litrosMezcla;
 					}
 				}
@@ -61,8 +60,8 @@ public class MezcladorNafta extends Mezclador {
 	*
 	* @return el {@link TanqueNafta} asociado al MezcladorNafta.
 	*/
-	public TanqueNafta getTanqueNafta() {
-		return (TanqueNafta)getTanqueCombustible();
+	public TanqueNafta getTanqueCombustible() {
+		return (TanqueNafta)super.getTanqueCombustible();
 	}
 
 	/**
@@ -72,9 +71,9 @@ public class MezcladorNafta extends Mezclador {
 	*
 	* @throws BoundsException
 	*/
-    public void setTanqueNafta(TanqueNafta tanqueNafta) throws BoundsException { //Si, ya sé, despues creo otro tipo de excepción
+    public void setTanqueCombustible(TanqueNafta tanqueNafta) throws BoundsException { //Si, ya sé, despues creo otro tipo de excepción
 	    if(tanqueNafta instanceof TanqueNafta)
-		setTanqueCombustible(tanqueNafta);
+		super.setTanqueCombustible(tanqueNafta);
 	    else throw new BoundsException();
 	}
 
