@@ -45,8 +45,6 @@ public class TallerTest extends TestCase {
 			fail("Deberia lanzar excepcion");
 		}catch(NotEnoughMoneyException e){
 			assertTrue(true);
-
-		}
 		} catch (NotInIndexException e) {
 			fail("No debería lanzar esta excepción, la parte existe.");
 		} catch (WrongPartClassException e) {
@@ -116,8 +114,7 @@ public class TallerTest extends TestCase {
 			fail("Deberia lanzar excepcion");
 		}catch(NotInIndexException e){
 			assertTrue(true);
-		}
-		} catch (NotEnoughMoneyException e) {
+		}catch (NotEnoughMoneyException e) {
 			fail("Se supone que el dinero no era problema.");
 		} catch (WrongPartClassException e) {
 			e.printStackTrace();
@@ -127,7 +124,6 @@ public class TallerTest extends TestCase {
 			fail("Deberia lanzar excepcion");
 		}catch(NotInIndexException e){
 			assertTrue(true);
-		}
 		} catch (NotEnoughMoneyException e) {
 			fail("Se supone que el dinero no era problema.");
 		} catch (WrongPartClassException e) {
@@ -146,4 +142,4 @@ public class TallerTest extends TestCase {
 			fail("No deberia lanzar excepcion");
 		}
 	}
-}
+
