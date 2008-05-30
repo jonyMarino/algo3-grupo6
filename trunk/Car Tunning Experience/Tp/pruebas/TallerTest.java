@@ -34,8 +34,7 @@ public class TallerTest extends TestCase {
 		Auto auto = ProgramaAuto.autoInicial();
 		usuario = new Usuario(auto);
 		usuario.setDinero(1000);
-		Taller taller = new Taller();
-		indiceTmp=taller.catalogar(motor,4000);
+		taller = new Taller();
 		taller = new Taller();
 		indiceTmp=taller.catalogar(motor,4000, "Motor Super Ultra BlahBlah");
 	}
@@ -55,7 +54,6 @@ public class TallerTest extends TestCase {
 	public void testCompraExitosa(){
 		Escape escape = new Escape(80);
 
-		int indice = taller.catalogar(escape,200);
 		int indice = taller.catalogar(escape,200, "Un escape maso");
 		try{
 			taller.comprar(usuario,indice);
@@ -139,7 +137,6 @@ public class TallerTest extends TestCase {
 		}catch(NotInIndexException e){
 			fail("No deberia lanzar excepcion");
 		}
-			fail("No deberia lanzar excepcion");
-		}
 	}
+}
 
