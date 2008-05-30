@@ -1,27 +1,19 @@
 package pruebas;
 
 import java.util.Iterator;
-import excepciones.NotEnoughMoneyException;
-import excepciones.NotInIndexException;
-import excepciones.WrongPartClassException;
+
 import junit.framework.TestCase;
-import pista.Pista;
 import programaAuto.ProgramaAuto;
 import programaAuto.Usuario;
 import taller.Taller;
-import junit.framework.TestCase;
 import auto.Auto;
-import auto.AutoManual;
 import auto.partesAuto.BoundsException;
-import auto.partesAuto.Carroceria;
-import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
 import auto.partesAuto.Motor;
-import auto.partesAuto.Rueda;
 import auto.partesAuto.caja.CajaAutomatica;
-import auto.partesAuto.caja.CajaManual;
-import auto.partesAuto.mezclador.MezcladorNafta;
-import auto.partesAuto.tanque.TanqueNafta;
+import excepciones.NotEnoughMoneyException;
+import excepciones.NotInIndexException;
+import excepciones.WrongPartClassException;
 
 public class TallerTest extends TestCase {
 	private int indiceTmp=0;

@@ -1,19 +1,11 @@
 package taller;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import excepciones.NotEnoughMoneyException;
-import excepciones.NotInIndexException;
-import excepciones.PartAlreadyInCatalogEsception;
-import excepciones.WrongPartClassException;
-
 import programaAuto.Usuario;
-
 import auto.Auto;
 import auto.ParteAuto;
 import auto.partesAuto.BoundsException;
@@ -24,7 +16,19 @@ import auto.partesAuto.Motor;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
 import auto.partesAuto.tanque.TanqueCombustible;
+import excepciones.NotEnoughMoneyException;
+import excepciones.NotInIndexException;
+import excepciones.PartAlreadyInCatalogException;
+import excepciones.WrongPartClassException;
 
+/**
+ * @author lucas
+ *
+ */
+/**
+ * @author lucas
+ *
+ */
 public class Taller {
 
 	private int ultimoNumeroDeParteEnElCatalogo;
@@ -72,34 +76,44 @@ public class Taller {
 		}
 	}
 	
-	private ArrayList<Integer> listaDePartes;
+	private ArrayList<Integer> listaDeNumerosDePartes;
 	private Hashtable<String, InformacionParteAutoEnElTaller> hashDePartes;
 	
+	
+	/**
+	 * 
+	 */
 	public Taller(){
-		listaDePartes = new ArrayList<Integer>();
+		listaDeNumerosDePartes = new ArrayList<Integer>();
 		ultimoNumeroDeParteEnElCatalogo=0;
 		hashDePartes = new Hashtable<String, InformacionParteAutoEnElTaller>();
 	}
 	
+	/**
+	 * @param parte
+	 * @param precioEnAlgo$
+	 * @param descripcion
+	 * @return
+	 */
 	public int catalogar(ParteAuto parte, int precioEnAlgo$, String descripcion) {
 		try{
 			buscarParteRepetida(parte, precioEnAlgo$, descripcion);
 			ultimoNumeroDeParteEnElCatalogo++;
-			listaDePartes.add(new Integer(ultimoNumeroDeParteEnElCatalogo));
-			String clave = new String("PARTE_"+ ultimoNumeroDeParteEnElCatalogo);
+			listaDeNumerosDePartes.add(new Integer(ultimoNumeroDeParteEnElCatalogo));
+			String clave = generarClave(ultimoNumeroDeParteEnElCatalogo);
 			InformacionParteAutoEnElTaller informacion =  new InformacionParteAutoEnElTaller(parte, precioEnAlgo$, descripcion);
 			hashDePartes.put(clave, informacion);
 			return ultimoNumeroDeParteEnElCatalogo;
-		}catch (PartAlreadyInCatalogEsception miExcepcion){
+		}catch (PartAlreadyInCatalogException miExcepcion){
 			InformacionParteAutoEnElTaller informacion = hashDePartes.get(miExcepcion.getMessage());
 			informacion.incrementarCantidad();
-			return Integer.parseInt((miExcepcion.getMessage().substring("PARTE_".length() )));
-			//Si, es una línea MUY fea
-			//despues veo si la hago mas legible
+			return extraerNumeroDeLaClave(miExcepcion.getMessage());
+
 		}
 	}
 
-	private void buscarParteRepetida(ParteAuto parte, int precioEnAlgo$, String descripcion) throws PartAlreadyInCatalogEsception {
+
+	private void buscarParteRepetida(ParteAuto parte, int precioEnAlgo$, String descripcion) throws PartAlreadyInCatalogException {
 		Enumeration misClaves = hashDePartes.keys();
 		InformacionParteAutoEnElTaller miParteInfo = null;
 		String unaClave = null;
@@ -107,10 +121,17 @@ public class Taller {
 			unaClave = (String) misClaves.nextElement();
 			miParteInfo = hashDePartes.get(unaClave);
 			if ( (miParteInfo.getDescripcion() == descripcion) && (miParteInfo.getPrecio() == precioEnAlgo$) )
-				throw new PartAlreadyInCatalogEsception(unaClave);
+				throw new PartAlreadyInCatalogException(unaClave);
 		}
 	}
 
+	/**
+	 * @param usuario
+	 * @param indiceDelCatalogo
+	 * @throws NotEnoughMoneyException
+	 * @throws NotInIndexException
+	 * @throws WrongPartClassException
+	 */
 	public void comprar(Usuario usuario, int indiceDelCatalogo) throws NotEnoughMoneyException,NotInIndexException, WrongPartClassException{
 		InformacionParteAutoEnElTaller informacionDeEstaParte = getParteAutoEnElTaller(indiceDelCatalogo);
 		if (informacionDeEstaParte.getPrecio() > usuario.getDinero())
@@ -122,10 +143,18 @@ public class Taller {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public Iterator getCatalogo() {
-		return ((ArrayList)listaDePartes.clone()).iterator();
+		return ((ArrayList)listaDeNumerosDePartes.clone()).iterator();
 	}
 
+	/**
+	 * @param indiceEnElCatalogo
+	 * @return
+	 * @throws NotInIndexException
+	 */
 	public Class getTipoDeParte(Object indiceEnElCatalogo) throws NotInIndexException {
 		if ( !(indiceEnElCatalogo instanceof Integer))
 			throw new NotInIndexException("No existe tal parte, el índice es incorrecto");
@@ -133,24 +162,30 @@ public class Taller {
 	}
 	
 	private InformacionParteAutoEnElTaller getParteAutoEnElTaller(Integer indiceEnElCatalogo) throws NotInIndexException{
-		if(! (hashDePartes.containsKey("PARTE_"+indiceEnElCatalogo)) )
+		if(! (hashDePartes.containsKey(generarClave(indiceEnElCatalogo))) )
 			throw new NotInIndexException("No existe ese número de parte en el catalogo.");
-		else return hashDePartes.get("PARTE_"+indiceEnElCatalogo);
+		else return hashDePartes.get(generarClave(indiceEnElCatalogo));
 		
 	}
 	
 	private void venderParteAutoDelTaller(Integer indiceEnElCatalogo) throws NotInIndexException{
-		if(! (hashDePartes.containsKey("PARTE_"+indiceEnElCatalogo)) )
+		if(! (hashDePartes.containsKey(generarClave(indiceEnElCatalogo))) )
 			throw new NotInIndexException("No existe ese número de parte en el catalogo.");
 		else {
 			try {
-				hashDePartes.get("PARTE_"+indiceEnElCatalogo).decrementarCantidad();
+				hashDePartes.get(generarClave(indiceEnElCatalogo)).decrementarCantidad();
 			} catch (BoundsException unaExcepcion) {
-				hashDePartes.remove("PARTE_"+indiceEnElCatalogo);
+				hashDePartes.remove(generarClave(indiceEnElCatalogo));
 			}
 		}
 	}
 	
+	/**
+	 * @param unAuto
+	 * @param unaParte
+	 * @return
+	 * @throws WrongPartClassException
+	 */
 	public ParteAuto ensamblarParteAuto(Auto unAuto, ParteAuto unaParte) throws WrongPartClassException{
 		if(unaParte instanceof Escape)
 			return ensamblarEscape(unAuto, (Escape) unaParte);
@@ -229,5 +264,13 @@ public class Taller {
 		unAuto.setMotor(unMotor);
 		return parteTemporal;
 	}
+	
+	private String generarClave(int numeroDeItem){
+		return new String("PARTE_"+numeroDeItem);
+	}
 
+	private int extraerNumeroDeLaClave(String clave){
+		return Integer.parseInt((clave.substring("PARTE_".length() )));
+	}
+	
 }

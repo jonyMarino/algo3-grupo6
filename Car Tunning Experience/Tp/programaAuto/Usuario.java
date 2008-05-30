@@ -1,10 +1,9 @@
 package programaAuto;
 import java.util.ArrayList;
 
-import excepciones.NotEnoughMoneyException;
 import auto.Auto;
 import auto.ParteAuto;
-import auto.partesAuto.Escape;
+import excepciones.NotEnoughMoneyException;
 
 public class Usuario {
 	private double dinero;
@@ -34,4 +33,5 @@ public class Usuario {
 		else setDinero(getDinero()-cantidadDeDineroAGastar);
 		return true;
 	}
+	
 }
