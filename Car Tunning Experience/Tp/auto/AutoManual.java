@@ -50,7 +50,6 @@ public class AutoManual extends Auto {
 		          Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4) throws WrongPartClassException {
 
 		super(escape,carroceria,motor,cajaManual,mezclador,tanque,rueda1,rueda2,rueda3,rueda4);
-		setCaja(cajaManual);
 	}
 
 	/**
@@ -79,8 +78,8 @@ public class AutoManual extends Auto {
 	 *
 	 * @see CajaManual.
 	 */
-	public CajaManual getCajaManual() {
-		return (CajaManual)this.getCaja();
+	public CajaManual getCaja() {
+		return (CajaManual)super.getCaja();
 	}
 
 	/**

@@ -50,8 +50,6 @@ public class AutoSecuencial extends Auto {
 	                      Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4) throws WrongPartClassException {
 
 		super(escape,carroceria,motor,cajaAutomatica,mezclador,tanque,rueda1,rueda2,rueda3,rueda4);
-		setCaja(cajaAutomatica);
-
 	}
 
 	/**
@@ -62,7 +60,7 @@ public class AutoSecuencial extends Auto {
 	 * @see CajaAutomatica
 	 */
 	public CajaAutomatica getCaja() {
-		return (CajaAutomatica)this.getCaja();
+		return (CajaAutomatica)super.getCaja();
 	}
 
 	/**
