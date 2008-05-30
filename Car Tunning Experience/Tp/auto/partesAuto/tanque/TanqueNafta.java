@@ -38,7 +38,7 @@ public class TanqueNafta extends TanqueCombustible {
 	 */
 	public void setCombustible(Nafta nafta) {
 		this.setCantidadCombustible(0);
-		this.setCombustible(nafta);
+		super.setCombustible(nafta);
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class TanqueNafta extends TanqueCombustible {
 	 * @return un objeto de la clase de {@link Nafta} que almacena.
 	 */
 	public Nafta getCombustible() {
-		return (Nafta)this.getCombustible();
+		return (Nafta)super.getCombustible();
 	}
 
 }
