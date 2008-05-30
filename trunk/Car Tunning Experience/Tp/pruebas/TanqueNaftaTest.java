@@ -6,7 +6,6 @@ import auto.partesAuto.mezclador.MezcladorNafta;
 import auto.partesAuto.tanque.TanqueNafta;
 import junit.framework.TestCase;
 
-//TODO: Se agrego excepciones
 public class TanqueNaftaTest extends TestCase {
 
 	TanqueNafta tanque;
@@ -50,7 +49,6 @@ public class TanqueNaftaTest extends TestCase {
 			e.printStackTrace();
 		}
 		assertEquals(40.0, tanque.getCantidadCombustible());
-		//TODO: Se agrego bloque catch
 		try {
 			tanque.llenarTanque(100);
 			fail("No se puede superar la capacidad máxima del tanque");
@@ -81,7 +79,6 @@ public class TanqueNaftaTest extends TestCase {
 			e.printStackTrace();
 		}
 		assertEquals(7.5, tanque.getCantidadCombustible());
-		//TODO: Se agrego bloque catch
 		try {
 			tanque.usarCombustible(50);
 			fail("No se puede utilizar mas Nafta de la disponible");
@@ -92,7 +89,7 @@ public class TanqueNaftaTest extends TestCase {
 				} catch (BoundsException e1) {}
 		}
 		assertEquals(0.0, tanque.getCantidadCombustible());
-		
+
 	}
 
 	public void testUsarNaftaNegativa() {
@@ -111,7 +108,7 @@ public class TanqueNaftaTest extends TestCase {
 	}
 
 	public void testConsumoDeNaftaAlMezclarMaximaEficiencia() {
-		
+
 
 		try {
 			mezclador= new MezcladorNafta(100,tanque);
@@ -144,11 +141,11 @@ public class TanqueNaftaTest extends TestCase {
 			fail("No se puede obtener esa cantidad de mezcla");
 		} catch (BoundsException e) {
 			if("Faltante de nafta necesaria para la mezcla pedida" == e.getMessage())
-				naftaUtilRestante = ((tanque.getCantidadCombustible()*tanque.getTipoNafta().getOctanaje())/100);
-				mezclaMinima = ((mezclador.getRendimiento()*naftaUtilRestante)/100);	
+				naftaUtilRestante = ((tanque.getCantidadCombustible()*tanque.getCombustible().getOctanaje())/100);
+				mezclaMinima = ((mezclador.getRendimiento()*naftaUtilRestante)/100);
 				try {
 					mezclador.obtenerMezcla(mezclaMinima);
-				} catch (BoundsException e1) {}		
+				} catch (BoundsException e1) {}
 		}
 		assertEquals(0.0, tanque.getCantidadCombustible(), 0.4);
 		mezclador = null;
@@ -156,7 +153,7 @@ public class TanqueNaftaTest extends TestCase {
 	}
 
 	public void testConsumoDeNaftaAlMezclarMinimaEficiencia() {
-		
+
 		try {
 			mezclador= new MezcladorNafta(1,tanque);
 			tanque.llenarTanque(50);
@@ -174,7 +171,7 @@ public class TanqueNaftaTest extends TestCase {
 	}
 
 	public void testConsumoDeNaftaAlMezclarMediaEficiencia() {
-		
+
 		try {
 			mezclador= new MezcladorNafta(50,tanque);
 			tanque.llenarTanque(50);
@@ -191,7 +188,7 @@ public class TanqueNaftaTest extends TestCase {
 
 	}
 
-	public void testLlenarTanqueNegativo() {	
+	public void testLlenarTanqueNegativo() {
 		try {
 			mezclador= new MezcladorNafta(100,tanque);
 			tanque.llenarTanque(-50);
