@@ -1,89 +1,77 @@
 package auto.partesAuto.pedal;
 
-import auto.ParteAuto;
+import auto.partesAuto.BoundsException;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Torqueador;
-import auto.partesAuto.mezclador.MezcladorNafta;
-import auto.partesAuto.BoundsException;
+
 /**
- * El {@link Pedal} del freno.
- *@see Pedal
- *@see PartesAuto
+ * El {@link Pedal} del Freno.
+ *
+ * @see Pedal
  */
-public class Freno extends ParteAuto implements Pedal,Torqueador{
+public class Freno extends Pedal implements Torqueador {
 
 	private double torque;
-	private boolean usado;
-	private double pastilladeFreno;
+	private double pastillaDeFreno;
 
-	public Freno(Eje eje, double pastillaDeFreno){
+	/**
+	 * Crea un nuevo pedal Freno con las características especificadas.
+	 *
+	 * @param eje El {@link Eje}.
+	 * @param pastillaDeFreno La pastilla de freno.
+	 *
+	 * @see Eje
+	 */
+	public Freno(Eje eje, double pastillaDeFreno) {
 		super();
-		torque = 0;
-		usado = false;
+		this.setTorque(0);
 		eje.addTorqueador(this);
-		this.setPastilladeFreno(pastilladeFreno);
+		this.setPastillaDeFreno(pastillaDeFreno);
 	}
 
 	/**
-	 * Modifica la magnitud del Torque Freno.
+	* Realiza la presion sobre el Freno.
+	*
+	* @param intensidad La intensidad con que se presiona.
+	*
+	* @throws BoundsException
+	*/
+	public void presionar(double intensidad) {
+		super.setUsado(false);
+		if (this.getVidaUtil() > 0){
+			this.setTorque(- (intensidad * this.getPastillaDeFreno()));
+		}
+	}
+
+	/**
+	 * Devuelve el Torque asociado al Freno.
 	 *
 	 * @see Torque
-	 */
-	public void presionar(double intensidad){
-		usado = true;
-		if (this.getVidaUtil() > 0){
-			this.setTorque(-(intensidad*pastilladeFreno));
-		}
-	}
-
-	public boolean desgastar(int tiempo) {
-		try{
-			if(usado && getVidaUtil()!=0){
-				setVidaUtil(getVidaUtil()-tiempo/1000);
-			}
-		}
-		catch(BoundsException e){	//me pase??
-			try{
-				setVidaUtil(0);
-			}catch(BoundsException f){}
-		}
-		return desgastado();
-	}
-
-	/**
-	 * Devuelve el Torque asociado al Freno
 	 */
 	public double getTorque() {
 		return torque;
 	}
 
-	/**
-	 * Asigna un Torque al Freno.
-	 *
-	 * @param El Torque a asignar.
-	 *
-	 * @see MezcladorNafta
-	 */
-	public void setTorque(double intensidad) {
+	private void setTorque(double intensidad) {
 		this.torque = intensidad;
 	}
 
 	/**
-	 * Devuelve la pastilla de freno asociada al Freno
+	 * Devuelve la pastilla de freno asociada al Freno.
 	 *
 	 * @return Pastilla de freno asociada.
 	 */
-	public double getPastilladeFreno() {
-		return pastilladeFreno;
+	public double getPastillaDeFreno() {
+		return pastillaDeFreno;
 	}
 
 	/**
 	 * Le asigna una pastilla de freno al Freno.
 	 *
-	 * @param pastilla de Freno a asignar.
+	 * @param pastillaDeFreno La pastilla de freno a asignar.
 	 */
-	public void setPastilladeFreno(double pastilladeFreno) {
-		this.pastilladeFreno = pastilladeFreno;
+	public void setPastillaDeFreno(double pastillaDeFreno) {
+		this.pastillaDeFreno = pastillaDeFreno;
 	}
 
 }
