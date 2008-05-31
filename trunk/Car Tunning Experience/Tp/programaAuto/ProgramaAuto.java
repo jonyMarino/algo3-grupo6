@@ -1,7 +1,6 @@
 package programaAuto;
 
-import java.util.LinkedList;
-
+import java.util.ArrayList;
 import auto.*;
 import auto.partesAuto.*;
 import auto.partesAuto.caja.*;
@@ -14,15 +13,15 @@ import pista.*;
 //TODO:para mi el programaAuto es quien debe tener la lista de autos y no
 //la pista.
 public class ProgramaAuto {
-	
+
 	private ArrayList<Auto> autos;
 	private Pista pista;
-	
+
 	public ProgramaAuto () {
 		autos = new ArrayList<Auto>();
-		this.pista=null;	
+		this.pista=null;
 	}
-		
+
 	public static Auto autoInicial(){
 		Auto auto=null;
 		Nafta nafta = new Nafta(85,15);
@@ -41,10 +40,10 @@ public class ProgramaAuto {
 			}
 
 		}catch(BoundsException e){}
-			
+
 		return auto;
 	}
-	
+
 
 	public void setPista(Pista pista){
 		this.pista = pista;
@@ -53,7 +52,7 @@ public class ProgramaAuto {
 	public Pista getPista(){
 		return this.pista;
 	}
-	
+
 	public void addAuto(Auto auto)throws NullPointerException{
 		if(auto==null)
 			throw new NullPointerException("Referencia a auto null.");

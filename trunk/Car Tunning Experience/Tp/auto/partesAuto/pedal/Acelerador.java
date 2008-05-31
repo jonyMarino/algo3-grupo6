@@ -1,33 +1,46 @@
 package auto.partesAuto.pedal;
 
-import auto.ParteAuto;
 import auto.partesAuto.BoundsException;
 import auto.partesAuto.Motor;
+
 /**
- * El {@link Pedal} del freno.
- *@see Pedal
- *@see PartesAuto
+ * El {@link Pedal} del Acelerador.
+ *
+ * @see Pedal
  */
-public class Acelerador extends ParteAuto implements Pedal{
+public class Acelerador extends Pedal {
 
 	private	Motor motor;
-	private boolean usado;
 
-	public Acelerador(Motor motor){
+	/**
+	 * Crea un nuevo pedal Acelerador con las características especificadas.
+	 *
+	 * @param motor El {@link Motor}.
+	 *
+	 * @see Motor
+	 */
+	public Acelerador(Motor motor) {
 		super();
 		this.setMotor(motor);
-		usado = false;
 	}
 
-	public void presionar(double intensidad)throws BoundsException{
-		usado = intensidad>0;	//deMarino: esta siendo usado se la aceleracion no es 0
+	/**
+	* Realiza la presion sobre el Acelerador.
+	*
+	* @param intensidad La intensidad con que se presiona.
+	*
+	* @throws BoundsException
+	*/
+	public void presionar(double intensidad) throws BoundsException {
+		super.setUsado(intensidad > 0);
+		//deMarino: esta siendo usado se la aceleracion no es 0
 		//if(this.getVidaUtil() > 0){ //deMarino: en caso de ser cero tiene su funcion
 		getMotor().acelerar(intensidad); //deMarino: el caso de excepcion es el mismo
 		//}
 	}
 
 	/**
-	 * Devuelve el {@link Motor} asociado al Auto
+	 * Devuelve el {@link Motor} asociado al Acelerador.
 	 *
 	 * @return El {@link Motor} asociado.
 	 *
@@ -38,7 +51,7 @@ public class Acelerador extends ParteAuto implements Pedal{
 	}
 
 	/**
-	 * Asigna un {@link Motor} al Auto.
+	 * Asigna un {@link Motor} al Acelerador.
 	 *
 	 * @param motor El {@link Motor} a asignar.
 	 *
@@ -46,20 +59,6 @@ public class Acelerador extends ParteAuto implements Pedal{
 	 */
 	public void setMotor(Motor motor) {
 		this.motor = motor;
-	}
-
-	public boolean desgastar(int tiempo) {
-		try{
-			if(usado && getVidaUtil()!=0){
-				setVidaUtil(getVidaUtil()-tiempo/1000);
-			}
-		}
-		catch(BoundsException e){	//me pase??
-			try{
-				setVidaUtil(0);
-			}catch(BoundsException f){}
-		}
-		return desgastado();	//deMarino:siempre devuelve si esta desgastado, por lo que deberia estar en una abstract class!!!!
 	}
 
 }
