@@ -33,6 +33,10 @@ public class Escape extends ParteAuto{
 		return this.eficiencia;
 	}
 
+	private double evacuarGases(double energiaMaxima) {
+		return(getEficiencia()* energiaMaxima/100);
+	}
+	
 	public boolean desgastar(int tiempo){
 		try{
 			if(getVidaUtil()!=0)

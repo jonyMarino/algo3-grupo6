@@ -45,8 +45,10 @@ public abstract class Auto {
 	private TanqueCombustible      tanqueCombustible;
 	private Mezclador              mezclador;
 	private double		           velocidad;
+	private double		           posicion;
 	private LinkedList<ParteAuto>  partes;
 	private Caja 				   caja;
+	private Pista	               pista;
 	private static double          aceleracionGravedad = 9.8;
 
 	/**
@@ -72,6 +74,7 @@ public abstract class Auto {
 		this.setMotor(motor);
 		this.setMezclador(mezclador);
 		this.setTanqueCombustible(tanqueCombustible);
+		this.setPista(null);
 
 		//Ruedas
 		ruedas = new LinkedList<Rueda>();
@@ -90,6 +93,7 @@ public abstract class Auto {
 		caja.setEje(getEje());
 		caja.setMotor(getMotor());
 		motor.setCaja(caja);
+		carroceria.setAuto(this);
 
 		//Asignar Pedales
 		this.asignadorPedales();
@@ -137,14 +141,12 @@ public abstract class Auto {
 	 *
 	 * @param segundosTranscurridos los segundos transcurridos.
 	 * @param pista la pista por la que se mueve el auto.
-	 *
-	 * @see Pista
 	 */
-	public void calcularVelocidad(int segundosTranscurridos,Pista pista) {
+	public void simular(int segundosTranscurridos) {
 		double masaAuto = this.getPeso()*aceleracionGravedad;
 		double fuerzaEje = this.getEje().getFuerza();
-		double fuerzaAire = this.getCarroceria().getFuerzaAire(pista);
-		double incrementoVelocidad = (((fuerzaEje-fuerzaAire)/masaAuto)*segundosTranscurridos);
+		double fuerzaAire = this.getCarroceria().getFuerzaAire();
+		double incrementoVelocidad = (((fuerzaEje - fuerzaAire) /masaAuto) * segundosTranscurridos);
 		this.setVelocidad(this.getVelocidad()+incrementoVelocidad);
 		for(ParteAuto partesAuto:this.getPartes())
 			partesAuto.desgastar(segundosTranscurridos);
@@ -562,5 +564,9 @@ public abstract class Auto {
 		this.setEje(eje);
 
 	}
+	
+	//PISTA
+	//TODO: AGREGAR SETTERS Y GETTERS
+	
 
 }

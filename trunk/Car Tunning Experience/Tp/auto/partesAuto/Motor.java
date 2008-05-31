@@ -62,11 +62,11 @@ public class Motor extends ParteAuto implements Torqueador{
 	 *
 	 * @param acelerar No se refiere a la mágnitud física, sino a un número de 0 a 1  que indica cuanto se presionó el {@link Acelerador}.
 	 */
-	public void acelerar(double acelerar)throws BoundsException{
+	public void acelerar(double intensidad)throws BoundsException{
 		if(getVidaUtil()>0){
-			if (acelerar>1 || acelerar < 0)
+			if (intensidad>1 || intensidad < 0)
 				throw new BoundsException("Valor de aceleracion incorrecto.");
-			this.aceleracion=acelerar;
+			this.aceleracion=intensidad;
 		}else
 			this.aceleracion=0;
 	}
@@ -89,12 +89,10 @@ public class Motor extends ParteAuto implements Torqueador{
 	}
 
 	private double realizarCombustion(double mezcla){
-		return (evacuarGases(mezcla*getRendimiento()/100));
+		return (escape.evacuarGases(mezcla*getRendimiento()/100));
 	}
 
-	private double evacuarGases(double mezcla) {
-		return(escape.getEficiencia()*mezcla/100);
-	}
+	
 
 	public double obtenerRPM(){
 		if(caja==null)

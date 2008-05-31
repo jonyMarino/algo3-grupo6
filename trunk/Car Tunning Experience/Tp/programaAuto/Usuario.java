@@ -15,7 +15,7 @@ public class Usuario {
 		setDinero(0);
 		partesDisponibles = new ArrayList<ParteAuto>();
 	}
-	public void setAuto(Auto miAuto) {
+	private void setAuto(Auto miAuto) {
 		this.auto = miAuto;
 	}
 	public Auto getAuto() {
@@ -27,11 +27,10 @@ public class Usuario {
 	public double getDinero() {
 		return dinero;
 	}
-	public boolean gastarDinero(double cantidadDeDineroAGastar) throws NotEnoughMoneyException{
+	public void gastarDinero(double cantidadDeDineroAGastar) throws NotEnoughMoneyException{
 		if(cantidadDeDineroAGastar > getDinero())
 			throw new NotEnoughMoneyException("El usuario no puede gastar mas dinero del que tiene.");
 		else setDinero(getDinero()-cantidadDeDineroAGastar);
-		return true;
 	}
 	
 }
