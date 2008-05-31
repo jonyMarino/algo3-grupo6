@@ -9,10 +9,12 @@ public class Usuario {
 	private double dinero;
 	private Auto auto;
 	private ArrayList<ParteAuto> partesDisponibles;
+	private String nombre;
 	
-	public Usuario(Auto miAuto) {
+	public Usuario(String nombre, Auto miAuto) {
+		this.nombre = nombre;
 		setAuto(miAuto);
-		setDinero(0);
+		setDinero(1000);
 		partesDisponibles = new ArrayList<ParteAuto>();
 	}
 	private void setAuto(Auto miAuto) {

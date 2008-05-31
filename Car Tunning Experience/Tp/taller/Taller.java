@@ -21,17 +21,9 @@ import excepciones.NotInIndexException;
 import excepciones.PartAlreadyInCatalogException;
 import excepciones.WrongPartClassException;
 
-/**
- * @author lucas
- *
- */
-/**
- * @author lucas
- *
- */
+
 public class Taller {
 
-	private int ultimoNumeroDeParteEnElCatalogo;
 	private class InformacionParteAutoEnElTaller{
 		int precio;
 		int cantidad; //Número de partes con estas características
@@ -76,6 +68,7 @@ public class Taller {
 		}
 	}
 	
+	private int ultimoNumeroDeParteEnElCatalogo;
 	private ArrayList<Integer> listaDeNumerosDePartes;
 	private Hashtable<String, InformacionParteAutoEnElTaller> hashDePartes;
 	

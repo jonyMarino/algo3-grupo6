@@ -1,4 +1,5 @@
 package auto.partesAuto;
+import auto.Auto;
 import auto.ParteAuto;
 import pista.Pista;
 import java.awt.Color;
@@ -39,6 +40,8 @@ public class Carroceria extends ParteAuto{
 		
 		this.setAuto(null);
 	}
+
+
 
 	public void setColor(int R,int G,int B)throws BoundsException{
 		if (R<0 || R>255)
@@ -93,6 +96,18 @@ public class Carroceria extends ParteAuto{
 			return (velocidadRespectoDelViento / getAeroDinamia());
 		else 
 			return velocidadRespectoDelViento;
+	}
+
+
+
+	public Auto getAuto() {
+		return auto;
+	}
+
+
+
+	public void setAuto(Auto auto) {
+		this.auto = auto;
 	}
 
 }
