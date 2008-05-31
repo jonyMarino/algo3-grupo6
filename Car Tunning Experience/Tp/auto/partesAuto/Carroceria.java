@@ -13,9 +13,10 @@ import java.awt.Color;
  */
 public class Carroceria extends ParteAuto{
 
-	private Color color;
+	private Color  color;
 	private double volumen;
-	private int aeroDinamia;
+	private int    aeroDinamia;
+	private Auto   auto;
 
 	public Carroceria(double volumen,int aeroDinamia,double peso)throws BoundsException{
 		super();
@@ -35,6 +36,8 @@ public class Carroceria extends ParteAuto{
 			e.printStackTrace();
 		}
 		this.setPeso(peso);
+		
+		this.setAuto(null);
 	}
 
 	public void setColor(int R,int G,int B)throws BoundsException{
@@ -84,11 +87,12 @@ public class Carroceria extends ParteAuto{
 		return desgastado();
 	}
 
-	public double getFuerzaAire(Pista pista){
-		if(this.getVidaUtil()>0)
-			return pista.getVelocidadAire()/getAeroDinamia();
+	public double getFuerzaAire(){
+		double velocidadRespectoDelViento = auto.getVelocidad() + auto.getPista().getVelocidadAire(); 
+		if (this.getVidaUtil()>0)
+			return (velocidadRespectoDelViento / getAeroDinamia());
 		else 
-			return pista.getVelocidadAire();
+			return velocidadRespectoDelViento;
 	}
 
 }

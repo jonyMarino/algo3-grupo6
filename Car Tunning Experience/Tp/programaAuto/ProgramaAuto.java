@@ -10,8 +10,7 @@ import combustible.Nafta;
 import excepciones.WrongPartClassException;
 import pista.*;
 
-//TODO:para mi el programaAuto es quien debe tener la lista de autos y no
-//la pista.
+
 public class ProgramaAuto {
 
 	private ArrayList<Auto> autos;
@@ -26,6 +25,7 @@ public class ProgramaAuto {
 		Auto auto=null;
 		Nafta nafta = new Nafta(85,15);
 		TanqueNafta tanque = new TanqueNafta(70, nafta);
+		tanque.llenarTanque();
 		try{
 			Carroceria carroceria = new Carroceria(5,5,250);
 			MezcladorNafta mezclador = new MezcladorNafta(100,tanque);
