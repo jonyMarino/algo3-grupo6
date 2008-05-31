@@ -93,8 +93,6 @@ public abstract class Auto {
 		caja.setEje(getEje());
 		caja.setMotor(getMotor());
 		motor.setCaja(caja);
-		carroceria.setAuto(this);
-
 		//Asignar Pedales
 		this.asignadorPedales();
 
@@ -203,6 +201,7 @@ public abstract class Auto {
 	 */
 	public void setCarroceria(Carroceria carroceria) {
 		this.carroceria = carroceria;
+		carroceria.setAuto(this);
 	}
 
 //MOTOR
@@ -563,6 +562,16 @@ public abstract class Auto {
 		Eje eje = new Eje(this.getRuedaTraseraDerecha());
 		this.setEje(eje);
 
+	}
+
+
+	public Pista getPista() {
+		return pista;
+	}
+
+
+	public void setPista(Pista pista) {
+		this.pista = pista;
 	}
 	
 	//PISTA

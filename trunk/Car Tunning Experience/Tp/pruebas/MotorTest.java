@@ -41,6 +41,7 @@ public class MotorTest extends TestCase {
 		motor=new Motor(100,7500,mezclador,escape,2.0);
 		caja = new CajaManual();
 		auto = new AutoManual(escape, carroceria, motor, caja, mezclador, tanque, rueda, rueda, rueda, rueda);
+		auto.setPista(pista);
 		tanque.llenarTanque(50);
 		rueda.setPista(pista);
 	}
@@ -62,7 +63,7 @@ public class MotorTest extends TestCase {
 	public void testAcelerar() throws BoundsException {
 		assertEquals(0.0, motor.obtenerRPM());
 		motor.acelerar(1);
-		auto.calcularVelocidad(10, pista);
+		auto.simular(10);
 		int result =(int)(motor.obtenerRPM()*100);//comparo contra 2 decimales
 		assertEquals(538, result);
 	}
@@ -89,7 +90,7 @@ public class MotorTest extends TestCase {
 		motor.acelerar(1);
 
 		for(contador=0;contador<900;contador++)
-			auto.calcularVelocidad(60000, pista);
+			auto.simular(60000);
 		assertEquals(0.0, motor.getVidaUtil());
 	}
 	

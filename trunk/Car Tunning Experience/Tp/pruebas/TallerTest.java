@@ -24,8 +24,7 @@ public class TallerTest extends TestCase {
 	protected void setUp() throws BoundsException{
 		motor = new Motor(100,10000,4.0); // muy buen motor(caro)
 		Auto auto = ProgramaAuto.autoInicial();
-		usuario = new Usuario(auto);
-		usuario.setDinero(1000);
+		usuario = new Usuario("Jose", auto);
 		taller = new Taller();
 		taller = new Taller();
 		indiceTmp=taller.catalogar(motor,4000, "Motor Super Ultra BlahBlah");

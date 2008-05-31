@@ -33,7 +33,7 @@ public class Escape extends ParteAuto{
 		return this.eficiencia;
 	}
 
-	private double evacuarGases(double energiaMaxima) {
+	public double evacuarGases(double energiaMaxima) {
 		return(getEficiencia()* energiaMaxima/100);
 	}
 	

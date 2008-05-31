@@ -13,11 +13,10 @@ import pista.*;
 
 public class ProgramaAuto {
 
-	private ArrayList<Auto> autos;
+	private static ArrayList<Usuario> usuarios;
 	private Pista pista;
 
 	public ProgramaAuto () {
-		autos = new ArrayList<Auto>();
 		this.pista=null;
 	}
 
@@ -25,7 +24,13 @@ public class ProgramaAuto {
 		Auto auto=null;
 		Nafta nafta = new Nafta(85,15);
 		TanqueNafta tanque = new TanqueNafta(70, nafta);
-		tanque.llenarTanque();
+		usuarios = new ArrayList<Usuario>();
+		try {
+			tanque.llenarTanque(70);
+		} catch (BoundsException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try{
 			Carroceria carroceria = new Carroceria(5,5,250);
 			MezcladorNafta mezclador = new MezcladorNafta(100,tanque);
@@ -53,10 +58,9 @@ public class ProgramaAuto {
 		return this.pista;
 	}
 
-	public void addAuto(Auto auto)throws NullPointerException{
-		if(auto==null)
-			throw new NullPointerException("Referencia a auto null.");
-		autos.add(auto);
+	public void nuevoUsuario(String nombre){
+		Auto unAuto = autoInicial();
+		Usuario unUsuario = new Usuario(nombre, unAuto);
+		usuarios.add(unUsuario);
 	}
-
 }
