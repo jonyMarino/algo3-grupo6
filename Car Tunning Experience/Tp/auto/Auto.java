@@ -150,11 +150,30 @@ public abstract class Auto {
 		double masaAuto = this.getPeso()*aceleracionGravedad;
 		double fuerzaEje = this.getEje().getFuerza();
 		double fuerzaAire = this.getCarroceria().getFuerzaAire();
-		double incrementoVelocidad = (((fuerzaEje - fuerzaAire) /masaAuto) * segundosTranscurridos);
-		this.setVelocidad(this.getVelocidad()+incrementoVelocidad);
+		double aceleracion = (((fuerzaEje - fuerzaAire) /masaAuto));
+		double velocidadAnterior = getVelocidad();
+		this.setVelocidad(velocidadAnterior + (aceleracion * segundosTranscurridos));
+		calcularPosicion(velocidadAnterior, aceleracion, segundosTranscurridos);
 		for(ParteAuto partesAuto:this.getPartes())
 			partesAuto.desgastar(segundosTranscurridos);
+		
 	}
+
+	private void calcularPosicion(double velocidad, double aceleracion, int segundosTranscurridos) {
+		setPosicion(getPosicion()+velocidad*segundosTranscurridos+aceleracion*segundosTranscurridos*segundosTranscurridos/2);
+	}
+
+
+	private void setPosicion(double posicion) {
+		this.posicion = posicion;
+		
+	}
+
+
+	private double getPosicion() {
+		return posicion;
+	}
+
 
 	private void setVelocidad(double velocidad) {
 		this.velocidad = velocidad;
