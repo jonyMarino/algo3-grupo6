@@ -1,6 +1,7 @@
 package programaAuto;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Iterator;
 
 import pista.Pista;
@@ -30,10 +31,15 @@ public class ProgramaAuto {
 		private ArrayList<Auto> listaDeAutos;
 		private boolean simulando;
 		private Pista laPista;
+		private Hashtable<Auto, Integer> posicionesFinales;
+		private Integer proximaPosicion;
 		
 		public SimulacionDeLaCarrera(Pista unaPista) {
 			laPista=unaPista;
 			simulando = false;
+			listaDeAutos = new ArrayList<Auto>();
+			posicionesFinales = new Hashtable<Auto, Integer>();
+			proximaPosicion = new Integer(1);
 		}
 		
 		public void agregarAutoALaSimulacion(Auto unAuto){
@@ -43,8 +49,29 @@ public class ProgramaAuto {
 		}
 		
 		public void simular(){
-			//unAuto.simular(SEGUNDOSASIMULAR);
+			simulando = true;
+			while(simulando){
+				Iterator<Auto> iteradorAutos = listaDeAutos.iterator();
+				while (iteradorAutos.hasNext()){
+					Auto unAuto = iteradorAutos.next();
+					if(unAuto.getPosicion() >= laPista.getLongitud())
+						llegoAlFinal(unAuto);
+					else if(unAuto.puedeSeguir())
+							unAuto.simular(SEGUNDOSASIMULAR);
+
+
+				}
+			}
+
 		}
+
+		private void llegoAlFinal(Auto unAuto) {
+			if(posicionesFinales.get(unAuto) == null){
+				posicionesFinales.put(unAuto, proximaPosicion);
+				proximaPosicion++;
+			}
+		}
+		
 		
 	}
 	
