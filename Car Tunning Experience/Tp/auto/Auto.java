@@ -86,6 +86,9 @@ public abstract class Auto {
 			r.setAuto(this);
 		//Velocidad
 		this.setVelocidad(0);
+		
+		//Posicion
+		setPosicion(0);
 
 		//Asignar Eje
 		this.asignarEje();
@@ -156,21 +159,21 @@ public abstract class Auto {
 		calcularPosicion(velocidadAnterior, aceleracion, segundosTranscurridos);
 		for(ParteAuto partesAuto:this.getPartes())
 			partesAuto.desgastar(segundosTranscurridos);
-		
 	}
 
+//POSICION
+	
 	private void calcularPosicion(double velocidad, double aceleracion, int segundosTranscurridos) {
 		setPosicion(getPosicion()+velocidad*segundosTranscurridos+aceleracion*segundosTranscurridos*segundosTranscurridos/2);
 	}
 
 
-	private void setPosicion(double posicion) {
+	public void setPosicion(double posicion) {
 		this.posicion = posicion;
-		
 	}
 
 
-	private double getPosicion() {
+	public double getPosicion() {
 		return posicion;
 	}
 
@@ -602,5 +605,13 @@ public abstract class Auto {
 	//PISTA
 	//TODO: AGREGAR SETTERS Y GETTERS
 	
-
+//ESTADO DEL AUTO
+	public boolean puedeSeguir(){
+		if((getMotor().getVidaUtil() == 0) && (getVelocidad() == 0))
+			return false;
+		if((getTanqueCombustible().getVidaUtil() == 0) || (getTanqueCombustible().getCantidadCombustible() == 0))
+			if(getVelocidad()==0)
+				return false;
+		return true;
+	}
 }

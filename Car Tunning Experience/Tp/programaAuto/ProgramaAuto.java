@@ -1,17 +1,23 @@
 package programaAuto;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
+import pista.Pista;
+import auto.Auto;
+import auto.AutoManual;
+import auto.partesAuto.BoundsException;
+import auto.partesAuto.Carroceria;
+import auto.partesAuto.Escape;
+import auto.partesAuto.Motor;
+import auto.partesAuto.Rueda;
+import auto.partesAuto.caja.CajaManual;
+import auto.partesAuto.mezclador.MezcladorNafta;
+import auto.partesAuto.tanque.TanqueNafta;
 
-import auto.*;
-import auto.partesAuto.*;
-import auto.partesAuto.caja.*;
-import auto.partesAuto.tanque.*;
-import auto.partesAuto.mezclador.*;
 import combustible.Nafta;
+
 import excepciones.WrongPartClassException;
-import pista.*;
 
 
 public class ProgramaAuto {
@@ -20,6 +26,29 @@ public class ProgramaAuto {
 	private Pista pista;
 	private final int  SEGUNDOSASIMULAR = 10;
 
+	private class SimulacionDeLaCarrera{
+		private ArrayList<Auto> listaDeAutos;
+		private boolean simulando;
+		private Pista laPista;
+		
+		public SimulacionDeLaCarrera(Pista unaPista) {
+			laPista=unaPista;
+			simulando = false;
+		}
+		
+		public void agregarAutoALaSimulacion(Auto unAuto){
+			unAuto.setPosicion(0);
+			unAuto.setPista(getPista());
+			listaDeAutos.add(unAuto);
+		}
+		
+		public void simular(){
+			//unAuto.simular(SEGUNDOSASIMULAR);
+		}
+		
+	}
+	
+	
 	public ProgramaAuto () {
 		this.pista=null;
 	}
@@ -70,11 +99,17 @@ public class ProgramaAuto {
 	
 	
 	public void comenzarCarrera(){
-		java.util.Iterator<Usuario> usuarios = this.usuarios.iterator();
+		SimulacionDeLaCarrera unaSimulacion = inicializarCarrera();
+		unaSimulacion.simular();
+	}
+
+	private SimulacionDeLaCarrera inicializarCarrera() {
+		SimulacionDeLaCarrera unaSimulacion = new SimulacionDeLaCarrera(getPista());
+		Iterator<Usuario> usuarios = this.usuarios.iterator();
+
+		while(usuarios.hasNext())
+			unaSimulacion.agregarAutoALaSimulacion(usuarios.next().getAuto());
 		
-		while(usuarios.hasNext()){
-			Auto unAuto = usuarios.next().getAuto();
-			unAuto.simular(SEGUNDOSASIMULAR);
-		}
+		return unaSimulacion;
 	}
 }
