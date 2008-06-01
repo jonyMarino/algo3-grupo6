@@ -3,6 +3,7 @@ package programaAuto;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Random;
 
 import pista.Pista;
 import auto.Auto;
@@ -51,14 +52,16 @@ public class ProgramaAuto {
 		public void simular(){
 			simulando = true;
 			while(simulando){
+				simulando = false;
 				Iterator<Auto> iteradorAutos = listaDeAutos.iterator();
 				while (iteradorAutos.hasNext()){
 					Auto unAuto = iteradorAutos.next();
 					if(unAuto.getPosicion() >= laPista.getLongitud())
 						llegoAlFinal(unAuto);
-					else if(unAuto.puedeSeguir())
+					else if(unAuto.puedeSeguir()){
 							unAuto.simular(SEGUNDOSASIMULAR);
-
+							simulando = true;
+					}
 
 				}
 			}
@@ -71,7 +74,6 @@ public class ProgramaAuto {
 				proximaPosicion++;
 			}
 		}
-		
 		
 	}
 	
@@ -110,14 +112,19 @@ public class ProgramaAuto {
 	}
 
 
-	public void setPista(Pista pista){
+	private void setPista(Pista pista){
 		this.pista = pista;
 	}
 
 	public Pista getPista(){
 		return this.pista;
 	}
-
+	
+	private void generarProximaPista(){
+		setPista(new Pista(new Random().nextDouble()*40));
+		//TODO: Rápido y feo, pero puede servir para el testing. Alguien creativo que se encargue...
+	}
+	
 	public void nuevoUsuario(String nombre){
 		Auto unAuto = autoInicial();
 		Usuario unUsuario = new Usuario(nombre, unAuto);
