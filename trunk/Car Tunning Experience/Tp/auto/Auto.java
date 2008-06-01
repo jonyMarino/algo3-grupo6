@@ -93,6 +93,12 @@ public abstract class Auto {
 		caja.setEje(getEje());
 		caja.setMotor(getMotor());
 		motor.setCaja(caja);
+		try {
+			setCaja(caja);
+		} catch (WrongPartClassException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//Asignar Pedales
 		this.asignadorPedales();
 
