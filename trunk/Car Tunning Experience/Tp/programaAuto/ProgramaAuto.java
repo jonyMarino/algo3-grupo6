@@ -1,6 +1,9 @@
 package programaAuto;
 
 import java.util.ArrayList;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 import auto.*;
 import auto.partesAuto.*;
 import auto.partesAuto.caja.*;
@@ -15,6 +18,7 @@ public class ProgramaAuto {
 
 	private static ArrayList<Usuario> usuarios;
 	private Pista pista;
+	private final int  SEGUNDOSASIMULAR = 10;
 
 	public ProgramaAuto () {
 		this.pista=null;
@@ -62,5 +66,15 @@ public class ProgramaAuto {
 		Auto unAuto = autoInicial();
 		Usuario unUsuario = new Usuario(nombre, unAuto);
 		usuarios.add(unUsuario);
+	}
+	
+	
+	public void comenzarCarrera(){
+		java.util.Iterator<Usuario> usuarios = this.usuarios.iterator();
+		
+		while(usuarios.hasNext()){
+			Auto unAuto = usuarios.next().getAuto();
+			unAuto.simular(SEGUNDOSASIMULAR);
+		}
 	}
 }
