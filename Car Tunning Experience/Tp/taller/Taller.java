@@ -131,9 +131,19 @@ public class Taller {
 			throw new NotEnoughMoneyException("El usuario no posee dinero suficiente para comprar esta parte.");
 		else{
 			usuario.gastarDinero(informacionDeEstaParte.getPrecio());
-			ensamblarParteAuto(usuario.getAuto(), informacionDeEstaParte.getParte());
+			ParteAuto otraParte = ensamblarParteAuto(usuario.getAuto(), informacionDeEstaParte.getParte());
 			venderParteAutoDelTaller(indiceDelCatalogo);
+			try {
+				usuario.adquirirDinero(calcularValorParteExtraida(otraParte));
+			} catch (BoundsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+	}
+	
+	private double calcularValorParteExtraida(ParteAuto unaParte){
+		return 0.0;
 	}
 
 	/**
