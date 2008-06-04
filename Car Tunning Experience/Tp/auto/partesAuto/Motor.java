@@ -60,7 +60,7 @@ public class Motor extends ParteAuto implements Torqueador{
 	 * Pide {@link Combustible} mezclado con aire al {@link Mezclador} y luego realiza la combustión eliminando los gases por el {@link Escape}.
 	 * // ConstMarino: A partir de la fuerza generada, el auto aumenta las RPM de las Ruedas, por ende del Motor tambien.
 	 *
-	 * @param acelerar No se refiere a la mágnitud física, sino a un número de 0 a 1  que indica cuanto se presionó el {@link Acelerador}.
+	 * @param intensidad No se refiere a la mágnitud física, sino a un número de 0 a 1  que indica cuanto se presionó el {@link Acelerador}.
 	 */
 	public void acelerar(double intensidad)throws BoundsException{
 		if(getVidaUtil()>0){
