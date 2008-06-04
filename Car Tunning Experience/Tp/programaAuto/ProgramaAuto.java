@@ -52,18 +52,7 @@ public class ProgramaAuto {
 		public void simularTodo(){
 			simulando = true;
 			while(simulando){
-				simulando = false;
-				Iterator<Auto> iteradorAutos = listaDeAutos.iterator();
-				while (iteradorAutos.hasNext()){
-					Auto unAuto = iteradorAutos.next();
-					if(unAuto.getPosicion() >= laPista.getLongitud())
-						llegoAlFinal(unAuto);
-					else if(unAuto.puedeSeguir()){
-							unAuto.simular(SEGUNDOSASIMULAR);
-							simulando = true;
-					}
-
-				}
+				simularUnTurno();
 				try {
 					this.wait(25);  //Mejor sería que fuese ajustable
 				} catch (InterruptedException e) {
