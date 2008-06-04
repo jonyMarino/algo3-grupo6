@@ -116,7 +116,7 @@ public class Motor extends ParteAuto implements Torqueador{
 			mezcla = mezclador.obtenerMezcla(aceleracion*cilindrada);
 		} catch (BoundsException e) {
 			// TODO Auto-generated catch block. Ver excepciones del Mezclador
-			e.printStackTrace();
+			//e.printStackTrace();
 		}	
 		double energiaDeCombustion=realizarCombustion(mezcla);
 		torque*=energiaDeCombustion;
