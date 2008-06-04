@@ -3,6 +3,7 @@ package programaAuto;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Observable;
 import java.util.Random;
 
 import pista.Pista;
@@ -22,7 +23,7 @@ import combustible.Nafta;
 import excepciones.WrongPartClassException;
 
 
-public class ProgramaAuto {
+public class ProgramaAuto extends Observable {
 
 	private static ArrayList<Usuario> usuarios;
 	private Pista pista;
@@ -53,12 +54,9 @@ public class ProgramaAuto {
 			simulando = true;
 			while(simulando){
 				simularUnTurno();
-				try {
-					this.wait(25);  //Mejor sería que fuese ajustable
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			       setChanged();
+			       notifyObservers();
+				
 			}
 
 		}
@@ -130,21 +128,25 @@ public class ProgramaAuto {
 		return this.pista;
 	}
 	
-	private void generarProximaPista(){
+	public void generarProximaPista(){
 		setPista(new Pista(new Random().nextDouble()*40));
 		//TODO: Rápido y feo, pero puede servir para el testing. Alguien creativo que se encargue...
 	}
 	
-	public void nuevoUsuario(String nombre){
+	public Usuario nuevoUsuario(String nombre){
 		Auto unAuto = autoInicial();
+		unAuto.setPista(getPista());
 		Usuario unUsuario = new Usuario(nombre, unAuto);
 		usuarios.add(unUsuario);
+		return unUsuario;
 	}
 	
 	
 	public void comenzarCarrera(){
 		SimulacionDeLaCarrera unaSimulacion = inicializarCarrera();
-		unaSimulacion.simularTodo();
+		unaSimulacion.simularUnTurno();
+		setChanged();
+	    notifyObservers();
 	}
 
 	private SimulacionDeLaCarrera inicializarCarrera() {

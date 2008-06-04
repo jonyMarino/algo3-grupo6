@@ -31,7 +31,11 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	}
 
 	protected double convertir(double torque){
-		return torque * relaciones[cambio];
+		if(cambio<=5)
+			return torque*relaciones[cambio];
+		else return torque*relaciones[5];
+		
+		//TODO: MANEJAR CON EXCEPCIONES
 	}
 	public abstract double getTorque();
 
@@ -67,7 +71,11 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	public double obtenerRpmEntrada(){
 		if(eje==null)
 			return 0;
-		return eje.getRpm()*relaciones[cambio];
+		if(cambio<=5)
+			return eje.getRpm()*relaciones[cambio];
+		else return eje.getRpm()*relaciones[5];
+		
+		//TODO: MANEJAR CON EXCEPCIONES
 	}
 
 }

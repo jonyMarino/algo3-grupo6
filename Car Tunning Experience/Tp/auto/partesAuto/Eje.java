@@ -42,11 +42,12 @@ public class Eje extends ParteAuto{
 		for(Torqueador iteradorTorques:torques)
 			torque+=iteradorTorques.getTorque();
 		double fuerza= torque/ruedaTrasera.getRodado();
-		if(fuerza>=ruedaTrasera.getFuerzaRozamientoEstatico()){	// Verifica que no haya dezliz
-			if(getRpm()>0)
-				return - ruedaTrasera.getFuerzaRozamientoDinamico();
-			return 0;
-		}
+		//if(fuerza>=ruedaTrasera.getFuerzaRozamientoEstatico()){	// Verifica que no haya dezliz
+			//if(getRpm()>0)
+				//return - ruedaTrasera.getFuerzaRozamientoDinamico();
+			//return 0;
+		//}
+		//TODO: revisar cuidadosamente el código. Sobre todo el caso en que fuerza< rozamiento estático y el uto está detenido
 		return fuerza;
 	}
 

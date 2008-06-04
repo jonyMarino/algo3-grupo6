@@ -2,6 +2,8 @@ package auto;
 
 //import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Observable;
+
 import excepciones.WrongPartClassException;
 import pista.Pista;
 import auto.partesAuto.Carroceria;
@@ -34,7 +36,7 @@ import auto.partesAuto.caja.Caja;
  *   @see Eje
  *   @see Mezclador
  */
-public abstract class Auto {
+public abstract class Auto extends Observable{
 	private Escape 		           escape;
 	private Carroceria 	           carroceria;
 	private Motor 		           motor;
@@ -159,6 +161,8 @@ public abstract class Auto {
 		calcularPosicion(velocidadAnterior, aceleracion, segundosTranscurridos);
 		for(ParteAuto partesAuto:this.getPartes())
 			partesAuto.desgastar(segundosTranscurridos);
+		setChanged();
+	    notifyObservers();
 	}
 
 //POSICION
