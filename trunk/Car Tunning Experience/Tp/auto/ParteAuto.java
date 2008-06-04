@@ -3,7 +3,7 @@ package auto;
 import auto.partesAuto.BoundsException;
 
 /**
- * Es la clase que se usa como base para todas las partes del auto ({@link Carrocería}, {@link Motor}, {@link Escape}, etc).
+ * Es la clase que se usa como base para todas las partes del auto ({@link Carroceria}, {@link Motor}, {@link Escape}, etc).
  *
  *Define las características básicas de todas las partes, como el costo, peso, vida útil y desgaste.
  *

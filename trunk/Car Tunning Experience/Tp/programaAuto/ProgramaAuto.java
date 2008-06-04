@@ -49,7 +49,7 @@ public class ProgramaAuto {
 			listaDeAutos.add(unAuto);
 		}
 		
-		public void simular(){
+		public void simularTodo(){
 			simulando = true;
 			while(simulando){
 				simulando = false;
@@ -64,10 +64,31 @@ public class ProgramaAuto {
 					}
 
 				}
+				try {
+					this.wait(25);  //Mejor sería que fuese ajustable
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 		}
 
+		public void simularUnTurno(){
+			simulando = false;
+			Iterator<Auto> iteradorAutos = listaDeAutos.iterator();
+			while (iteradorAutos.hasNext()){
+				Auto unAuto = iteradorAutos.next();
+				if(unAuto.getPosicion() >= laPista.getLongitud())
+					llegoAlFinal(unAuto);
+				else if(unAuto.puedeSeguir()){
+						unAuto.simular(SEGUNDOSASIMULAR);
+						simulando = true;
+				}
+			}
+		}
+
+		
 		private void llegoAlFinal(Auto unAuto) {
 			if(posicionesFinales.get(unAuto) == null){
 				posicionesFinales.put(unAuto, proximaPosicion);
@@ -134,7 +155,7 @@ public class ProgramaAuto {
 	
 	public void comenzarCarrera(){
 		SimulacionDeLaCarrera unaSimulacion = inicializarCarrera();
-		unaSimulacion.simular();
+		unaSimulacion.simularTodo();
 	}
 
 	private SimulacionDeLaCarrera inicializarCarrera() {
