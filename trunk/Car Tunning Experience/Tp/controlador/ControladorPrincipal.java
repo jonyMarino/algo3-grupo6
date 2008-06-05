@@ -26,6 +26,13 @@ public class ControladorPrincipal implements KeyListener{
 		unAuto = (miPrograma.nuevoUsuario("Lucas")).getAuto();
 
 		TanqueCombustible tanque = new TanqueNafta(99999, new Nafta(100,100));
+		try {
+			tanque.llenarTanque(99999);
+		} catch (BoundsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		unAuto.setTanqueCombustible(tanque);
 		
 		VistaGraficador vista1 = new VistaGraficador("Velocidad", 800,600, unAuto);
 		vista1.setPixelesPorUnidady(80);
@@ -33,7 +40,7 @@ public class ControladorPrincipal implements KeyListener{
 		vista1.addKeyListener(this);
 		unAuto.addObserver(vista1);
 		simulando = true;
-		tiempo =100;
+		tiempo =50;
 		while (simulando){
 					unAuto.simular(tiempo);
 		}

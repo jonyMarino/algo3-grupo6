@@ -28,11 +28,12 @@ public class VistaGraficador extends Frame implements Observer{
 	private Color colorTrazo;
 	private Color colorFondo;
 	private Object objetoObservado;
-	private String titulo;
+	private ArrayList listaDeTexto;
 	
     public VistaGraficador(String Titulo, int ancho, int alto, Object objetoObservado){
-    	this.show();
-    	titulo = Titulo;
+    	this.setVisible(true);
+    	this.setTitle(Titulo);
+    	listaDeTexto = new ArrayList();
     	this.objetoObservado=objetoObservado;
 		MaximoX = ancho;
 		MaximoY=alto;
@@ -94,8 +95,17 @@ public class VistaGraficador extends Frame implements Observer{
 		superficie.setColor(Color.green);
 		int tamanioDeLetra=(int)(getMaximoY()/7);
 		superficie.setFont(new Font("Arial",Font.BOLD,tamanioDeLetra));
-		superficie.drawString(titulo, (getMaximoX()-getMinimoX())/2-titulo.length()*tamanioDeLetra/4, getMaximoY()-5);
+		//superficie.drawString(titulo, (getMaximoX()-getMinimoX())/2-titulo.length()*tamanioDeLetra/4, getMaximoY()-5);
 
+		superficie.setFont(new Font("Arial",Font.BOLD,12));
+		Iterator iteradorTexto = listaDeTexto.iterator();
+		int indice=0;
+		while(iteradorTexto.hasNext()){
+			superficie.drawString((String)iteradorTexto.next(), getMinimoX()+5, getMaximoY()-9-12*indice);
+			indice++;
+		}
+		//superficie.drawString(titulo, (getMaximoX()-getMinimoX())/2-titulo.length()*tamanioDeLetra/4, getMaximoY()-5);
+		
 	}
 	
 	public int getMinimoX() {
@@ -114,7 +124,16 @@ public class VistaGraficador extends Frame implements Observer{
 	public void update(Observable o, Object arg) {
 		if (o==objetoObservado)
 		{
-			nuevoPunto(1,((Auto)o).getVelocidad());
+			Auto unAuto = ((Auto)o);
+			nuevoPunto(1,unAuto.getVelocidad());
+			listaDeTexto.clear();
+			listaDeTexto.add("Velocidad:        " + unAuto.getVelocidad());
+			listaDeTexto.add("RPM:              " + unAuto.getRPM());
+			listaDeTexto.add("Peso:             " + unAuto.getPeso());
+			listaDeTexto.add("Posicion:         " + unAuto.getPosicion());
+			listaDeTexto.add("Combustible:      " + unAuto.getTanqueCombustible().getCantidadCombustible());
+			listaDeTexto.add("Vida util Motor:  " + unAuto.getMotor().getVidaUtil());
+			listaDeTexto.add("Cambio:           " + unAuto.getCaja().getCambio());
 			dibujar();
 		}
 	}

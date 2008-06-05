@@ -31,16 +31,14 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	}
 
 	protected double convertir(double torque){
-		if(cambio<=5)
 			return torque*relaciones[cambio];
-		else return torque*relaciones[5];
-		
-		//TODO: MANEJAR CON EXCEPCIONES
 	}
 	public abstract double getTorque();
 
 	protected void setCambio(int cambio) {
+		if((cambio>=0) && (cambio<=5))
 		this.cambio=cambio;
+		//TODO: NO SE DEBERÍA PODER PASAR AL PROXIMO CAMBIO SI LAS REVOLUCIONES NO SON SUFICIENTES
 	}
 
 	public void setMotor(Motor motor){
@@ -65,17 +63,16 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	}
 
 	protected void incCambio(){
-		cambio++;
+		if(cambio<=5)
+			cambio++;
+		//TODO: MANEJAR CON EXCEPCIONES
+		//TODO: NO SE DEBERÍA PODER PASAR AL PROXIMO CAMBIO SI LAS REVOLUCIONES NO SON SUFICIENTES
 	}
 
 	public double obtenerRpmEntrada(){
 		if(eje==null)
 			return 0;
-		if(cambio<=5)
-			return eje.getRpm()*relaciones[cambio];
-		else return eje.getRpm()*relaciones[5];
-		
-		//TODO: MANEJAR CON EXCEPCIONES
+		return eje.getRpm()*relaciones[cambio];
 	}
 
 }
