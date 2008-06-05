@@ -110,7 +110,7 @@ public class Motor extends ParteAuto implements Torqueador{
 			throw new RuntimeException("Faltan partes en el motor para que funcione.");
 		if(aceleracion==0)
 			return 0;
-		double torque = -1/rpmMaximo * obtenerRPM() +1; 
+		double torque = -1/rpmMaximo * obtenerRPM() +1;
 		double mezcla = 0;
 		try {
 			mezcla = mezclador.obtenerMezcla(aceleracion*cilindrada);

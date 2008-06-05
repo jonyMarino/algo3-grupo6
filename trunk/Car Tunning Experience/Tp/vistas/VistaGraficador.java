@@ -56,7 +56,7 @@ public class VistaGraficador extends Frame implements Observer{
     	if (listaDePuntos.size() >= getMaximoX()/pixelesPorUnidadx){
     		Point2D.Double punto = (Double) listaDePuntos.remove(0);
     	}
-    	Point2D.Double punto = new Point2D.Double(delta_x, (-y*getPixelesPorUnidady()+getMaximoY()));
+    	Point2D.Double punto = new Point2D.Double(delta_x, y);
     	listaDePuntos.add(punto);
     }
 
@@ -92,7 +92,7 @@ public class VistaGraficador extends Frame implements Observer{
 		while (iterador.hasNext()){
 			punto = (Point2D) iterador.next();
 			pos_x+=punto.getX()*pixelesPorUnidadx;
-			superficie.drawRect((int)(pos_x-1*pixelesPorUnidadx), (int)(punto.getY()+yMedio), 1, 1);
+			superficie.drawRect((int)(pos_x-1*pixelesPorUnidadx), (int)(-punto.getY()*getPixelesPorUnidady()-yMedio), 1, 1);
 		}
 
 		dibujarMensajes();
