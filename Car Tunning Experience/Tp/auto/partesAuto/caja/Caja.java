@@ -23,11 +23,13 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	private Eje eje;
 
 	public Caja(){
-		cambio=0; //empieza en punto muerto
-		relaciones = new int[6];
-		for(int i=0;i<6;i++){
-			relaciones[i]=30-i*5;
-		}
+		cambio=1; //empieza en punto muerto
+		//relaciones 
+		int[] relaciones = {-30, 0, 50, 100, 150, 200, 250};
+		this.relaciones = relaciones;
+//		for(int i=0;i<6;i++){
+//			relaciones[i]=30-i*5;
+//		}
 	}
 
 	protected double convertir(double torque){
@@ -36,8 +38,8 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	public abstract double getTorque();
 
 	protected void setCambio(int cambio) {
-		if((cambio>=0) && (cambio<=5))
-		this.cambio=cambio;
+		if((cambio>=-1) && (cambio<=5))
+		this.cambio=cambio+1; //La primer posicion del array (0) es reversa (-1)
 		//TODO: NO SE DEBERÍA PODER PASAR AL PROXIMO CAMBIO SI LAS REVOLUCIONES NO SON SUFICIENTES
 	}
 
@@ -59,7 +61,7 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	}
 
 	public int getCambio() {
-		return cambio;
+		return cambio-1;  ////La primer posicion del array (0) es reversa (-1)
 	}
 
 	protected void incCambio(){
@@ -72,7 +74,9 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	public double obtenerRpmEntrada(){
 		if(eje==null)
 			return 0;
-		return eje.getRpm()*relaciones[cambio];
+		if (cambio==1)
+			return 0;
+		return eje.getRpm()/relaciones[cambio];
 	}
 
 }
