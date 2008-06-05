@@ -17,7 +17,7 @@ public class ControladorPrincipal implements KeyListener{
 
 	private static boolean simulando;
 	private static Auto unAuto;
-	private static int tiempo;
+	private static double tiempo;
 	
 	public ControladorPrincipal(){
 		
@@ -29,8 +29,6 @@ public class ControladorPrincipal implements KeyListener{
 		try {
 			tanque.llenarTanque(99999);
 		} catch (BoundsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		unAuto.setTanqueCombustible(tanque);
 		
@@ -40,9 +38,15 @@ public class ControladorPrincipal implements KeyListener{
 		vista1.addKeyListener(this);
 		unAuto.addObserver(vista1);
 		simulando = true;
-		tiempo =50;
+		tiempo =0.05;
 		while (simulando){
 					unAuto.simular(tiempo);
+					try {
+					Thread.sleep((int)(tiempo*1000));
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 		}
 		
 		vista1.dispose();
@@ -50,7 +54,6 @@ public class ControladorPrincipal implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		double aceleracion=0;
 		switch (e.getKeyChar()) {
 		case '1': aceleracion=0.001; break;
@@ -58,20 +61,21 @@ public class ControladorPrincipal implements KeyListener{
 		case '3': aceleracion=0.01; break;
 		case '4': aceleracion=0.05; break;
 		case '5': aceleracion=0.1; break;
-		default: aceleracion=0;
+		case '+': tiempo+=0.005; aceleracion = -1; break; 
+		case '-': tiempo-=0.005; aceleracion = -1;break;  //PELIGROSOS
+		default: aceleracion=-1;
 			break;
 		}
-		
 		try {
 			unAuto.getAcelerador().presionar(aceleracion);
 		} catch (BoundsException e1) {
 		}
 
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		double aceleracion=0;
 		switch (e.getKeyChar()) {
 		case '1': aceleracion=0; 
@@ -82,8 +86,6 @@ public class ControladorPrincipal implements KeyListener{
 		try {
 					unAuto.getAcelerador().presionar(0);
 				} catch (BoundsException e1) {
-					// TODO Auto-generated catch block
-					//e1.printStackTrace();
 				} break;
 		default: break;
 		}
@@ -93,7 +95,6 @@ public class ControladorPrincipal implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 		if(e.getKeyChar() == 'c'){
 			int cambioActual=unAuto.getCaja().getCambio();
 			((CajaManual)unAuto.getCaja()).setCambioManual(cambioActual+1);

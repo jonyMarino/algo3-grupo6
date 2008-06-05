@@ -54,9 +54,6 @@ public class ProgramaAuto extends Observable {
 			simulando = true;
 			while(simulando){
 				simularUnTurno();
-			       setChanged();
-			       notifyObservers();
-				
 			}
 
 		}
@@ -73,6 +70,8 @@ public class ProgramaAuto extends Observable {
 						simulando = true;
 				}
 			}
+	       setChanged();
+	       notifyObservers();
 		}
 
 		
@@ -144,9 +143,8 @@ public class ProgramaAuto extends Observable {
 	
 	public void comenzarCarrera(){
 		SimulacionDeLaCarrera unaSimulacion = inicializarCarrera();
-		unaSimulacion.simularUnTurno();
-		setChanged();
-	    notifyObservers();
+		unaSimulacion.simularTodo();
+		//¿sleep?
 	}
 
 	private SimulacionDeLaCarrera inicializarCarrera() {
