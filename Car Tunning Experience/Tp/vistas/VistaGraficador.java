@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.sun.org.apache.xml.internal.security.encryption.AgreementMethod;
+//import com.sun.org.apache.xml.internal.security.encryption.AgreementMethod;
 
 import auto.Auto;
 
@@ -123,7 +123,7 @@ public class VistaGraficador extends Frame implements Observer{
 		return colorTrazo;
 	}
 
-	@Override
+
 	public void update(Observable o, Object arg) {
 		if (o==objetoObservado)
 		{

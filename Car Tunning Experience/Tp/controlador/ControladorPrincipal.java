@@ -54,7 +54,7 @@ public class ControladorPrincipal implements KeyListener{
 		vista1.dispose();
 	}
 
-	@Override
+
 	public void keyPressed(KeyEvent e) {
 		double aceleracion=0;
 		switch (e.getKeyChar()) {
@@ -76,7 +76,7 @@ public class ControladorPrincipal implements KeyListener{
 
 	}
 
-	@Override
+
 	public void keyReleased(KeyEvent e) {
 		double aceleracion=0;
 		switch (e.getKeyChar()) {
@@ -95,7 +95,7 @@ public class ControladorPrincipal implements KeyListener{
 
 	}
 
-	@Override
+
 	public void keyTyped(KeyEvent e) {
 		if(e.getKeyChar() == 'c'){
 			int cambioActual=unAuto.getCaja().getCambio();
