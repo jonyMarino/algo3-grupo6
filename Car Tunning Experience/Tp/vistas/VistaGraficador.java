@@ -25,10 +25,11 @@ public class VistaGraficador extends Frame implements Observer{
 	private int MinimoY;
 	private BufferedImage bufferPrincipal;
 	private double pixelesPorUnidadx, pixelesPorUnidady;
-	private Color colorTrazo;
-	private Color colorFondo;
+	private Color colorTrazo, colorMensajes;
+	private Color colorFondo, colorLineas;
 	private Object objetoObservado;
 	private ArrayList listaDeTexto;
+	private double tiempoTotal;
 	
     public VistaGraficador(String Titulo, int ancho, int alto, Object objetoObservado){
     	this.setVisible(true);
@@ -42,11 +43,12 @@ public class VistaGraficador extends Frame implements Observer{
 		this.setSize(MaximoX, MaximoY);
     	listaDePuntos = new ArrayList<Point2D>();
 		bufferPrincipal = new BufferedImage(getMaximoX(), getMaximoY(),BufferedImage.TYPE_INT_RGB );
-		//bufferSecundario = new BufferedImage(getMaximoX(), getMaximoY(),BufferedImage.TYPE_INT_RGB );
 		this.pixelesPorUnidadx=1;
 		this.pixelesPorUnidady=1;
 		colorTrazo = Color.red;
 		colorFondo = Color.black;
+		colorMensajes = Color.green;
+		colorLineas = Color.white;
 		//TODO: limpiar código
     }
     
@@ -83,7 +85,7 @@ public class VistaGraficador extends Frame implements Observer{
 		double yMedio = -(getMaximoY()+getMinimoY())/2;
 		superficie.setBackground(colorFondo);
 		superficie.clearRect(0, 0, getMaximoX(), getMaximoY());
-		superficie.setColor(Color.white);
+		superficie.setColor(colorLineas);
 		superficie.fillRect(0, -(int)yMedio-1 ,getMaximoX(), 2);
 		superficie.fillRect(getMinimoX()-1, 0 ,2, getMaximoY());
 		superficie.setColor(colorTrazo);
@@ -92,11 +94,13 @@ public class VistaGraficador extends Frame implements Observer{
 			pos_x+=punto.getX()*pixelesPorUnidadx;
 			superficie.drawRect((int)(pos_x-1*pixelesPorUnidadx), (int)(punto.getY()+yMedio), 1, 1);
 		}
-		superficie.setColor(Color.green);
-		int tamanioDeLetra=(int)(getMaximoY()/7);
-		superficie.setFont(new Font("Arial",Font.BOLD,tamanioDeLetra));
-		//superficie.drawString(titulo, (getMaximoX()-getMinimoX())/2-titulo.length()*tamanioDeLetra/4, getMaximoY()-5);
 
+		dibujarMensajes();
+	}
+	
+	private void dibujarMensajes(){
+		Graphics2D superficie = bufferPrincipal.createGraphics();
+		superficie.setColor(colorMensajes);
 		superficie.setFont(new Font("Arial",Font.BOLD,12));
 		Iterator iteradorTexto = listaDeTexto.iterator();
 		int indice=0;
@@ -104,7 +108,6 @@ public class VistaGraficador extends Frame implements Observer{
 			superficie.drawString((String)iteradorTexto.next(), getMinimoX()+5, getMaximoY()-9-12*indice);
 			indice++;
 		}
-		//superficie.drawString(titulo, (getMaximoX()-getMinimoX())/2-titulo.length()*tamanioDeLetra/4, getMaximoY()-5);
 		
 	}
 	
@@ -124,9 +127,11 @@ public class VistaGraficador extends Frame implements Observer{
 	public void update(Observable o, Object arg) {
 		if (o==objetoObservado)
 		{
+			tiempoTotal  += java.lang.Double.parseDouble((String)arg);
 			Auto unAuto = ((Auto)o);
 			nuevoPunto(1,unAuto.getVelocidad());
 			listaDeTexto.clear();
+			listaDeTexto.add("Segundos transcurridos: " + tiempoTotal + " segundos : Paso de tiempo: " + (String)arg + " segundos por turno");
 			listaDeTexto.add("Velocidad:        " + unAuto.getVelocidad());
 			listaDeTexto.add("RPM:              " + unAuto.getRPM());
 			listaDeTexto.add("Peso:             " + unAuto.getPeso());

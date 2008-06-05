@@ -151,7 +151,7 @@ public abstract class Auto extends Observable{
 	 * @param segundosTranscurridos los segundos transcurridos.
 	 * @param pista la pista por la que se mueve el auto.
 	 */
-	public void simular(int segundosTranscurridos) {
+	public void simular(double segundosTranscurridos) {
 		double masaAuto = this.getPeso()*aceleracionGravedad;
 		double fuerzaEje = this.getEje().getFuerza();
 		double fuerzaAire = this.getCarroceria().getFuerzaAire();
@@ -160,14 +160,14 @@ public abstract class Auto extends Observable{
 		this.setVelocidad(velocidadAnterior + (aceleracion * segundosTranscurridos));
 		calcularPosicion(velocidadAnterior, aceleracion, segundosTranscurridos);
 		for(ParteAuto partesAuto:this.getPartes())
-			partesAuto.desgastar(segundosTranscurridos);
+			partesAuto.desgastar((int)(segundosTranscurridos));
 		setChanged();
-	    notifyObservers();
+	    notifyObservers(Double.toString(segundosTranscurridos));
 	}
 
 //POSICION
 	
-	private void calcularPosicion(double velocidad, double aceleracion, int segundosTranscurridos) {
+	private void calcularPosicion(double velocidad, double aceleracion, double segundosTranscurridos) {
 		setPosicion(getPosicion()+velocidad*segundosTranscurridos+aceleracion*segundosTranscurridos*segundosTranscurridos/2);
 	}
 

@@ -23,7 +23,7 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	private Eje eje;
 
 	public Caja(){
-		cambio=1; //empieza en primera
+		cambio=0; //empieza en punto muerto
 		relaciones = new int[6];
 		for(int i=0;i<6;i++){
 			relaciones[i]=30-i*5;

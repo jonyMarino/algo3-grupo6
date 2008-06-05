@@ -42,7 +42,7 @@ public abstract class ParteAuto {
 		return this.vidaUtil;
 	}
 
-	public abstract boolean desgastar(int tiempo);
+	public abstract boolean desgastar(int segundosTranscurridos);
 
 	public boolean desgastado(){
 		return getVidaUtil()==0;
