@@ -19,7 +19,7 @@ public class ControladorPrincipal implements KeyListener{
 	private static Auto unAuto;
 	private static double tiempo;
 	private int fastForward;
-	
+	VistaGraficador vista1;
 	public ControladorPrincipal(){
 		
 		ProgramaAuto miPrograma = new ProgramaAuto();
@@ -33,8 +33,8 @@ public class ControladorPrincipal implements KeyListener{
 		}
 		unAuto.setTanqueCombustible(tanque);
 		
-		VistaGraficador vista1 = new VistaGraficador("Velocidad", 800,600, unAuto);
-		vista1.setPixelesPorUnidady(80);
+		vista1 = new VistaGraficador("Velocidad", 800,600, unAuto);
+		vista1.setPixelesPorUnidady(1);
 		vista1.setPixelesPorUnidadx(1);
 		vista1.addKeyListener(this);
 		unAuto.addObserver(vista1);
@@ -113,7 +113,13 @@ public class ControladorPrincipal implements KeyListener{
 				fastForward=100;
 			else fastForward =1;
 		}
-		
+		if(e.getKeyChar() == 'y'){
+			if (vista1.getPixelesPorUnidady()>1)
+				vista1.setPixelesPorUnidady(vista1.getPixelesPorUnidady()-1);
+		}
+		if(e.getKeyChar() == 'Y'){
+			vista1.setPixelesPorUnidady(vista1.getPixelesPorUnidady()+1);
+		}
 	}
 
 }

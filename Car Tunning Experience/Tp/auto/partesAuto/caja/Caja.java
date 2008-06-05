@@ -25,7 +25,7 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	public Caja(){
 		cambio=1; //empieza en punto muerto
 		//relaciones 
-		int[] relaciones = {-30, 0, 50, 100, 150, 200, 250};
+		int[] relaciones = {-30, 0, 50, 80, 120, 150, 170};
 		this.relaciones = relaciones;
 //		for(int i=0;i<6;i++){
 //			relaciones[i]=30-i*5;

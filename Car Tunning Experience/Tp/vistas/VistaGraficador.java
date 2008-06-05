@@ -139,6 +139,7 @@ public class VistaGraficador extends Frame implements Observer{
 			listaDeTexto.add("Combustible:      " + unAuto.getTanqueCombustible().getCantidadCombustible());
 			listaDeTexto.add("Vida util Motor:  " + unAuto.getMotor().getVidaUtil());
 			listaDeTexto.add("Cambio:           " + unAuto.getCaja().getCambio());
+			listaDeTexto.add("Escala del eje Y: " + getPixelesPorUnidady() + " pixeles por unidad");
 			dibujar();
 		}
 	}
