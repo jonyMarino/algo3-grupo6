@@ -18,6 +18,7 @@ public class ControladorPrincipal implements KeyListener{
 	private static boolean simulando;
 	private static Auto unAuto;
 	private static double tiempo;
+	private int fastForward;
 	
 	public ControladorPrincipal(){
 		
@@ -39,10 +40,11 @@ public class ControladorPrincipal implements KeyListener{
 		unAuto.addObserver(vista1);
 		simulando = true;
 		tiempo =0.05;
+		fastForward = 1;
 		while (simulando){
-					unAuto.simular(tiempo);
+					unAuto.simular(tiempo*fastForward);
 					try {
-					Thread.sleep((int)(tiempo*1000));
+					Thread.sleep((int)(tiempo*1000/fastForward));
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -105,6 +107,11 @@ public class ControladorPrincipal implements KeyListener{
 		}
 		if(e.getKeyChar() == 'q'){
 			simulando=false;
+		}
+		if(e.getKeyChar() == ' '){
+			if(fastForward==1)
+				fastForward=100;
+			else fastForward =1;
 		}
 		
 	}
