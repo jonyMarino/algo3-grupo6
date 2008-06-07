@@ -63,9 +63,16 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	public int getCambio() {
 		return cambio-1;  ////La primer posicion del array (0) es reversa (-1)
 	}
-
+	
+	
+	//TODO:Agregue esto q puede servir para calcular las revoluciones necesarias para cada cambio.
+	public double calcularRpmMinimas(){
+		return (motor.getRPMMaximo()/5)*cambio;
+	}
+	
 	protected void incCambio(){
 		if(cambio<=5)
+			if(obtenerRpmEntrada()>=calcularRpmMinimas())
 			cambio++;
 		//TODO: MANEJAR CON EXCEPCIONES
 		//TODO: NO SE DEBERÍA PODER PASAR AL PROXIMO CAMBIO SI LAS REVOLUCIONES NO SON SUFICIENTES
