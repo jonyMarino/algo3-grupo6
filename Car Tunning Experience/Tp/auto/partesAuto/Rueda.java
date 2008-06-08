@@ -3,9 +3,10 @@ import pista.Pista;
 import auto.Auto;
 import auto.ParteAuto;
 
-public class Rueda extends ParteAuto {
+public class Rueda extends ParteAuto{
 
 	private int rodado;
+	private double radioEnMetros;
 	private double coeficienteEstatico;
 	private double coeficienteDinamico;
 	private Auto auto;
@@ -30,7 +31,9 @@ public class Rueda extends ParteAuto {
 			e.printStackTrace();
 		}
 	}
-
+	public double getRadioEnMetros(){
+		return radioEnMetros;
+	}
 	public void setPista(Pista pista){
 		this.pista=pista;
 	}
@@ -60,14 +63,18 @@ public class Rueda extends ParteAuto {
 		if(rodado<0)
 			throw new BoundsException("Valor del rodado incorrecto");
 		this.rodado=rodado;
+		radioEnMetros = rodado * 2.54 /100/2;
 	}
 
 	public int getRodado(){
 		return this.rodado;
 	}
-
+	private double convertirAMetrosPorMinuto(double metrosPorSegundo){
+		return metrosPorSegundo*60;
+	}
+	
 	public double getRPM(){
-		return auto.getVelocidad()/rodado;
+		return convertirAMetrosPorMinuto(auto.getVelocidad())/(radioEnMetros * 2 * Math.PI);
 	}
 
 	public void setCoeficienteEstatico(double coeficienteEstatico) throws BoundsException{

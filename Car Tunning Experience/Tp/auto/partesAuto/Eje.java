@@ -41,7 +41,7 @@ public class Eje extends ParteAuto{
 		double torque=0;
 		for(Torqueador iteradorTorques:torques)
 			torque+=iteradorTorques.getTorque();
-		double fuerza= torque/ruedaTrasera.getRodado();
+		double fuerza= torque/ruedaTrasera.getRadioEnMetros();
 		//if(fuerza>=ruedaTrasera.getFuerzaRozamientoEstatico()){	// Verifica que no haya dezliz
 			//if(getRpm()>0)
 				//return - ruedaTrasera.getFuerzaRozamientoDinamico();

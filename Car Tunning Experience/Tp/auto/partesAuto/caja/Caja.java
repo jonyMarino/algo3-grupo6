@@ -18,16 +18,26 @@ import java.lang.RuntimeException;
 public abstract class Caja extends ParteAuto implements Torqueador{
 
 	private int cambio;
-	private int[] relaciones;
+	private double[] relaciones;
 	private Motor motor;
 	private Eje eje;
 
 	public Caja(){
+		int i;
+		double reduccionCambio=3.0/4;
 		cambio=1; //empieza en punto muerto
 		//relaciones 
-		int[] relaciones = {-30, 0, 50, 80, 120, 150, 170};
-		this.relaciones = relaciones;
+		//double[] relaciones = {-30, 0, 50};
+		//this.relaciones = relaciones;
+		relaciones = new double[7];
+		relaciones[0]=-24;
+		relaciones[1]=0;
+		for(i=2;i<relaciones.length;i++){
+			relaciones[i]=24*reduccionCambio;
+			reduccionCambio*=reduccionCambio;
+		}
 //		for(int i=0;i<6;i++){
+		
 //			relaciones[i]=30-i*5;
 //		}
 	}
@@ -75,7 +85,6 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 			if(obtenerRpmEntrada()>=calcularRpmMinimas())
 			cambio++;
 		//TODO: MANEJAR CON EXCEPCIONES
-		//TODO: NO SE DEBERÍA PODER PASAR AL PROXIMO CAMBIO SI LAS REVOLUCIONES NO SON SUFICIENTES
 	}
 
 	public double obtenerRpmEntrada(){
