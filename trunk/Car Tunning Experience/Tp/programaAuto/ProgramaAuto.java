@@ -105,10 +105,22 @@ public class ProgramaAuto extends Observable {
 			MezcladorNafta mezclador = new MezcladorNafta(100,tanque);
 			Escape escape = new Escape(100);
 			Motor motor=new Motor(100,5000,mezclador,escape,2.0);
-			Rueda rueda = new Rueda(1,0.7,0.4);
+			motor.setPeso(200);
+			
+			ArrayList<Rueda> ruedas = new ArrayList<Rueda>();
+			for(int i=0;i<4;i++){
+				Rueda rueda = new Rueda(25,0.7,0.4);
+				rueda.setPeso(25);
+				ruedas.add(rueda);				
+			}
+		
+			
+			
 			CajaManual caja = new CajaManual();
 			try {
-				auto = new AutoManual(escape,carroceria,motor,caja,mezclador,tanque,rueda,rueda,rueda,rueda);
+				auto = new AutoManual(escape,carroceria,motor,caja,mezclador,tanque,ruedas.get(0),ruedas.get(1),ruedas.get(2),ruedas.get(3));
+				auto.getEscape().setPeso(20);
+				auto.getMezclador().setPeso(80);
 			} catch (WrongPartClassException e) {
 				e.printStackTrace();
 			}

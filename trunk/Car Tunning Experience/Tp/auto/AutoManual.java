@@ -57,7 +57,7 @@ public class AutoManual extends Auto {
 	 *
 	 * @param cambio El cambio a pasar.
 	 */
-	public void ponerCambio(int cambio) {
+	public void setCambio(int cambio) {
 		((CajaManual)getCaja()).setCambioManual(cambio);
 	}
 

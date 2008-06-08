@@ -51,7 +51,6 @@ public abstract class Auto extends Observable{
 	private LinkedList<ParteAuto>  partes;
 	private Caja 				   caja;
 	private Pista	               pista;
-	private static double          aceleracionGravedad = 9.8;
 
 	/**
 	 * Crea un nuevo auto con las partes especificadas.
@@ -126,8 +125,8 @@ public abstract class Auto extends Observable{
 //VELOCIDAD
 
 	/**
-	 * Devuelve la velocidad actual del Auto.
-	 *
+	 * Devuelve la velocidad actual del Auto en metros por segundo.
+	 * @see getKilometrosPorHora
 	 * @return La velocidad actual del Auto.
 	 */
 	public double getVelocidad() {
@@ -144,7 +143,22 @@ public abstract class Auto extends Observable{
 	public double obtenerRpm() {
 		return ruedas.get(0).getRPM();
 	}
-
+	/**
+	 * convierte metros por segundo a kilometros por hora
+	 *
+	 * @param metrosPorSegundo magnitud en metros por segundo
+	 */
+	private double convertirKilometrosPorHora(double metrosPorSegundo){
+		return metrosPorSegundo /1000 * 3600;
+	}
+	/**
+	 * Devuelve la velocidad en kilometros por hora
+	 *
+	 * @param metrosPorSegundo magnitud en metros por segundo
+	 */
+	public double getKilometrosPorHora(){
+		return convertirKilometrosPorHora(getVelocidad());
+	}
 	/**
 	 * Calcula la velocidad para el Auto despues de transcurridos t segundos.
 	 *
@@ -152,12 +166,12 @@ public abstract class Auto extends Observable{
 	 * @param pista la pista por la que se mueve el auto.
 	 */
 	public void simular(double segundosTranscurridos) {
-		double masaAuto = this.getPeso()*aceleracionGravedad;
+		double masaAuto = this.getPeso();
 		double fuerzaEje = this.getEje().getFuerza();
 		double fuerzaAire = this.getCarroceria().getFuerzaAire();
 		double aceleracion = (((fuerzaEje - fuerzaAire) /masaAuto));
 		double velocidadAnterior = getVelocidad();
-		this.setVelocidad(velocidadAnterior + (aceleracion * segundosTranscurridos));
+		this.setVelocidad(velocidadAnterior + aceleracion * segundosTranscurridos);
 		calcularPosicion(velocidadAnterior, aceleracion, segundosTranscurridos);
 		for(ParteAuto partesAuto:this.getPartes())
 			partesAuto.desgastar((int)(segundosTranscurridos));
