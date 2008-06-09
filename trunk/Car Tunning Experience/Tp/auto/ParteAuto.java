@@ -12,13 +12,25 @@ public abstract class ParteAuto {
 
 	private double peso;
 	private double vidaUtil;
+	private int costo;
+	private String descripcion;
 
 	public ParteAuto(){
 		try{
+			setDescripcion("");
+			setCosto(0);
 			setPeso(0);
 			setVidaUtil(100);
 		}catch(BoundsException e){}
 
+	}
+
+	public void setCosto(int costo) {
+		this.costo = costo;
+	}
+	
+	public int getCosto(){
+		return costo;
 	}
 
 	public void setPeso(double peso)throws BoundsException{
@@ -46,6 +58,14 @@ public abstract class ParteAuto {
 
 	public boolean desgastado(){
 		return getVidaUtil()==0;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 }
