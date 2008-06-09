@@ -22,7 +22,7 @@ public class TallerTest extends TestCase {
 	Usuario usuario;
 
 	protected void setUp() throws BoundsException{
-		motor = new Motor(100,10000,4.0); // muy buen motor(caro)
+		motor = new Motor(100,10000,4.0);
 		Auto auto = ProgramaAuto.autoInicial();
 		usuario = new Usuario("Jose", auto);
 		taller = new Taller();
