@@ -32,10 +32,12 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 		relaciones = new double[7];
 		relaciones[0]=-24;
 		relaciones[1]=0;
-		for(i=2;i<relaciones.length;i++){
+		for(i=2;i<5;i++){
 			relaciones[i]=24*reduccionCambio;
 			reduccionCambio*=reduccionCambio;
 		}
+		relaciones[5]=relaciones[4]*30/45;
+		relaciones[6]=relaciones[5]*3/4;
 //		for(int i=0;i<6;i++){
 		
 //			relaciones[i]=30-i*5;

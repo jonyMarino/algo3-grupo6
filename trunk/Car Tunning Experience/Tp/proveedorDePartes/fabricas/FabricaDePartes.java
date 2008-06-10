@@ -34,7 +34,7 @@ public abstract class FabricaDePartes {
 		return getInformacionModelo(getModelo(modelo), caracteristica);
 	}
 	
-	public ArrayList getModelos() {
+	public ArrayList<Integer> getModelos() {
 		Enumeration<Integer> modelos = informacionDeModelos.keys();
 		
 		ArrayList<Integer> listaDeModelos = new ArrayList<Integer>();

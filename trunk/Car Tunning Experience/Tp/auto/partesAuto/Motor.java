@@ -74,10 +74,8 @@ public class Motor extends ParteAuto implements Torqueador{
 	public boolean desgastar(int tiempo) {	
 		try{
 			if((getVidaUtil()!=0)){
-				if(caja.getCambio()!=0){
-					double deltaVidaUtil = obtenerRPM()/getRPMMaximo()*1000/caja.getCambio();
+					double deltaVidaUtil = obtenerRPM()/getRPMMaximo()/50;
 					setVidaUtil(getVidaUtil()-deltaVidaUtil);
-				}
 			}
 		}catch(BoundsException e){
 			try{
@@ -121,7 +119,7 @@ public class Motor extends ParteAuto implements Torqueador{
 			//e.printStackTrace();
 		}	
 		double energiaDeCombustion=realizarCombustion(mezcla);
-		torque*=energiaDeCombustion*40; //TODO: agregue una constante 1000 para que el auto acelera mas rápido (sigue siendo lento)
+		torque*=energiaDeCombustion*80; //TODO: agregue una constante 1000 para que el auto acelera mas rápido (sigue siendo lento)
 		return torque;
 
 	}

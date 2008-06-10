@@ -132,10 +132,10 @@ public class VistaGraficador extends Frame implements Observer{
 			nuevoPunto(1,unAuto.getVelocidad());
 			listaDeTexto.clear();
 			listaDeTexto.add("Segundos transcurridos: " + tiempoTotal + " segundos : Paso de tiempo: " + (String)arg + " segundos por turno");
-			listaDeTexto.add("Velocidad:        " + unAuto.getKilometrosPorHora() + " Km/h");
-			listaDeTexto.add("RPM:              " + unAuto.getRPM());
+			listaDeTexto.add("Velocidad:        " + (int)unAuto.getKilometrosPorHora() + " Km/h");
+			listaDeTexto.add("RPM:              " + (int)unAuto.getMotor().obtenerRPM());
 			listaDeTexto.add("Peso:             " + unAuto.getPeso());
-			listaDeTexto.add("Posicion:         " + unAuto.getPosicion());
+			listaDeTexto.add("Posicion:         " + (int)unAuto.getPosicion());
 			listaDeTexto.add("Combustible:      " + unAuto.getTanqueCombustible().getCantidadCombustible());
 			listaDeTexto.add("Vida util Motor:  " + unAuto.getMotor().getVidaUtil());
 			listaDeTexto.add("Cambio:           " + unAuto.getCaja().getCambio());
