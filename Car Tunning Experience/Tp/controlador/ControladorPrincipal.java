@@ -58,11 +58,12 @@ public class ControladorPrincipal implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		double aceleracion=0;
 		switch (e.getKeyChar()) {
-		case '1': aceleracion=0.001; break;
-		case '2': aceleracion=0.005; break;
-		case '3': aceleracion=0.01; break;
-		case '4': aceleracion=0.05; break;
-		case '5': aceleracion=0.1; break;
+		case '0': aceleracion=0; break;
+		case '1': aceleracion=0.01; break;
+		case '2': aceleracion=0.05; break;
+		case '3': aceleracion=0.1; break;
+		case '4': aceleracion=0.5; break;
+		case '5': aceleracion=1; break;
 		case '+': tiempo+=0.005; aceleracion = -1; break; 
 		case '-': tiempo-=0.005; aceleracion = -1;break;  //PELIGROSOS
 		default: aceleracion=-1;
@@ -78,7 +79,7 @@ public class ControladorPrincipal implements KeyListener{
 
 
 	public void keyReleased(KeyEvent e) {
-		double aceleracion=0;
+/*		double aceleracion=0;
 		switch (e.getKeyChar()) {
 		case '1': aceleracion=0; 
 		case '2': aceleracion=0;
@@ -92,7 +93,7 @@ public class ControladorPrincipal implements KeyListener{
 		default: break;
 		}
 		
-
+*/
 	}
 
 
