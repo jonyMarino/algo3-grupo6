@@ -3,6 +3,7 @@ package auto;
 //import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
+import java.util.List;
 
 import excepciones.WrongPartClassException;
 import pista.Pista;
@@ -121,7 +122,10 @@ public abstract class Auto extends Observable{
 		partes.add(caja);
 	}
 
-
+//Partes Auto
+	public List getListaPartes(){
+		return partes.clone();
+	}
 //VELOCIDAD
 
 	/**
