@@ -9,13 +9,13 @@ import java.util.List;
 import javax.management.Descriptor;
 
 import programaAuto.Usuario;
+import proveedorDePartes.fabricas.Motor;
 import auto.Auto;
 import auto.ParteAuto;
 import auto.partesAuto.BoundsException;
 import auto.partesAuto.Carroceria;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
-import auto.partesAuto.Motor;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
 import auto.partesAuto.tanque.TanqueCombustible;

@@ -6,28 +6,11 @@ import proveedorDePartes.ProveedorDePartes;
 import auto.ParteAuto;
 
 
-/**
- *
- *	public ArrayList getModelos() {
- *		Enumeration<Integer> modelos = informacionDeModelos.keys();
- *		
- *		ArrayList<Integer> listaDeModelos = new ArrayList<Integer>();
- *		
- *		while(modelos.hasMoreElements()){
- *			listaDeModelos.add(new Integer(modelos.nextElement()));
- *		}
- *		
- *		return listaDeModelos;
- *	}
- *	
- */
 public abstract class FabricaDePartes {
  
 	private ArrayList<InformacionDelModelo> modelosConocidos;
 	 
 	private ProveedorDePartes proveedorDePartes;
-	 
-	private InformacionDelModelo[] informacionDelModelo;
 	 
 	public abstract ParteAuto fabricar(InformacionDelModelo modelo);
 	public Integer consultarPrecio(InformacionDelModelo modelo) {
@@ -35,7 +18,7 @@ public abstract class FabricaDePartes {
 	}
 	 
 	public ArrayList<InformacionDelModelo> getModelos() {
-		return null;
+		return modelosConocidos;
 	}
 	 
 	public void eliminarModelo(InformacionDelModelo modelo) {

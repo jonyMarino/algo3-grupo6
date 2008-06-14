@@ -1,7 +1,9 @@
-package auto.partesAuto;
+package proveedorDePartes.fabricas;
 
 import auto.ParteAuto;
 import auto.partesAuto.BoundsException;
+import auto.partesAuto.Escape;
+import auto.partesAuto.Torqueador;
 import auto.partesAuto.caja.Caja;
 import auto.partesAuto.mezclador.Mezclador;
 import java.lang.RuntimeException;

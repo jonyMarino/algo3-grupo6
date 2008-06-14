@@ -7,12 +7,12 @@ import java.util.List;
 
 import excepciones.WrongPartClassException;
 import pista.Pista;
+import proveedorDePartes.fabricas.Motor;
 import auto.partesAuto.Carroceria;
 import auto.ParteAuto;
 import auto.partesAuto.BoundsException;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
-import auto.partesAuto.Motor;
 import auto.partesAuto.Rueda;
 import auto.partesAuto.mezclador.Mezclador;
 import auto.partesAuto.pedal.Acelerador;
