@@ -1,6 +1,7 @@
 package proveedorDePartes.fabricas;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 
@@ -15,7 +16,11 @@ public class InformacionDelModelo {
 	private FabricaDePartes fabricaDePartes;
 	 
 	public ArrayList<String> getCaracteristicasDisponibles() {
-		return null;
+		Enumeration<String> listaDeClaves = informacionDeEstaParte.keys();
+		ArrayList<String> listaCaracteristicas = new ArrayList<String>();
+		while(listaDeClaves.hasMoreElements())
+			listaCaracteristicas.add(listaDeClaves.nextElement());
+		return listaCaracteristicas;
 	}
 	 
 	void agregarCaracteristica(String nombreDeLaCaracteristica, String valorDeLaCaracteristica) {
