@@ -1,8 +1,6 @@
-package auto.partesAuto.mezclador;
+package proveedorDePartes.fabricas;
 
-import auto.ParteAuto;
-import auto.partesAuto.BoundsException;
-import auto.partesAuto.tanque.TanqueCombustible;
+import excepciones.BoundsException;
 
 /**
  * El Mezclador es el encargado de obtener {@link Combustible} del {@link TanqueCombustible},

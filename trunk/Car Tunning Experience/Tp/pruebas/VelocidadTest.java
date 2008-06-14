@@ -2,12 +2,13 @@ package pruebas;
 
 import java.util.ArrayList;
 
+import excepciones.BoundsException;
+
 import junit.framework.TestCase;
 import pista.Pista;
 import auto.AutoManual;
 import auto.Auto;
 import programaAuto.ProgramaAuto; 
-import auto.partesAuto.BoundsException;
 
 
 public class VelocidadTest extends TestCase {

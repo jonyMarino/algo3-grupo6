@@ -1,8 +1,9 @@
 package pista;
 import auto.Auto;
-import auto.partesAuto.BoundsException;
 
 import java.util.*;
+
+import excepciones.BoundsException;
 
 public class Pista {
 

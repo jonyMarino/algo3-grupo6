@@ -1,10 +1,23 @@
 package proveedorDePartes.fabricas;
 
-import auto.partesAuto.BoundsException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
+
+import excepciones.BoundsException;
 
 
-public class fabricaDeMotores extends FabricaDePartes {
- 
+public class FabricaDeMotores extends FabricaDePartes {
+	public FabricaDeMotores(){
+		super();
+		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+		nuevaInfo.agregarCaracteristica("COSTO", "500");
+		nuevaInfo.agregarCaracteristica("DESCRIPCION", "Motor Basico");
+		nuevaInfo.agregarCaracteristica("RPMMAX", "5800");
+		nuevaInfo.agregarCaracteristica("RENDIMIENTO", "80");
+		nuevaInfo.agregarCaracteristica("CILINDRADA", "2.0");
+		agregarModelo(nuevaInfo); //agrega un motor básico al catálogo
+	}
 	public Motor fabricar(InformacionDelModelo modelo) {
 		try{
 			double rpmmaximo = Double.parseDouble(modelo.getCaracteristica("RPMMAX"));
@@ -21,8 +34,7 @@ public class fabricaDeMotores extends FabricaDePartes {
 		return null;
 	}
 	 
-	public void agregarModelo(InformacionDelModelo datosDelModelo) {
-	}
+	
 	 
 }
  

@@ -1,6 +1,6 @@
-package auto;
+package proveedorDePartes.fabricas;
 
-import auto.partesAuto.BoundsException;
+import excepciones.BoundsException;
 
 /**
  * Es la clase que se usa como base para todas las partes del auto ({@link Carroceria}, {@link Motor}, {@link Escape}, etc).
@@ -14,6 +14,7 @@ public abstract class ParteAuto {
 	private double vidaUtil;
 	private int costo;
 	private String descripcion;
+	private InformacionDelModelo informacionDelModelo;
 
 	public ParteAuto(){
 		try{
@@ -66,6 +67,14 @@ public abstract class ParteAuto {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public InformacionDelModelo getInformacionDelModelo() {
+		return informacionDelModelo;
+	}
+
+	void setInformacionDelModelo(InformacionDelModelo informacionDelModelo) {
+		this.informacionDelModelo = informacionDelModelo;
 	}
 
 }

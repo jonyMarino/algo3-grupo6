@@ -1,9 +1,10 @@
 package programaAuto;
 import java.util.ArrayList;
 
+import proveedorDePartes.fabricas.ParteAuto;
+
 import auto.Auto;
-import auto.ParteAuto;
-import auto.partesAuto.BoundsException;
+import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
 
 public class Usuario {

@@ -1,5 +1,5 @@
-package auto.partesAuto;
-import auto.ParteAuto;
+package proveedorDePartes.fabricas;
+import excepciones.BoundsException;
 
 /**
  * El escape es necesario para el funcionamiento del motor.

@@ -1,8 +1,9 @@
-package auto.partesAuto;
+package proveedorDePartes.fabricas;
 import java.util.LinkedList;
 import java.lang.RuntimeException;
-import auto.ParteAuto;
-import auto.partesAuto.caja.Caja;
+
+import excepciones.BoundsException;
+
 
 class NoTorqueadorException extends RuntimeException{
 	static final long serialVersionUID=1;

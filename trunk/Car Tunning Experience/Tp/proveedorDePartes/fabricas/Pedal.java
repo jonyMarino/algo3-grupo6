@@ -1,6 +1,5 @@
-package auto.partesAuto.pedal;
-import auto.ParteAuto;
-import auto.partesAuto.BoundsException;
+package proveedorDePartes.fabricas;
+import excepciones.BoundsException;
 
 /**
  * El Pedal encapsula el comportamiento y las características de un pedal.

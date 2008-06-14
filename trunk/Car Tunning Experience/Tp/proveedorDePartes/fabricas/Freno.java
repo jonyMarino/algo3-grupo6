@@ -1,8 +1,6 @@
-package auto.partesAuto.pedal;
+package proveedorDePartes.fabricas;
 
-import auto.partesAuto.BoundsException;
-import auto.partesAuto.Eje;
-import auto.partesAuto.Torqueador;
+import excepciones.BoundsException;
 
 /**
  * El {@link Pedal} del Freno.

@@ -1,8 +1,7 @@
-package auto.partesAuto.tanque;
+package proveedorDePartes.fabricas;
 
 import combustible.Combustible;
-import auto.ParteAuto;
-import auto.partesAuto.BoundsException;
+import excepciones.BoundsException;
 
 /**
 * Clase abstracta que encapsula el comportamiento y las características

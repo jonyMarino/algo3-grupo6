@@ -1,10 +1,8 @@
-package auto.partesAuto.caja;
+package proveedorDePartes.fabricas;
 
-import auto.ParteAuto;
 import auto.partesAuto.*;
 import java.lang.RuntimeException;
 
-import proveedorDePartes.fabricas.Motor;
 /**
  * La Caja transforma (se podría decir que lo "amplifica") el torque que genera el {@link Motor}.
  * La transformación del torque depende del cambio.
