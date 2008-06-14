@@ -25,7 +25,7 @@ public class Motor extends ParteAuto implements Torqueador{
 	private Escape escape;
 	private double aceleracion;
 
-	public Motor(int rendimiento, double rpmMaximo,double cilindrada)throws BoundsException{
+	Motor(int rendimiento, double rpmMaximo,double cilindrada)throws BoundsException{
 		super();
 		setRendimiento(rendimiento);
 		setRPMMaximo(rpmMaximo);
@@ -33,7 +33,7 @@ public class Motor extends ParteAuto implements Torqueador{
 		aceleracion=0;
 	}
 	
-	public Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape,double cilindrada)throws BoundsException{
+	Motor(int rendimiento, double rpmMaximo, Mezclador mezclador, Escape escape,double cilindrada)throws BoundsException{
 		super();
 		setRendimiento(rendimiento);
 		setRPMMaximo(rpmMaximo);

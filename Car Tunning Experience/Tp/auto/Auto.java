@@ -609,6 +609,7 @@ public abstract class Auto extends Observable{
 	}
 
 	private void asignarEje() {
+		//TODO: ¿¿¿¿¿¿Auto instancia un eje???????
 		Eje eje = new Eje(this.getRuedaTraseraDerecha());
 		this.setEje(eje);
 

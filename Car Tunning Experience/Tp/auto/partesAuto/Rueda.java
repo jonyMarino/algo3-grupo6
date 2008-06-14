@@ -12,7 +12,7 @@ public class Rueda extends ParteAuto{
 	private Auto auto;
 	private Pista pista=null;
 
-	public Rueda(int rodado,double coeficienteEstatico,double coeficienteDinamico){
+	Rueda(int rodado,double coeficienteEstatico,double coeficienteDinamico){
 		super();
 		this.auto= null;
 		try {
@@ -38,7 +38,7 @@ public class Rueda extends ParteAuto{
 		this.pista=pista;
 	}
 
-	public Rueda(double peso, double desgaste, int rodado,
+	Rueda(double peso, double desgaste, int rodado,
 		double coeficienteEstatico, double coeficienteDinamico){
 		try {
 			setRodado(rodado);
@@ -59,7 +59,7 @@ public class Rueda extends ParteAuto{
 
 	}
 
-	public void setRodado(int rodado) throws BoundsException{
+	void setRodado(int rodado) throws BoundsException{
 		if(rodado<0)
 			throw new BoundsException("Valor del rodado incorrecto");
 		this.rodado=rodado;
@@ -77,7 +77,7 @@ public class Rueda extends ParteAuto{
 		return convertirAMetrosPorMinuto(auto.getVelocidad())/(radioEnMetros * 2 * Math.PI);
 	}
 
-	public void setCoeficienteEstatico(double coeficienteEstatico) throws BoundsException{
+	void setCoeficienteEstatico(double coeficienteEstatico) throws BoundsException{
 		if( (coeficienteEstatico < 0)||(coeficienteEstatico > 1) )
 			throw new BoundsException("Valor del coeficiente estatico incorrecto.");
 		this.coeficienteEstatico = coeficienteEstatico;
@@ -93,7 +93,7 @@ public class Rueda extends ParteAuto{
 		return this.getCoeficienteEstatico()*auto.getPeso();
 	}
 
-	public void setCoeficienteDinamico(double coeficienteDinamico) throws BoundsException{
+	void setCoeficienteDinamico(double coeficienteDinamico) throws BoundsException{
 		if( (coeficienteDinamico < 0)||(coeficienteDinamico > 1) )
 			throw new BoundsException("Valor del coeficiente dinamico incorrecto.");
 		this.coeficienteDinamico = coeficienteDinamico;

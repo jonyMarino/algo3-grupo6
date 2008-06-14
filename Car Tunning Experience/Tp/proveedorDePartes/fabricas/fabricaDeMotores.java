@@ -15,7 +15,7 @@ public class fabricaDeMotores extends FabricaDePartes {
 	//private Hashtable<Integer, Hashtable<String, String>> informacionDeModelos;
 	private final String[] clavesNecesarias = {"COSTO", "CILINDRADA", "RPMMAX", "RENDIMIENTO", "DESCRIPCION" };
 
-	public ParteAuto fabricar(int modelo) {
+	public Motor fabricar(int modelo) {
 		try{
 		double cilindrada = Double.parseDouble(getInformacionModelo(getModelo(modelo), "CILINDRADA"));
 		double rpmmax = Double.parseDouble(getInformacionModelo(getModelo(modelo), "RPMMAX"));

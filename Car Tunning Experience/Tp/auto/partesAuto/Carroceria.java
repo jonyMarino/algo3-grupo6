@@ -1,8 +1,8 @@
 package auto.partesAuto;
+import java.awt.Color;
+
 import auto.Auto;
 import auto.ParteAuto;
-import pista.Pista;
-import java.awt.Color;
 
 /**
  * La parte exterior del {@link Auto}.
@@ -19,7 +19,7 @@ public class Carroceria extends ParteAuto{
 	private int    aeroDinamia;
 	private Auto   auto;
 
-	public Carroceria(double volumen,int aeroDinamia,double peso)throws BoundsException{
+	Carroceria(double volumen,int aeroDinamia,double peso)throws BoundsException{
 		super();
 		try {
 			setVolumen(volumen);
@@ -43,7 +43,7 @@ public class Carroceria extends ParteAuto{
 
 
 
-	public void setColor(int R,int G,int B)throws BoundsException{
+	void setColor(int R,int G,int B)throws BoundsException{
 		if (R<0 || R>255)
 			throw new BoundsException("Valor de R incorrecto.");
 		if( G<0 || G>255)
@@ -57,7 +57,7 @@ public class Carroceria extends ParteAuto{
 		return this.color;
 	}
 
-	public void setVolumen(double volumen)throws BoundsException{
+	void setVolumen(double volumen)throws BoundsException{
 		if(volumen<0)
 			throw new BoundsException("Valor de volumen: "+volumen+" incorrecto.");
 		this.volumen=volumen;
@@ -67,7 +67,7 @@ public class Carroceria extends ParteAuto{
 		return this.volumen;
 	}
 
-	public void setAeroDinamia(int aeroDinamia)throws BoundsException{
+	void setAeroDinamia(int aeroDinamia)throws BoundsException{
 		if(aeroDinamia<0)
 			throw new BoundsException("Valor de aerodinamia incorrecto.");
 		this.aeroDinamia=aeroDinamia;
