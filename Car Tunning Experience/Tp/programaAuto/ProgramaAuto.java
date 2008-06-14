@@ -7,19 +7,19 @@ import java.util.Observable;
 import java.util.Random;
 
 import pista.Pista;
+import proveedorDePartes.fabricas.CajaManual;
+import proveedorDePartes.fabricas.Carroceria;
+import proveedorDePartes.fabricas.Escape;
+import proveedorDePartes.fabricas.MezcladorNafta;
 import proveedorDePartes.fabricas.Motor;
+import proveedorDePartes.fabricas.Rueda;
+import proveedorDePartes.fabricas.TanqueNafta;
 import auto.Auto;
 import auto.AutoManual;
-import auto.partesAuto.BoundsException;
-import auto.partesAuto.Carroceria;
-import auto.partesAuto.Escape;
-import auto.partesAuto.Rueda;
-import auto.partesAuto.caja.CajaManual;
-import auto.partesAuto.mezclador.MezcladorNafta;
-import auto.partesAuto.tanque.TanqueNafta;
 
 import combustible.Nafta;
 
+import excepciones.BoundsException;
 import excepciones.WrongPartClassException;
 
 

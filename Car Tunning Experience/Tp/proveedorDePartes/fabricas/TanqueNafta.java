@@ -1,4 +1,4 @@
-package auto.partesAuto.tanque;
+package proveedorDePartes.fabricas;
 
 import combustible.Nafta;
 

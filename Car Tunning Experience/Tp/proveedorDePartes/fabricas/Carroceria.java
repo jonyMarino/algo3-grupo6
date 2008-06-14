@@ -1,8 +1,10 @@
-package auto.partesAuto;
+package proveedorDePartes.fabricas;
 import java.awt.Color;
 
+import excepciones.BoundsException;
+
+
 import auto.Auto;
-import auto.ParteAuto;
 
 /**
  * La parte exterior del {@link Auto}.

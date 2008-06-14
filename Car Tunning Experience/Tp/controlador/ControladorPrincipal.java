@@ -4,14 +4,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import combustible.Nafta;
+import excepciones.BoundsException;
 
 import programaAuto.ProgramaAuto;
+import proveedorDePartes.fabricas.CajaManual;
+import proveedorDePartes.fabricas.TanqueCombustible;
+import proveedorDePartes.fabricas.TanqueNafta;
 import vistas.VistaGraficador;
 import auto.Auto;
-import auto.partesAuto.BoundsException;
-import auto.partesAuto.caja.CajaManual;
-import auto.partesAuto.tanque.TanqueCombustible;
-import auto.partesAuto.tanque.TanqueNafta;
 
 public class ControladorPrincipal implements KeyListener{
 

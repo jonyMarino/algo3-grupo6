@@ -1,6 +1,4 @@
-package auto.partesAuto.caja;
-import proveedorDePartes.fabricas.Motor;
-import auto.partesAuto.Eje;
+package proveedorDePartes.fabricas;
 
 /**
  * Un caso particular de {@link Caja}.

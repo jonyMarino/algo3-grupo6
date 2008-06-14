@@ -5,20 +5,20 @@ import java.util.LinkedList;
 import java.util.Observable;
 import java.util.List;
 
+import excepciones.BoundsException;
 import excepciones.WrongPartClassException;
 import pista.Pista;
+import proveedorDePartes.fabricas.Acelerador;
+import proveedorDePartes.fabricas.Caja;
+import proveedorDePartes.fabricas.Carroceria;
+import proveedorDePartes.fabricas.Eje;
+import proveedorDePartes.fabricas.Escape;
+import proveedorDePartes.fabricas.Freno;
+import proveedorDePartes.fabricas.Mezclador;
 import proveedorDePartes.fabricas.Motor;
-import auto.partesAuto.Carroceria;
-import auto.ParteAuto;
-import auto.partesAuto.BoundsException;
-import auto.partesAuto.Eje;
-import auto.partesAuto.Escape;
-import auto.partesAuto.Rueda;
-import auto.partesAuto.mezclador.Mezclador;
-import auto.partesAuto.pedal.Acelerador;
-import auto.partesAuto.pedal.Freno;
-import auto.partesAuto.tanque.TanqueCombustible;
-import auto.partesAuto.caja.Caja;
+import proveedorDePartes.fabricas.ParteAuto;
+import proveedorDePartes.fabricas.Rueda;
+import proveedorDePartes.fabricas.TanqueCombustible;
 
 /**
  * Auto es una clase que intenta encapsular el comportamiento y las características de un auto.

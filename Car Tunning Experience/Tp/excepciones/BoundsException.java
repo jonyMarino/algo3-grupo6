@@ -1,4 +1,4 @@
-package auto.partesAuto;
+package excepciones;
 
 public class BoundsException extends Exception{
 	static final long serialVersionUID=10;

@@ -1,8 +1,7 @@
-package auto.partesAuto.mezclador;
+package proveedorDePartes.fabricas;
 
 import combustible.Nafta;
-import auto.partesAuto.BoundsException;
-import auto.partesAuto.tanque.TanqueNafta;
+import excepciones.BoundsException;
 
 /**
  * El Mezclador es el encargado de obtener {@link Nafta} del {@link TanqueNafta},

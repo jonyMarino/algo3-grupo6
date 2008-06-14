@@ -1,11 +1,11 @@
 package pruebas;
 
+import proveedorDePartes.fabricas.MezcladorNafta;
+import proveedorDePartes.fabricas.TanqueNafta;
 import junit.framework.TestCase;
-import auto.partesAuto.BoundsException;
-import auto.partesAuto.mezclador.MezcladorNafta;
-import auto.partesAuto.tanque.TanqueNafta;
 
 import combustible.Nafta;
+import excepciones.BoundsException;
 
 public class MezcladorTest extends TestCase {
 
