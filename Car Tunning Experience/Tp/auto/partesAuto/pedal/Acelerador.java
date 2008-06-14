@@ -19,7 +19,7 @@ public class Acelerador extends Pedal {
 	 *
 	 * @see Motor
 	 */
-	public Acelerador(Motor motor) {
+	Acelerador(Motor motor) {
 		super();
 		this.setMotor(motor);
 	}

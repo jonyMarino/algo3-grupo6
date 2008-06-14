@@ -22,7 +22,7 @@ public class MezcladorNafta extends Mezclador {
 	*
 	* @throws BoundsException
 	*/
-	public MezcladorNafta(int rendimiento, TanqueNafta tanqueNafta) throws BoundsException {
+	MezcladorNafta(int rendimiento, TanqueNafta tanqueNafta) throws BoundsException {
 		super(rendimiento,tanqueNafta);
 	}
 

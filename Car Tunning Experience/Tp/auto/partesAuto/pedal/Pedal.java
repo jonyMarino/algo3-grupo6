@@ -14,7 +14,7 @@ public abstract class Pedal extends ParteAuto {
 	/**
 	 * Crea un nuevo pedal.
 	 */
-	public Pedal() {
+	Pedal() {
 		this.setUsado(false);
 	}
 

@@ -16,7 +16,7 @@ public class TanqueNafta extends TanqueCombustible {
 	* @param capacidad La capacidad del Tanque de Nafta.
 	* @param nafta El tipo de {@link Nafta} que almacena.
 	*/
-	public TanqueNafta(int capacidad,Nafta nafta) {
+	TanqueNafta(int capacidad,Nafta nafta) {
 		super(capacidad,nafta);
 	}
 
