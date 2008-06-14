@@ -16,6 +16,7 @@ public class FabricaDeMotores extends FabricaDePartes {
 		nuevaInfo.agregarCaracteristica("RPMMAX", "5800");
 		nuevaInfo.agregarCaracteristica("RENDIMIENTO", "80");
 		nuevaInfo.agregarCaracteristica("CILINDRADA", "2.0");
+		nuevaInfo.agregarCaracteristica("PESO", "150");
 		agregarModelo(nuevaInfo); //agrega un motor básico al catálogo
 	}
 	public Motor fabricar(InformacionDelModelo modelo) {
@@ -25,9 +26,11 @@ public class FabricaDeMotores extends FabricaDePartes {
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
 			double cilindrada = Double.parseDouble(modelo.getCaracteristica("CILINDRADA"));
 			int costo = Integer.parseInt(modelo.getCaracteristica("COSTO"));
+			double peso = Double.parseDouble(modelo.getCaracteristica("PESO"));
 			Motor unMotor = new Motor(rendimiento, rpmmaximo, cilindrada);
 			unMotor.setDescripcion(descripcion);
 			unMotor.setCosto(costo);
+			unMotor.setPeso(peso);
 			return unMotor;
 		}
 		catch(BoundsException e){}
