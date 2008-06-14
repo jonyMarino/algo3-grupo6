@@ -22,8 +22,12 @@ public class InformacionDelModelo {
 		informacionDeEstaParte.put(nombreDeLaCaracteristica, valorDeLaCaracteristica);
 	}
 	 
-	public String getCaracteristica(String caracteristica) {
-		return informacionDeEstaParte.get(caracteristica);
+	public String getCaracteristica(String caracteristica) throws BoundsException {
+		if(informacionDeEstaParte.containsKey(caracteristica)){
+			return informacionDeEstaParte.get(caracteristica);
+		}
+		else throw new BoundsException("El modelo no posee la característica "+ caracteristica + ".");
+
 	}
 	 
 	void setCaracteristica(String nombre, String valor) throws BoundsException {

@@ -3,6 +3,8 @@ package proveedorDePartes.fabricas;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import excepciones.BoundsException;
+
 import proveedorDePartes.ProveedorDePartes;
 
 
@@ -38,13 +40,17 @@ public abstract class FabricaDePartes {
 			InformacionDelModelo modeloAComparar = iteradorModelos.next();
 			encontrado = true;
 			while(iteradorClaves.hasNext() && encontrado){
-				if(modeloAComparar.getCaracteristica(iteradorClaves.next()) != datosDelModelo.getCaracteristica(iteradorClaves.next())){
-					encontrado=false;
-					break;
-				}
+				try{
+					if(modeloAComparar.getCaracteristica(iteradorClaves.next()) != datosDelModelo.getCaracteristica(iteradorClaves.next())){
+						encontrado=false;
+						break;
+					}
+				}catch(BoundsException e){ encontrado=false; break;}
+						
 			}
+				
 		}
-		if(!encontrado)
+			if(!encontrado)
 			modelosConocidos.add(datosDelModelo);
 			
 	}
