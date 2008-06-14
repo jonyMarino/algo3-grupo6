@@ -6,13 +6,18 @@ import excepciones.BoundsException;
 public class FabricaDeMezcladores extends FabricaDePartes {
 	public FabricaDeMezcladores(){
 		super();
+		agregarModelo(nuevoModeloMezclador(200, "Mezclador básico", 80, 30.0, "NAFTA"));
+		//agrega un motor básico al catálogo
+	}
+	
+	private InformacionDelModelo nuevoModeloMezclador(Integer costo, String descripcion, Integer rendimiento, Double peso, String clase){
 		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
-		nuevaInfo.agregarCaracteristica("COSTO", "200");
-		nuevaInfo.agregarCaracteristica("DESCRIPCION", "Mezclador de Nafta básico.");
- 		nuevaInfo.agregarCaracteristica("RENDIMIENTO", "80");
-		nuevaInfo.agregarCaracteristica("PESO", "30");
- 		nuevaInfo.agregarCaracteristica("NAFTA", "");
-		agregarModelo(nuevaInfo); //agrega un motor básico al catálogo
+		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
+		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
+ 		nuevaInfo.agregarCaracteristica("RENDIMIENTO", rendimiento.toString());
+		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
+ 		nuevaInfo.agregarCaracteristica(clase, "");
+		return nuevaInfo;
 	}
 	public Mezclador fabricar(InformacionDelModelo modelo) {
 		try{
@@ -33,6 +38,14 @@ public class FabricaDeMezcladores extends FabricaDePartes {
 		catch(BoundsException e){}
 		return null;
 	}
-	 
+	
+	public void proponerMezclador(String descripcion, int rendimiento, double peso, String clase) throws BoundsException{
+		if(rendimiento>100 || rendimiento<0)
+			throw new BoundsException("El rendimiento solicitado es ");
+		if(peso < 2)
+			throw new BoundsException("El peso no puede ser menor a 2 kilos");
+		int costo = (int) (rendimiento/peso)*500;
+		agregarModelo(nuevoModeloMezclador(costo, descripcion, rendimiento, peso, clase));
+	}
 }
  
