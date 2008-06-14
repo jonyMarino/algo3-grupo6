@@ -25,8 +25,8 @@ public class TanqueNaftaTest extends TestCase {
 		fabricaDeTanques = new FabricaDeTanquesDeCombustible();
 		fabricaDeMezcladores = new FabricaDeMezcladores();
 		fabricaDeMezcladores.proponerMezclador("Mezclador 100% eficiente", 100, 50, "NAFTA");
-		//fabricaDeMezcladores.proponerMezclador("Mezclador 50% eficiente", 50, 25, "NAFTA");
-		//fabricaDeMezcladores.proponerMezclador("Mezclador 0% eficiente", 0, 10, "NAFTA");
+		fabricaDeMezcladores.proponerMezclador("Mezclador 50% eficiente", 50, 25, "NAFTA");
+		fabricaDeMezcladores.proponerMezclador("Mezclador 0% eficiente", 1, 10, "NAFTA");
 		tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(0));
 		tanque.setCombustible(nafta);
 	}
