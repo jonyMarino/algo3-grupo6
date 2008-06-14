@@ -22,7 +22,7 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	private Motor motor;
 	private Eje eje;
 
-	public Caja(){
+	Caja(){
 		int i;
 		double reduccionCambio=3.0/4;
 		cambio=1; //empieza en punto muerto

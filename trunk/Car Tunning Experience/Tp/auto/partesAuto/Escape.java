@@ -14,7 +14,7 @@ public class Escape extends ParteAuto{
 	 * Crea un nuevo Escape con la eficiencia especificada.
 	 * @param eficiencia La eficiencia del escape (0..100)
 	 */
-	public Escape(double eficiencia){
+	Escape(double eficiencia){
 		super();
 		try {
 			setEficiencia(eficiencia);
@@ -23,7 +23,7 @@ public class Escape extends ParteAuto{
 		}
 	}
 
-	public void setEficiencia(double eficiencia)throws BoundsException{
+	void setEficiencia(double eficiencia)throws BoundsException{
 		if(eficiencia < 0 || eficiencia > 100)
 			throw new BoundsException("Valor de eficiencia de escape");
 		this.eficiencia = eficiencia;

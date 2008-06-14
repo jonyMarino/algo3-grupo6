@@ -23,7 +23,7 @@ public class Eje extends ParteAuto{
 
 	private Rueda ruedaTrasera;
 
-	public Eje(Rueda ruedaTrasera){
+	Eje(Rueda ruedaTrasera){
 		this.ruedaTrasera=ruedaTrasera;
 	}
 
@@ -57,7 +57,7 @@ public class Eje extends ParteAuto{
      *
      *  @see Torqueador
      */
-
+//Desgraciadamente, por como implementa Java la visibilidad de paquete y los paquetes, solo puede ser declarado como publico
 	public void addTorqueador(Torqueador iteradorTorques) {
 		if(iteradorTorques==null)
 			throw new NoTorqueadorException();
