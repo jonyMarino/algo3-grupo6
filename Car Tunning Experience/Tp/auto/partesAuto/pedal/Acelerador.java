@@ -1,7 +1,7 @@
 package auto.partesAuto.pedal;
 
+import proveedorDePartes.fabricas.Motor;
 import auto.partesAuto.BoundsException;
-import auto.partesAuto.Motor;
 
 /**
  * El {@link Pedal} del Acelerador.

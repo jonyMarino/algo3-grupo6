@@ -1,6 +1,5 @@
 package proveedorDePartes.fabricas;
 
-import auto.partesAuto.Motor;
 
 public class fabricaDeRuedas extends FabricaDePartes {
  

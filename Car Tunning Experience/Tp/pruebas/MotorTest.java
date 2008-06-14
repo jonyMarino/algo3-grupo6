@@ -1,13 +1,13 @@
 package pruebas;
 
 import pista.Pista;
+import proveedorDePartes.fabricas.Motor;
 import junit.framework.TestCase;
 import auto.AutoManual;
 import auto.partesAuto.BoundsException;
 import auto.partesAuto.Carroceria;
 import auto.partesAuto.Eje;
 import auto.partesAuto.Escape;
-import auto.partesAuto.Motor;
 import auto.partesAuto.Rueda;
 import auto.partesAuto.caja.CajaManual;
 import auto.partesAuto.mezclador.MezcladorNafta;

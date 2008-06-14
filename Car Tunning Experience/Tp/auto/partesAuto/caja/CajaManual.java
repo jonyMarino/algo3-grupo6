@@ -1,5 +1,5 @@
 package auto.partesAuto.caja;
-import auto.partesAuto.Motor;
+import proveedorDePartes.fabricas.Motor;
 
 /**
  * Un caso particular de {@link Caja}. Su principal característica es que los cambios deben ser pasados por el usuario.
