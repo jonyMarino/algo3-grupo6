@@ -22,7 +22,7 @@ public class Freno extends Pedal implements Torqueador {
 	 *
 	 * @see Eje
 	 */
-	public Freno(Eje eje, double pastillaDeFreno) {
+	Freno(Eje eje, double pastillaDeFreno) {
 		super();
 		this.setTorque(0);
 		eje.addTorqueador(this);

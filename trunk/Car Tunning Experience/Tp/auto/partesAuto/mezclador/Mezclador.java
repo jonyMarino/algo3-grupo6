@@ -26,7 +26,7 @@ public abstract class Mezclador extends ParteAuto {
 	* @param rendimiento El rendmiento con el que opera el Mezclador (0..100).
 	* @param tanque El {@link TanqueCombustible} asignar al Mezclador.
 	*/
-	public Mezclador(int rendimiento,TanqueCombustible tanque) {
+	Mezclador(int rendimiento,TanqueCombustible tanque) {
 		super();
 		this.setRendimiento(rendimiento);
 		this.setTanqueCombustible(tanque);
@@ -93,7 +93,7 @@ public abstract class Mezclador extends ParteAuto {
 		return desgastado();
 	}
 
-	private void setRendimiento(int rendimiento) {
+	void setRendimiento(int rendimiento) {
 		this.rendimiento = rendimiento;
 	}
 

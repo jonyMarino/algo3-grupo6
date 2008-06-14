@@ -24,7 +24,7 @@ public abstract class TanqueCombustible extends ParteAuto {
 	* @param capacidad La capacidad del tanque.
 	* @param combustible El tipo de {@link Combustible} que almacena.
 	*/
-	public TanqueCombustible(int capacidad,Combustible combustible) {
+	TanqueCombustible(int capacidad,Combustible combustible) {
 			super();
 			this.setCapacidad(capacidad);
 			this.setCantidadCombustible(0);
@@ -65,6 +65,7 @@ public abstract class TanqueCombustible extends ParteAuto {
 	*
 	* @throws BoundsException
 	*/
+	//TODO: No creo que deba ser publico
 	public void llenarTanque(double litros) throws BoundsException {
 		if(litros < 0)
 				throw new BoundsException("Llenar Tanque con litros negativos");
