@@ -7,6 +7,7 @@ public class ProgramaPrincipal {
 	 */
 	public static void main(String[] args) {
 		ControladorPrincipal miControlador=new ControladorPrincipal();
+			
 	}
 
 }
