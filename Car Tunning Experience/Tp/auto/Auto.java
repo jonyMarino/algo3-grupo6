@@ -1,6 +1,9 @@
 package auto;
 
 //import java.util.Collection;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.List;
@@ -49,7 +52,7 @@ public abstract class Auto extends Observable{
 	private Mezclador              mezclador;
 	private double		           velocidad;
 	private double		           posicion;
-	private LinkedList<ParteAuto>  partes;
+	private Hashtable<String, ParteAuto> partes;
 	private Caja 				   caja;
 	private Pista	               pista;
 
@@ -71,13 +74,13 @@ public abstract class Auto extends Observable{
 	            Caja caja,Mezclador mezclador, TanqueCombustible tanqueCombustible,
 	            Rueda rueda1, Rueda rueda2, Rueda rueda3, Rueda rueda4, Eje eje) {
 
-		this.escape = escape;
+		partes = new Hashtable <String, ParteAuto>();
 		this.setCarroceria(carroceria);
 		this.setMotor(motor);
+		this.setEscape(escape);
 		this.setMezclador(mezclador);
 		this.setTanqueCombustible(tanqueCombustible);
 		this.setPista(null);
-
 		//Ruedas
 		ruedas = new LinkedList<Rueda>();
 		ruedas.add(rueda1);
@@ -93,7 +96,6 @@ public abstract class Auto extends Observable{
 		setPosicion(0);
 
 		//Asignar Eje
-		//this.asignarEje();
 		this.setEje(eje);
 
 		caja.setEje(getEje());
@@ -105,23 +107,7 @@ public abstract class Auto extends Observable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//Asignar Pedales
-		//this.asignadorPedales();
 
-		partes = new LinkedList<ParteAuto>();
-		partes.add(escape);
-		partes.add(carroceria);
-		partes.add(motor);
-		partes.add(mezclador);
-		partes.add(tanqueCombustible);
-		partes.add(rueda1);
-		partes.add(rueda2);
-		partes.add(rueda3);
-		partes.add(rueda4);
-		//partes.add(freno);
-		//partes.add(acelerador);
-		partes.add(caja);
-		partes.add(eje);
 	}
 
 //Partes Auto
@@ -229,6 +215,7 @@ public abstract class Auto extends Observable{
 	public void setEscape(Escape escape) {
 		this.escape = escape;
 		this.getMotor().setEscape(this.getEscape());
+		partes.put("ESCAPE", escape);
 	}
 
 //CARROCERIA
@@ -254,6 +241,7 @@ public abstract class Auto extends Observable{
 	public void setCarroceria(Carroceria carroceria) {
 		this.carroceria = carroceria;
 		carroceria.setAuto(this);
+		partes.put("CARROCERIA", carroceria);
 	}
 
 //MOTOR
@@ -278,6 +266,7 @@ public abstract class Auto extends Observable{
 	 */
 	public void setMotor(Motor motor) {
 		this.motor = motor;
+		partes.put("MOTOR", motor);
 	}
 
 	/**
@@ -314,6 +303,7 @@ public abstract class Auto extends Observable{
 	 */
 	public void setAcelerador(Acelerador acelerador) {
 		this.acelerador = acelerador;
+		partes.put("ACELERADOR", acelerador);
 	}
 
 	/**
@@ -336,6 +326,7 @@ public abstract class Auto extends Observable{
 	 */
 	public void setFreno(Freno freno) {
 		this.freno = freno;
+		partes.put("FRENO", freno);
 	}
 
 	/**
@@ -382,6 +373,7 @@ public abstract class Auto extends Observable{
 	 */
 	public void setRuedaDelanteraDerecha(Rueda rueda) {
 		ruedas.set(0,rueda);
+		partes.put("RUEDA1", rueda);
 	}
 
 	/**
@@ -404,6 +396,7 @@ public abstract class Auto extends Observable{
 	 */
 	public void setRuedaDelanteraIzquierda(Rueda rueda) {
 		ruedas.set(1,rueda);
+		partes.put("RUEDA2", rueda);
 	}
 
 	/**
@@ -426,6 +419,7 @@ public abstract class Auto extends Observable{
 	 */
 	public void setRuedaTraseraDerecha(Rueda rueda) {
 		ruedas.set(2,rueda);
+		partes.put("RUEDA3", rueda);
 	}
 
 	/**
@@ -448,6 +442,7 @@ public abstract class Auto extends Observable{
 	 */
 	public void setRuedaTraseraIzquierda(Rueda rueda) {
 		ruedas.set(3,rueda);
+		partes.put("RUEDA4", rueda);
 	}
 
 //TANQUE COMBUSTIBLE
@@ -473,6 +468,7 @@ public abstract class Auto extends Observable{
 	public void setTanqueCombustible(TanqueCombustible tanqueCombustible) {
 		this.tanqueCombustible = tanqueCombustible;
 		this.getMezclador().setTanqueCombustible(this.getTanqueCombustible());
+		partes.put("TANQUE", tanqueCombustible);
 	}
 
 	/**
@@ -524,6 +520,7 @@ public abstract class Auto extends Observable{
 	public void setMezclador(Mezclador mezclador) {
 		this.mezclador = mezclador;
 		this.getMotor().setMezclador(this.getMezclador());
+		partes.put("MEZCLADOR", mezclador);
 	}
 
 // CAJA
@@ -537,6 +534,7 @@ public abstract class Auto extends Observable{
 	 */
 	public void setCaja(Caja caja) throws WrongPartClassException {
 		this.caja = caja;
+		partes.put("CAJA", caja);
 	}
 
 	/**
@@ -572,6 +570,7 @@ public abstract class Auto extends Observable{
 	 */
 	public void setEje(Eje eje) {
 		this.eje = eje;
+		partes.put("EJE", eje);
 	}
 
 //PESO
@@ -594,11 +593,13 @@ public abstract class Auto extends Observable{
 	}
 
 	protected LinkedList<ParteAuto> getPartes(){
-		return partes;
+		LinkedList<ParteAuto> listaDePartes=new LinkedList<ParteAuto>();
+		Enumeration<ParteAuto> enumeracion = partes.elements();
+		while(enumeracion.hasMoreElements())
+			listaDePartes.add(enumeracion.nextElement());
+		return listaDePartes;
 	}
-	protected void addParte(ParteAuto parte){
-		partes.add(parte);
-	}
+
 /*
 	private void asignadorPedales(){
 		//Acelerador
