@@ -47,9 +47,9 @@ public class AutoManual extends Auto {
 	 */
 	public AutoManual(Escape escape, Carroceria carroceria, Motor motor,
 		          CajaManual cajaManual, MezcladorNafta mezclador, TanqueNafta tanque,
-		          Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4) throws WrongPartClassException {
+		          Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4, Eje eje) throws WrongPartClassException {
 
-		super(escape,carroceria,motor,cajaManual,mezclador,tanque,rueda1,rueda2,rueda3,rueda4);
+		super(escape,carroceria,motor,cajaManual,mezclador,tanque,rueda1,rueda2,rueda3,rueda4, eje);
 	}
 
 	/**

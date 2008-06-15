@@ -13,7 +13,11 @@ public class CajaAutomatica extends Caja {
 
 	private static final int MAX_CAMBIO = 5;
 
-	public CajaAutomatica(Eje eje,Motor motor) {
+	CajaAutomatica(Eje eje,Motor motor) {
+		super();
+	}
+	
+	CajaAutomatica() {
 		super();
 	}
 	public double getTorque() {

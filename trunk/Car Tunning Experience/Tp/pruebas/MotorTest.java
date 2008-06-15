@@ -1,10 +1,20 @@
 package pruebas;
 
 import pista.Pista;
+import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
 import proveedorDePartes.fabricas.Escape;
+import proveedorDePartes.fabricas.FabricaDeCajas;
+import proveedorDePartes.fabricas.FabricaDeCarrocerias;
+import proveedorDePartes.fabricas.FabricaDeEjes;
+import proveedorDePartes.fabricas.FabricaDeEscapes;
+import proveedorDePartes.fabricas.FabricaDeMezcladores;
+import proveedorDePartes.fabricas.FabricaDeMotores;
+import proveedorDePartes.fabricas.FabricaDeRuedas;
+import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
+import proveedorDePartes.fabricas.Mezclador;
 import proveedorDePartes.fabricas.MezcladorNafta;
 import proveedorDePartes.fabricas.Motor;
 import proveedorDePartes.fabricas.Rueda;
@@ -19,30 +29,71 @@ public class MotorTest extends TestCase {
 
 	Motor motor;
 	Escape escape;
-	MezcladorNafta mezclador;
+	Mezclador mezclador;
 	TanqueNafta tanque;
 	Nafta nafta;
-	CajaManual caja;
+	Caja caja;
 	Rueda rueda;
 	Eje eje;
 	AutoManual auto;
 	Carroceria carroceria;
 	Pista pista;
-
+	FabricaDeTanquesDeCombustible fabricaTanques;
+	FabricaDeMezcladores fabricaMezcladores;
+	FabricaDeMotores fabricaMotores;
+	FabricaDeCarrocerias fabricaCarrocerias;
+	FabricaDeEscapes fabricaEscapes;
+	FabricaDeRuedas fabricaRuedas;
+	FabricaDeCajas fabricaCajas;
+	FabricaDeEjes fabricaEjes;
+	
 	protected void setUp() throws Exception {
 		super.setUp();
 		pista = new Pista(100);
 		nafta = new Nafta(95,20);
-		tanque = new TanqueNafta(50, nafta);
-		mezclador = new MezcladorNafta(100,tanque);
-		escape = new Escape(100);
-		carroceria = new Carroceria(5,5,200);
-		rueda = new Rueda(1,0.9,0.6);
-		motor=new Motor(100,7500,mezclador,escape,2.0);
-		caja = new CajaManual();
-		auto = new AutoManual(escape, carroceria, motor, caja, mezclador, tanque, rueda, rueda, rueda, rueda);
+		fabricaTanques = new FabricaDeTanquesDeCombustible();
+		fabricaMezcladores = new FabricaDeMezcladores();
+		fabricaEscapes = new FabricaDeEscapes();
+		fabricaMotores = new FabricaDeMotores();
+		fabricaRuedas = new FabricaDeRuedas();
+		fabricaCarrocerias = new FabricaDeCarrocerias();
+		fabricaCajas = new FabricaDeCajas();
+		fabricaEjes = new FabricaDeEjes();
+		
+		tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
+		tanque.setCombustible(nafta);
+		tanque.llenarTanque(70);
+		
+		fabricaMezcladores.proponerMezclador("Mezclador 100% eficiente", 100, 50, "NAFTA");
+		mezclador = fabricaMezcladores.fabricar(fabricaMezcladores.getModelos().get(1));
+		mezclador.setTanqueCombustible(tanque);
+		
+		fabricaEscapes.proponerEscape("Escape 100% eficiente", 100, 5);
+		escape = fabricaEscapes.fabricar(fabricaEscapes.getModelos().get(1));
+		
+		carroceria = fabricaCarrocerias.fabricar(fabricaCarrocerias.getModelos().get(0));
+
+		rueda = fabricaRuedas.fabricar(fabricaRuedas.getModelos().get(0));//new Rueda(1,0.9,0.6);
+
+		eje = fabricaEjes.fabricar(fabricaEjes.getModelos().get(0));
+		
+		eje.setRuedaTrasera(rueda);
+		
+		caja=fabricaCajas.fabricar(fabricaCajas.getModelos().get(0));
+		caja.setEje(eje);
+		
+		fabricaMotores.proponerMotor("Motor 100% eficiente, 7500rpm, 2.0", 100, 500, 7500, 2.0);
+		motor=fabricaMotores.fabricar(fabricaMotores.getModelos().get(1));
+		motor.setEscape(escape);
+		motor.setMezclador(mezclador);
+		motor.setCaja(caja);
+
+
+		caja.setMotor(motor);
+		
+		auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, rueda, rueda, rueda, rueda, eje);
 		auto.setPista(pista);
-		tanque.llenarTanque(50);
+
 		rueda.setPista(pista);
 	}
 
@@ -85,7 +136,7 @@ public class MotorTest extends TestCase {
 	}
 
 	public void testAcelerarHastaFundir() throws BoundsException{
-		escape.setEficiencia(20);
+		//escape.setEficiencia(20);
 		int contador;
 		motor.acelerar(1);
 

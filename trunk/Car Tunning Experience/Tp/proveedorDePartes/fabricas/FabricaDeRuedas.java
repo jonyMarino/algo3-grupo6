@@ -30,7 +30,9 @@ public class FabricaDeRuedas extends FabricaDePartes {
 			unaRueda.setPeso(peso);
 			return unaRueda;
 		}
-		catch(BoundsException e){}
+		catch(BoundsException e){
+			e.printStackTrace();
+		}
 		return null;
 	}
 	 

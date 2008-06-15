@@ -19,6 +19,7 @@ public class FabricaDeMezcladores extends FabricaDePartes {
  		nuevaInfo.agregarCaracteristica(clase, "");
 		return nuevaInfo;
 	}
+	
 	public Mezclador fabricar(InformacionDelModelo modelo) {
 		try{
 			int rendimiento = Integer.parseInt(modelo.getCaracteristica("RENDIMIENTO"));
@@ -35,13 +36,15 @@ public class FabricaDeMezcladores extends FabricaDePartes {
 			unMezclador.setPeso(peso);
 			return unMezclador;
 		}
-		catch(BoundsException e){}
+		catch(BoundsException e){
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
 	public void proponerMezclador(String descripcion, int rendimiento, double peso, String clase) throws BoundsException{
 		if(rendimiento>100 || rendimiento<0)
-			throw new BoundsException("El rendimiento solicitado es ");
+			throw new BoundsException("El rendimiento solicitado es invalido.");
 		if(peso < 2)
 			throw new BoundsException("El peso no puede ser menor a 2 kilos");
 		int costo = (int) (rendimiento/peso)*500;
