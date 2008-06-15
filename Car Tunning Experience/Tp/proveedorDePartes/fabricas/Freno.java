@@ -15,16 +15,18 @@ public class Freno extends Pedal implements Torqueador {
 	/**
 	 * Crea un nuevo pedal Freno con las características especificadas.
 	 *
-	 * @param eje El {@link Eje}.
 	 * @param pastillaDeFreno La pastilla de freno.
 	 *
 	 * @see Eje
 	 */
-	Freno(Eje eje, double pastillaDeFreno) {
+	Freno(double pastillaDeFreno) {
 		super();
 		this.setTorque(0);
-		eje.addTorqueador(this);
 		this.setPastillaDeFreno(pastillaDeFreno);
+	}
+	
+	public void setEje(Eje unEje){
+		unEje.addTorqueador(this);		
 	}
 
 	/**
