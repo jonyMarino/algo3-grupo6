@@ -31,7 +31,9 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 			unTanque.setPeso(peso);
 			return unTanque;
 		}
-		catch(BoundsException e){}
+		catch(BoundsException e){
+			e.printStackTrace();
+		}
 		return null;
 	}
 	 

@@ -25,7 +25,9 @@ public class FabricaDeEjes extends FabricaDePartes {
 			unEje.setPeso(peso);
 			return unEje;
 		}
-		catch(BoundsException e){}
+		catch(BoundsException e){
+			e.printStackTrace();
+		}
 		return null;
 	}
 	 

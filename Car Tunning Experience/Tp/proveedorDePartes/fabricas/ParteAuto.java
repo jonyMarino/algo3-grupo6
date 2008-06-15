@@ -26,7 +26,7 @@ public abstract class ParteAuto {
 
 	}
 
-	public void setCosto(int costo) {
+	void setCosto(int costo) {
 		this.costo = costo;
 	}
 	
@@ -34,7 +34,7 @@ public abstract class ParteAuto {
 		return costo;
 	}
 
-	public void setPeso(double peso)throws BoundsException{
+	void setPeso(double peso)throws BoundsException{
 		if(peso < 0)
 			throw new BoundsException("Valor de peso incorrecto.");
 		else this.peso=peso;
@@ -45,7 +45,7 @@ public abstract class ParteAuto {
 		return this.peso;
 	}
 
-	public void setVidaUtil(double vidaUtil)throws BoundsException{
+	void setVidaUtil(double vidaUtil)throws BoundsException{
 		if( (vidaUtil < 0) || (vidaUtil > 100) )
 			throw new BoundsException("Valor de la vida util incorrecto");
 		else this.vidaUtil=vidaUtil;
@@ -65,7 +65,7 @@ public abstract class ParteAuto {
 		return descripcion;
 	}
 
-	public void setDescripcion(String descripcion) {
+	void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 

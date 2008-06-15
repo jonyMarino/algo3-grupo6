@@ -7,13 +7,17 @@ public class FabricaDeCarrocerias extends FabricaDePartes {
  
 	public FabricaDeCarrocerias() {
 		super();
+		agregarModelo(nuevoModeloCarroceria(100, "Carrocería básica.", 50.0, 10, 5.0)); //agrega una carroceria básica al catálogo
+	}
+	
+	private InformacionDelModelo nuevoModeloCarroceria(Integer costo, String descripcion, Double peso, Integer aerodinamia, Double volumen){
 		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
-		nuevaInfo.agregarCaracteristica("COSTO", "100");
-		nuevaInfo.agregarCaracteristica("DESCRIPCION", "Carroceria básica.");
-		nuevaInfo.agregarCaracteristica("PESO", "50");
-		nuevaInfo.agregarCaracteristica("AERODINAMIA", "10");
-		nuevaInfo.agregarCaracteristica("VOLUMEN", "5");
-		agregarModelo(nuevaInfo); //agrega una carroceria básica al catálogo
+		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
+		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
+ 		nuevaInfo.agregarCaracteristica("AERODINAMIA", aerodinamia.toString());
+		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
+ 		nuevaInfo.agregarCaracteristica("VOLUMEN", volumen.toString());
+		return nuevaInfo;
 	}
 	
 	public Carroceria fabricar(InformacionDelModelo modelo) {
@@ -29,8 +33,17 @@ public class FabricaDeCarrocerias extends FabricaDePartes {
 			unaCarroceria.setPeso(peso);
 			return unaCarroceria;
 		}
-		catch(BoundsException e){}
+		catch(BoundsException e){
+			e.printStackTrace();	
+		}
 		return null;
+	}
+	
+	public void proponerCarroceria(String descripcion, double peso, int aerodinamia, double volumen) throws BoundsException{
+		if(peso < 10)
+			throw new BoundsException("El peso no puede ser menor a 10 kilos");
+		int costo = (int) (aerodinamia/(peso*volumen))*5000;
+		agregarModelo(nuevoModeloCarroceria(costo, descripcion,peso,  aerodinamia, volumen));
 	}
 	 
 }

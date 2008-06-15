@@ -10,15 +10,20 @@ import excepciones.BoundsException;
 public class FabricaDeMotores extends FabricaDePartes {
 	public FabricaDeMotores(){
 		super();
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
-		nuevaInfo.agregarCaracteristica("COSTO", "500");
-		nuevaInfo.agregarCaracteristica("DESCRIPCION", "Motor Basico");
-		nuevaInfo.agregarCaracteristica("RPMMAX", "5800");
-		nuevaInfo.agregarCaracteristica("RENDIMIENTO", "80");
-		nuevaInfo.agregarCaracteristica("CILINDRADA", "2.0");
-		nuevaInfo.agregarCaracteristica("PESO", "150");
-		agregarModelo(nuevaInfo); //agrega un motor básico al catálogo
+		agregarModelo(nuevoModeloMotor(600, "Motor básico.", 80, 200.0, 5800.0, 2.0)); //agrega un motor básico al catálogo
 	}
+	
+	private InformacionDelModelo nuevoModeloMotor(Integer costo, String descripcion, Integer rendimiento, Double peso, Double rpmmax, Double cilindrada){
+		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
+		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
+ 		nuevaInfo.agregarCaracteristica("RENDIMIENTO", rendimiento.toString());
+		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
+ 		nuevaInfo.agregarCaracteristica("RPMMAX", rpmmax.toString());
+		nuevaInfo.agregarCaracteristica("CILINDRADA", cilindrada.toString());
+		return nuevaInfo;
+	}
+	
 	public Motor fabricar(InformacionDelModelo modelo) {
 		try{
 			double rpmmaximo = Double.parseDouble(modelo.getCaracteristica("RPMMAX"));
@@ -33,8 +38,19 @@ public class FabricaDeMotores extends FabricaDePartes {
 			unMotor.setPeso(peso);
 			return unMotor;
 		}
-		catch(BoundsException e){}
+		catch(BoundsException e){
+			e.printStackTrace();
+		}
 		return null;
+	}
+	
+	public void proponerMotor(String descripcion, int rendimiento, double peso, double rpmmax, double cilindrada) throws BoundsException{
+		if(rendimiento>100 || rendimiento<0)
+			throw new BoundsException("El rendimiento solicitado es invalido.");
+		if(peso < 80)
+			throw new BoundsException("El peso no puede ser menor a 80 kilos");
+		int costo = (int) (rendimiento*rpmmax*cilindrada/peso)*2;
+		agregarModelo(nuevoModeloMotor(costo, descripcion, rendimiento, peso, rpmmax, cilindrada));
 	}
 	 
 	
