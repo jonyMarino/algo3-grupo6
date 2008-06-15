@@ -1,6 +1,7 @@
 package pruebas;
 
 import pista.Pista;
+import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
@@ -12,15 +13,19 @@ import proveedorDePartes.fabricas.FabricaDeEjes;
 import proveedorDePartes.fabricas.FabricaDeEscapes;
 import proveedorDePartes.fabricas.FabricaDeMezcladores;
 import proveedorDePartes.fabricas.FabricaDeMotores;
+import proveedorDePartes.fabricas.FabricaDePedales;
 import proveedorDePartes.fabricas.FabricaDeRuedas;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
+import proveedorDePartes.fabricas.Freno;
 import proveedorDePartes.fabricas.Mezclador;
 import proveedorDePartes.fabricas.MezcladorNafta;
 import proveedorDePartes.fabricas.Motor;
+import proveedorDePartes.fabricas.Pedal;
 import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.TanqueNafta;
 import junit.framework.TestCase;
 import auto.AutoManual;
+import auto.Auto;
 
 import combustible.Nafta;
 import excepciones.BoundsException;
@@ -46,6 +51,9 @@ public class MotorTest extends TestCase {
 	FabricaDeRuedas fabricaRuedas;
 	FabricaDeCajas fabricaCajas;
 	FabricaDeEjes fabricaEjes;
+	FabricaDePedales fabricaPedales;
+	Acelerador acelerador;
+	Freno freno;
 	
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -59,6 +67,7 @@ public class MotorTest extends TestCase {
 		fabricaCarrocerias = new FabricaDeCarrocerias();
 		fabricaCajas = new FabricaDeCajas();
 		fabricaEjes = new FabricaDeEjes();
+		fabricaPedales = new FabricaDePedales();
 		
 		tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
 		tanque.setCombustible(nafta);
@@ -88,12 +97,18 @@ public class MotorTest extends TestCase {
 		motor.setMezclador(mezclador);
 		motor.setCaja(caja);
 
-
 		caja.setMotor(motor);
 		
 		auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, rueda, rueda, rueda, rueda, eje);
 		auto.setPista(pista);
-
+		
+		acelerador =  (Acelerador) fabricaPedales.fabricar(fabricaPedales.getModelos().get(0));
+		freno =  (Freno) fabricaPedales.fabricar(fabricaPedales.getModelos().get(1));
+		freno.setEje(eje);
+		
+		auto.setFreno((Freno) freno);
+		auto.setAcelerador((Acelerador) acelerador);
+		
 		rueda.setPista(pista);
 	}
 
@@ -112,11 +127,11 @@ public class MotorTest extends TestCase {
 	}
 
 	public void testAcelerar() throws BoundsException {
+		auto.setCambio(1);
 		assertEquals(0.0, motor.obtenerRPM());
 		motor.acelerar(1);
-		auto.simular(10);
-		int result =(int)(motor.obtenerRPM()*100);//comparo contra 2 decimales
-		assertEquals(538, result);
+		auto.simular(1);
+		assertEquals(240, motor.obtenerRPM(), 5);
 	}
 
 	
@@ -136,12 +151,12 @@ public class MotorTest extends TestCase {
 	}
 
 	public void testAcelerarHastaFundir() throws BoundsException{
-		//escape.setEficiencia(20);
+		auto.setCambio(1);
 		int contador;
 		motor.acelerar(1);
 
 		for(contador=0;contador<900;contador++)
-			auto.simular(60000);
+			auto.simular(90000);
 		assertEquals(0.0, motor.getVidaUtil());
 	}
 	
