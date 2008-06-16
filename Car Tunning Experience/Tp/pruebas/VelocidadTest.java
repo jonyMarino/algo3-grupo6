@@ -21,9 +21,10 @@ public class VelocidadTest extends TestCase {
 	}
 	*/
 	public void testCambio()throws BoundsException {
+		ProgramaAuto programa = new ProgramaAuto();
 		ArrayList<Auto> autos = new ArrayList<Auto>();
 		for(int i=0;i<5;i++){
-			AutoManual auto=(AutoManual)ProgramaAuto.autoInicial(); 
+			AutoManual auto=(AutoManual)programa.autoInicial(); 
 			auto.setPista(pista);
 			auto.setCambio(i+1);
 			auto.presionarAcelerador(1);
