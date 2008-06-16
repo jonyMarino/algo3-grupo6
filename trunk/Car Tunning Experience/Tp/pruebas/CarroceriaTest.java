@@ -18,8 +18,9 @@ public class CarroceriaTest extends TestCase {
 	Auto auto;
 	
 	protected void setUp() throws Exception {
+		ProgramaAuto programa = new ProgramaAuto();
 		super.setUp();
-		auto = ProgramaAuto.autoInicial();
+		auto = programa.autoInicial();
 		pista=new Pista(5);
 		auto.setPista(pista);
 		fabrica = new FabricaDeCarrocerias();
@@ -38,7 +39,7 @@ public class CarroceriaTest extends TestCase {
 	public void testFuerzaAireCarroceriaDesgastada()throws BoundsException {
 		carroceria= fabrica.fabricar(fabrica.getModelos().get(0));
 		auto.setCarroceria(carroceria);
-		carroceria.setVidaUtil(0);
+		carroceria.desgastar(100000);
 		try {
 			pista.setVelocidadAire(25);
 		} catch (BoundsException e) {
