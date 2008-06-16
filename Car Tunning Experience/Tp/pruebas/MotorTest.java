@@ -1,5 +1,6 @@
 package pruebas;
 
+import junit.framework.TestCase;
 import pista.Pista;
 import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.Caja;
@@ -20,14 +21,12 @@ import proveedorDePartes.fabricas.Freno;
 import proveedorDePartes.fabricas.Mezclador;
 import proveedorDePartes.fabricas.MezcladorNafta;
 import proveedorDePartes.fabricas.Motor;
-import proveedorDePartes.fabricas.Pedal;
 import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.TanqueNafta;
-import junit.framework.TestCase;
 import auto.AutoManual;
-import auto.Auto;
 
 import combustible.Nafta;
+
 import excepciones.BoundsException;
 
 public class MotorTest extends TestCase {
