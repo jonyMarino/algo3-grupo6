@@ -13,11 +13,11 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
  		nuevaInfo.agregarCaracteristica("CAPACIDAD", "70");
 		nuevaInfo.agregarCaracteristica("PESO", "10");
 		nuevaInfo.agregarCaracteristica("NAFTA", "");
-		agregarModelo(nuevaInfo); //agrega un motor básico al catálogo
+		agregarModelo(nuevoModeloTanque(100, "Tanque de Nafta básico.", 70, 10.0, "NAFTA")); //agrega un motor básico al catálogo
 	}
 	
 	
-	private InformacionDelModelo nuevoModeloMotor(Integer costo, String descripcion, Integer capacidad, Double peso, String clase){
+	private InformacionDelModelo nuevoModeloTanque(Integer costo, String descripcion, Integer capacidad, Double peso, String clase){
 		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
 		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
@@ -56,7 +56,7 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 		if(peso < 5)
 			throw new BoundsException("El peso no puede ser menor a 5 kilos");
 		int costo = (int) (capacidad/peso)*60;
-		agregarModelo(nuevoModeloMotor(costo, descripcion, capacidad, peso, clase));
+		agregarModelo(nuevoModeloTanque(costo, descripcion, capacidad, peso, clase));
 	}
 	 
 }
