@@ -10,6 +10,7 @@ import javax.management.Descriptor;
 
 import programaAuto.Usuario;
 import proveedorDePartes.fabricas.Caja;
+import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
 import proveedorDePartes.fabricas.Escape;
@@ -33,15 +34,20 @@ public class Taller {
 		this.usuario = usuario;
 		partesDeReserva = new ArrayList<ParteAuto>();
 	}
-	// hay que ver como se distingue entre partes del mismo tipo, ej: Ruedas
-	public void colocarParteDeReserva(int numeroParte){
-		ParteAuto parteAuto = partesDeReserva.get(numeroParte);
-		partesDeReserva.remove(numeroParte);
-		if( parteAuto instanceof Motor)	//de ejemplo, habria que hacer para cada uno
-			ensamblar((Motor)parteAuto);
+	// TODO hay que ver como se distingue entre partes del mismo tipo, ej: Ruedas
+	public void colocarParteDeReserva(int parteEnReserva, String keyParteEnAuto){
+		ParteAuto parteAutoAColocar = partesDeReserva.get(parteEnReserva);
+		if(!usuario.getAuto().getHashDePartes().containsKey(keyParteEnAuto))
+			throw new RuntimeException();
+		partesDeReserva.remove(parteEnReserva);
+		if( parteAutoAColocar instanceof Motor)	//TODO habria que hacer para cada uno
+			ensamblar((Motor)parteAutoAColocar,keyParteEnAuto);
+		if( parteAutoAColocar instanceof Rueda)
+			ensamblar((Rueda)parteAutoAColocar,keyParteEnAuto);
+			
 	}
 	
-	public void ensamblar(Motor motor){
+	public void ensamblar(Motor motor,String keyParteEnAuto){
 		Auto auto = usuario.getAuto();		
 		partesDeReserva.add(auto.getMotor());
 		auto.setMotor(motor);	// lo coloco
@@ -50,26 +56,13 @@ public class Taller {
 		motor.setMezclador(auto.getMezclador());
 	}
 	
-	public Iterator getInformacionPartesDeReserva(){
-		return new InformacionParteAutoIterator(partesDeReserva);
+	public Iterator<ParteAuto> getPartesDeReserva(){
+		return ((List)partesDeReserva.clone()).iterator();
 	}
 	
-	public Iterator getInformacionPartesEnAuto(){
-		List partesEnAuto = usuario.getAuto().getListaPartes();
-		return new InformacionParteAutoIterator(partesEnAuto);
-	}
-	
-	private static class InformacionParteAutoIterator implements Iterator{
-		Iterator iteradorPartesDeAuto;
-		public InformacionParteAutoIterator(List<ParteAuto> partesDeAuto){
-			iteradorPartesDeAuto = partesDeAuto.iterator();
-		}
-		public Object next(){
-			return new InformacionDelModelo(iteradorPartesDeAuto.next());
-		}
-		public boolean hasNext(){
-			return iteradorPartesDeAuto.hasNext();
-		}
+	public Hashtable<String,ParteAuto> getPartesEnAuto(){
+		return usuario.getAuto().getHashDePartes();
+		
 	}
 	
 	
