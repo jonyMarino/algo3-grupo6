@@ -7,9 +7,21 @@ import java.util.Observable;
 import java.util.Random;
 
 import pista.Pista;
+import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
+import proveedorDePartes.fabricas.Eje;
 import proveedorDePartes.fabricas.Escape;
+import proveedorDePartes.fabricas.FabricaDeCajas;
+import proveedorDePartes.fabricas.FabricaDeCarrocerias;
+import proveedorDePartes.fabricas.FabricaDeEjes;
+import proveedorDePartes.fabricas.FabricaDeEscapes;
+import proveedorDePartes.fabricas.FabricaDeMezcladores;
+import proveedorDePartes.fabricas.FabricaDeMotores;
+import proveedorDePartes.fabricas.FabricaDePedales;
+import proveedorDePartes.fabricas.FabricaDeRuedas;
+import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
+import proveedorDePartes.fabricas.Freno;
 import proveedorDePartes.fabricas.MezcladorNafta;
 import proveedorDePartes.fabricas.Motor;
 import proveedorDePartes.fabricas.Rueda;
@@ -28,7 +40,17 @@ public class ProgramaAuto extends Observable {
 	private static ArrayList<Usuario> usuarios;
 	private Pista pista;
 	private final int  SEGUNDOSASIMULAR = 10;
-
+	FabricaDeTanquesDeCombustible fabricaTanques;
+	FabricaDeMezcladores fabricaMezcladores;
+	FabricaDeMotores fabricaMotores;
+	FabricaDeCarrocerias fabricaCarrocerias;
+	FabricaDeEscapes fabricaEscapes;
+	FabricaDeRuedas fabricaRuedas;
+	FabricaDeCajas fabricaCajas;
+	FabricaDeEjes fabricaEjes;
+	FabricaDePedales fabricaPedales;
+	
+	
 	private class SimulacionDeLaCarrera{
 		private ArrayList<Auto> listaDeAutos;
 		private boolean simulando;
@@ -87,12 +109,25 @@ public class ProgramaAuto extends Observable {
 	
 	public ProgramaAuto () {
 		this.pista=null;
+		fabricaTanques = new FabricaDeTanquesDeCombustible();
+		fabricaMezcladores = new FabricaDeMezcladores();
+		fabricaEscapes = new FabricaDeEscapes();
+		fabricaMotores = new FabricaDeMotores();
+		fabricaRuedas = new FabricaDeRuedas();
+		fabricaCarrocerias = new FabricaDeCarrocerias();
+		fabricaCajas = new FabricaDeCajas();
+		fabricaEjes = new FabricaDeEjes();
+		fabricaPedales = new FabricaDePedales();
+		
 	}
 
-	public static Auto autoInicial(){
+	public Auto autoInicial(){
 		Auto auto=null;
 		Nafta nafta = new Nafta(85,15);
-		TanqueNafta tanque = new TanqueNafta(70, nafta);
+		
+		TanqueNafta tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
+		tanque.setCombustible(nafta);
+	
 		usuarios = new ArrayList<Usuario>();
 		try {
 			tanque.llenarTanque(70);
@@ -101,30 +136,49 @@ public class ProgramaAuto extends Observable {
 			e1.printStackTrace();
 		}
 		try{
-			Carroceria carroceria = new Carroceria(5,5,250);
-			MezcladorNafta mezclador = new MezcladorNafta(100,tanque);
-			Escape escape = new Escape(100);
-			Motor motor=new Motor(100,5000,mezclador,escape,2.0);
-			motor.setPeso(200);
+			MezcladorNafta mezclador = (MezcladorNafta) fabricaMezcladores.fabricar(fabricaMezcladores.getModelos().get(0));
+			mezclador.setTanqueCombustible(tanque);
 			
+			Escape escape = fabricaEscapes.fabricar(fabricaEscapes.getModelos().get(0));
+			
+			Carroceria carroceria = fabricaCarrocerias.fabricar(fabricaCarrocerias.getModelos().get(0));
+
 			ArrayList<Rueda> ruedas = new ArrayList<Rueda>();
 			for(int i=0;i<4;i++){
-				Rueda rueda = new Rueda(25,0.7,0.4);
-				rueda.setPeso(25);
+				Rueda rueda = fabricaRuedas.fabricar(fabricaRuedas.getModelos().get(0));
 				ruedas.add(rueda);				
 			}
-		
 			
+			Eje eje = fabricaEjes.fabricar(fabricaEjes.getModelos().get(0));
+			eje.setRuedaTrasera(ruedas.get(3));
 			
-			CajaManual caja = new CajaManual();
+			CajaManual caja=(CajaManual) fabricaCajas.fabricar(fabricaCajas.getModelos().get(0));
+			caja.setEje(eje);
+			
+			Motor motor=fabricaMotores.fabricar(fabricaMotores.getModelos().get(0));
+			motor.setEscape(escape);
+			motor.setMezclador(mezclador);
+			motor.setCaja(caja);
+
+			caja.setMotor(motor);
+			
 			try {
-				auto = new AutoManual(escape,carroceria,motor,caja,mezclador,tanque,ruedas.get(0),ruedas.get(1),ruedas.get(2),ruedas.get(3));
-				auto.getEscape().setPeso(20);
-				auto.getMezclador().setPeso(80);
+				auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje);
 			} catch (WrongPartClassException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			auto.setPista(pista);
+			
+			Acelerador acelerador =  (Acelerador) fabricaPedales.fabricar(fabricaPedales.getModelos().get(0));
+			acelerador.setMotor(motor);
+			Freno freno =  (Freno) fabricaPedales.fabricar(fabricaPedales.getModelos().get(1));
+			freno.setEje(eje);
+			
+			auto.setFreno((Freno) freno);
+			auto.setAcelerador((Acelerador) acelerador);
 
+		
 		}catch(BoundsException e){}
 
 		return auto;

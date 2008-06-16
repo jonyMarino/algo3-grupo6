@@ -15,6 +15,19 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 		nuevaInfo.agregarCaracteristica("NAFTA", "");
 		agregarModelo(nuevaInfo); //agrega un motor básico al catálogo
 	}
+	
+	
+	private InformacionDelModelo nuevoModeloMotor(Integer costo, String descripcion, Integer capacidad, Double peso, String clase){
+		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
+		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
+		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
+ 		nuevaInfo.agregarCaracteristica("CAPACIDAD", capacidad.toString());
+		nuevaInfo.agregarCaracteristica(clase, "");
+		
+		return nuevaInfo;
+	}
+	
 	public TanqueNafta fabricar(InformacionDelModelo modelo) {
 		try{
 			int capacidad = Integer.parseInt(modelo.getCaracteristica("CAPACIDAD"));
@@ -35,6 +48,15 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void proponerMotor(String descripcion, int capacidad, double peso, String clase) throws BoundsException{
+		if(capacidad < 10)
+			throw new BoundsException("La capacidad no puede ser menor a 10 litros");
+		if(peso < 5)
+			throw new BoundsException("El peso no puede ser menor a 5 kilos");
+		int costo = (int) (capacidad/peso)*60;
+		agregarModelo(nuevoModeloMotor(costo, descripcion, capacidad, peso, clase));
 	}
 	 
 }

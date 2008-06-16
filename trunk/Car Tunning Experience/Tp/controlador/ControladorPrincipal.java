@@ -8,6 +8,7 @@ import excepciones.BoundsException;
 
 import programaAuto.ProgramaAuto;
 import proveedorDePartes.fabricas.CajaManual;
+import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.TanqueCombustible;
 import proveedorDePartes.fabricas.TanqueNafta;
 import vistas.VistaGraficador;
@@ -25,14 +26,22 @@ public class ControladorPrincipal implements KeyListener{
 		ProgramaAuto miPrograma = new ProgramaAuto();
 		miPrograma.generarProximaPista();
 		unAuto = (miPrograma.nuevoUsuario("Lucas")).getAuto();
-
-		TanqueCombustible tanque = new TanqueNafta(99999, new Nafta(100,100));
+		FabricaDeTanquesDeCombustible fabricaTanques = new FabricaDeTanquesDeCombustible();
+		try {
+			fabricaTanques.proponerMotor("Tanque exageradamente grande", 99999, 200, "NAFTA");
+		} catch (BoundsException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		TanqueCombustible tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(1));
+		tanque.setCombustible(new Nafta(90, 10));
+		unAuto.setTanqueCombustible(tanque);
 		try {
 			tanque.llenarTanque(99999);
 		} catch (BoundsException e) {
 		}
-		unAuto.setTanqueCombustible(tanque);
-		
+
+
 		vista1 = new VistaGraficador("Velocidad", 800,600, unAuto);
 		vista1.setPixelesPorUnidady(1);
 		vista1.setPixelesPorUnidadx(1);
