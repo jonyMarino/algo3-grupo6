@@ -90,7 +90,7 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 			return 0;
 		if (cambio==1)
 			return 0;
-		return eje.getRpm()/relaciones[cambio];
+		return eje.getRpm()*relaciones[cambio];
 	}
 
 }
