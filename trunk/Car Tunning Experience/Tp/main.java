@@ -1,7 +1,6 @@
 import programaAuto.ProgramaAuto;
-import vistas.PanelPrincipal;
-import vistas.VistaPrincipal;
-import controlador.Controlador;
+import vista.PanelBase;
+import vista.VistaPrincipal;
 
 public class main {
 
@@ -11,13 +10,12 @@ public class main {
 	public static void main(String[] args) {
 		
 		ProgramaAuto programaAuto = new ProgramaAuto();
-		Controlador controlador = new Controlador(programaAuto);
-
-		VistaPrincipal vistaPrincipal = new VistaPrincipal( );
-		PanelPrincipal panelPrincipal = new PanelPrincipal();
 		
-		vistaPrincipal.add(panelPrincipal);
-		
+		VistaPrincipal vistaPrincipal = new VistaPrincipal();
+		PanelBase panelBase = new PanelBase(programaAuto);
+		panelBase.crearPantallaInicio();
+			
+		vistaPrincipal.add(panelBase);
 		vistaPrincipal.setVisible(true);
 	}
 	

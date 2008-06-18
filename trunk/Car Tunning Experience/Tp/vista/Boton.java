@@ -1,4 +1,4 @@
-package vistas;
+package vista;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,23 +9,26 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.ButtonModel;
 
-public class Boton extends JButton {
+public class Boton extends JButton implements Observer {
 	
 	private static final long serialVersionUID = 1L;
 	private Color color1 = new Color(0x666f7f);
     private Color color2 = new Color(0x262d3d);
     private Color color3 = new Color(0x262d3d);
-	
-	public Boton(String label){
+   
+	public Boton(String label) {
 		super(label);
         setOpaque(false);
         setContentAreaFilled(false);
         setForeground(Color.WHITE);
+        setRolloverEnabled(false);
         setFocusPainted(false);
-        setBorderPainted(false);
-	}
+        setBorderPainted(false);       
+ 	}
 	
 	  protected void paintComponent(Graphics g) {
 	        Color c1,c2,c3;
@@ -34,12 +37,12 @@ public class Boton extends JButton {
 	                RenderingHints.VALUE_ANTIALIAS_ON);
 
 	        ButtonModel m = getModel();
-
+	       
 	         Paint oldPaint = g2.getPaint();
 	        if (m.isArmed()){
 	           c2=color1.darker();
 	           c1=color2.darker();
-	           c3=color3;
+	           c3=color3;   
 	        }else{
 	           c1=color1.darker();
 	           c2=color2.darker();
@@ -89,5 +92,10 @@ public class Boton extends JButton {
 	    public void setColor3(Color color3) {
 	        this.color3 = color3;
 	    }
+
+		public void update(Observable o, Object arg) {
+			// TODO Auto-generated method stub
+			
+		}  
 	
 }
