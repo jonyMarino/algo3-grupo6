@@ -11,7 +11,7 @@ import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.TanqueCombustible;
 import proveedorDePartes.fabricas.TanqueNafta;
-import vistas.VistaGraficador;
+import vista.VistaGraficador;
 import auto.Auto;
 
 public class ControladorPrincipal implements KeyListener{
