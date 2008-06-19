@@ -3,24 +3,28 @@ package vista;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 
 public class CuadroIngresoUsuario extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 
-	public CuadroIngresoUsuario() {
+	public CuadroIngresoUsuario(){
+		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+
 		JLabel label = new JLabel("Nombre Usuario: ");
-			label.setFont(new Font("Usuario",Font.BOLD,16));
+			label.setFont(new Font("Verdana",Font.BOLD,14));
+			
 		this.add(label);
-			JTextField box = new JTextField("",50);
+			JTextField box = new JTextField("",30);
 			box.setBackground(Color.LIGHT_GRAY);
-			//box.addActionListener();
+
 		this.add(box);
-		
-		this.setLayout(new FlowLayout());
+
 	}
-	
 }
