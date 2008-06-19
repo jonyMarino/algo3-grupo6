@@ -16,16 +16,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		this.setImage(imgFondo);
 		
 		this.setPreferredSize(new Dimension(900,675));
-		/*BotoneraTaller botoneraTaller = new BotoneraTaller(panelBase);
 	
-		
-		this.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		c.weighty = 1; 
-		c.anchor = GridBagConstraints.LAST_LINE_END;
-		this.add(botoneraTaller, c);
-		*/
-		
 		this.setLayout(new GridBagLayout());
 		
 		crearPanelBodegaCatalogo();
@@ -50,11 +41,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
     /*El JTabbedPane es el panel que tiene las pestañas de Bodega y Catalogo*/
 		JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setPreferredSize(new Dimension(600,200));
-        
-        JPanel panelBodega = new JPanel();
-        panelBodega.setBackground(nc);
-        tabbedPane.addTab("Bodega",panelBodega);
-        
+  
         JPanel panelCatalogo = new JPanel();
         panelCatalogo.setBackground(nc);
         panelCatalogo.setLayout(new GridBagLayout());
@@ -63,7 +50,6 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
     	Insets in=new Insets(0,30,0,0);
     	c4.insets=in;
         panelCatalogo.add(contenedorPartes(),c4);
-        panelCatalogo.add(listaOpciones(),c4);
        
         Boton botonComprar = new Boton("Comprar");
         c4 = posicionBoton();
@@ -90,7 +76,15 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	     
 	    Color nc = new Color(0,0,0,50);
 	    panelPista.setBackground(nc);
-	
+	    
+	    JPanel panelDinero = new JPanel();
+        panelDinero.setBackground(nc);
+        tabbedPane.addTab("Dinero",panelDinero);
+        
+        JPanel panelBodega = new JPanel();
+        panelBodega.setBackground(nc);
+        tabbedPane.addTab("Bodega",panelBodega);
+        
 	    tabbedPane.addTab("Proxima Pista",panelPista);
 	    
 	    GridBagConstraints c = new GridBagConstraints();
@@ -139,51 +133,26 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		
 		return ubicacion;
 	}
-	
-/*Este metodo crea los botones con nombre de las partesdelauto, para cuando se haga click en la parte
- * elegida se despliegue al lado una lista con los modelos disponibles -esta lista la hace el siguiente
- * metodo listaOpciones. Esta bosquejada nomas por ahora*/
+
 	private JPanel contenedorPartes(){
-		 
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(3,3));
-		JButton btn;
-		String[] listaMotor={"Caja","Carroceria","Eje","Escape","Mezclador","Motor","Pedal","Rueda","Tanque"};
-		int pos=0;
-	   
-		for (int i=0;i<3;i++)
-	    	for (int j=0;j<3;j++){
-	        	btn = new JButton(listaMotor[pos]);
-	        	panel.add(btn);
-	        	pos++;
-	         }
-	    
-	   return panel;
-	}
-	
-	
-	private JPanel listaOpciones(){
-		ButtonGroup bgroup = new ButtonGroup(); 
-		//al crear un ButtonGroup se evita la posibilidad de que se seleccionen dos modelos a la vez
+	 
 		
 		JPanel panel = new JPanel();
-		JRadioButton maybeButton ;
 		panel.setLayout(new GridLayout(3,2));
-	    
+		String[] lista={"NombreDeParte","ModeloA","ModeloB","ModeloC","ModeloD","ModeloE","ModeloF"};
 		for (int i=0;i<3;i++)
-	    	for (int j=0;j<2;j++){
-	    		maybeButton = new JRadioButton("Modelo", false);
-	    		bgroup.add(maybeButton);
-	    		panel.add(maybeButton);
+	    	for (int j=0;j<3;j++){
+	    		JComboBox petList = new JComboBox(lista);
+	    		petList.setOpaque(false);
+	    		panel.add(petList);
 	         }
 	    
 	     return panel;
-	}
-	
+}
+
 	public void actionPerformed(ActionEvent e) {
 		
 		
 	}
 
 }
-

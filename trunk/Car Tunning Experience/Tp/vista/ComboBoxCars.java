@@ -4,56 +4,78 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ComboBoxCars extends JPanel implements ActionListener {
 
-	private static final long serialVersionUID = 1L;
-	JLabel picture;
+public class ComboBoxCars extends JPanel {
+	    ImageIcon[] images;
+	    String[] carStrings = { "Guido", "Flo", "Mate", "Sheriff", "Rayo McQueen" };
 
-    public ComboBoxCars() {
-        super(new BorderLayout());
-        String[] carsStrings = { "Guido", "Flo", "Mate", "Sheriff", "Rayo McQueen" };
+	    public  ComboBoxCars() {
+	        super(new BorderLayout());
 
-        JComboBox carsList = new JComboBox(carsStrings);
-        carsList.setSelectedIndex(4);
-        carsList.addActionListener(this);
+	        images = new ImageIcon[carStrings.length];
+	        Integer[] intArray = new Integer[carStrings.length];
+	        for (int i = 0; i < carStrings.length; i++) {
+	            intArray[i] = new Integer(i);
+	            images[i] = createImageIcon("/vista/images/" + carStrings[i]+ ".gif");
+	            if (images[i] != null) {
+	                images[i].setDescription(carStrings[i]);
+	            }
+	        }
 
-        picture = new JLabel();
-        picture.setFont(picture.getFont().deriveFont(Font.ITALIC));
-        picture.setHorizontalAlignment(JLabel.CENTER);
-        updateLabel(carsStrings[carsList.getSelectedIndex()]);
-        picture.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
-        picture.setPreferredSize(new Dimension(50, 122+10));
+	     
+	        JComboBox carList = new JComboBox(intArray);
+	        ComboBoxRenderer renderer= new ComboBoxRenderer();
+	        renderer.setPreferredSize(new Dimension(250, 100));
+	        carList.setRenderer(renderer);
+	        carList.setMaximumRowCount(3);
 
-        add(carsList, BorderLayout.PAGE_START);
-        add(picture, BorderLayout.PAGE_END);
-        setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-    }
+	        carList.setSelectedIndex(4);
+	        add(carList, BorderLayout.PAGE_START);
+	        setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+	    }
 
-    public void actionPerformed(ActionEvent e) {
-        JComboBox cb = (JComboBox)e.getSource();
-        String carName = (String)cb.getSelectedItem();
-        updateLabel(carName);
-    }
+	  
+	    protected static ImageIcon createImageIcon(String path) {
+	        java.net.URL imgURL =  ComboBoxCars.class.getResource(path);
+	        if (imgURL != null) {
+	            return new ImageIcon(imgURL);
+	        } else {
+	            System.err.println("Couldn't find file: " + path);
+	                return null;
+	        }
+	    }
 
-    protected void updateLabel(String name) {
-        ImageIcon icon = createImageIcon("/vista/images/" + name + ".gif");
-        picture.setIcon(icon);
-        picture.setToolTipText("A drawing of a " + name.toLowerCase());
-        if (icon != null) {
-            picture.setText(null);
-        } else {
-            picture.setText("Image not found");
-        }
-    }
+	    class ComboBoxRenderer extends JLabel implements ListCellRenderer {
+	
+			private static final long serialVersionUID = 1L;
 
-    protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = ComboBoxCars.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
-    }
+	        public ComboBoxRenderer() {
+	            setOpaque(true);  
+	        }
+
+	        public Component getListCellRendererComponent(JList list,Object value,int index,boolean isSelected,boolean cellHasFocus) {
+	       
+	            int selectedIndex = ((Integer)value).intValue();
+
+	            if (isSelected) {
+	                setBackground(list.getSelectionBackground());
+	              setForeground(list.getSelectionForeground());
+	           
+	            } else {
+	                setBackground(list.getBackground());
+	                setForeground(list.getForeground());
+	            }
+	  
+	            ImageIcon icon = images[selectedIndex];
+	            String nombre = carStrings[selectedIndex];
+	            setIcon(icon);
+	            if (icon != null) {
+	                setText(nombre);
+	       
+	            }
+	            return this;
+	        }
+
+	}
 
 }
