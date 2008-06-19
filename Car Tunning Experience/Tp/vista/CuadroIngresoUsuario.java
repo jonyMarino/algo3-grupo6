@@ -1,9 +1,7 @@
 package vista;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
-
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,6 +23,5 @@ public class CuadroIngresoUsuario extends JPanel {
 			box.setBackground(Color.LIGHT_GRAY);
 
 		this.add(box);
-
 	}
 }

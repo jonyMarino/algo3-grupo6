@@ -3,8 +3,6 @@ package vista;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 
 public class PantallaInicio extends JPanelConImagen {
 
@@ -12,8 +10,7 @@ public class PantallaInicio extends JPanelConImagen {
 	
 	public PantallaInicio(PanelBase panelBase) {
 		super();
-		Image imgFondo = new ImageIcon(getClass().getResource("/vista/images/FondoPantallaInicio.jpg")).getImage();
-		this.setImage(imgFondo);
+		this.setImage("FondoPantallaInicio");
 
 		this.setPreferredSize(new Dimension(900,675));
 		BotoneraInicio botonera = new BotoneraInicio(panelBase);

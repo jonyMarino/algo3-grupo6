@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class JPanelConImagen extends JPanel {
@@ -26,8 +28,8 @@ public class JPanelConImagen extends JPanel {
         return imgFondo;
     }
 
-	public void setImage(Image image) {
-        this.imgFondo = image;
+	public void setImage(String nombreImage) {
+		this.imgFondo = new ImageIcon(getClass().getResource("/vista/images/"+ nombreImage +".jpg")).getImage();
     }
 
 }

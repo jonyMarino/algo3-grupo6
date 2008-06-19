@@ -1,13 +1,14 @@
 package vista;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 
 public class ComboBoxCars extends JPanel {
-	    ImageIcon[] images;
-	    String[] carStrings = { "Guido", "Flo", "Mate", "Sheriff", "Rayo McQueen" };
+	    
+		private static final long serialVersionUID = 1L;
+		ImageIcon[] images;
+		String[] carStrings = { "Guido", "Flo", "Mate", "Sheriff", "Rayo McQueen" };
 
 	    public  ComboBoxCars() {
 	        super(new BorderLayout());
