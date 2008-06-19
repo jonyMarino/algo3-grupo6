@@ -12,8 +12,8 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	public PantallaTaller(PanelBase panelBase) {
 		
 		super();
-		Image imgFondo = new ImageIcon(getClass().getResource("/vista/images/FondoTransparente.jpg")).getImage();
-		this.setImage(imgFondo);
+		
+		this.setImage("FondoTransparente");
 		
 		this.setPreferredSize(new Dimension(900,675));
 	

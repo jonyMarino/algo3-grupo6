@@ -1,15 +1,9 @@
 package vista;
 
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.Insets;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class PantallaUsuario extends JPanelConImagen {
@@ -19,8 +13,7 @@ public class PantallaUsuario extends JPanelConImagen {
 	public PantallaUsuario(PanelBase panelBase) {
 		super();
 		//FONDO
-		Image imgFondo = new ImageIcon(getClass().getResource("/vista/images/FondoTransparente.jpg")).getImage();
-		this.setImage(imgFondo);
+		this.setImage("FondoTransparente");
 		
 		//PANEL USUARIO
 		JPanel panelUsuario = new JPanel();
