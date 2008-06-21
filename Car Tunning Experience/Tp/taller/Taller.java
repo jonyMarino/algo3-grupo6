@@ -1,6 +1,7 @@
 package taller;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -18,6 +19,7 @@ import proveedorDePartes.fabricas.Mezclador;
 import proveedorDePartes.fabricas.Motor;
 import proveedorDePartes.fabricas.ParteAuto;
 import proveedorDePartes.fabricas.TanqueCombustible;
+import proveedorDePartes.fabricas.InformacionDelModelo;
 import auto.Auto;
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
@@ -27,6 +29,41 @@ import excepciones.WrongPartClassException;
 
 
 public class Taller {
+	
+	static public class InformacionParteReserva {
+		private ParteAuto parte;
+		/*
+		 * Es private para que solo pueda instanciarlo Taller
+		*/
+		private InformacionParteReserva(ParteAuto parte){
+			this.parte=parte;	
+		}
+		public InformacionDelModelo getInformacionModelo(){
+			return parte.getInformacionDelModelo();
+		}
+		
+		public double getVidaUtil(){
+			return parte.getVidaUtil();
+		}
+		
+		/*
+		 * Es protected para que solo pueda llamarlo Taller y classes derivadas
+		*/
+		private ParteAuto getParte(){
+			return parte;
+		}
+	}
+	
+	static public class InformacionParteEnAuto extends InformacionParteReserva{
+		String ubicacion;
+		private InformacionParteEnAuto(ParteAuto parte,String ubicacion){
+			super(parte);
+			this.ubicacion=ubicacion;
+		}
+		public String getUbicacion(){
+			return new String(ubicacion);	// no queremos que se modifique la ubicacion, por eso la copia.
+		}
+	}
 	ArrayList<ParteAuto> partesDeReserva;
 	Usuario usuario;
 	
@@ -35,34 +72,57 @@ public class Taller {
 		partesDeReserva = new ArrayList<ParteAuto>();
 	}
 	// TODO hay que ver como se distingue entre partes del mismo tipo, ej: Ruedas
-	public void colocarParteDeReserva(int parteEnReserva, String keyParteEnAuto){
-		ParteAuto parteAutoAColocar = partesDeReserva.get(parteEnReserva);
-		if(!usuario.getAuto().getHashDePartes().containsKey(keyParteEnAuto))
-			throw new RuntimeException();
-		partesDeReserva.remove(parteEnReserva);
-		if( parteAutoAColocar instanceof Motor)	//TODO habria que hacer para cada uno
-			ensamblar((Motor)parteAutoAColocar,keyParteEnAuto);
-		if( parteAutoAColocar instanceof Rueda)
-			ensamblar((Rueda)parteAutoAColocar,keyParteEnAuto);
-			
-	}
-	
-	public void ensamblar(Motor motor,String keyParteEnAuto){
-		Auto auto = usuario.getAuto();		
-		partesDeReserva.add(auto.getMotor());
-		auto.setMotor(motor);	// lo coloco
-		motor.setCaja(auto.getCaja());
-		motor.setEscape(auto.getEscape());
-		motor.setMezclador(auto.getMezclador());
-	}
-	
-	public Iterator<ParteAuto> getPartesDeReserva(){
-		return ((List)partesDeReserva.clone()).iterator();
-	}
-	
-	public Hashtable<String,ParteAuto> getPartesEnAuto(){
-		return usuario.getAuto().getHashDePartes();
+	public void colocarParteDeReserva(InformacionParteReserva informacionReserva, InformacionParteEnAuto informacionParte){
 		
+		usuario.getAuto().colocarParte(informacionReserva.getParte(),informacionParte.getUbicacion());
+		
+		aniadirAReserva(((InformacionParteReserva)informacionParte).getParte());
+		
+		partesDeReserva.remove(informacionReserva.getParte());
+	}
+	
+	public void ensamblar(){
+		usuario.getAuto().ensamblar();
+	}
+	
+	public void aniadirAReserva(final ParteAuto parte){
+		partesDeReserva.add(parte);
+	}
+	
+	public Iterator<InformacionParteReserva> getPartesDeReserva(){		
+		return new IteradorInformacionReservas();
+	}
+	
+	public Iterator<InformacionParteEnAuto> getPartesEnAuto(){
+		LinkedList<InformacionParteEnAuto> lista = new LinkedList<InformacionParteEnAuto>();
+		Hashtable<String,ParteAuto> hashPartesAuto=usuario.getAuto().getHashDePartes();
+		for(String keyParte :hashPartesAuto.keySet()){
+			InformacionParteEnAuto info = new InformacionParteEnAuto(hashPartesAuto.get(keyParte),keyParte);
+			lista.add(info);
+		}
+		return lista.iterator();	
+	}
+	
+	/**
+	 * Implementacion de Iterator para recorrer las reservas del Taller
+	 *
+	 */
+	private class IteradorInformacionReservas implements Iterator<InformacionParteReserva>{
+		Iterator<ParteAuto> iteradorReservas;
+		
+		IteradorInformacionReservas(){
+			iteradorReservas=Taller.this.partesDeReserva.iterator();
+		}	
+		
+		public InformacionParteReserva next(){
+			ParteAuto parte=iteradorReservas.next();
+			InformacionParteReserva info = new InformacionParteReserva(parte);
+			return info;
+		}
+		public boolean hasNext(){
+			return iteradorReservas.hasNext();
+		}
+		public void remove(){}
 	}
 	
 	
