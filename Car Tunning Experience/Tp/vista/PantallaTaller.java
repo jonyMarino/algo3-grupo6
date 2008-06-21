@@ -12,10 +12,10 @@ import proveedorDePartes.fabricas.FabricaDeEscapes;
 import proveedorDePartes.fabricas.InformacionDelModelo;
 
 public class PantallaTaller extends JPanelConImagen implements ActionListener {
-	
+
+	private DefaultComboBoxModel listaPartesEnTaller;
 	private static final long serialVersionUID = 1L;
-	
-	private JComboBox enBodega;
+
 	
 	public PantallaTaller(PanelBase panelBase) {
 		
@@ -27,9 +27,9 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	
 		this.setLayout(new GridBagLayout());
 		
-		crearPanelBodegaCatalogo();
+		crearPaneCatalogo();
 		crearPanelAuto();
-		crearPanelPista();
+		crearPanelPistaDineroBodega();
 		
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx=2;
@@ -43,10 +43,10 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		this.add(botonComenzar, c);
 	}
 
-	private void crearPanelBodegaCatalogo(){
+	private void crearPaneCatalogo(){
 		
 		Color nc = new Color(0,0,0,50);
-    /*El JTabbedPane es el panel que tiene las pestañas de Bodega y Catalogo*/
+   
 		JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setPreferredSize(new Dimension(600,200));
   
@@ -74,12 +74,11 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
         this.add(tabbedPane,c);
     }
 	
-	private void crearPanelPista(){
+	private void crearPanelPistaDineroBodega(){
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
 	    tabbedPane.setPreferredSize(new Dimension(250,100));
-	    Color nc = new Color(0,0,0,50);
-	  
+	    Color nc = new Color(176,196,222);
 	    
 	    JPanel panelDinero = new JPanel();
         panelDinero.setBackground(nc);
@@ -87,17 +86,9 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		boxDinero.setBackground(Color.white);
 		panelDinero.add(boxDinero);
         tabbedPane.addTab("Dinero",panelDinero);
-        
-        JPanel panelBodega = new JPanel();
-        panelBodega.setBackground(nc);
-        enBodega = new JComboBox();
-        Boton botonCambiar = new Boton("Cambiar");
-        panelBodega.add(botonCambiar);
-        panelBodega.add(enBodega);
-        agregarABodega();
-        tabbedPane.addTab("Bodega",panelBodega);
-        
-        
+
+        tabbedPane.addTab("Bodega",crearPanelBodega());
+         
 	    JPanel panelPista = new JPanel();
 	    panelPista.setLayout(new GridBagLayout());
 	    panelPista.setBackground(nc);
@@ -114,6 +105,38 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	    c.anchor = GridBagConstraints.SOUTH;
 	    this.add(tabbedPane,c);
     }
+
+	private JPanel crearPanelBodega(){
+		listaPartesEnTaller = new DefaultComboBoxModel();
+		Color nc = new Color(176,196,222);
+		  
+		JPanel panelBodega = new JPanel();
+	    panelBodega.setBackground(nc);
+
+	    JComboBox comboBox = new JComboBox();
+	    agregarABodega("Escape");
+	    comboBox.setModel(listaPartesEnTaller);
+	  
+	    /* comboBox.addActionListener(new ActionListener() {
+	           public void actionPerformed(ActionEvent e) {
+	            	JComboBox combo = (JComboBox)e.getSource();
+	            	  String parte = (String)combo.getSelectedItem();
+	                  System.out.println(parte);
+	            }
+	        });
+	    */
+	    panelBodega.add(comboBox);
+
+	    Boton botonCambiar = new Boton("Cambiar");
+	    panelBodega.add(botonCambiar);
+		
+		return panelBodega;
+	}
+	
+	private void agregarABodega(String nombreParte){
+		 listaPartesEnTaller.addElement(nombreParte);
+	}
+
 	
 	private void crearPanelAuto() {
         
@@ -168,10 +191,6 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	    			panel.add(crearCombosPartes(temporal));
 	     return panel;
 	}
-	
-	private void agregarABodega(){
-	    enBodega.addItem("nuevaParte");
-	}
 
 	
 	public JComboBox crearCombosPartes( ArrayList<InformacionDelModelo> contenedorDeListas) {
@@ -191,7 +210,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
      
         combo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               
+            	 
             }
         });
 
@@ -204,4 +223,3 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	}
 
 }
-
