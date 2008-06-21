@@ -53,6 +53,10 @@ public class InformacionDelModelo {
 	InformacionDelModelo(){
 		informacionDeEstaParte = new Hashtable<String, String>();
 	}
+
+	public Hashtable<String, String> getInformacionDeEstaParte() {
+		return informacionDeEstaParte;
+	}
 	 
 }
  
