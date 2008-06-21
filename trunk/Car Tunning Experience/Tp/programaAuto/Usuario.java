@@ -13,14 +13,14 @@ public class Usuario {
 	private String nombre;
 	private Image avatar;
 
-	public Usuario(String nombre/*, Auto miAuto*/) {
+	public Usuario(String nombre) {
 		this.nombre = nombre;
-		//setAuto(miAuto);
 		setDinero(1000);
 	}
-	private void setAuto(Auto miAuto) {
+	public void setAuto(Auto miAuto) {
 		this.auto = miAuto;
 	}
+	
 	public Auto getAuto() {
 		return auto;
 	}
