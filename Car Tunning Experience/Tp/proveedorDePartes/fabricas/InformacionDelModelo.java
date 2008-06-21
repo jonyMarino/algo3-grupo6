@@ -8,7 +8,17 @@ import java.util.Iterator;
 import excepciones.BoundsException;
 
 import proveedorDePartes.fabricas.FabricaDePartes;
-
+/*
+ * getCaracteristicasDisponibles(), getCaracteristica() Deben ser final porque:
+ * "[...]no queremos que nadie defina clases derivadas por razones de seguridad. "
+ * ("Piensa en Java" Capitulo 7 seccion "Clases final") 
+ * e "impedir que cualquier clase que herede de ésta cambie su significado."
+ * ("Piensa en Java" Capitulo 7 seccion "Metodos final").
+ * Dado que la razon de hacer fabricas y que estas instancien InformacionDelModelo
+ * es por seguridad a que nadie instancie partes donde no debemos, las condiciones 
+ * citadas son aplicables. 
+ */
+//TODO: getCaracteristicasDisponibles() y getCaracteristica() a final
 public class InformacionDelModelo {
  
 	private Hashtable<String,String> informacionDeEstaParte;
@@ -54,9 +64,12 @@ public class InformacionDelModelo {
 		informacionDeEstaParte = new Hashtable<String, String>();
 	}
 
-	public Hashtable<String, String> getInformacionDeEstaParte() {
-		return informacionDeEstaParte;
+	/*
+	 * No queremos que otros puedan cambiar los atributos de la instancia de InformacionDelModelo
+	 * public Hashtable<String, String> getInformacionDeEstaParte() {
+		
+		return (Hashtable<String, String>)informacionDeEstaParte;
 	}
-	 
+	 */
 }
  

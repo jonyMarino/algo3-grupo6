@@ -201,7 +201,8 @@ public class ProgramaAuto extends Observable {
 	public Usuario nuevoUsuario(String nombre){
 		Auto unAuto = autoInicial();
 		unAuto.setPista(getPista());
-		Usuario unUsuario = new Usuario(nombre, unAuto);
+		Usuario unUsuario = new Usuario(nombre);
+		unUsuario.setAuto(unAuto);
 		usuarios.add(unUsuario);
 		return unUsuario;
 	}
