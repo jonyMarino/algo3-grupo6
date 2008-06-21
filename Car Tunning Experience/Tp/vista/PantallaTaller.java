@@ -3,11 +3,19 @@ package vista;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.swing.*;
+
+import proveedorDePartes.fabricas.FabricaDeEscapes;
+import proveedorDePartes.fabricas.InformacionDelModelo;
 
 public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private JComboBox enBodega;
 	
 	public PantallaTaller(PanelBase panelBase) {
 		
@@ -70,21 +78,32 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
 	    tabbedPane.setPreferredSize(new Dimension(250,100));
-	     
-	    JPanel panelPista = new JPanel();
-	    panelPista.setLayout(new GridBagLayout());
-	     
 	    Color nc = new Color(0,0,0,50);
-	    panelPista.setBackground(nc);
+	  
 	    
 	    JPanel panelDinero = new JPanel();
         panelDinero.setBackground(nc);
+        JTextField boxDinero = new JTextField("dinero del usuario",20);
+		boxDinero.setBackground(Color.white);
+		panelDinero.add(boxDinero);
         tabbedPane.addTab("Dinero",panelDinero);
         
         JPanel panelBodega = new JPanel();
         panelBodega.setBackground(nc);
+        enBodega = new JComboBox();
+        Boton botonCambiar = new Boton("Cambiar");
+        panelBodega.add(botonCambiar);
+        panelBodega.add(enBodega);
+        agregarABodega();
         tabbedPane.addTab("Bodega",panelBodega);
         
+        
+	    JPanel panelPista = new JPanel();
+	    panelPista.setLayout(new GridBagLayout());
+	    panelPista.setBackground(nc);
+        JTextField boxPista = new JTextField("datos de la pista",20);
+		boxPista.setBackground(Color.white);
+		panelPista.add(boxPista);
 	    tabbedPane.addTab("Proxima Pista",panelPista);
 	    
 	    GridBagConstraints c = new GridBagConstraints();
@@ -136,23 +155,53 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 
 	private JPanel contenedorPartes(){
 	 
-		
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(3,2));
-		String[] lista={"NombreDeParte","ModeloA","ModeloB","ModeloC","ModeloD","ModeloE","ModeloF"};
-		for (int i=0;i<3;i++)
-	    	for (int j=0;j<3;j++){
-	    		JComboBox petList = new JComboBox(lista);
-	    		petList.setOpaque(false);
-	    		panel.add(petList);
-	         }
+		/*ESTA FABRICA ES TEMPORAL DE PRUEBA NOMAS*/
+		 FabricaDeEscapes  fabricaEscapes = new FabricaDeEscapes();
+	     ArrayList<InformacionDelModelo> temporal = fabricaEscapes.getModelos();
 	    
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setLayout(new GridLayout(3,2));
+		
+		for (int i=0;i<3;i++)
+	    	for (int j=0;j<3;j++)
+	    			panel.add(crearCombosPartes(temporal));
 	     return panel;
-}
+	}
+	
+	private void agregarABodega(){
+	    enBodega.addItem("nuevaParte");
+	}
 
+	
+	public JComboBox crearCombosPartes( ArrayList<InformacionDelModelo> contenedorDeListas) {
+		/*SIGUE EN PROCESO ESTE METODO, PORQUE EN LA TEORIA ESTE RECIBE TODAS LAS LISTAS DE LAS FABRICAS
+		PARA CREAR LOS COMBO BOX*/
+		
+        JComboBox combo = new JComboBox();
+        Iterator it;
+        InformacionDelModelo c;
+		it = contenedorDeListas.iterator();
+		while (it.hasNext()) {
+			c = (InformacionDelModelo)it.next();
+	        c.getInformacionDeEstaParte().get("DESCRIPCION");
+	        combo.addItem(c.getInformacionDeEstaParte().get("DESCRIPCION")); //GUARDA EN EL COMBO EL NOMBRE -OSEA LA DESCRIPCION-
+		}    
+	     
+     
+        combo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               
+            }
+        });
+
+        return combo;
+    }
+	
 	public void actionPerformed(ActionEvent e) {
 		
 		
 	}
 
 }
+
