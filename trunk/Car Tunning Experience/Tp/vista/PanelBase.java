@@ -6,18 +6,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import programaAuto.ProgramaAuto;
+import controlador.ControladorJuego;
 
 public class PanelBase extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel pantallaActual;
 	private JPanel pantallaAnterior;
-	private ProgramaAuto programaAuto;
+	private ControladorJuego controlador;
 	
-	public PanelBase(ProgramaAuto programaAuto) {
+	public PanelBase(ControladorJuego controlador) {
 		super();
-		this.setProgramaAuto(programaAuto);
+		this.setControlador(controlador);
 		
 		//Amarillo para que se vea!!!
 		this.setBackground(Color.YELLOW);
@@ -76,12 +76,12 @@ public class PanelBase extends JPanel implements ActionListener {
 		this.pantallaActual = pantallaActual;
 	}
 
-	public ProgramaAuto getProgramaAuto() {
-		return programaAuto;
+	public ControladorJuego getControlador() {
+		return controlador;
 	}
 
-	private void setProgramaAuto(ProgramaAuto programaAuto) {
-		this.programaAuto = programaAuto;
+	public void setControlador(ControladorJuego controlador) {
+		this.controlador = controlador;
 	}
 
 }

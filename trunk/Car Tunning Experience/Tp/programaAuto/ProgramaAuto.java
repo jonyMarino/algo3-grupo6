@@ -132,7 +132,6 @@ public class ProgramaAuto extends Observable {
 		try {
 			tanque.llenarTanque(70);
 		} catch (BoundsException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try{
