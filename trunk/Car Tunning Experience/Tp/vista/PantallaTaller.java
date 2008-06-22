@@ -8,6 +8,8 @@ import java.util.Iterator;
 
 import javax.swing.*;
 
+import controlador.ControladorTaller;
+
 import excepciones.BoundsException;
 
 import programaAuto.Usuario;
@@ -24,12 +26,12 @@ import taller.Taller;
 public class PantallaTaller extends JPanelConImagen implements ActionListener {
 
 	private DefaultComboBoxModel listaPartesEnTaller;
-	private JTextField boxPista;
-	private JTextField boxDinero;
+	private JLabel boxPista;
+	private JLabel boxDinero;
 	private static final long serialVersionUID = 1L;
 
 	
-	public PantallaTaller(PanelBase panelBase) {
+	public PantallaTaller(PanelBase panelBase, ControladorTaller controladorTaller) {
 		
 		super();
 		
@@ -53,6 +55,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		Boton botonComenzar = new Boton("Comenzar Carrera");
 		botonComenzar.addActionListener(panelBase);
 		this.add(botonComenzar, c);
+		
 	}
 
 	private void crearPaneCatalogo(){
@@ -111,7 +114,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		panelPista.setLayout(new GridBagLayout());
 		panelPista.setBackground(nc);
 		
-		boxPista = new JTextField("datos de la pista",20);
+		boxPista = new JLabel("datos de la pista",20);
 	    boxPista.setBackground(Color.white);
 		panelPista.add(boxPista);
 		
@@ -124,7 +127,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	    JPanel panelDinero = new JPanel();
         panelDinero.setBackground(nc);
         
-        boxDinero = new JTextField("dinero del usuario",20);
+        boxDinero = new JLabel("dinero del usuario",20);
 		boxDinero.setBackground(Color.white);
 		panelDinero.add(boxDinero);
 		
@@ -152,13 +155,16 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	    panelBodega.setBackground(nc);
 
 	    JComboBox comboBox = new JComboBox();
+	 
+	
 	    try{
 			String descripcion = taller.getPartesDeReserva().next().getInformacionModelo().getCaracteristica("DESCRIPCION");
 			agregarABodega(descripcion);
-			//si uso el iterador para recorrer las reservas me entra en loop, por eso por ahora esta asi
+			//no me toma bien el iterador nose porque
 		}catch(BoundsException e){}
 	  
-	    comboBox.setModel(listaPartesEnTaller);
+	   
+	   comboBox.setModel(listaPartesEnTaller);
 	  
 	    /* comboBox.addActionListener(new ActionListener() {
 	           public void actionPerformed(ActionEvent e) {
@@ -247,34 +253,31 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 
 	
 	public JPanel crearCombosPartes( ArrayList <ArrayList<InformacionDelModelo>> contenedorDeListas) {
-	/* se crean todas las fabricas y se las pasa una vez creadas todas juntas para armar el catalgo.
-	 **/
+	/* se crean todas las fabricas y se las pasa una vez creadas todas juntas para armar el catalgo.*/
 		
-		JPanel panel2 = new JPanel();
-		
-		panel2.setLayout (new GridLayout (5,2)); //TOTAL 10 FABRICAS
+		JPanel panelCombo = new JPanel();
+		panelCombo.setLayout (new GridLayout (5,2)); //TOTAL 10 FABRICAS
         JComboBox combo;
       
         Iterator it;
-        Iterator it1;
-        InformacionDelModelo c;
-        ArrayList<InformacionDelModelo> c1;
+        Iterator itInformacion;
+        InformacionDelModelo informacionDelModelo;
+        ArrayList<InformacionDelModelo> contenedorInformacion;
 		it = contenedorDeListas.iterator();
 		
-		for (int i=0;i<4;i++)
 		while (it.hasNext()){
-			c1 = (ArrayList<InformacionDelModelo>)it.next();
-			it1 = c1.iterator();
+			contenedorInformacion = (ArrayList<InformacionDelModelo>)it.next();
+			itInformacion = contenedorInformacion.iterator();
 			combo = new JComboBox();
 			
-					while (it1.hasNext()) {
-						c = (InformacionDelModelo)it1.next();
+					while (itInformacion.hasNext()) {
+						informacionDelModelo = (InformacionDelModelo)itInformacion.next();
 				       
 						try{
-				        combo.addItem(c.getCaracteristica("DESCRIPCION"));
+				        combo.addItem(informacionDelModelo.getCaracteristica("DESCRIPCION"));
 						}catch(BoundsException e){}
 					}
-		panel2.add(combo);
+			panelCombo.add(combo);
 		}
 	
 		/*
@@ -284,7 +287,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
             }
         });
 		*/
-        return panel2;
+        return panelCombo;
     }
 	
 	public void actionPerformed(ActionEvent e) {
@@ -292,12 +295,16 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		
 	}
 
-	public JTextField getBoxPista() {
+	public JLabel getBoxPista() {
 		return boxPista;
 	}
 
-	public JTextField getBoxDinero() {
+	public JLabel getBoxDinero() {
 		return boxDinero;
+	}
+	
+	public void update(){
+		return dinero;
 	}
 
 }

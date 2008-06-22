@@ -1,31 +1,13 @@
 package taller;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.List;
-
-import javax.management.Descriptor;
+import java.util.LinkedList;
 
 import programaAuto.Usuario;
-import proveedorDePartes.fabricas.Caja;
-import proveedorDePartes.fabricas.Rueda;
-import proveedorDePartes.fabricas.Carroceria;
-import proveedorDePartes.fabricas.Eje;
-import proveedorDePartes.fabricas.Escape;
-import proveedorDePartes.fabricas.Mezclador;
-import proveedorDePartes.fabricas.Motor;
-import proveedorDePartes.fabricas.ParteAuto;
-import proveedorDePartes.fabricas.TanqueCombustible;
 import proveedorDePartes.fabricas.InformacionDelModelo;
-import auto.Auto;
-import excepciones.BoundsException;
-import excepciones.NotEnoughMoneyException;
-import excepciones.NotInIndexException;
-import excepciones.PartAlreadyInCatalogException;
-import excepciones.WrongPartClassException;
+import proveedorDePartes.fabricas.ParteAuto;
 import excepciones.IncorrectPartForUbicationException;
 import excepciones.UbicationUnkownException;
 

@@ -118,7 +118,7 @@ public class ProgramaAuto extends Observable {
 		fabricaCajas = new FabricaDeCajas();
 		fabricaEjes = new FabricaDeEjes();
 		fabricaPedales = new FabricaDePedales();
-		
+		usuarios = new ArrayList<Usuario>();		
 	}
 
 	public Auto autoInicial(){
@@ -128,15 +128,12 @@ public class ProgramaAuto extends Observable {
 		TanqueNafta tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
 		tanque.setCombustible(nafta);
 	
-		usuarios = new ArrayList<Usuario>();
 		try {
 			tanque.llenarTanque(70);
 		} catch (BoundsException e1) {
 			e1.printStackTrace();
 		}
-		try{
 			MezcladorNafta mezclador = (MezcladorNafta) fabricaMezcladores.fabricar(fabricaMezcladores.getModelos().get(0));
-			mezclador.setTanqueCombustible(tanque);
 			
 			Escape escape = fabricaEscapes.fabricar(fabricaEscapes.getModelos().get(0));
 			
@@ -149,36 +146,19 @@ public class ProgramaAuto extends Observable {
 			}
 			
 			Eje eje = fabricaEjes.fabricar(fabricaEjes.getModelos().get(0));
-			eje.setRuedaTrasera(ruedas.get(3));
 			
 			CajaManual caja=(CajaManual) fabricaCajas.fabricar(fabricaCajas.getModelos().get(0));
-			caja.setEje(eje);
 			
 			Motor motor=fabricaMotores.fabricar(fabricaMotores.getModelos().get(0));
-			motor.setEscape(escape);
-			motor.setMezclador(mezclador);
-			motor.setCaja(caja);
-
-			caja.setMotor(motor);
+			
+			Freno freno =  (Freno) fabricaPedales.fabricar(fabricaPedales.getModelos().get(1));
 			
 			try {
-				auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje);
+				auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje, freno);
 			} catch (WrongPartClassException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			auto.setPista(pista);
-			
-			Acelerador acelerador =  (Acelerador) fabricaPedales.fabricar(fabricaPedales.getModelos().get(0));
-			acelerador.setMotor(motor);
-			Freno freno =  (Freno) fabricaPedales.fabricar(fabricaPedales.getModelos().get(1));
-			freno.setEje(eje);
-			
-			auto.setFreno((Freno) freno);
-			auto.setAcelerador((Acelerador) acelerador);
-
-		
-		}catch(BoundsException e){}
 
 		return auto;
 	}
@@ -203,14 +183,17 @@ public class ProgramaAuto extends Observable {
 		Usuario unUsuario = new Usuario(nombre);
 		unUsuario.setAuto(unAuto);
 		usuarios.add(unUsuario);
+			
+		
 		return unUsuario;
 	}
+	
+	
 	
 	
 	public void comenzarCarrera(){
 		SimulacionDeLaCarrera unaSimulacion = inicializarCarrera();
 		unaSimulacion.simularTodo();
-		//¿sleep?
 	}
 
 	private SimulacionDeLaCarrera inicializarCarrera() {

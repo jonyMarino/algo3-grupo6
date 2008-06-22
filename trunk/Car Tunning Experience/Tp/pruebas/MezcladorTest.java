@@ -3,7 +3,6 @@ package pruebas;
 import proveedorDePartes.fabricas.FabricaDeMezcladores;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.Mezclador;
-import proveedorDePartes.fabricas.MezcladorNafta;
 import proveedorDePartes.fabricas.TanqueNafta;
 import junit.framework.TestCase;
 

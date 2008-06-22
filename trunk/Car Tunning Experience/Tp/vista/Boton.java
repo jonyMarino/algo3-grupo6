@@ -13,7 +13,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.ButtonModel;
 
-public class Boton extends JButton implements Observer {
+public class Boton extends JButton {
 	
 	private static final long serialVersionUID = 1L;
 	private Color color1 = new Color(0x666f7f);
@@ -93,9 +93,5 @@ public class Boton extends JButton implements Observer {
 	        this.color3 = color3;
 	    }
 
-		public void update(Observable o, Object arg) {
-			// TODO Auto-generated method stub
-			
-		}  
 	
 }

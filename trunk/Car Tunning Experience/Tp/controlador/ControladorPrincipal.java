@@ -79,7 +79,7 @@ public class ControladorPrincipal implements KeyListener{
 			break;
 		}
 		try {
-			unAuto.getAcelerador().presionar(aceleracion);
+			unAuto.presionarAcelerador(aceleracion);
 		} catch (BoundsException e1) {
 		}
 
