@@ -9,7 +9,8 @@ import javax.swing.JPanel;
 public class PantallaUsuario extends JPanelConImagen {
 
 	private static final long serialVersionUID = 1L;
-
+	private CuadroIngresoUsuario panelIngreso;
+	
 	public PantallaUsuario(PanelBase panelBase) {
 		super();
 		//FONDO
@@ -21,7 +22,7 @@ public class PantallaUsuario extends JPanelConImagen {
 		
 		
 		//PANEL INGRESO
-			CuadroIngresoUsuario panelIngreso = new CuadroIngresoUsuario();
+			panelIngreso = new CuadroIngresoUsuario();
 			panelIngreso.setOpaque(false);
 			//PERSONAJES
 			ComboBoxCars personajes = new ComboBoxCars();
@@ -45,6 +46,10 @@ public class PantallaUsuario extends JPanelConImagen {
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
    		this.setBorder(BorderFactory.createEmptyBorder(250, 0, 0, 0));
+	}
+
+	public CuadroIngresoUsuario getPanelIngreso() {
+		return panelIngreso;
 	}
 
 }
