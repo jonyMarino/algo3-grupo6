@@ -59,10 +59,17 @@ public class Eje extends ParteAuto{
      *  @see Torqueador
      */
 //Desgraciadamente, por como implementa Java la visibilidad de paquete y los paquetes, solo puede ser declarado como publico
-	public void addTorqueador(Torqueador iteradorTorques) {
-		if(iteradorTorques==null)
+	/*
+	 * Llamar al parametro iteradorTorqueador, no tiene sentido porque no es ningun iterador.
+	 */
+	public void addTorqueador(Torqueador torqueador) {
+		if(torqueador==null)
 			throw new NoTorqueadorException();
-		torques.add(iteradorTorques);
+		torques.add(torqueador);
+	}
+	
+	public void deleteTorqueador(Torqueador torqueador){
+		torques.remove(torqueador);
 	}
 	
 	public boolean desgastar(int tiempo){

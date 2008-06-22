@@ -1,14 +1,13 @@
 package auto;
 
-//import java.util.Collection;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Observable;
-import java.util.List;
 
 import excepciones.BoundsException;
+import excepciones.IncorrectPartForUbicationException;
+import excepciones.UbicationUnkownException;
 import excepciones.WrongPartClassException;
 import pista.Pista;
 import proveedorDePartes.fabricas.Acelerador;
@@ -55,7 +54,315 @@ public abstract class Auto extends Observable{
 	private Hashtable<String, ParteAuto> partes;
 	private Caja 				   caja;
 	private Pista	               pista;
-
+	// cuando se coloca una parte, se le avisa a esta cadena.
+	private CadenaEnsambladores cadenaEnsambladores;	
+	//Ensambladores. Implementa patron de diseño cadena.
+	// El asunto es si modelar que partes de la misma jerarquia puedan ensamblarse de diferentes formas
+	// yo en ese caso utilizaria Strategy pasando los ensambladores. Habria que agregar un des-ensamblar  
+	// y Tratar solo al objeto en cuestion
+	protected interface Ensamblador{
+		/**
+		 * Colaca la nueva parte, des-ensamblando la nueva
+		 * @param parte parte a colocar en el auto
+		 * @param Ubicacion 
+		 * @return verdadero si sabe colocar la parte
+		 */
+		boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException;
+		/**
+		 * Ensambla la parte ya colocada al Auto si es que corresponde a Ubicacion
+		 * @param ubicacion ubicacion en el Auto
+		 * @return verdadero si pudo ensamblarla
+		 */
+		boolean ensamblar(String ubicacion);
+		/**
+		 * Ensambla su parte.
+		 */
+		void ensamblar();
+	}
+	/**
+	 * CadenaEnsambladores guarda los ensambladores para el auto
+	 * y las partes que deben ensamblarse
+	 *
+	 */
+	private class CadenaEnsambladores{
+		LinkedList<Ensamblador> ensambladores=new LinkedList<Ensamblador>();
+		LinkedList<String> partesAEnsamblar=new LinkedList<String>();
+		LinkedList<Ensamblador> ensambladoresParaEnsamblar=new LinkedList<Ensamblador>();
+		//Hashtable<String,Ensamblador> partesAEnsamblarConEnsamblador=new Hashtable<String,Ensamblador>();
+		void colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException,UbicationUnkownException{
+			for(Ensamblador ensamblador:ensambladores){
+				if(ensamblador.colocar(parte, ubicacion)){
+					//aniadirAListaPorEnsamblar(ubicacion,ensamblador);
+					return;
+				}
+			}
+			throw new UbicationUnkownException(ubicacion);
+		}
+		void ensamblar()throws UbicationUnkownException{
+			for(String ubicacion:partesAEnsamblar){
+				for(Ensamblador ensamblador:ensambladores){
+					if(ensamblador.ensamblar(ubicacion))
+						break;
+				}
+				throw new UbicationUnkownException(ubicacion);
+			}
+			partesAEnsamblar.clear();
+			
+			for(Ensamblador ensamblador:ensambladoresParaEnsamblar)
+				ensamblador.ensamblar();
+			ensambladoresParaEnsamblar.clear();
+			
+			/*for(String ubicacion:partesAEnsamblarConEnsamblador.keySet()){
+				Ensamblador ensamblador=partesAEnsamblarConEnsamblador.get(ubicacion);
+				ensamblador.ensamblar(ubicacion);
+			}
+			*/
+		}
+		void aniadirAListaPorEnsamblar(String ubicacion){
+			partesAEnsamblar.add(ubicacion);
+		}
+		void aniadirAListaPorEnsamblar(Ensamblador ensamblador){
+			ensambladoresParaEnsamblar.add(ensamblador);
+		}
+		/*void aniadirAListaPorEnsamblar(String ubicacion,Ensamblador ensamblador){
+			partesAEnsamblarConEnsamblador.put(ubicacion, ensamblador);
+		}
+		*/
+		void aniadirEnsamblador(Ensamblador ensamblador){
+			ensambladores.add(ensamblador);
+		}
+	}
+/**
+ * 
+ * @author Jony
+ *
+ */
+	private class EnsambladorMotor implements Ensamblador{
+		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!="MOTOR")
+				return false;
+			if(!(parte instanceof Motor))
+				throw new IncorrectPartForUbicationException("No se tiene referencia a un motor");			
+			Motor motorASacar=getMotor();
+			if(motorASacar!=null){
+				motorASacar.setCaja(null);
+				motorASacar.setEscape(null);
+				motorASacar.setMezclador(null);				
+			}
+			if(getCaja()!=null)
+				getCaja().setMotor(null);
+			setMotor((Motor)parte);	//coloco el nuevo motor
+			return true;
+		}
+		public boolean ensamblar(String ubicacion){	
+			if(ubicacion!="MOTOR")
+				return false;
+			ensamblar();
+			return true;
+		}
+		public void ensamblar(){
+			getMotor().setCaja(getCaja());
+			getMotor().setEscape(getEscape());
+			getMotor().setMezclador(getMezclador());
+			getCaja().setMotor(getMotor());	
+		}
+	}
+	/**
+	 * 
+	 * @author Jony
+	 *
+	 */
+	private class EnsambladorCaja implements Ensamblador{
+		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!="CAJA")
+				return false;
+			if(!(parte instanceof Caja))
+				throw new IncorrectPartForUbicationException("No se tiene referencia a una caja");
+			getCaja().setEje(null);//Caja vieja
+			getCaja().setMotor(null);
+			setCaja((Caja)parte);
+			return true;
+		}
+		public boolean ensamblar(String ubicacion){	
+			if(ubicacion!="CAJA")
+				return false;
+			ensamblar();
+			return true;
+		}
+		public void ensamblar(){
+			getCaja().setEje(getEje());
+			getCaja().setMotor(getMotor());
+			getMotor().setCaja(getCaja());	
+		}
+	}
+	/**
+	 * 
+	 * @author Jony
+	 *
+	 */
+	private class EnsambladorEje implements Ensamblador{
+		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!="EJE")
+				return false;
+			if(!(parte instanceof Eje))
+				throw new IncorrectPartForUbicationException("No se tiene referencia a un eje");
+			getCaja().setEje(null);//Caja vieja
+			getCaja().setMotor(null);
+			getMotor().setCaja(null);
+			setCaja((Caja)parte);
+			return true;			
+		}
+		public boolean ensamblar(String ubicacion){	
+			if(ubicacion!="EJE")
+				return false;
+			ensamblar();
+			return true;
+		}
+		public void ensamblar(){
+			getCaja().setEje(getEje());
+			getCaja().setMotor(getMotor());
+			getMotor().setCaja(getCaja());
+		}
+	}
+	/**
+	 * 
+	 * @author Jony
+	 *
+	 */
+	private class EnsambladorEscape implements Ensamblador{
+		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!="ESCAPE")
+				return false;
+			if(!(parte instanceof Escape))
+				throw new IncorrectPartForUbicationException("No se tiene referencia a un escape");			
+			setEscape((Escape)parte);
+			return true;
+		}
+		public boolean ensamblar(String ubicacion){	
+			if(ubicacion!="ESCAPE")
+				return false;	
+			ensamblar();
+			return true;
+		}
+		public void ensamblar(){			
+		}
+	}
+	/**
+	 * 
+	 * @author Jony
+	 *
+	 */
+	private class EnsambladorCarroceria implements Ensamblador{
+		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!="CARROCERIA")
+				return false;
+			if(!(parte instanceof Carroceria))
+				throw new IncorrectPartForUbicationException("No se tiene referencia a una carroceria");			
+			getCarroceria().setAuto(null);
+			setCarroceria((Carroceria)parte);
+		}
+		public boolean ensamblar(String ubicacion){	
+			if(ubicacion!="CARROCERIA")
+				return false;
+			ensamblar();
+			return true;
+		}
+		public void ensamblar(){
+			getCarroceria().setAuto(Auto.this);
+		}
+	}
+	/**
+	 * 
+	 * @author Jony
+	 *
+	 */
+	private class EnsambladorFreno implements Ensamblador{
+		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!="FRENO")
+				return false;
+			if(!(parte instanceof Freno))
+				throw new IncorrectPartForUbicationException("No se tiene referencia a un freno");			
+			getFreno().setEje(null);
+			setFreno((Freno)parte);
+			return true;
+		}
+		public boolean ensamblar(String ubicacion){	
+			if(ubicacion!="FRENO")
+				return false;
+			ensamblar();
+			return true;
+		}
+		public void ensamblar(){
+			getFreno().setEje(getEje());
+		}
+	}
+	/**
+	 * 
+	 * @author Jony
+	 *
+	 */
+	private class EnsambladorAcelerador implements Ensamblador{
+		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!="ACELERADOR")
+				return false;
+			if(!(parte instanceof Acelerador))
+				throw new IncorrectPartForUbicationException("No se tiene referencia a un acelerador");			
+			getAcelerador().setMotor(null);
+			setAcelerador((Acelerador)parte);
+			return true;
+		}
+		public boolean ensamblar(String ubicacion){	
+			if(ubicacion!="ACELERADOR")
+				return false;
+			ensamblar();
+			return true;
+		}
+		public void ensamblar(){
+			getAcelerador().setMotor(getMotor());
+		}
+	}
+	/**
+	 * 
+	 * @author Jony
+	 *
+	 */
+	private class EnsambladorMezclador implements Ensamblador{
+		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
+			return false;
+		}
+		public boolean ensamblar(String ubicacion){	
+			return false;
+		}
+		public void ensamblar(){}
+	}
+	/**
+	 * 
+	 * @author Jony
+	 *
+	 */
+	private class EnsambladorRueda implements Ensamblador{
+		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
+			return false;
+		}
+		public boolean ensamblar(String ubicacion){	
+			return false;
+		}
+		public void ensamblar(){}
+	}
+	/**
+	 * 
+	 * @author Jony
+	 *
+	 */
+	private class EnsambladorTanqueCombustible implements Ensamblador{
+		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
+			return false;	
+		}
+		public boolean ensamblar(String ubicacion){	
+			return false;	
+		}
+		public void ensamblar(){}
+	}
 	/**
 	 * Crea un nuevo auto con las partes especificadas.
 	 *
@@ -75,12 +382,14 @@ public abstract class Auto extends Observable{
 	            Rueda rueda1, Rueda rueda2, Rueda rueda3, Rueda rueda4, Eje eje) {
 
 		partes = new Hashtable <String, ParteAuto>();
-		this.setCarroceria(carroceria);
-		this.setMotor(motor);
-		this.setEscape(escape);
-		this.setMezclador(mezclador);
-		this.setTanqueCombustible(tanqueCombustible);
-		this.setPista(null);
+		setCarroceria(carroceria);
+		setMotor(motor);
+		setEscape(escape);
+		setMezclador(mezclador);
+		setTanqueCombustible(tanqueCombustible);
+		setEje(eje);
+		setCaja(caja);
+		setPista(null);
 		//Ruedas
 		ruedas = new LinkedList<Rueda>();
 		ruedas.add(rueda1);
@@ -94,25 +403,44 @@ public abstract class Auto extends Observable{
 		
 		//Posicion
 		setPosicion(0);
-
-		//Asignar Eje
-		this.setEje(eje);
-
-		caja.setEje(getEje());
-		caja.setMotor(getMotor());
-		motor.setCaja(caja);
-		try {
-			setCaja(caja);
-		} catch (WrongPartClassException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		
+		cadenaEnsambladores=new CadenaEnsambladores();
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorMotor());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorCaja());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorEje());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorEscape());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorFreno());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorAcelerador());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorMezclador());	
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorTanqueCombustible());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorRueda());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorCarroceria());
 	}
 
+	/**
+	 * Coloca la parte en el auto.
+	 * @param parte
+	 * @param ubicacion
+	 * @throws IncorrectPartForUbicationException
+	 * @throws UbicationUnkownException
+	 */
+	public void colocarParte(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException,UbicationUnkownException{
+		cadenaEnsambladores.colocar(parte, ubicacion);
+	}
+	/**
+	 * ensambla las piezas agregadas.
+	 */
+	public void ensamblar(){
+		try{
+			cadenaEnsambladores.ensamblar();
+		}catch(UbicationUnkownException e){
+			throw new RuntimeException("Falta ensamblador para: "+e.getUbicacion());
+		}
+	}
 //Partes Auto
-	public List getListaPartes(){
-		return (List) partes.clone();
+	@SuppressWarnings("unchecked")
+	public Hashtable<String, ParteAuto> getHashDePartes(){
+		return (Hashtable<String, ParteAuto>)partes.clone();
 	}
 //VELOCIDAD
 
@@ -267,6 +595,7 @@ public abstract class Auto extends Observable{
 	public void setMotor(Motor motor) {
 		this.motor = motor;
 		partes.put("MOTOR", motor);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar("MOTOR");
 	}
 
 	/**
@@ -532,7 +861,7 @@ public abstract class Auto extends Observable{
 	 *
 	 * @see Caja.
 	 */
-	public void setCaja(Caja caja) throws WrongPartClassException {
+	public void setCaja(Caja caja){
 		this.caja = caja;
 		partes.put("CAJA", caja);
 	}
