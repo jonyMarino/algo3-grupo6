@@ -20,8 +20,8 @@ public class JPanelConImagen extends JPanel {
 
 	public void paintComponent(Graphics g) {
 		 Graphics2D g2 =(Graphics2D) g;
-	        if(getImage()!=null)
-	            g2.drawImage(getImage(), 0, 0, getWidth(), getHeight(), null);
+	        if(this.getImage()!=null)
+	            g2.drawImage(this.getImage(), 0, 0, getWidth(), getHeight(), null);
 	}
 	
 	public Image getImage() {
