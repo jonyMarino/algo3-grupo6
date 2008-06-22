@@ -11,7 +11,7 @@ public class Freno extends Pedal implements Torqueador {
 
 	private double torque;
 	private double pastillaDeFreno;
-
+	private Eje eje;
 	/**
 	 * Crea un nuevo pedal Freno con las características especificadas.
 	 *
@@ -26,7 +26,11 @@ public class Freno extends Pedal implements Torqueador {
 	}
 	
 	public void setEje(Eje unEje){
-		unEje.addTorqueador(this);		
+		if(eje!=null)
+			eje.deleteTorqueador(this);
+		eje=unEje;
+		if(eje!=null)
+			eje.addTorqueador(this);		
 	}
 
 	/**

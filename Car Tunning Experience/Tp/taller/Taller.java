@@ -26,7 +26,8 @@ import excepciones.NotEnoughMoneyException;
 import excepciones.NotInIndexException;
 import excepciones.PartAlreadyInCatalogException;
 import excepciones.WrongPartClassException;
-
+import excepciones.IncorrectPartForUbicationException;
+import excepciones.UbicationUnkownException;
 
 public class Taller {
 	
@@ -72,9 +73,12 @@ public class Taller {
 		partesDeReserva = new ArrayList<ParteAuto>();
 	}
 	// TODO hay que ver como se distingue entre partes del mismo tipo, ej: Ruedas
-	public void colocarParteDeReserva(InformacionParteReserva informacionReserva, InformacionParteEnAuto informacionParte){
-		
-		usuario.getAuto().colocarParte(informacionReserva.getParte(),informacionParte.getUbicacion());
+	public void colocarParteDeReserva(InformacionParteReserva informacionReserva, InformacionParteEnAuto informacionParte)throws IncorrectPartForUbicationException{
+		try{
+			usuario.getAuto().colocarParte(informacionReserva.getParte(),informacionParte.getUbicacion());
+		}catch(UbicationUnkownException e){
+			throw new RuntimeException("Falta ensamblador para: "+e.getUbicacion());
+		}
 		
 		aniadirAReserva(((InformacionParteReserva)informacionParte).getParte());
 		
