@@ -28,6 +28,7 @@ public class FabricaDeEscapes extends FabricaDePartes {
 			unEscape.setDescripcion(descripcion);
 			unEscape.setCosto(costo);
 			unEscape.setPeso(peso);
+			unEscape.setInformacionDelModelo(modelo);
 			return unEscape;
 		}
 		catch(BoundsException e){
