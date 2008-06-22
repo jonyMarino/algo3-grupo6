@@ -10,6 +10,7 @@ public class PantallaUsuario extends JPanelConImagen {
 
 	private static final long serialVersionUID = 1L;
 	private CuadroIngresoUsuario panelIngreso;
+	private ComboBoxCars comboBoxCars;
 	
 	public PantallaUsuario(PanelBase panelBase) {
 		super();
@@ -26,6 +27,7 @@ public class PantallaUsuario extends JPanelConImagen {
 			panelIngreso.setOpaque(false);
 			//PERSONAJES
 			ComboBoxCars personajes = new ComboBoxCars();
+			comboBoxCars = personajes;
    			personajes.setOpaque(false);
 
    		GridBagConstraints c = new GridBagConstraints();
@@ -51,6 +53,12 @@ public class PantallaUsuario extends JPanelConImagen {
 	public CuadroIngresoUsuario getPanelIngreso() {
 		return panelIngreso;
 	}
+
+	public ComboBoxCars getComboBoxCars() {
+		return comboBoxCars;
+	}
+
+
 
 }
 

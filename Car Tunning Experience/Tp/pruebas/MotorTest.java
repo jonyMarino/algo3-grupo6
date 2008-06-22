@@ -98,15 +98,10 @@ public class MotorTest extends TestCase {
 
 		caja.setMotor(motor);
 		
-		auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, rueda, rueda, rueda, rueda, eje);
-		auto.setPista(pista);
-		
-		acelerador =  (Acelerador) fabricaPedales.fabricar(fabricaPedales.getModelos().get(0));
 		freno =  (Freno) fabricaPedales.fabricar(fabricaPedales.getModelos().get(1));
-		freno.setEje(eje);
 		
-		auto.setFreno((Freno) freno);
-		auto.setAcelerador((Acelerador) acelerador);
+		auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, rueda, rueda, rueda, rueda, eje, freno);
+		auto.setPista(pista);
 		
 		rueda.setPista(pista);
 	}

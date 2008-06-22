@@ -43,7 +43,6 @@ public abstract class Auto extends Observable{
 	private Escape 		           escape;
 	private Carroceria 	           carroceria;
 	private Motor 		           motor;
-	private Acelerador	           acelerador;
 	private Freno 		           freno;
 	private LinkedList<Rueda>      ruedas;
 	private Eje                    eje;
@@ -77,7 +76,7 @@ public abstract class Auto extends Observable{
 		/**
 		 * Ensambla su parte.
 		 */
-		void ensamblar();
+		//void ensamblar();
 	}
 	/**
 	 * CadenaEnsambladores guarda los ensambladores para el auto
@@ -100,17 +99,17 @@ public abstract class Auto extends Observable{
 		}
 		void ensamblar()throws UbicationUnkownException{
 			for(String ubicacion:partesAEnsamblar){
+				boolean found=false;
 				for(Ensamblador ensamblador:ensambladores){
-					if(ensamblador.ensamblar(ubicacion))
+					found=ensamblador.ensamblar(ubicacion);
+					if(found)
 						break;
 				}
-				throw new UbicationUnkownException(ubicacion);
+				if(!found)
+					throw new UbicationUnkownException(ubicacion);
 			}
 			partesAEnsamblar.clear();
 			
-			for(Ensamblador ensamblador:ensambladoresParaEnsamblar)
-				ensamblador.ensamblar();
-			ensambladoresParaEnsamblar.clear();
 			
 			/*for(String ubicacion:partesAEnsamblarConEnsamblador.keySet()){
 				Ensamblador ensamblador=partesAEnsamblarConEnsamblador.get(ubicacion);
@@ -235,6 +234,7 @@ public abstract class Auto extends Observable{
 				return false;
 			if(!(parte instanceof Escape))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a un escape");			
+			getMotor().setEscape(null);
 			setEscape((Escape)parte);
 			return true;
 		}
@@ -245,6 +245,7 @@ public abstract class Auto extends Observable{
 			return true;
 		}
 		public void ensamblar(){			
+			getMotor().setEscape(getEscape());
 		}
 	}
 	/**
@@ -260,6 +261,7 @@ public abstract class Auto extends Observable{
 				throw new IncorrectPartForUbicationException("No se tiene referencia a una carroceria");			
 			getCarroceria().setAuto(null);
 			setCarroceria((Carroceria)parte);
+			return true;
 		}
 		public boolean ensamblar(String ubicacion){	
 			if(ubicacion!="CARROCERIA")
@@ -301,37 +303,23 @@ public abstract class Auto extends Observable{
 	 * @author Jony
 	 *
 	 */
-	private class EnsambladorAcelerador implements Ensamblador{
-		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			if(ubicacion!="ACELERADOR")
-				return false;
-			if(!(parte instanceof Acelerador))
-				throw new IncorrectPartForUbicationException("No se tiene referencia a un acelerador");			
-			getAcelerador().setMotor(null);
-			setAcelerador((Acelerador)parte);
-			return true;
-		}
-		public boolean ensamblar(String ubicacion){	
-			if(ubicacion!="ACELERADOR")
-				return false;
-			ensamblar();
-			return true;
-		}
-		public void ensamblar(){
-			getAcelerador().setMotor(getMotor());
-		}
-	}
-	/**
-	 * 
-	 * @author Jony
-	 *
-	 */
 	private class EnsambladorMezclador implements Ensamblador{
 		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			return false;
+			if(ubicacion!="MEZCLADOR")
+				return false;
+			if(!(parte instanceof Mezclador))
+				throw new IncorrectPartForUbicationException("No se tiene referencia a un mezclador");			
+			getMezclador().setTanqueCombustible(null);
+			getMotor().setMezclador(null);	
+			setMezclador((Mezclador)parte);
+			return true;
 		}
 		public boolean ensamblar(String ubicacion){	
-			return false;
+			if(ubicacion!="MEZCLADOR")
+				return false;
+			getMezclador().setTanqueCombustible(getTanqueCombustible());
+			getMotor().setMezclador(getMezclador());
+			return true;
 		}
 		public void ensamblar(){}
 	}
@@ -342,12 +330,48 @@ public abstract class Auto extends Observable{
 	 */
 	private class EnsambladorRueda implements Ensamblador{
 		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			return false;
+			if(ubicacion!="RUEDA1" && ubicacion!="RUEDA2" && ubicacion!="RUEDA3" && ubicacion!="RUEDA4")
+				return false;
+			if(!(parte instanceof Rueda))
+				throw new IncorrectPartForUbicationException("No se tiene referencia a una rueda.");			
+			if ( ubicacion == "RUEDA1" ){
+					getRuedaDelanteraDerecha().setAuto(null);
+					setRuedaDelanteraDerecha((Rueda)parte);
+			}
+			if ( ubicacion == "RUEDA2" ){
+					getRuedaDelanteraIzquierda().setAuto(null);
+					setRuedaDelanteraIzquierda((Rueda)parte);
+			}
+			if ( ubicacion == "RUEDA3" ){
+					getRuedaTraseraDerecha().setAuto(null);
+					setRuedaTraseraDerecha((Rueda)parte);
+			}
+			if ( ubicacion == "RUEDA4" ){
+					getRuedaTraseraIzquierda().setAuto(null);
+					getEje().setRuedaTrasera(null);
+					setRuedaTraseraIzquierda((Rueda)parte);
+			}
+			return true;
 		}
 		public boolean ensamblar(String ubicacion){	
-			return false;
+			if(ubicacion!="RUEDA1" && ubicacion!="RUEDA2" && ubicacion!="RUEDA3" && ubicacion!="RUEDA4")
+				return false;			
+			if ( ubicacion == "RUEDA1" ){
+					getRuedaDelanteraDerecha().setAuto(Auto.this);
+			}
+			if ( ubicacion == "RUEDA2" ){
+					getRuedaDelanteraIzquierda().setAuto(Auto.this);
+			}
+			if ( ubicacion == "RUEDA3" ){
+					getRuedaTraseraDerecha().setAuto(Auto.this);
+			}
+			if ( ubicacion == "RUEDA4" ){
+					getRuedaTraseraIzquierda().setAuto(Auto.this);
+					getEje().setRuedaTrasera(getRuedaTraseraIzquierda());
+			}
+		
+			return true;
 		}
-		public void ensamblar(){}
 	}
 	/**
 	 * 
@@ -356,10 +380,19 @@ public abstract class Auto extends Observable{
 	 */
 	private class EnsambladorTanqueCombustible implements Ensamblador{
 		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			return false;	
+			if(ubicacion!="TANQUE")
+				return false;
+			if(!(parte instanceof TanqueCombustible))
+				throw new IncorrectPartForUbicationException("No se tiene referencia a un tanque");			
+			getMezclador().setTanqueCombustible(null);
+			setTanqueCombustible((TanqueCombustible)parte);
+			return true;
 		}
 		public boolean ensamblar(String ubicacion){	
-			return false;	
+			if(ubicacion!="TANQUE")
+				return false;
+			getMezclador().setTanqueCombustible(getTanqueCombustible());
+			return true;	
 		}
 		public void ensamblar(){}
 	}
@@ -379,25 +412,15 @@ public abstract class Auto extends Observable{
 	 */
 	public Auto(Escape escape, Carroceria carroceria, Motor motor,
 	            Caja caja,Mezclador mezclador, TanqueCombustible tanqueCombustible,
-	            Rueda rueda1, Rueda rueda2, Rueda rueda3, Rueda rueda4, Eje eje) {
+	            Rueda rueda1, Rueda rueda2, Rueda rueda3, Rueda rueda4, Eje eje, Freno freno) {
 
 		partes = new Hashtable <String, ParteAuto>();
-		setCarroceria(carroceria);
-		setMotor(motor);
-		setEscape(escape);
-		setMezclador(mezclador);
-		setTanqueCombustible(tanqueCombustible);
-		setEje(eje);
-		setCaja(caja);
-		setPista(null);
+		
 		//Ruedas
 		ruedas = new LinkedList<Rueda>();
-		ruedas.add(rueda1);
-		ruedas.add(rueda2);
-		ruedas.add(rueda3);
-		ruedas.add(rueda4);
-		for(Rueda r : ruedas)
-			r.setAuto(this);
+		for(int i=0;i<4;i++)	//dejamos el lugar para las cuatro ruedas
+			ruedas.add(null);
+
 		//Velocidad
 		this.setVelocidad(0);
 		
@@ -410,11 +433,26 @@ public abstract class Auto extends Observable{
 		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorEje());
 		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorEscape());
 		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorFreno());
-		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorAcelerador());
 		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorMezclador());	
 		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorTanqueCombustible());
 		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorRueda());
 		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorCarroceria());
+		
+		setCarroceria(carroceria);
+		setMotor(motor);
+		setEscape(escape);
+		setMezclador(mezclador);
+		setTanqueCombustible(tanqueCombustible);
+		setEje(eje);
+		setCaja(caja);
+		setPista(null);
+		setFreno(freno);
+		setRuedaDelanteraDerecha(rueda1);
+		setRuedaDelanteraIzquierda(rueda2);
+		setRuedaTraseraDerecha(rueda3);
+		setRuedaTraseraIzquierda(rueda4);
+		
+		ensamblar();
 	}
 
 	/**
@@ -542,8 +580,8 @@ public abstract class Auto extends Observable{
 	 */
 	public void setEscape(Escape escape) {
 		this.escape = escape;
-		this.getMotor().setEscape(this.getEscape());
 		partes.put("ESCAPE", escape);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar("ESCAPE");
 	}
 
 //CARROCERIA
@@ -568,8 +606,8 @@ public abstract class Auto extends Observable{
 	 */
 	public void setCarroceria(Carroceria carroceria) {
 		this.carroceria = carroceria;
-		carroceria.setAuto(this);
 		partes.put("CARROCERIA", carroceria);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar("CARROCERIA");
 	}
 
 //MOTOR
@@ -610,30 +648,7 @@ public abstract class Auto extends Observable{
 		return rpm;
 	}
 
-//PEDALES
-
-	/**
-	 * Devuelve el {@link Acelerador} asociado al Auto.
-	 *
-	 * @return El {@link Acelerador} asociado.
-	 *
-	 * @see Acelerador
-	 */
-	public Acelerador getAcelerador() {
-		return acelerador;
-	}
-
-	/**
-	 * Asigna un {@link Acelerador} al Auto.
-	 *
-	 * @param acelerador El {@link Acelerador} a asignar.
-	 *
-	 * @see Acelerador
-	 */
-	public void setAcelerador(Acelerador acelerador) {
-		this.acelerador = acelerador;
-		partes.put("ACELERADOR", acelerador);
-	}
+//Freno
 
 	/**
 	 * Devuelve el {@link Freno} asociado al Auto.
@@ -656,17 +671,18 @@ public abstract class Auto extends Observable{
 	public void setFreno(Freno freno) {
 		this.freno = freno;
 		partes.put("FRENO", freno);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar("FRENO");
 	}
 
 	/**
-	 * Pisa el Pedal del Acelerador.
+	 * aumenta la aceleracion del motor.
 	 *
 	 * @param intensidad Intensidad es grado de fuerza que se le aplica al Acelerador.
 	 *
 	 * @see Acelerador
 	 */
 	public void presionarAcelerador(double intensidad)throws BoundsException  {
-		this.getAcelerador().presionar(intensidad);
+		getMotor().acelerar(intensidad);
 	}
 
 	/**
@@ -703,6 +719,7 @@ public abstract class Auto extends Observable{
 	public void setRuedaDelanteraDerecha(Rueda rueda) {
 		ruedas.set(0,rueda);
 		partes.put("RUEDA1", rueda);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar("RUEDA1");
 	}
 
 	/**
@@ -726,6 +743,7 @@ public abstract class Auto extends Observable{
 	public void setRuedaDelanteraIzquierda(Rueda rueda) {
 		ruedas.set(1,rueda);
 		partes.put("RUEDA2", rueda);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar("RUEDA2");
 	}
 
 	/**
@@ -749,6 +767,7 @@ public abstract class Auto extends Observable{
 	public void setRuedaTraseraDerecha(Rueda rueda) {
 		ruedas.set(2,rueda);
 		partes.put("RUEDA3", rueda);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar("RUEDA3");
 	}
 
 	/**
@@ -772,6 +791,7 @@ public abstract class Auto extends Observable{
 	public void setRuedaTraseraIzquierda(Rueda rueda) {
 		ruedas.set(3,rueda);
 		partes.put("RUEDA4", rueda);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar("RUEDA4");
 	}
 
 //TANQUE COMBUSTIBLE
@@ -796,8 +816,8 @@ public abstract class Auto extends Observable{
 	 */
 	public void setTanqueCombustible(TanqueCombustible tanqueCombustible) {
 		this.tanqueCombustible = tanqueCombustible;
-		this.getMezclador().setTanqueCombustible(this.getTanqueCombustible());
 		partes.put("TANQUE", tanqueCombustible);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar("TANQUE");
 	}
 
 	/**
@@ -850,6 +870,7 @@ public abstract class Auto extends Observable{
 		this.mezclador = mezclador;
 		this.getMotor().setMezclador(this.getMezclador());
 		partes.put("MEZCLADOR", mezclador);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar("MEZCLADOR");
 	}
 
 // CAJA
@@ -864,6 +885,7 @@ public abstract class Auto extends Observable{
 	public void setCaja(Caja caja){
 		this.caja = caja;
 		partes.put("CAJA", caja);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar("CAJA");
 	}
 
 	/**
@@ -900,6 +922,7 @@ public abstract class Auto extends Observable{
 	public void setEje(Eje eje) {
 		this.eje = eje;
 		partes.put("EJE", eje);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar("EJE");
 	}
 
 //PESO
@@ -929,25 +952,7 @@ public abstract class Auto extends Observable{
 		return listaDePartes;
 	}
 
-/*
-	private void asignadorPedales(){
-		//Acelerador
-		Acelerador acelerador = new Acelerador(this.getMotor());
-		this.setAcelerador(acelerador);
-
-		//Freno
-		Freno freno = new Freno(this.getEje(),100);
-		this.setFreno(freno);
-	}
-
-	private void asignarEje() {
-		//TODO: ¿¿¿¿¿¿Auto instancia un eje???????
-		Eje eje = new Eje(this.getRuedaTraseraDerecha());
-		this.setEje(eje);
-
-	}
-
-*/
+	//PISTA
 	public Pista getPista() {
 		return pista;
 	}
@@ -957,8 +962,8 @@ public abstract class Auto extends Observable{
 		this.pista = pista;
 	}
 	
-	//PISTA
-	//TODO: AGREGAR SETTERS Y GETTERS
+
+
 	
 //ESTADO DEL AUTO
 	public boolean puedeSeguir(){

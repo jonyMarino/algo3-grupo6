@@ -7,8 +7,9 @@ import javax.swing.*;
 public class ComboBoxCars extends JPanel {
 	    
 		private static final long serialVersionUID = 1L;
-		ImageIcon[] images;
-		String[] carStrings = { "Guido", "Flo", "Mate", "Sheriff", "Rayo McQueen" };
+		private ComboBoxRenderer renderer;
+		private ImageIcon[] images;
+		private String[] carStrings = { "Guido", "Flo", "Mate", "Sheriff", "Rayo McQueen" };
 
 	    public  ComboBoxCars() {
 	        super(new BorderLayout());
@@ -25,7 +26,7 @@ public class ComboBoxCars extends JPanel {
 
 	     
 	        JComboBox carList = new JComboBox(intArray);
-	        ComboBoxRenderer renderer= new ComboBoxRenderer();
+	        renderer= new ComboBoxRenderer();
 	        renderer.setPreferredSize(new Dimension(250, 100));
 	        carList.setRenderer(renderer);
 	        carList.setMaximumRowCount(3);
@@ -35,7 +36,9 @@ public class ComboBoxCars extends JPanel {
 	        setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 	    }
 
-	  
+	    public ImageIcon getSeleccionado(){
+		   return images[renderer.getSelectedIndex()];
+	   }
 	    protected static ImageIcon createImageIcon(String path) {
 	        java.net.URL imgURL =  ComboBoxCars.class.getResource(path);
 	        if (imgURL != null) {
@@ -45,18 +48,20 @@ public class ComboBoxCars extends JPanel {
 	                return null;
 	        }
 	    }
+	    
 
 	    class ComboBoxRenderer extends JLabel implements ListCellRenderer {
 	
 			private static final long serialVersionUID = 1L;
-
+			private int selectedIndex;
+			
 	        public ComboBoxRenderer() {
 	            setOpaque(true);  
 	        }
 
 	        public Component getListCellRendererComponent(JList list,Object value,int index,boolean isSelected,boolean cellHasFocus) {
 	       
-	            int selectedIndex = ((Integer)value).intValue();
+	            selectedIndex = ((Integer)value).intValue();
 
 	            if (isSelected) {
 	                setBackground(list.getSelectionBackground());
@@ -76,6 +81,10 @@ public class ComboBoxCars extends JPanel {
 	            }
 	            return this;
 	        }
+	        
+	        public int getSelectedIndex(){
+	        	return selectedIndex;
+	        } 
 
 	}
 

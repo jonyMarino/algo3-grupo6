@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -18,10 +19,12 @@ public class PanelBase extends JPanel implements ActionListener {
 	public PanelBase(ControladorJuego controlador) {
 		super();
 		this.setControlador(controlador);
+		controlador.setPanelBase(this);
 		
 		//Amarillo para que se vea!!!
 		this.setBackground(Color.YELLOW);
-		this.setPreferredSize(new Dimension(900,675));
+		Canvas lienzo = new Canvas();
+		this.setPreferredSize(new Dimension(lienzo.getWidth(),lienzo.getHeight()));
 		this.setPantallaAnterior(null);
 		this.setPantallaActual(null);
 	}
@@ -40,17 +43,6 @@ public class PanelBase extends JPanel implements ActionListener {
 		pantallaActual = pantalla;
 	}
 
-	public void actionPerformed(ActionEvent e) {
-			Boton boton = (Boton)e.getSource();
-			if (boton.getText().equals("Nueva Partida"))
-				this.crearPantalla( new PantallaUsuario(this));
-			if (boton.getText().equals("Volver"))
-				this.pantallaAnterior();
-			if (boton.getText().equals("Aceptar"))
-				this.crearPantalla( new PantallaTaller(this));
-			if (boton.getText().equals("Comenzar Carrera"))
-				this.crearPantalla( new PantallaCarrera(this));
-	}
 
 	public void pantallaAnterior() {
 		this.getPantallaActual().setVisible(false);
@@ -82,6 +74,11 @@ public class PanelBase extends JPanel implements ActionListener {
 
 	public void setControlador(ControladorJuego controlador) {
 		this.controlador = controlador;
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

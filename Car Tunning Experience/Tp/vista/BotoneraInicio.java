@@ -3,19 +3,18 @@ package vista;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Observer;
+
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import programaAuto.Observado;
 
-public class BotoneraInicio extends JPanel implements Observado {
+public class BotoneraInicio extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 
 	public BotoneraInicio(PanelBase panelBase) {
 
 		Boton botonNuevaPartida = new Boton("Nueva Partida");
-		botonNuevaPartida.addActionListener(panelBase);
+		botonNuevaPartida.addActionListener(panelBase.getControlador());
 
 		Boton botonContinuarPartida = new Boton("Continuar Partida");
 
@@ -42,21 +41,6 @@ public class BotoneraInicio extends JPanel implements Observado {
 			System.exit(0);
 		}
 
-	}
-
-	public void agregarObservador(Observer obs) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void cambie() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void sacarObservador(Observer obs) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

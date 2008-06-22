@@ -1,6 +1,6 @@
 package excepciones;
 
-public class WrongPartClassException extends Exception {
+public class WrongPartClassException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

@@ -71,7 +71,7 @@ public class TallerTest extends TestCase {
 			assertEquals(escape,usuario.getAuto().getEscape());
 			taller.comprar(usuario,indice);
 			assertEquals(600.0, usuario.getDinero());
-			//TODO: anotacion personal para no olvidar modificar algo, NO BORRAR
+			
 			assertEquals(escape,usuario.getAuto().getEscape());
 		}catch(NotEnoughMoneyException e){
 			fail("No deberia lanzar excepcion");

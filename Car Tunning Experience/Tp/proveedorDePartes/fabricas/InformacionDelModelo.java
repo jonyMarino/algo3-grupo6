@@ -6,8 +6,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import excepciones.BoundsException;
-
-import proveedorDePartes.fabricas.FabricaDePartes;
 /*
  * getCaracteristicasDisponibles(), getCaracteristica() Deben ser final porque:
  * "[...]no queremos que nadie defina clases derivadas por razones de seguridad. "
@@ -22,9 +20,7 @@ import proveedorDePartes.fabricas.FabricaDePartes;
 public class InformacionDelModelo {
  
 	private Hashtable<String,String> informacionDeEstaParte;
-	 
-	private FabricaDePartes fabricaDePartes;
-	 
+	  
 	public ArrayList<String> getCaracteristicasDisponibles() {
 		Enumeration<String> listaDeClaves = informacionDeEstaParte.keys();
 		ArrayList<String> listaCaracteristicas = new ArrayList<String>();

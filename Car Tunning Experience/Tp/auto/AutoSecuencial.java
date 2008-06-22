@@ -47,9 +47,9 @@ public class AutoSecuencial extends Auto {
 	 */
 	public AutoSecuencial(Escape escape, Carroceria carroceria, Motor motor,
 	                      CajaAutomatica cajaAutomatica, MezcladorNafta mezclador, TanqueNafta tanque,
-	                      Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4, Eje eje) throws WrongPartClassException {
+	                      Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4, Eje eje, Freno freno) throws WrongPartClassException {
 
-		super(escape,carroceria,motor,cajaAutomatica,mezclador,tanque,rueda1,rueda2,rueda3,rueda4, eje);
+		super(escape,carroceria,motor,cajaAutomatica,mezclador,tanque,rueda1,rueda2,rueda3,rueda4, eje, freno);
 	}
 
 	/**
