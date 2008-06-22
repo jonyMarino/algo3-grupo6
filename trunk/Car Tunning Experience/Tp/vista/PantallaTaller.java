@@ -14,6 +14,7 @@ import programaAuto.Usuario;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Escape;
 import proveedorDePartes.fabricas.FabricaDeCarrocerias;
+import proveedorDePartes.fabricas.FabricaDeEjes;
 import proveedorDePartes.fabricas.FabricaDeEscapes;
 import proveedorDePartes.fabricas.FabricaDePartes;
 import proveedorDePartes.fabricas.InformacionDelModelo;
@@ -23,6 +24,8 @@ import taller.Taller;
 public class PantallaTaller extends JPanelConImagen implements ActionListener {
 
 	private DefaultComboBoxModel listaPartesEnTaller;
+	private JTextField boxPista;
+	private JTextField boxDinero;
 	private static final long serialVersionUID = 1L;
 
 	
@@ -108,7 +111,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		panelPista.setLayout(new GridBagLayout());
 		panelPista.setBackground(nc);
 		
-	    JTextField boxPista = new JTextField("datos de la pista",20);
+		boxPista = new JTextField("datos de la pista",20);
 	    boxPista.setBackground(Color.white);
 		panelPista.add(boxPista);
 		
@@ -121,7 +124,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	    JPanel panelDinero = new JPanel();
         panelDinero.setBackground(nc);
         
-        JTextField boxDinero = new JTextField("dinero del usuario",20);
+        boxDinero = new JTextField("dinero del usuario",20);
 		boxDinero.setBackground(Color.white);
 		panelDinero.add(boxDinero);
 		
@@ -140,6 +143,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		FabricaDeCarrocerias  fabricaCarrocerias = new FabricaDeCarrocerias();
 		Carroceria carroceria = fabricaCarrocerias.fabricar(fabricaCarrocerias.getModelos().get(0));
 		taller.aniadirAReserva(carroceria);
+		/**/
 		
 		listaPartesEnTaller = new DefaultComboBoxModel();
 		Color nc = new Color(176,196,222);
@@ -217,36 +221,62 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 
 	private JPanel contenedorPartes(){
 	 
-		/*ESTA FABRICA ES DE PRUEBA NOMAS*/
+		/*ESTAS FABRICAS SON DE PRUEBA NOMAS*/
 		 FabricaDeEscapes  fabricaEscapes = new FabricaDeEscapes();
-	     ArrayList<InformacionDelModelo> temporal = fabricaEscapes.getModelos();
-	    
+		 FabricaDeCarrocerias  fabricaCarrocerias = new FabricaDeCarrocerias();
+		 FabricaDeEjes  fabricaEjes = new FabricaDeEjes();
+				
+	     ArrayList <ArrayList<InformacionDelModelo>> temporal = new ArrayList<ArrayList<InformacionDelModelo>>();
+	     temporal.add(fabricaEscapes.getModelos());
+	     temporal.add(fabricaEscapes.getModelos());
+	     temporal.add(fabricaCarrocerias.getModelos());
+	     temporal.add(fabricaCarrocerias.getModelos());
+	     temporal.add(fabricaEjes.getModelos());
+	     temporal.add(fabricaEscapes.getModelos());
+	     temporal.add(fabricaEscapes.getModelos());
+	     temporal.add(fabricaCarrocerias.getModelos());
+	     temporal.add(fabricaCarrocerias.getModelos());
+	     temporal.add(fabricaEjes.getModelos());
+	    //
+	     
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
-		panel.setLayout(new GridLayout(3,2));
-		
-		for (int i=0;i<3;i++)
-	    	for (int j=0;j<3;j++)
-	    			panel.add(crearCombosPartes(temporal));
-	     return panel;
+	    panel.add(crearCombosPartes(temporal));
+	    return panel;
 	}
 
 	
-	public JComboBox crearCombosPartes( ArrayList<InformacionDelModelo> contenedorDeListas) {
-		/*SIGUE EN PROCESO ESTE METODO, PORQUE EN LA TEORIA ESTE RECIBE TODAS LAS LISTAS DE LAS FABRICAS
-		PARA CREAR LOS COMBO BOX*/
+	public JPanel crearCombosPartes( ArrayList <ArrayList<InformacionDelModelo>> contenedorDeListas) {
+	/* se crean todas las fabricas y se las pasa una vez creadas todas juntas para armar el catalgo.
+	 **/
 		
-        JComboBox combo = new JComboBox();
+		JPanel panel2 = new JPanel();
+		
+		panel2.setLayout (new GridLayout (5,2)); //TOTAL 10 FABRICAS
+        JComboBox combo;
+      
         Iterator it;
+        Iterator it1;
         InformacionDelModelo c;
+        ArrayList<InformacionDelModelo> c1;
 		it = contenedorDeListas.iterator();
-		while (it.hasNext()) {
-			c = (InformacionDelModelo)it.next();
-	       
-			try{
-	        combo.addItem(c.getCaracteristica("DESCRIPCION"));
-			}catch(BoundsException e){}
+		
+		for (int i=0;i<4;i++)
+		while (it.hasNext()){
+			c1 = (ArrayList<InformacionDelModelo>)it.next();
+			it1 = c1.iterator();
+			combo = new JComboBox();
+			
+					while (it1.hasNext()) {
+						c = (InformacionDelModelo)it1.next();
+				       
+						try{
+				        combo.addItem(c.getCaracteristica("DESCRIPCION"));
+						}catch(BoundsException e){}
+					}
+		panel2.add(combo);
 		}
+	
 		/*
         combo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -254,12 +284,20 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
             }
         });
 		*/
-        return combo;
+        return panel2;
     }
 	
 	public void actionPerformed(ActionEvent e) {
 		
 		
+	}
+
+	public JTextField getBoxPista() {
+		return boxPista;
+	}
+
+	public JTextField getBoxDinero() {
+		return boxDinero;
 	}
 
 }
