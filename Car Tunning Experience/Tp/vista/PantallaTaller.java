@@ -8,8 +8,17 @@ import java.util.Iterator;
 
 import javax.swing.*;
 
+import excepciones.BoundsException;
+
+import programaAuto.Usuario;
+import proveedorDePartes.fabricas.Carroceria;
+import proveedorDePartes.fabricas.Escape;
+import proveedorDePartes.fabricas.FabricaDeCarrocerias;
 import proveedorDePartes.fabricas.FabricaDeEscapes;
+import proveedorDePartes.fabricas.FabricaDePartes;
 import proveedorDePartes.fabricas.InformacionDelModelo;
+import proveedorDePartes.fabricas.ParteAuto;
+import taller.Taller;
 
 public class PantallaTaller extends JPanelConImagen implements ActionListener {
 
@@ -45,7 +54,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 
 	private void crearPaneCatalogo(){
 		
-		Color nc = new Color(0,0,0,50);
+		Color nc = new Color(176,196,222);
    
 		JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setPreferredSize(new Dimension(600,200));
@@ -78,35 +87,60 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
 	    tabbedPane.setPreferredSize(new Dimension(250,100));
-	    Color nc = new Color(176,196,222);
-	    
-	    JPanel panelDinero = new JPanel();
-        panelDinero.setBackground(nc);
-        JTextField boxDinero = new JTextField("dinero del usuario",20);
-		boxDinero.setBackground(Color.white);
-		panelDinero.add(boxDinero);
-        tabbedPane.addTab("Dinero",panelDinero);
 
+        tabbedPane.addTab("Dinero",crearPanelDinero());
         tabbedPane.addTab("Bodega",crearPanelBodega());
-         
-	    JPanel panelPista = new JPanel();
-	    panelPista.setLayout(new GridBagLayout());
-	    panelPista.setBackground(nc);
-        JTextField boxPista = new JTextField("datos de la pista",20);
-		boxPista.setBackground(Color.white);
-		panelPista.add(boxPista);
-	    tabbedPane.addTab("Proxima Pista",panelPista);
+	    tabbedPane.addTab("Proxima Pista",crarPanelPista());
 	    
 	    GridBagConstraints c = new GridBagConstraints();
-	    
 	    c.gridx =1;
 	    c.gridy =0;
 	    c.gridheight =1;
 	    c.anchor = GridBagConstraints.SOUTH;
+	    
 	    this.add(tabbedPane,c);
     }
-
+	
+	private JPanel crarPanelPista(){
+		
+		Color nc = new Color(176,196,222);
+		JPanel panelPista = new JPanel();
+		panelPista.setLayout(new GridBagLayout());
+		panelPista.setBackground(nc);
+		
+	    JTextField boxPista = new JTextField("datos de la pista",20);
+	    boxPista.setBackground(Color.white);
+		panelPista.add(boxPista);
+		
+		return panelPista;
+	}
+	
+	private JPanel crearPanelDinero(){
+		
+		Color nc = new Color(176,196,222);
+	    JPanel panelDinero = new JPanel();
+        panelDinero.setBackground(nc);
+        
+        JTextField boxDinero = new JTextField("dinero del usuario",20);
+		boxDinero.setBackground(Color.white);
+		panelDinero.add(boxDinero);
+		
+		return panelDinero;
+}
+	
 	private JPanel crearPanelBodega(){
+	
+		/*DATOS TEMPORALES PARA PROBAR*/
+		Usuario usuario = new Usuario("Vicky");
+		Taller taller = new Taller(usuario);
+		
+		FabricaDeEscapes  fabricaEscapes = new FabricaDeEscapes();
+		Escape escape = fabricaEscapes.fabricar(fabricaEscapes.getModelos().get(0));
+		taller.aniadirAReserva(escape);
+		FabricaDeCarrocerias  fabricaCarrocerias = new FabricaDeCarrocerias();
+		Carroceria carroceria = fabricaCarrocerias.fabricar(fabricaCarrocerias.getModelos().get(0));
+		taller.aniadirAReserva(carroceria);
+		
 		listaPartesEnTaller = new DefaultComboBoxModel();
 		Color nc = new Color(176,196,222);
 		  
@@ -114,7 +148,12 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	    panelBodega.setBackground(nc);
 
 	    JComboBox comboBox = new JComboBox();
-	    agregarABodega("Escape");
+	    try{
+			String descripcion = taller.getPartesDeReserva().next().getInformacionModelo().getCaracteristica("DESCRIPCION");
+			agregarABodega(descripcion);
+			//si uso el iterador para recorrer las reservas me entra en loop, por eso por ahora esta asi
+		}catch(BoundsException e){}
+	  
 	    comboBox.setModel(listaPartesEnTaller);
 	  
 	    /* comboBox.addActionListener(new ActionListener() {
@@ -125,8 +164,8 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	            }
 	        });
 	    */
+	    
 	    panelBodega.add(comboBox);
-
 	    Boton botonCambiar = new Boton("Cambiar");
 	    panelBodega.add(botonCambiar);
 		
@@ -150,7 +189,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	     
 	    Boton botonCargar = new Boton("Cargar Nafta");
 	    botonCargar.setOpaque(false);
-	    Color nc = new Color(0,0,0,50);
+	    Color nc = new Color(176,196,222);
 	    panelAuto.setBackground(nc);
 	      
 	    panelAuto.add(botonCargar,c2);
@@ -178,7 +217,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 
 	private JPanel contenedorPartes(){
 	 
-		/*ESTA FABRICA ES TEMPORAL DE PRUEBA NOMAS*/
+		/*ESTA FABRICA ES DE PRUEBA NOMAS*/
 		 FabricaDeEscapes  fabricaEscapes = new FabricaDeEscapes();
 	     ArrayList<InformacionDelModelo> temporal = fabricaEscapes.getModelos();
 	    
@@ -203,17 +242,18 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		it = contenedorDeListas.iterator();
 		while (it.hasNext()) {
 			c = (InformacionDelModelo)it.next();
-	        c.getInformacionDeEstaParte().get("DESCRIPCION");
-	        combo.addItem(c.getInformacionDeEstaParte().get("DESCRIPCION")); //GUARDA EN EL COMBO EL NOMBRE -OSEA LA DESCRIPCION-
-		}    
-	     
-     
+	       
+			try{
+	        combo.addItem(c.getCaracteristica("DESCRIPCION"));
+			}catch(BoundsException e){}
+		}
+		/*
         combo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	 
             }
         });
-
+		*/
         return combo;
     }
 	
