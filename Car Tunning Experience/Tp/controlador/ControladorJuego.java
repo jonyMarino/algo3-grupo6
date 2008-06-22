@@ -28,6 +28,7 @@ public class ControladorJuego implements ActionListener {
 		this.panelBase = panelBase;
 	}
 	
+	//TODO: Escribirlo de mejor forma
 	public void actionPerformed(ActionEvent e) {
 		Boton boton = (Boton)e.getSource();
 		if (boton.getText().equals("Nueva Partida"))
@@ -38,14 +39,15 @@ public class ControladorJuego implements ActionListener {
 			inicializarJuego();
 		if (boton.getText().equals("Comenzar Carrera"))
 			panelBase.crearPantalla( new PantallaCarrera(panelBase));
-}
+	}
 	
+	//TODO: Arreglar Usuario nombre vacio
 	private void inicializarJuego(){
 		String nombre = ((PantallaUsuario)panelBase.getPantallaActual()).getPanelIngreso().getBox().getText();
-		Usuario unUsuario = this.programaAuto.nuevoUsuario(nombre);
-		unUsuario.setAvatar(((PantallaUsuario)panelBase.getPantallaActual()).getComboBoxCars().getSeleccionado());
-		controladorTaller = new ControladorTaller();
-		panelBase.crearPantalla( new PantallaTaller(panelBase, controladorTaller) );
+		Usuario usuario = this.programaAuto.nuevoUsuario(nombre);
+		usuario.setAvatar(((PantallaUsuario)panelBase.getPantallaActual()).getComboBoxCars().getSeleccionado());
+		controladorTaller = new ControladorTaller(panelBase,usuario.getTaller());
+		panelBase.crearPantalla(new PantallaTaller(controladorTaller));
 	}
 
 }

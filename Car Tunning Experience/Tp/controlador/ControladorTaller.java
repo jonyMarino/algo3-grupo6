@@ -8,11 +8,12 @@ import vista.PanelBase;
 
 public class ControladorTaller implements ActionListener {
 	
-	private PanelBase panel;
+	private PanelBase panelBase;
 	private Taller taller;
 	
-	public ControladorTaller() {
-		
+	public ControladorTaller(PanelBase panelBase, Taller taller) {
+		this.panelBase = panelBase;
+		this.taller = taller;
 	}
 	
 	public void actionPerformed(ActionEvent e) {

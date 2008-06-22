@@ -5,13 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import javax.swing.*;
-
 import controlador.ControladorTaller;
-
 import excepciones.BoundsException;
-
 import programaAuto.Usuario;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Escape;
@@ -31,14 +27,13 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	
-	public PantallaTaller(PanelBase panelBase, ControladorTaller controladorTaller) {
+	public PantallaTaller(ControladorTaller controladorTaller) {
 		
 		super();
+		//TODO: La dimension fijate que esta en JpanelConImagen
 		
 		this.setImage("FondoTransparente");
 		
-		this.setPreferredSize(new Dimension(900,675));
-	
 		this.setLayout(new GridBagLayout());
 		
 		crearPaneCatalogo();
@@ -53,7 +48,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		c.anchor = GridBagConstraints.SOUTHEAST;
 		
 		Boton botonComenzar = new Boton("Comenzar Carrera");
-		botonComenzar.addActionListener(panelBase);
+	//	botonComenzar.addActionListener(panelBase);
 		this.add(botonComenzar, c);
 		
 	}
@@ -304,7 +299,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 	}
 	
 	public void update(){
-		return dinero;
+		//return 0/*dinero*/;
 	}
 
 }

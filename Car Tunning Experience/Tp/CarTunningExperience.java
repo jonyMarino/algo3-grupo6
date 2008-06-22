@@ -5,9 +5,6 @@ import vista.VistaPrincipal;
 
 public class CarTunningExperience {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 	
 		ProgramaAuto programaAuto = new ProgramaAuto();
@@ -19,7 +16,6 @@ public class CarTunningExperience {
 			
 		vistaPrincipal.add(panelBase);
 		vistaPrincipal.setVisible(true);
-
 	}
 
 }
