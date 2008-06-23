@@ -32,6 +32,7 @@ public class FabricaDeCajas extends FabricaDePartes {
 				caja.setDescripcion(descripcion);
 				caja.setCosto(costo);
 				caja.setPeso(peso);
+				caja.setInformacionDelModelo(modelo);
 				return caja;		
 			}catch(BoundsException e){
 				caja = new CajaAutomatica();

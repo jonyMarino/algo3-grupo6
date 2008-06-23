@@ -32,6 +32,7 @@ public class FabricaDeMotores extends FabricaDePartes {
 			unMotor.setDescripcion(descripcion);
 			unMotor.setCosto(costo);
 			unMotor.setPeso(peso);
+			unMotor.setInformacionDelModelo(modelo);
 			return unMotor;
 		}
 		catch(BoundsException e){

@@ -28,6 +28,7 @@ public class FabricaDeRuedas extends FabricaDePartes {
 			unaRueda.setDescripcion(descripcion);
 			unaRueda.setCosto(costo);
 			unaRueda.setPeso(peso);
+			unaRueda.setInformacionDelModelo(modelo);
 			return unaRueda;
 		}
 		catch(BoundsException e){

@@ -34,6 +34,7 @@ public class FabricaDeMezcladores extends FabricaDePartes {
 			unMezclador.setDescripcion(descripcion);
 			unMezclador.setCosto(costo);
 			unMezclador.setPeso(peso);
+			unMezclador.setInformacionDelModelo(modelo);
 			return unMezclador;
 		}
 		catch(BoundsException e){

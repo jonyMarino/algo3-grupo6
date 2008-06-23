@@ -39,12 +39,14 @@ public class FabricaDePedales extends FabricaDePartes {
 				unPedal.setDescripcion(descripcion);
 				unPedal.setCosto(costo);
 				unPedal.setPeso(peso);
+				unPedal.setInformacionDelModelo(modelo);
 				return unPedal;
 			}catch(BoundsException e){
 				unPedal= new Freno(100);
 				unPedal.setDescripcion(descripcion);
 				unPedal.setCosto(costo);
 				unPedal.setPeso(peso);
+				unPedal.setInformacionDelModelo(modelo);
 				return unPedal;
 			}
 		}
