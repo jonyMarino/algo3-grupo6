@@ -34,7 +34,7 @@ public class PantallaTaller extends JPanelConImagen{
                crearPanelCatalogo();
                crearPanelAuto();
                //TODO: TE LO COMENTE
-               //crearPanelPistaDineroBodega();
+               crearPanelPistaDineroBodega();
                
                GridBagConstraints c = new GridBagConstraints();
                c.gridx=2;
@@ -48,35 +48,10 @@ public class PantallaTaller extends JPanelConImagen{
                this.add(botonComenzar, c);            
        }
        
+       /*TENGO QUE RECIBIR EL AUTO PARA PASARSELO A actualizarInformacionAuto*/
        private void crearPanelAuto() {
-               
-               JPanel panelLabel = new JPanel();
-               panelLabel.setLayout(new BoxLayout(panelLabel,BoxLayout.Y_AXIS));
-               panelLabel.setOpaque(false);
-               JLabel elLabel;           
-       
-               Auto miauto = autoInicial(); //temporal para pruebas
-               ParteAuto parte;
-               
-               Hashtable<String,ParteAuto> tabla=new Hashtable<String,ParteAuto>();
-               tabla = miauto.getHashDePartes();
-               Enumeration<ParteAuto> enumeracion = tabla.elements();
-               
-               /*RECORRO LAS PARTES DEL AUTO IMRPIMO DESCRIPCION Y VIDA UTIL*/
-               while(enumeracion.hasMoreElements()){
-                       elLabel = new JLabel("");
-                       parte=enumeracion.nextElement();
-                 try{
-                         String nombreParte =parte.getInformacionDelModelo().getCaracteristica("DESCRIPCION");
-                         Double vidaUtil= parte.getVidaUtil();
-                         elLabel.setText(nombreParte+" "+vidaUtil);    
-                 }catch (BoundsException e){}
-               
-                 panelLabel.add(elLabel);
-               }
 
-               
-               JTabbedPane tabbedPane = new JTabbedPane();
+           JTabbedPane tabbedPane = new JTabbedPane();
            tabbedPane.setPreferredSize(new Dimension(300,300));
            
            JPanel panelAuto = new JPanel();
@@ -88,7 +63,9 @@ public class PantallaTaller extends JPanelConImagen{
            botonCargar.setOpaque(false);
            Color nc = new Color(176,196,222);
            panelAuto.setBackground(nc);
-           panelAuto.add(panelLabel);
+          
+           panelAuto.add(actualizarInformacionAuto());
+           
            panelAuto.add(botonCargar,c2);
            tabbedPane.addTab("Mi Auto",panelAuto);
        
@@ -98,99 +75,108 @@ public class PantallaTaller extends JPanelConImagen{
            c.weighty = 1.0;
            c.anchor = GridBagConstraints.CENTER;
            this.add(tabbedPane,c);        
-   }
+       }
        
-       private JPanel crearPanelBodega() throws WrongUsername{
-               
-               /*DATOS TEMPORALES PARA PROBAR*/
-               Usuario usuario = new Usuario("Vicky");
-               Taller taller = new Taller(usuario);
-               
-               FabricaDeEscapes  fabricaEscapes = new FabricaDeEscapes();
-               Escape escape = fabricaEscapes.fabricar(fabricaEscapes.getModelos().get(0));
-               taller.aniadirAReserva(escape);
-               FabricaDeCarrocerias  fabricaCarrocerias = new FabricaDeCarrocerias();
-               Carroceria carroceria = fabricaCarrocerias.fabricar(fabricaCarrocerias.getModelos().get(0));
-               taller.aniadirAReserva(carroceria);
-               /**/
-               
-               listaPartesEnTaller = new DefaultComboBoxModel();
-               Color nc = new Color(176,196,222);
-                 
-               JPanel panelBodega = new JPanel();
-               panelBodega.setLayout(new GridBagLayout());
-               panelBodega.setBackground(nc);
+       public JPanel actualizarInformacionAuto(){
+    	   
+    	   JPanel panelLabel = new JPanel();
+           panelLabel.setLayout(new BoxLayout(panelLabel,BoxLayout.Y_AXIS));
+           panelLabel.setOpaque(false);
+           JLabel elLabel;           
+   
+           Auto miauto = autoInicial(); //temporal para pruebas
+           ParteAuto parte;
+           
+           Hashtable<String,ParteAuto> tabla=new Hashtable<String,ParteAuto>();
+           tabla = miauto.getHashDePartes();
+           Enumeration<ParteAuto> enumeracion = tabla.elements();
+           
+           /*RECORRO LAS PARTES DEL AUTO IMRPIMO DESCRIPCION Y VIDA UTIL*/
+           while(enumeracion.hasMoreElements()){   
+        	   		elLabel = new JLabel("");
+        	   		parte=enumeracion.nextElement();
+             try{
+                     String nombreParte =parte.getInformacionDelModelo().getCaracteristica("DESCRIPCION");
+                     Double vidaUtil= parte.getVidaUtil();
+                     elLabel.setText(nombreParte+" "+vidaUtil);  
+                     
+             }catch (BoundsException e){}
+           
+             panelLabel.add(elLabel);
+           }
 
-               JComboBox comboBox = new JComboBox();
+    	   return panelLabel;   
+       }
+       
+      /*TENGO QUE RECIBIR LA LISTA DE RESERVAS DEL TALLER*/
+       private JPanel crearPanelReserva() {
 
-           try{
-                       String descripcion = taller.getPartesDeReserva().next().getInformacionModelo().getCaracteristica("DESCRIPCION");
-                       agregarABodega(descripcion);
-                       //no me toma bien el iterador nose porque sigue en tratativas
-               }catch(BoundsException e){}
+    	   Color nc = new Color(176,196,222);
+    	   JPanel panelBodega = new JPanel();
+    	   panelBodega.setLayout(new GridBagLayout());
+    	   panelBodega.setBackground(nc);
          
-         
-          comboBox.setModel(listaPartesEnTaller);
-          panelBodega.add(comboBox);
+    	    try {
+    	    	panelBodega.add(actualizarListaReserva());
+    		} catch(WrongUsername e){}
+          
           Boton botonCambiar = new Boton("Cambiar");
           panelBodega.add(botonCambiar);
                
-       
           return panelBodega;
        }
+
+
+       public JComboBox actualizarListaReserva()throws WrongUsername{
+
+		    /*DATOS TEMPORALES PARA PROBAR*/
+		    Usuario usuario = new Usuario("Vicky");
+		    Taller taller = new Taller(usuario);
+		    
+		    FabricaDeEscapes  fabricaEscapes = new FabricaDeEscapes();
+		    Escape escape = fabricaEscapes.fabricar(fabricaEscapes.getModelos().get(0));
+		    taller.aniadirAReserva(escape);
+		    FabricaDeCarrocerias  fabricaCarrocerias = new FabricaDeCarrocerias();
+		    Carroceria carroceria = fabricaCarrocerias.fabricar(fabricaCarrocerias.getModelos().get(0));
+		    taller.aniadirAReserva(carroceria);
+		    /**/
+	    
+		    listaPartesEnTaller = new DefaultComboBoxModel();
+	
+		    JComboBox comboBox = new JComboBox();
+	        //no me toma bien el iterador nose porque sigue en tratativas
+		    try{
+		    	String descripcion = taller.getPartesDeReserva().next().getInformacionModelo().getCaracteristica("DESCRIPCION");
+		    	agregarABodega(descripcion);
+		    }catch(BoundsException e){}
+		    
+		    comboBox.setModel(listaPartesEnTaller);
+			
+		    return comboBox;
        
-       private void agregarABodega(String nombreParte){
-               
-                listaPartesEnTaller.addElement(nombreParte);
-               
        }
        
-       private void crearPanelCatalogo(){
-               
-               Color nc = new Color(176,196,222);
- 
-               JTabbedPane tabbedPane = new JTabbedPane();
-       tabbedPane.setPreferredSize(new Dimension(600,200));
- 
-       JPanel panelCatalogo = new JPanel();
-       panelCatalogo.setBackground(nc);
-       panelCatalogo.setLayout(new GridBagLayout());
+
+       private void agregarABodega(String nombreParte){
+    	   		listaPartesEnTaller.addElement(nombreParte); 
+       }
+
        
-       GridBagConstraints c4 = new GridBagConstraints();
-       Insets in=new Insets(0,30,0,0);
-       c4.insets=in;
-       
-       panelCatalogo.add(contenedorPartes(),c4);
-     
-       Boton botonComprar = new Boton("Comprar");
-       c4 = posicionBoton();
-       panelCatalogo.add(botonComprar,c4);
-       tabbedPane.addTab("Catalogo",panelCatalogo);
-     
-       GridBagConstraints c = new GridBagConstraints();
-       c.gridx=0;
-       c.gridy=2;
-       c.weighty = 1.0;
-       c.gridwidth =2;
-       c.anchor = GridBagConstraints.NORTH;
-       
-       this.add(tabbedPane,c);
-   }
-       
-       
+       /*NECESITO RECIBIER EL DINERO*/
        private JPanel crearPanelDinero(){
                
                Color nc = new Color(176,196,222);
-           JPanel panelDinero = new JPanel();
-           panelDinero.setLayout(new GridBagLayout());
-       panelDinero.setBackground(nc);
+               JPanel panelDinero = new JPanel();
+               panelDinero.setLayout(new GridBagLayout());
+               panelDinero.setBackground(nc);
        
-       boxDinero = new JLabel("$$$$$$$$$");
+               boxDinero = new JLabel("$$$$$$$$$");
                panelDinero.add(boxDinero);
                
                return panelDinero;
-}
+       	}
        
+       /*NECESITO RECIBIER LA PISTA*/
        private JPanel crarPanelPista(){
                
                Color nc = new Color(176,196,222);
@@ -207,66 +193,99 @@ public class PantallaTaller extends JPanelConImagen{
        private void crearPanelPistaDineroBodega(){
                
                JTabbedPane tabbedPane = new JTabbedPane();
-           tabbedPane.setPreferredSize(new Dimension(250,100));
+               tabbedPane.setPreferredSize(new Dimension(250,100));
 
-
-       tabbedPane.addTab("Dinero",crearPanelDinero());
-      //TODO: TE LO COMENTE
-       // tabbedPane.addTab("Bodega",crearPanelBodega());
-       tabbedPane.addTab("Proxima Pista",crarPanelPista());
+		       tabbedPane.addTab("Dinero",crearPanelDinero());
+		      //TODO: TE LO COMENTE
+		       
+		       tabbedPane.addTab("Bodega",crearPanelReserva());
+		      
+		       tabbedPane.addTab("Proxima Pista",crarPanelPista());
+	           
+	           GridBagConstraints c = new GridBagConstraints();
+	           c.gridx =1;
+	           c.gridy =1;
+	           c.gridheight =1;
+	           Insets in=new Insets(200,0,0,0);
+	           c.insets=in;
+	           c.anchor = GridBagConstraints.CENTER;
            
-           GridBagConstraints c = new GridBagConstraints();
-           c.gridx =1;
-           c.gridy =1;
-           c.gridheight =1;
-           Insets in=new Insets(200,0,0,0);
-       c.insets=in;
-           c.anchor = GridBagConstraints.CENTER;
-           
-           this.add(tabbedPane,c);
-   }
+	           this.add(tabbedPane,c);
+       }
 
        
-       private GridBagConstraints posicionBoton(){
+       private void crearPanelCatalogo(){
                
-               GridBagConstraints ubicacion = new GridBagConstraints();
-           Insets in=new Insets(0,0,5,5);
-           ubicacion.insets=in;
-           ubicacion.weightx = 1.0;
-           ubicacion.weighty = 1.0;
-           ubicacion.anchor = GridBagConstraints.SOUTHEAST;
+               Color nc = new Color(176,196,222);
+ 
+		       JTabbedPane tabbedPane = new JTabbedPane();
+		       tabbedPane.setPreferredSize(new Dimension(600,200));
+		 
+		       JPanel panelCatalogo = new JPanel();
+		       panelCatalogo.setBackground(nc);
+		       panelCatalogo.setLayout(new GridBagLayout());
+		       
+		       GridBagConstraints c4 = new GridBagConstraints();
+		       Insets in=new Insets(0,30,0,0);
+		       c4.insets=in;
+		       
+		       panelCatalogo.add(contenedorPartes(),c4);
+		     
+		       Boton botonComprar = new Boton("Comprar");
+		       c4 = posicionBoton();
+		       panelCatalogo.add(botonComprar,c4);
+		       tabbedPane.addTab("Catalogo",panelCatalogo);
+		     
+		       GridBagConstraints c = new GridBagConstraints();
+		       c.gridx=0;
+		       c.gridy=2;
+		       c.weighty = 1.0;
+		       c.gridwidth =2;
+		       c.anchor = GridBagConstraints.NORTH;
+		       
+		       this.add(tabbedPane,c);
+       }
+       
+       private GridBagConstraints posicionBoton(){
+	               
+	           GridBagConstraints ubicacion = new GridBagConstraints();
+	           Insets in=new Insets(0,0,5,5);
+	           ubicacion.insets=in;
+	           ubicacion.weightx = 1.0;
+	           ubicacion.weighty = 1.0;
+	           ubicacion.anchor = GridBagConstraints.SOUTHEAST;
                
                return ubicacion;
        }
 
        private JPanel contenedorPartes(){
        
-               /*ESTAS FABRICAS SON DE PRUEBA NOMAS*/
+           /*ESTAS FABRICAS SON DE PRUEBA NOMAS*/
                 FabricaDeEscapes  fabricaEscapes = new FabricaDeEscapes();
                 FabricaDeCarrocerias  fabricaCarrocerias = new FabricaDeCarrocerias();
                 FabricaDeEjes  fabricaEjes = new FabricaDeEjes();
                                
-            ArrayList <ArrayList<InformacionDelModelo>> temporal = new ArrayList<ArrayList<InformacionDelModelo>>();
-            temporal.add(fabricaEscapes.getModelos());
-            temporal.add(fabricaEscapes.getModelos());
-            temporal.add(fabricaCarrocerias.getModelos());
-            temporal.add(fabricaCarrocerias.getModelos());
-            temporal.add(fabricaEjes.getModelos());
-            temporal.add(fabricaEscapes.getModelos());
-            temporal.add(fabricaEscapes.getModelos());
-            temporal.add(fabricaCarrocerias.getModelos());
-            temporal.add(fabricaCarrocerias.getModelos());
-            temporal.add(fabricaEjes.getModelos());
+                ArrayList <ArrayList<InformacionDelModelo>> temporal = new ArrayList<ArrayList<InformacionDelModelo>>();
+                temporal.add(fabricaEscapes.getModelos());
+                temporal.add(fabricaEscapes.getModelos());
+                temporal.add(fabricaCarrocerias.getModelos());
+	            temporal.add(fabricaCarrocerias.getModelos());
+	            temporal.add(fabricaEjes.getModelos());
+	            temporal.add(fabricaEscapes.getModelos());
+	            temporal.add(fabricaEscapes.getModelos());
+	            temporal.add(fabricaCarrocerias.getModelos());
+	            temporal.add(fabricaCarrocerias.getModelos());
+	            temporal.add(fabricaEjes.getModelos());
            //
            
-               JPanel panel = new JPanel();
-               panel.setOpaque(false);
-           panel.add(crearCombosPartes(temporal));
+           JPanel panel = new JPanel();
+           panel.setOpaque(false);
+           panel.add(actualizarInformacionCatalogo(temporal));
            return panel;
        }
 
-       
-       public JPanel crearCombosPartes( ArrayList <ArrayList<InformacionDelModelo>> contenedorDeListas) {
+       /*ACA TENGO QUE RECIBIR UN PARAMETRO QUE SEA LA LISTA DE TODAS LAS LISTAS DE LAS FABRICAS*/
+       public JPanel actualizarInformacionCatalogo( ArrayList <ArrayList<InformacionDelModelo>> contenedorDeListas) {
        /* se crean todas las fabricas y se las pasa una vez creadas todas juntas para armar el catalgo.*/
                
                JPanel panelCombo = new JPanel();
