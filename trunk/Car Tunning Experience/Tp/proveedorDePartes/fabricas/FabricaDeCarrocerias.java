@@ -31,6 +31,7 @@ public class FabricaDeCarrocerias extends FabricaDePartes {
 			unaCarroceria.setDescripcion(descripcion);
 			unaCarroceria.setCosto(costo);
 			unaCarroceria.setPeso(peso);
+			unaCarroceria.setInformacionDelModelo(modelo);
 			return unaCarroceria;
 		}
 		catch(BoundsException e){

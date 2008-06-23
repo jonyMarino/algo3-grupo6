@@ -42,6 +42,7 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 			unTanque.setDescripcion(descripcion);
 			unTanque.setCosto(costo);
 			unTanque.setPeso(peso);
+			unTanque.setInformacionDelModelo(modelo);
 			return unTanque;
 		}
 		catch(BoundsException e){

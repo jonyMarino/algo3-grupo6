@@ -23,6 +23,7 @@ public class FabricaDeEjes extends FabricaDePartes {
 			unEje.setDescripcion(descripcion);
 			unEje.setCosto(costo);
 			unEje.setPeso(peso);
+			unEje.setInformacionDelModelo(modelo);
 			return unEje;
 		}
 		catch(BoundsException e){
