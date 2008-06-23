@@ -16,7 +16,7 @@ public class Usuario {
 	public Usuario(String nombre) {
 		this.nombre = nombre;
 		setDinero(1000);
-		taller = new Taller(this);
+		this.taller = new Taller(this);
 	}
 	
 	public void setAuto(Auto miAuto) {
