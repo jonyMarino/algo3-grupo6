@@ -4,11 +4,9 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Observable;
-
 import excepciones.BoundsException;
 import excepciones.IncorrectPartForUbicationException;
 import excepciones.UbicationUnkownException;
-import excepciones.WrongPartClassException;
 import pista.Pista;
 import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.Caja;
