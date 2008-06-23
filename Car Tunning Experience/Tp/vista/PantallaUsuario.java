@@ -44,7 +44,7 @@ public class PantallaUsuario extends JPanelConImagen {
 			//MENSAJE ERROR
 	        this.botonError = new JLabel();
 	        botonError.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
-	        botonError.setForeground(Color.YELLOW);
+	        botonError.setForeground(Color.BLACK);
 	        botonError.setFont(new Font("Arial", Font.BOLD, 17));      
 	        
 	    GridBagConstraints c = new GridBagConstraints();
@@ -195,9 +195,9 @@ public class PantallaUsuario extends JPanelConImagen {
 				
 			this.add(label);
 			box = new JTextField("",30);
-			box.setBackground(Color.LIGHT_GRAY);
 			box.setFont(new Font("Verdana",Font.BOLD,11));
-		
+			box.setOpaque(false);
+			
 			this.add(box);
 		}
 

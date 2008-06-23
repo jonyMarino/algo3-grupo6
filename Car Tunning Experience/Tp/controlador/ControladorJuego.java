@@ -51,8 +51,7 @@ public class ControladorJuego implements ActionListener {
 				usuario = this.programaAuto.nuevoUsuario(nombre);
 				usuario.setAvatar(((PantallaUsuario)panelBase.getPantallaActual()).getComboBoxCars().getSeleccionado());
 				this.controladorTaller = new ControladorTaller(panelBase,usuario.getTaller());
-				panelBase.crearPantalla(new PantallaTaller(controladorTaller));
-			
+				panelBase.crearPantalla(new PantallaTaller(controladorTaller));		
 			} catch (WrongUsername e) {
 				this.MensajeError();
 			}
@@ -65,8 +64,8 @@ public class ControladorJuego implements ActionListener {
 	private void MensajeError() {
 		String mensajeError = "Debe ingresar: NOMBRE USUARIO";
 		((PantallaUsuario)panelBase.getPantallaActual()).getBotonError().setText(mensajeError);
-		((PantallaUsuario)panelBase.getPantallaActual()).getPanelIngreso().getBox().setBackground(Color.YELLOW);
+		((PantallaUsuario)panelBase.getPantallaActual()).getPanelIngreso().getBox().setBackground(Color.WHITE);
+		((PantallaUsuario)panelBase.getPantallaActual()).getPanelIngreso().getBox().setOpaque(true);			
 	}
-	
 
 }
