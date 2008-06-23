@@ -43,9 +43,9 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx=2;
     	c.gridy=2;
-    	Insets in=new Insets(0,50,20,0);
+    	Insets in=new Insets(170,20,0,0);
     	c.insets=in;
-		c.anchor = GridBagConstraints.SOUTHEAST;
+		c.anchor = GridBagConstraints.NORTH;
 		
 		Boton botonComenzar = new Boton("Comenzar Carrera");
 	//	botonComenzar.addActionListener(panelBase);
@@ -79,7 +79,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
     	c.gridy=2;
     	c.weighty = 1.0;
     	c.gridwidth =2;
-    	c.anchor = GridBagConstraints.SOUTH;
+    	c.anchor = GridBagConstraints.NORTH;
     	
         this.add(tabbedPane,c);
     }
@@ -91,13 +91,15 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 
         tabbedPane.addTab("Dinero",crearPanelDinero());
         tabbedPane.addTab("Bodega",crearPanelBodega());
-	    tabbedPane.addTab("Proxima Pista",crarPanelPista());
+	   tabbedPane.addTab("Proxima Pista",crarPanelPista());
 	    
 	    GridBagConstraints c = new GridBagConstraints();
 	    c.gridx =1;
-	    c.gridy =0;
+	    c.gridy =1;
 	    c.gridheight =1;
-	    c.anchor = GridBagConstraints.SOUTH;
+	    Insets in=new Insets(200,0,0,0);
+    	c.insets=in;
+	    c.anchor = GridBagConstraints.CENTER;
 	    
 	    this.add(tabbedPane,c);
     }
@@ -109,8 +111,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		panelPista.setLayout(new GridBagLayout());
 		panelPista.setBackground(nc);
 		
-		boxPista = new JLabel("datos de la pista",20);
-	    boxPista.setBackground(Color.white);
+		boxPista = new JLabel("proximamente:Datos Pista");
 		panelPista.add(boxPista);
 		
 		return panelPista;
@@ -120,10 +121,10 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		
 		Color nc = new Color(176,196,222);
 	    JPanel panelDinero = new JPanel();
+	    panelDinero.setLayout(new GridBagLayout());
         panelDinero.setBackground(nc);
         
-        boxDinero = new JLabel("dinero del usuario",20);
-		boxDinero.setBackground(Color.white);
+        boxDinero = new JLabel("$$$$$$$$$");
 		panelDinero.add(boxDinero);
 		
 		return panelDinero;
@@ -147,6 +148,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		Color nc = new Color(176,196,222);
 		  
 		JPanel panelBodega = new JPanel();
+		panelBodega.setLayout(new GridBagLayout());
 	    panelBodega.setBackground(nc);
 
 	    JComboBox comboBox = new JComboBox();
@@ -202,9 +204,9 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
         
 	    GridBagConstraints c = new GridBagConstraints();
 	    c.gridx =0;
-	    c.gridy =0;
+	    c.gridy =1;
 	    c.weighty = 1.0;
-	    c.anchor = GridBagConstraints.SOUTH;
+	    c.anchor = GridBagConstraints.CENTER;
 	    this.add(tabbedPane,c);
     }
 	
@@ -253,7 +255,7 @@ public class PantallaTaller extends JPanelConImagen implements ActionListener {
 		JPanel panelCombo = new JPanel();
 		panelCombo.setLayout (new GridLayout (5,2)); //TOTAL 10 FABRICAS
         JComboBox combo;
-      
+
         Iterator it;
         Iterator itInformacion;
         InformacionDelModelo informacionDelModelo;
