@@ -24,6 +24,7 @@ public class PantallaUsuario extends JPanelConImagen {
 	private static final long serialVersionUID = 1L;
 	private CuadroIngresoUsuario panelIngreso;
 	private ComboBoxCars comboBoxCars;
+	private JLabel botonError;
 	
 	public PantallaUsuario(ControladorJuego controladorJuego) {
 		super();
@@ -34,15 +35,19 @@ public class PantallaUsuario extends JPanelConImagen {
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(new BoxLayout(panelUsuario,BoxLayout.Y_AXIS));
 		
-		//PANEL INGRESO
-			this.panelIngreso = new CuadroIngresoUsuario();
+			//PANEL INGRESO
+			this.panelIngreso = new CuadroIngresoUsuario(controladorJuego);
 			this.panelIngreso.setOpaque(false);
 			//PERSONAJES
-			ComboBoxCars comboBoxCars = new ComboBoxCars();
-			this.comboBoxCars = comboBoxCars;
+			this.comboBoxCars = new ComboBoxCars();
 			comboBoxCars.setOpaque(false);
-
-   		GridBagConstraints c = new GridBagConstraints();
+			//MENSAJE ERROR
+	        this.botonError = new JLabel();
+	        botonError.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
+	        botonError.setForeground(Color.YELLOW);
+	        botonError.setFont(new Font("Arial", Font.BOLD, 17));      
+	        
+	    GridBagConstraints c = new GridBagConstraints();
 	    c.gridx =0;
 	    c.gridy =0;
 	    c.anchor = GridBagConstraints.NORTH;
@@ -50,8 +55,10 @@ public class PantallaUsuario extends JPanelConImagen {
 	    panelUsuario.add(panelIngreso,c);
 	    c.gridy =1;
 	    panelUsuario.add(comboBoxCars,c);
-		panelUsuario.setOpaque(false);
-
+	    c.gridy =2;
+	    panelUsuario.add(botonError,c);
+	    panelUsuario.setOpaque(false);
+		
 		//BOTONERA
        	BotoneraUsuario botoneraUsuario = new BotoneraUsuario(controladorJuego);
 
@@ -111,8 +118,7 @@ public class PantallaUsuario extends JPanelConImagen {
 		                images[i].setDescription(carStrings[i]);
 		            }
 		        }
-
-		     
+  
 		        JComboBox carList = new JComboBox(intArray);
 		        renderer= new ComboBoxRenderer();
 		        renderer.setPreferredSize(new Dimension(250, 100));
@@ -172,7 +178,6 @@ public class PantallaUsuario extends JPanelConImagen {
 		        public int getSelectedIndex(){
 		        	return selectedIndex;
 		        } 
-
 		}
 
 	}
@@ -182,22 +187,27 @@ public class PantallaUsuario extends JPanelConImagen {
 		private static final long serialVersionUID = 1L;
 		private JTextField box;
 		
-		public CuadroIngresoUsuario(){
+		public CuadroIngresoUsuario(ControladorJuego controladorJuego){
 			setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 
 			JLabel label = new JLabel("Nombre Usuario: ");
-			label.setFont(new Font("Verdana",Font.BOLD,14));
+			label.setFont(new Font("Verdana",Font.BOLD,16));
 				
 			this.add(label);
 			box = new JTextField("",30);
 			box.setBackground(Color.LIGHT_GRAY);
-
+			box.setFont(new Font("Verdana",Font.BOLD,11));
+		
 			this.add(box);
 		}
 
 		public JTextField getBox() {
 			return box;
 		}
+	}
+
+	public JLabel getBotonError() {
+		return botonError;
 	}
 
 }

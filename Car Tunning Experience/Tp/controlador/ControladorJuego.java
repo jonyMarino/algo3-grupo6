@@ -1,7 +1,9 @@
 package controlador;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import excepciones.WrongUsername;
 import programaAuto.ProgramaAuto;
 import programaAuto.Usuario;
 import vista.Boton;
@@ -33,26 +35,38 @@ public class ControladorJuego implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Boton boton = (Boton)e.getSource();
 		if (boton.getText().equals("Nueva Partida"))
-			panelBase.crearPantalla( new PantallaUsuario(this));
+			panelBase.crearPantalla(new PantallaUsuario(this));
 		if (boton.getText().equals("Volver"))
 			panelBase.pantallaAnterior();
 		if (boton.getText().equals("Aceptar"))
 			inicializarJuego();
 		if (boton.getText().equals("Comenzar Carrera"))
-			panelBase.crearPantalla( new PantallaCarrera(this));
+			panelBase.crearPantalla(new PantallaCarrera(this));
 	}
 	
-	//TODO: Arreglar Usuario nombre vacio
 	private void inicializarJuego(){
-		String nombre = ((PantallaUsuario)panelBase.getPantallaActual()).getPanelIngreso().getBox().getText();
-		Usuario usuario = this.programaAuto.nuevoUsuario(nombre);
-		usuario.setAvatar(((PantallaUsuario)panelBase.getPantallaActual()).getComboBoxCars().getSeleccionado());
-		this.controladorTaller = new ControladorTaller(panelBase,usuario.getTaller());
-		panelBase.crearPantalla(new PantallaTaller(controladorTaller));
+			String nombre = ((PantallaUsuario)panelBase.getPantallaActual()).getPanelIngreso().getBox().getText();
+			Usuario usuario;
+			try {
+				usuario = this.programaAuto.nuevoUsuario(nombre);
+				usuario.setAvatar(((PantallaUsuario)panelBase.getPantallaActual()).getComboBoxCars().getSeleccionado());
+				this.controladorTaller = new ControladorTaller(panelBase,usuario.getTaller());
+				panelBase.crearPantalla(new PantallaTaller(controladorTaller));
+			
+			} catch (WrongUsername e) {
+				this.MensajeError();
+			}
 	}
 
 	public ControladorTaller getControladorTaller() {
 		return controladorTaller;
 	}
+	
+	private void MensajeError() {
+		String mensajeError = "Debe ingresar: NOMBRE USUARIO";
+		((PantallaUsuario)panelBase.getPantallaActual()).getBotonError().setText(mensajeError);
+		((PantallaUsuario)panelBase.getPantallaActual()).getPanelIngreso().getBox().setBackground(Color.YELLOW);
+	}
+	
 
 }

@@ -5,6 +5,7 @@ import taller.Taller;
 import auto.Auto;
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
+import excepciones.WrongUsername;
 
 public class Usuario {
 	private double dinero;
@@ -13,9 +14,9 @@ public class Usuario {
 	private ImageIcon avatar;
 	private Taller taller;
 
-	public Usuario(String nombre) {
-		this.nombre = nombre;
-		setDinero(1000);
+	public Usuario(String nombre) throws WrongUsername {
+		this.setNombre(nombre);
+    	this.setDinero(1000);
 		this.taller = new Taller(this);
 	}
 	
@@ -61,6 +62,13 @@ public class Usuario {
 
 	public Taller getTaller() {
 		return taller;
+	}
+
+	private void setNombre(String nombre) throws WrongUsername {
+		if(nombre.equals(""))
+			throw new WrongUsername("Nombre usuario inválido");
+		else
+			this.nombre = nombre;
 	}
 
 }

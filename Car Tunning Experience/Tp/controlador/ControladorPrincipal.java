@@ -2,15 +2,13 @@ package controlador;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import combustible.Nafta;
 import excepciones.BoundsException;
-
+import excepciones.WrongUsername;
 import programaAuto.ProgramaAuto;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.TanqueCombustible;
-import proveedorDePartes.fabricas.TanqueNafta;
 import vista.VistaGraficador;
 import auto.Auto;
 
@@ -25,12 +23,16 @@ public class ControladorPrincipal implements KeyListener{
 		
 		ProgramaAuto miPrograma = new ProgramaAuto();
 		miPrograma.generarProximaPista();
-		unAuto = (miPrograma.nuevoUsuario("Lucas")).getAuto();
+		try {
+			unAuto = (miPrograma.nuevoUsuario("Lucas")).getAuto();
+		} catch (WrongUsername e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		FabricaDeTanquesDeCombustible fabricaTanques = new FabricaDeTanquesDeCombustible();
 		try {
 			fabricaTanques.proponerMotor("Tanque exageradamente grande", 99999, 200, "NAFTA");
 		} catch (BoundsException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		TanqueCombustible tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(1));
@@ -55,7 +57,6 @@ public class ControladorPrincipal implements KeyListener{
 					try {
 					Thread.sleep((int)(tiempo*1000/fastForward));
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 		}

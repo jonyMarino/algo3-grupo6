@@ -5,9 +5,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Random;
-
 import pista.Pista;
-import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
@@ -28,12 +26,10 @@ import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.TanqueNafta;
 import auto.Auto;
 import auto.AutoManual;
-
 import combustible.Nafta;
-
 import excepciones.BoundsException;
 import excepciones.WrongPartClassException;
-
+import excepciones.WrongUsername;
 
 public class ProgramaAuto extends Observable {
 
@@ -177,14 +173,13 @@ public class ProgramaAuto extends Observable {
 		//TODO: Rápido y feo, pero puede servir para el testing. Alguien creativo que se encargue...
 	}
 	
-	public Usuario nuevoUsuario(String nombre){
+	public Usuario nuevoUsuario(String nombre) throws WrongUsername {
 		Auto unAuto = autoInicial();
 		unAuto.setPista(getPista());
 		Usuario unUsuario = new Usuario(nombre);
 		unUsuario.setAuto(unAuto);
 		usuarios.add(unUsuario);
-			
-		
+					
 		return unUsuario;
 	}
 	
