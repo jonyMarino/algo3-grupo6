@@ -18,6 +18,7 @@ public class ControladorJuego implements ActionListener {
 	
 	public ControladorJuego(ProgramaAuto programaAuto) {
 		this.programaAuto = programaAuto;	
+		this.controladorTaller = null;
 	}
 
 	public ProgramaAuto getProgramaAuto() {
@@ -32,13 +33,13 @@ public class ControladorJuego implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Boton boton = (Boton)e.getSource();
 		if (boton.getText().equals("Nueva Partida"))
-			panelBase.crearPantalla( new PantallaUsuario(panelBase));
+			panelBase.crearPantalla( new PantallaUsuario(this));
 		if (boton.getText().equals("Volver"))
 			panelBase.pantallaAnterior();
 		if (boton.getText().equals("Aceptar"))
 			inicializarJuego();
 		if (boton.getText().equals("Comenzar Carrera"))
-			panelBase.crearPantalla( new PantallaCarrera(panelBase));
+			panelBase.crearPantalla( new PantallaCarrera(this));
 	}
 	
 	//TODO: Arreglar Usuario nombre vacio
@@ -46,8 +47,12 @@ public class ControladorJuego implements ActionListener {
 		String nombre = ((PantallaUsuario)panelBase.getPantallaActual()).getPanelIngreso().getBox().getText();
 		Usuario usuario = this.programaAuto.nuevoUsuario(nombre);
 		usuario.setAvatar(((PantallaUsuario)panelBase.getPantallaActual()).getComboBoxCars().getSeleccionado());
-		controladorTaller = new ControladorTaller(panelBase,usuario.getTaller());
+		this.controladorTaller = new ControladorTaller(panelBase,usuario.getTaller());
 		panelBase.crearPantalla(new PantallaTaller(controladorTaller));
+	}
+
+	public ControladorTaller getControladorTaller() {
+		return controladorTaller;
 	}
 
 }

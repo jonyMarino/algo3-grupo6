@@ -17,13 +17,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 
+import controlador.ControladorJuego;
+
 public class PantallaUsuario extends JPanelConImagen {
 
 	private static final long serialVersionUID = 1L;
 	private CuadroIngresoUsuario panelIngreso;
 	private ComboBoxCars comboBoxCars;
 	
-	public PantallaUsuario(PanelBase panelBase) {
+	public PantallaUsuario(ControladorJuego controladorJuego) {
 		super();
 		//FONDO
 		this.setImage("FondoTransparente");
@@ -33,12 +35,12 @@ public class PantallaUsuario extends JPanelConImagen {
 		panelUsuario.setLayout(new BoxLayout(panelUsuario,BoxLayout.Y_AXIS));
 		
 		//PANEL INGRESO
-			panelIngreso = new CuadroIngresoUsuario();
-			panelIngreso.setOpaque(false);
+			this.panelIngreso = new CuadroIngresoUsuario();
+			this.panelIngreso.setOpaque(false);
 			//PERSONAJES
-			ComboBoxCars personajes = new ComboBoxCars();
-			comboBoxCars = personajes;
-   			personajes.setOpaque(false);
+			ComboBoxCars comboBoxCars = new ComboBoxCars();
+			this.comboBoxCars = comboBoxCars;
+			comboBoxCars.setOpaque(false);
 
    		GridBagConstraints c = new GridBagConstraints();
 	    c.gridx =0;
@@ -47,11 +49,11 @@ public class PantallaUsuario extends JPanelConImagen {
 	    panelUsuario.setLayout(new GridBagLayout());
 	    panelUsuario.add(panelIngreso,c);
 	    c.gridy =1;
-	    panelUsuario.add(personajes,c);
+	    panelUsuario.add(comboBoxCars,c);
 		panelUsuario.setOpaque(false);
 
 		//BOTONERA
-       	BotoneraUsuario botoneraUsuario = new BotoneraUsuario(panelBase);
+       	BotoneraUsuario botoneraUsuario = new BotoneraUsuario(controladorJuego);
 
 		this.add(panelUsuario);
 		this.add(botoneraUsuario);
@@ -68,19 +70,19 @@ public class PantallaUsuario extends JPanelConImagen {
 		return comboBoxCars;
 	}
 
-	public class BotoneraUsuario extends JPanel{
+	public class BotoneraUsuario extends JPanel {
 
 		private static final long serialVersionUID = 1L;
 
-		public BotoneraUsuario(PanelBase panelBase) {
+		public BotoneraUsuario(ControladorJuego controladorJuego) {
 
 			Boton botonVolver = new Boton("Volver");
-			botonVolver.addActionListener(panelBase.getControlador());
+			botonVolver.addActionListener(controladorJuego);
 
 			Boton botonAceptar = new Boton("Aceptar");
 			//TODO: Luego debe borrarse
 			//PARA QUE VEAS :P
-			botonAceptar.addActionListener(panelBase.getControlador());
+			botonAceptar.addActionListener(controladorJuego);
 
 			this.add(botonVolver);
 			this.add(botonAceptar);

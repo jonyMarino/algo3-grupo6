@@ -8,16 +8,18 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import controlador.ControladorJuego;
+
 public class PantallaInicio extends JPanelConImagen {
 
 	private static final long serialVersionUID = 1L;
 	
-	public PantallaInicio(PanelBase panelBase) {
+	public PantallaInicio(ControladorJuego controladorJuego) {
 		super();
 		this.setImage("FondoPantallaInicio");
-
-		BotoneraInicio botonera = new BotoneraInicio(panelBase);
 		
+		BotoneraInicio botonera = new BotoneraInicio(controladorJuego);
+
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.weighty = 1; 
@@ -29,10 +31,10 @@ public class PantallaInicio extends JPanelConImagen {
 
 		private static final long serialVersionUID = 1L;
 
-		public BotoneraInicio(PanelBase panelBase) {
+		public BotoneraInicio(ControladorJuego controladorJuego) {
 
 			Boton botonNuevaPartida = new Boton("Nueva Partida");
-			botonNuevaPartida.addActionListener(panelBase.getControlador());
+			botonNuevaPartida.addActionListener(controladorJuego);
 
 			Boton botonContinuarPartida = new Boton("Continuar Partida");
 
@@ -49,7 +51,7 @@ public class PantallaInicio extends JPanelConImagen {
 
 			this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-			setOpaque(false);
+			this.setOpaque(false);
 		}
 
 		//Clase auxiliar para escuchar el evento de cerrado de la ventana
@@ -62,5 +64,5 @@ public class PantallaInicio extends JPanelConImagen {
 		}
 
 	}
-	
+
 }
