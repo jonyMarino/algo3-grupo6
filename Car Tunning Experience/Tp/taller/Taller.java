@@ -110,6 +110,10 @@ public class Taller {
 		}
 		public void remove(){}
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
 	
 	
 }
