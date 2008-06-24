@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
 import javax.swing.*;
+
 import auto.Auto;
 import auto.AutoManual;
 import combustible.Nafta;
@@ -20,6 +21,7 @@ public class PantallaTaller extends JPanelConImagen {
 	   private JPanel panelAutoActual;
        private JPanel panelPista;
        private JPanel panelUsuario;
+       private JPanel panelNafta;
        private JLabel boxDinero;
        private JComboBox comboPartesReserva;
        private static final long serialVersionUID = 1L;
@@ -203,7 +205,7 @@ public class PantallaTaller extends JPanelConImagen {
        /* PANEL CARGAR NAFTA */
        private JPanel crearPanelCargarNafta(){
     	   
-    	   JPanel panelNafta = new JPanel();
+    	   this.panelNafta = new JPanel();
     	   Color nc = new Color(176,196,222);
     	   panelNafta.setPreferredSize(new Dimension(100,150)); 
    	   
@@ -214,25 +216,50 @@ public class PantallaTaller extends JPanelConImagen {
            c.anchor = GridBagConstraints.NORTH;
 
            panelNafta.setBackground(nc); 
-           JLabel boxNafta = new JLabel("1");
-           Scrollbar barraTemp = new Scrollbar(Scrollbar.HORIZONTAL, 0, 10, -50, 160); 
-           barraTemp.setPreferredSize(new Dimension(100,20)); 
-           
-           panelNafta.add(boxNafta,c);
-           c.gridx =1;
-           c.gridy =0;
-           panelNafta.add(barraTemp,c);
-           
-           c.gridx =0;
-           c.gridy =2;
-           c.anchor = GridBagConstraints.SOUTH;
-           Boton botonCargar = new Boton("Cargar Nafta");
-           botonCargar.setOpaque(false);
-          
-           panelNafta.add(botonCargar,c);
-    
+
            return panelNafta;
    	   }
+       
+       //Esto actualiza el PANEL NAFTA
+       public void actualizarInformacionNafta(Auto auto){
+    	   
+    	   panelNafta.removeAll();
+    	    	   
+    	   JLabel boxNafta = new JLabel(Double.toString(auto.obtenerCantidadCombustible()) + " Litros"); 	   
+    	   JProgressBar barraTanque = new JProgressBar(0 , (int)auto.getTanqueCombustible().getCapacidad());
+    	   barraTanque.setPreferredSize(new Dimension(100,20));
+    	   barraTanque.setValue((int)auto.getTanqueCombustible().getCantidadCombustible());
+    	   
+    	   GridBagConstraints c = new GridBagConstraints();
+           c.gridx =0;
+           c.gridy =0;
+           c.anchor = GridBagConstraints.NORTH;
+           panelNafta.add(boxNafta,c);
+           c.gridx =1;
+           panelNafta.add(barraTanque,c);   
+           
+           //TODO: boton informativo, por si algo ocurre [falta de dinero].
+           JLabel mensaje = new JLabel();
+           c.gridx =0;
+           c.gridy =1;
+           c.anchor = GridBagConstraints.CENTER;
+           panelNafta.add(mensaje,c);
+                      
+           Boton botonCargar = new Boton("Cargar Nafta");
+           botonCargar.setOpaque(false);
+           //TODO: 0,5 es cada cuanto aumenta el boton.
+           SpinnerModel model = new SpinnerNumberModel(0,0,auto.getTanqueCombustible().getCantidadCombustible()-auto.getTanqueCombustible().getCantidadCombustible(), 0.5);                
+           JSpinner seleccionCargar = new JSpinner(model);
+           JLabel cantidadLitros = new JLabel(" Litros");
+           
+           c.gridy =2;
+           c.anchor = GridBagConstraints.LAST_LINE_END;
+           panelNafta.add(botonCargar,c);
+           c.gridx =1;
+           panelNafta.add(seleccionCargar,c);   
+           c.gridx =2;
+           panelNafta.add(cantidadLitros,c);            
+       }
 
        /* PANEL PISTA */
        private JPanel crearPanelPista(){
