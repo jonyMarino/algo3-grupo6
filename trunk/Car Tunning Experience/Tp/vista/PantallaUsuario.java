@@ -87,8 +87,6 @@ public class PantallaUsuario extends JPanelConImagen {
 			botonVolver.addActionListener(controladorJuego);
 
 			Boton botonAceptar = new Boton("Aceptar");
-			//TODO: Luego debe borrarse
-			//PARA QUE VEAS :P
 			botonAceptar.addActionListener(controladorJuego);
 
 			this.add(botonVolver);

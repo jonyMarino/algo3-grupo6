@@ -51,7 +51,11 @@ public class ControladorJuego implements ActionListener {
 				usuario = this.programaAuto.nuevoUsuario(nombre);
 				usuario.setAvatar(((PantallaUsuario)panelBase.getPantallaActual()).getComboBoxCars().getSeleccionado());
 				this.controladorTaller = new ControladorTaller(panelBase,usuario.getTaller());
-				panelBase.crearPantalla(new PantallaTaller(controladorTaller));		
+				panelBase.crearPantalla(new PantallaTaller(controladorTaller));	
+				this.controladorTaller.setPantallaTaller((PantallaTaller)panelBase.getPantallaActual());
+				programaAuto.generarProximaPista();
+				controladorTaller.setProximaPista(programaAuto.getPista());
+				controladorTaller.actualizarPantallaTaller();
 			} catch (WrongUsername e) {
 				this.MensajeError();
 			}

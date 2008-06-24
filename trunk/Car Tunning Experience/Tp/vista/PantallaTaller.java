@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
 import javax.swing.*;
+
 import auto.Auto;
 import auto.AutoManual;
 import combustible.Nafta;
@@ -19,7 +20,9 @@ import taller.Taller;
 public class PantallaTaller extends JPanelConImagen{
 
        private DefaultComboBoxModel listaPartesEnTaller;
-       private JLabel boxPista;
+       private JLabel boxPistaLongitud;
+       private JLabel boxPistaVelodidadAire;
+       private JLabel boxPistaSuperficie;
        private JLabel boxDinero;
        private static final long serialVersionUID = 1L;
    
@@ -33,7 +36,6 @@ public class PantallaTaller extends JPanelConImagen{
                
                crearPanelCatalogo();
                crearPanelAuto();
-               //TODO: TE LO COMENTE
                crearPanelPistaDineroBodega();
                
                GridBagConstraints c = new GridBagConstraints();
@@ -49,6 +51,7 @@ public class PantallaTaller extends JPanelConImagen{
        }
        
        /*TENGO QUE RECIBIR EL AUTO PARA PASARSELO A actualizarInformacionAuto*/
+       /* PANEL INFORCION AUTO USUARIO */
        private void crearPanelAuto() {
 
            JTabbedPane tabbedPane = new JTabbedPane();
@@ -77,6 +80,7 @@ public class PantallaTaller extends JPanelConImagen{
            this.add(tabbedPane,c);        
        }
        
+       //Esto actualiza la PANEL INFORMACION AUTO
        public JPanel actualizarInformacionAuto(){
     	   
     	   JPanel panelLabel = new JPanel();
@@ -156,13 +160,12 @@ public class PantallaTaller extends JPanelConImagen{
        
        }
        
-
        private void agregarABodega(String nombreParte){
     	   		listaPartesEnTaller.addElement(nombreParte); 
        }
 
        
-       /*NECESITO RECIBIER EL DINERO*/
+       /* PANEL DINERO */
        private JPanel crearPanelDinero(){
                
                Color nc = new Color(176,196,222);
@@ -170,37 +173,59 @@ public class PantallaTaller extends JPanelConImagen{
                panelDinero.setLayout(new GridBagLayout());
                panelDinero.setBackground(nc);
        
-               boxDinero = new JLabel("$$$$$$$$$");
+               boxDinero = new JLabel();
                panelDinero.add(boxDinero);
                
                return panelDinero;
        	}
        
-       /*NECESITO RECIBIER LA PISTA*/
-       private JPanel crarPanelPista(){
+       //Esto actualiza la PANEL DINERO
+       public void actualizarPanelDinero(double dinero){
+    	   this.boxDinero.setText(Double.toString(dinero) + " Algo$");
+       }
+       
+       /* PANEL PISTA */
+       private JPanel crearPanelPista(){
                
                Color nc = new Color(176,196,222);
                JPanel panelPista = new JPanel();
                panelPista.setLayout(new GridBagLayout());
                panelPista.setBackground(nc);
                
-               boxPista = new JLabel("proximamente:Datos Pista");
-               panelPista.add(boxPista);
+               boxPistaLongitud = new JLabel();
+               boxPistaVelodidadAire = new JLabel();
+               boxPistaSuperficie = new JLabel();
                
+               panelPista.add(boxPistaLongitud);
+               panelPista.add(boxPistaVelodidadAire);
+               panelPista.add(boxPistaSuperficie);
+               
+               panelPista.setLayout(new BoxLayout(panelPista, BoxLayout.PAGE_AXIS));
+                              
                return panelPista;
        }
        
+       //Esto actualiza la PANELPISTA
+       public void actualizarPanelPista(Double longitud, int velocidadAire, Double superficie){
+    	   //TODO: fijate que puse 3 label... si ves alguna mejor cambialo
+    	   this.boxPistaLongitud.setText( "Longitud: " + Double.toString(longitud) + " metros" );
+    	   //TODO: siempre es cero la velocidad del aire??
+    	   this.boxPistaVelodidadAire.setText( "Velocidad del aire: " + Integer.toString(velocidadAire) + " Km/h" );
+    	   //TODO: ACA SE TENDRIA QUE FIJAR SEGUN EL COEFICIENTE SI LA PISTA ES DE HIELO, TIERRA, ASFALTO
+    	   this.boxPistaSuperficie.setText( "Superficie: " + superficie );	   
+       }
+       
+       /* PANEL PISTA DINERO BODEGA */
        private void crearPanelPistaDineroBodega(){
                
                JTabbedPane tabbedPane = new JTabbedPane();
                tabbedPane.setPreferredSize(new Dimension(250,100));
 
 		       tabbedPane.addTab("Dinero",crearPanelDinero());
-		      //TODO: TE LO COMENTE
 		       
 		       tabbedPane.addTab("Bodega",crearPanelReserva());
 		      
-		       tabbedPane.addTab("Proxima Pista",crarPanelPista());
+		       tabbedPane.addTab("Proxima Pista",crearPanelPista());
 	           
 	           GridBagConstraints c = new GridBagConstraints();
 	           c.gridx =1;
@@ -212,8 +237,13 @@ public class PantallaTaller extends JPanelConImagen{
            
 	           this.add(tabbedPane,c);
        }
-
        
+       //Esto actualiza la PANELBODEGA
+       public void actualizarPanelBodega(String datosBodega){
+    	   //metodos necesarios
+       }
+
+       /* PANEL CATALOGO */
        private void crearPanelCatalogo(){
                
                Color nc = new Color(176,196,222);
@@ -244,6 +274,11 @@ public class PantallaTaller extends JPanelConImagen{
 		       c.anchor = GridBagConstraints.NORTH;
 		       
 		       this.add(tabbedPane,c);
+       }
+       
+       //Esto actualiza la PANELCATALOGO
+       public void actualizarPanelCatalogo(String catalogo){
+    	  //lo que haga actualizarla
        }
        
        private GridBagConstraints posicionBoton(){
@@ -320,20 +355,8 @@ public class PantallaTaller extends JPanelConImagen{
                
                
        }
-
-       public JLabel getBoxPista() {
-               return boxPista;
-       }
-
-       public JLabel getBoxDinero() {
-               return boxDinero;
-       }
        
-       public void update(){
-               //return 0/*dinero*/;
-       }
-       
-/*AUTO DE PRUEBA NOMAS*/
+       /*AUTO DE PRUEBA NOMAS*/
        public Auto autoInicial(){
                Pista pista = new Pista(5);
                pista=null;
