@@ -24,6 +24,9 @@ public class ControladorTaller {
 		//PANEL RESERVA
 		pantallaTaller.actualizarInformacionReserva( taller );
 			
+		//PANEL NAFTA
+		pantallaTaller.actualizarInformacionNafta( taller.getUsuario().getAuto() );
+		
 		//PANEL USUARIO
 		pantallaTaller.actualizarInformacionUsuario( taller.getUsuario() );
 		
