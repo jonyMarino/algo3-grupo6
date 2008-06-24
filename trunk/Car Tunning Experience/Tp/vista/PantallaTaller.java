@@ -158,7 +158,7 @@ public class PantallaTaller extends JPanelConImagen{
 		    /*DATOS TEMPORALES PARA PROBAR*/
 		    Usuario usuario = new Usuario("Vicky");
 		    Taller taller = new Taller(usuario);
-		    
+		    try{
 		    FabricaDeEscapes  fabricaEscapes = new FabricaDeEscapes();
 		    Escape escape = fabricaEscapes.fabricar(fabricaEscapes.getModelos().get(0));
 		    taller.aniadirAReserva(escape);
@@ -166,7 +166,9 @@ public class PantallaTaller extends JPanelConImagen{
 		    Carroceria carroceria = fabricaCarrocerias.fabricar(fabricaCarrocerias.getModelos().get(0));
 		    taller.aniadirAReserva(carroceria);
 		    /**/
-	    
+		    }catch (BoundsException e){
+		    	e.printStackTrace();
+		    }
 		    listaPartesEnTaller = new DefaultComboBoxModel();
 	
 		    JComboBox comboBox = new JComboBox();
@@ -177,7 +179,7 @@ public class PantallaTaller extends JPanelConImagen{
 		    	
 		    	agregarABodega(descripcion+"("+vidaUtil+")");
 		    }catch(BoundsException e){}
-		    
+
 		    comboBox.setModel(listaPartesEnTaller);
 			
 		    return comboBox;
@@ -446,32 +448,46 @@ public class PantallaTaller extends JPanelConImagen{
                } catch (BoundsException e1) {
                        e1.printStackTrace();
                }
-                       MezcladorNafta mezclador = (MezcladorNafta) fabricaMezcladores.fabricar(fabricaMezcladores.getModelos().get(0));
+               
+               MezcladorNafta mezclador = null;
+               Escape escape = null;
+               Carroceria carroceria = null;
+               Motor motor = null;
+               Caja caja = null;
+               Eje eje = null;
+               Freno freno = null;
+               ArrayList<Rueda> ruedas = new ArrayList<Rueda>();
+               
+               try{
+               
+            	   		mezclador = (MezcladorNafta) fabricaMezcladores.fabricar(fabricaMezcladores.getModelos().get(0));
                        
-                       Escape escape = fabricaEscapes.fabricar(fabricaEscapes.getModelos().get(0));
+                      escape = fabricaEscapes.fabricar(fabricaEscapes.getModelos().get(0));
                        
-                       Carroceria carroceria = fabricaCarrocerias.fabricar(fabricaCarrocerias.getModelos().get(0));
+                      carroceria = fabricaCarrocerias.fabricar(fabricaCarrocerias.getModelos().get(0));
 
-                       ArrayList<Rueda> ruedas = new ArrayList<Rueda>();
+                       
                        for(int i=0;i<4;i++){
                                Rueda rueda = fabricaRuedas.fabricar(fabricaRuedas.getModelos().get(0));
                                ruedas.add(rueda);                              
                        }
                        
-                       Eje eje = fabricaEjes.fabricar(fabricaEjes.getModelos().get(0));
+                       eje = fabricaEjes.fabricar(fabricaEjes.getModelos().get(0));
                        
-                       CajaManual caja = null;
-					try {
+
+                       try {
 						caja = (CajaManual) fabricaCajas.fabricar(fabricaCajas.getModelos().get(0));
 					} catch (BoundsException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
                        
-                       Motor motor=fabricaMotores.fabricar(fabricaMotores.getModelos().get(0));
+                       motor=fabricaMotores.fabricar(fabricaMotores.getModelos().get(0));
                        
-                       Freno freno =  (Freno) fabricaPedales.fabricar(fabricaPedales.getModelos().get(1));
-                       
+                       freno =  (Freno) fabricaPedales.fabricar(fabricaPedales.getModelos().get(1));
+               }catch(BoundsException e){
+            	   e.printStackTrace();
+               }
                        try {
                                auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje, freno);
                        } catch (WrongPartClassException e) {
