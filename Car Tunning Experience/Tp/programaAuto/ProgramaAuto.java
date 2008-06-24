@@ -120,7 +120,7 @@ public class ProgramaAuto extends Observable {
 	public Auto autoInicial(){
 		Auto auto=null;
 		Nafta nafta = new Nafta(85,15);
-		
+		try{
 		TanqueNafta tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
 		tanque.setCombustible(nafta);
 	
@@ -155,7 +155,11 @@ public class ProgramaAuto extends Observable {
 				e.printStackTrace();
 			}
 			auto.setPista(pista);
-
+		}
+		catch (BoundsException e)
+		{
+			e.printStackTrace();  //TODO: bastante sucio
+		}
 		return auto;
 	}
 

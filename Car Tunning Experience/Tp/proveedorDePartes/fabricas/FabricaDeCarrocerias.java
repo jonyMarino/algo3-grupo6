@@ -20,7 +20,7 @@ public class FabricaDeCarrocerias extends FabricaDePartes {
 		return nuevaInfo;
 	}
 	
-	public Carroceria fabricar(InformacionDelModelo modelo) {
+	public Carroceria fabricar(InformacionDelModelo modelo) throws BoundsException {
 		try{
 			double volumen = Double.parseDouble(modelo.getCaracteristica("VOLUMEN"));
 			int aerodinamia = Integer.parseInt(modelo.getCaracteristica("AERODINAMIA"));
@@ -35,9 +35,8 @@ public class FabricaDeCarrocerias extends FabricaDePartes {
 			return unaCarroceria;
 		}
 		catch(BoundsException e){
-			e.printStackTrace();	
+			throw e;	
 		}
-		return null;
 	}
 	
 	public void proponerCarroceria(String descripcion, double peso, int aerodinamia, double volumen) throws BoundsException{

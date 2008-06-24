@@ -18,7 +18,7 @@ public class FabricaDeEscapes extends FabricaDePartes {
 		return nuevaInfo;
 	}
 	
-	public Escape fabricar(InformacionDelModelo modelo) {
+	public Escape fabricar(InformacionDelModelo modelo) throws BoundsException {
 		try{
 			int eficiencia = Integer.parseInt(modelo.getCaracteristica("EFICIENCIA"));
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
@@ -32,9 +32,8 @@ public class FabricaDeEscapes extends FabricaDePartes {
 			return unEscape;
 		}
 		catch(BoundsException e){
-			e.printStackTrace();
+			throw e;
 		}
-		return null;
 	}
 	
 	public void proponerEscape(String descripcion, int rendimiento, double peso) throws BoundsException{

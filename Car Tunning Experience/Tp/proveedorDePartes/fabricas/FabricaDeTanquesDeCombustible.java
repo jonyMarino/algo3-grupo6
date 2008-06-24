@@ -28,7 +28,7 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 		return nuevaInfo;
 	}
 	
-	public TanqueNafta fabricar(InformacionDelModelo modelo) {
+	public TanqueNafta fabricar(InformacionDelModelo modelo) throws BoundsException {
 		try{
 			int capacidad = Integer.parseInt(modelo.getCaracteristica("CAPACIDAD"));
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
@@ -46,9 +46,8 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 			return unTanque;
 		}
 		catch(BoundsException e){
-			e.printStackTrace();
+			throw e;
 		}
-		return null;
 	}
 	
 	public void proponerMotor(String descripcion, int capacidad, double peso, String clase) throws BoundsException{

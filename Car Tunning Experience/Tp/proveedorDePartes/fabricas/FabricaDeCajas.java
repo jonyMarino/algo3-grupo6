@@ -20,7 +20,7 @@ public class FabricaDeCajas extends FabricaDePartes {
 		return nuevaInfo;
 	}
 	
-	public Caja fabricar(InformacionDelModelo modelo) {
+	public Caja fabricar(InformacionDelModelo modelo) throws BoundsException {
 		Caja caja;
 		try{
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
@@ -43,9 +43,8 @@ public class FabricaDeCajas extends FabricaDePartes {
 			}
 		}
 		catch(BoundsException e){
-			e.printStackTrace();
+			throw e;
 		}
-		return null;
 	}
 	 
 }

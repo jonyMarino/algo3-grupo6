@@ -14,7 +14,7 @@ public class FabricaDeEjes extends FabricaDePartes {
 		agregarModelo(nuevaInfo); //agrega uneje básico
 	}
 	
-	public Eje fabricar(InformacionDelModelo modelo) {
+	public Eje fabricar(InformacionDelModelo modelo) throws BoundsException {
 		try{
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
 			double peso = Double.parseDouble(modelo.getCaracteristica("PESO"));
@@ -27,9 +27,8 @@ public class FabricaDeEjes extends FabricaDePartes {
 			return unEje;
 		}
 		catch(BoundsException e){
-			e.printStackTrace();
+			throw e;
 		}
-		return null;
 	}
 	 
 }

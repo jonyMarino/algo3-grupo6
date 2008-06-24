@@ -20,7 +20,7 @@ public class FabricaDeMezcladores extends FabricaDePartes {
 		return nuevaInfo;
 	}
 	
-	public Mezclador fabricar(InformacionDelModelo modelo) {
+	public Mezclador fabricar(InformacionDelModelo modelo) throws BoundsException {
 		try{
 			int rendimiento = Integer.parseInt(modelo.getCaracteristica("RENDIMIENTO"));
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
@@ -38,9 +38,9 @@ public class FabricaDeMezcladores extends FabricaDePartes {
 			return unMezclador;
 		}
 		catch(BoundsException e){
-			e.printStackTrace();
+			throw e;
 		}
-		return null;
+
 	}
 	
 	public void proponerMezclador(String descripcion, int rendimiento, double peso, String clase) throws BoundsException{

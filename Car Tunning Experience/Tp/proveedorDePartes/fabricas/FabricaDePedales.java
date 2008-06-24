@@ -27,7 +27,7 @@ public class FabricaDePedales extends FabricaDePartes {
 		return nuevaInfo;
 	}
 	
-	public Pedal fabricar(InformacionDelModelo modelo) {
+	public Pedal fabricar(InformacionDelModelo modelo) throws BoundsException {
 		try{
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
 			int costo = Integer.parseInt(modelo.getCaracteristica("COSTO"));
@@ -51,9 +51,8 @@ public class FabricaDePedales extends FabricaDePartes {
 			}
 		}
 		catch(BoundsException e){
-			e.printStackTrace();
+			throw e;
 		}
-		return null;
 	}
 
 }

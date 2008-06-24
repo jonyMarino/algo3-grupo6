@@ -432,7 +432,13 @@ public class PantallaTaller extends JPanelConImagen{
                Auto auto=null;
                Nafta nafta = new Nafta(85,15);
                
-               TanqueNafta tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
+               TanqueNafta tanque = null;
+			try {
+				tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
+			} catch (BoundsException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
                tanque.setCombustible(nafta);
        
                try {
@@ -454,7 +460,13 @@ public class PantallaTaller extends JPanelConImagen{
                        
                        Eje eje = fabricaEjes.fabricar(fabricaEjes.getModelos().get(0));
                        
-                       CajaManual caja=(CajaManual) fabricaCajas.fabricar(fabricaCajas.getModelos().get(0));
+                       CajaManual caja = null;
+					try {
+						caja = (CajaManual) fabricaCajas.fabricar(fabricaCajas.getModelos().get(0));
+					} catch (BoundsException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                        
                        Motor motor=fabricaMotores.fabricar(fabricaMotores.getModelos().get(0));
                        

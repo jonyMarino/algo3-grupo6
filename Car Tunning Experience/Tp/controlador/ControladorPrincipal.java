@@ -35,10 +35,12 @@ public class ControladorPrincipal implements KeyListener{
 		} catch (BoundsException e1) {
 			e1.printStackTrace();
 		}
+
+		try {
 		TanqueCombustible tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(1));
 		tanque.setCombustible(new Nafta(90, 10));
 		unAuto.setTanqueCombustible(tanque);
-		try {
+
 			tanque.llenarTanque(99999);
 		} catch (BoundsException e) {
 		}

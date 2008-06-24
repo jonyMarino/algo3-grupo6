@@ -20,7 +20,7 @@ public class FabricaDeMotores extends FabricaDePartes {
 		return nuevaInfo;
 	}
 	
-	public Motor fabricar(InformacionDelModelo modelo) {
+	public Motor fabricar(InformacionDelModelo modelo) throws BoundsException {
 		try{
 			double rpmmaximo = Double.parseDouble(modelo.getCaracteristica("RPMMAX"));
 			int rendimiento = Integer.parseInt(modelo.getCaracteristica("RENDIMIENTO"));
@@ -36,9 +36,8 @@ public class FabricaDeMotores extends FabricaDePartes {
 			return unMotor;
 		}
 		catch(BoundsException e){
-			e.printStackTrace();
+			throw e;
 		}
-		return null;
 	}
 	
 	public void proponerMotor(String descripcion, int rendimiento, double peso, double rpmmax, double cilindrada) throws BoundsException{
