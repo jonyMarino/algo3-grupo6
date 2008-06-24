@@ -16,7 +16,7 @@ public class FabricaDeRuedas extends FabricaDePartes {
 		nuevaInfo.agregarCaracteristica("PESO", "10");
 		agregarModelo(nuevaInfo); //agrega una rueda básica al catálogo
 	}
-	public Rueda fabricar(InformacionDelModelo modelo) {
+	public Rueda fabricar(InformacionDelModelo modelo) throws BoundsException {
 		try{
 			double coeficienteEstatico = Double.parseDouble(modelo.getCaracteristica("COEFICIENTEESTATICO"));
 			int rodado = Integer.parseInt(modelo.getCaracteristica("RODADO"));
@@ -32,9 +32,8 @@ public class FabricaDeRuedas extends FabricaDePartes {
 			return unaRueda;
 		}
 		catch(BoundsException e){
-			e.printStackTrace();
+			throw e;
 		}
-		return null;
 	}
 	 
 }

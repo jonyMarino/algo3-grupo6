@@ -18,7 +18,7 @@ public abstract class FabricaDePartes {
 		modelosConocidos = new ArrayList<InformacionDelModelo>();
 	}
 	
-	public abstract ParteAuto fabricar(InformacionDelModelo modelo);
+	public abstract ParteAuto fabricar(InformacionDelModelo modelo) throws BoundsException;
 	public Integer consultarPrecio(InformacionDelModelo modelo) {
 		return null;
 	}
