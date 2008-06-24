@@ -17,6 +17,7 @@ import programaAuto.Usuario;
 import proveedorDePartes.fabricas.*;
 import taller.Taller;
 
+
 public class PantallaTaller extends JPanelConImagen{
 
        private DefaultComboBoxModel listaPartesEnTaller;
@@ -26,7 +27,9 @@ public class PantallaTaller extends JPanelConImagen{
        private JLabel boxDinero;
        private JPanel panelLabel;
        private static final long serialVersionUID = 1L;
-   
+
+
+       
        public PantallaTaller(ControladorJuego controladorJuego) {
                
                super();
@@ -38,6 +41,7 @@ public class PantallaTaller extends JPanelConImagen{
                crearPanelCatalogo();
                crearPanelAuto();
                crearPanelPistaDineroBodega();
+               crearPanelAvatar();
                
                GridBagConstraints c = new GridBagConstraints();
                c.gridx=2;
@@ -59,11 +63,7 @@ public class PantallaTaller extends JPanelConImagen{
            
            JPanel panelAuto = new JPanel();
            panelAuto.setLayout(new GridBagLayout());
-         
-           GridBagConstraints c2 = posicionBoton();
-           
-           Boton botonCargar = new Boton("Cargar Nafta");
-           botonCargar.setOpaque(false);
+        
            Color nc = new Color(176,196,222);
            panelAuto.setBackground(nc);
           
@@ -72,7 +72,7 @@ public class PantallaTaller extends JPanelConImagen{
            panelLabel.setOpaque(false);
            panelAuto.add(panelLabel);
            
-           panelAuto.add(botonCargar,c2);
+         
            tabbedPane.addTab("Mi Auto",panelAuto);
        
            GridBagConstraints c = new GridBagConstraints();
@@ -109,6 +109,30 @@ public class PantallaTaller extends JPanelConImagen{
            }
       	   
        }
+       
+       /*TENGO QUE RECIBIR LA LISTA DE RESERVAS DEL TALLER*/
+       private void crearPanelAvatar() {
+    	   JPanel panelAvatar = new JPanel();
+    	   Color nc = new Color(176,196,222);
+    	   panelAvatar.setPreferredSize(new Dimension(250,200));
+    	   panelAvatar.setBackground(nc);
+    	   JLabel nombre = new JLabel("Anonimo");
+           panelAvatar.add(nombre);
+           
+           //agregar imagen proximamente
+          
+    	   GridBagConstraints c = new GridBagConstraints();
+           c.gridx =1;
+           c.gridy =1;
+           c.gridheight =1;
+           Insets in=new Insets(100,0,0,0);
+           c.insets=in;
+           c.anchor = GridBagConstraints.NORTH;
+        
+    	   this.add(panelAvatar,c);
+          
+       }
+
        
        /*TENGO QUE RECIBIR LA LISTA DE RESERVAS DEL TALLER*/
        private JPanel crearPanelReserva() {
@@ -149,7 +173,9 @@ public class PantallaTaller extends JPanelConImagen{
 	        //no me toma bien el iterador nose porque sigue en tratativas
 		    try{
 		    	String descripcion = taller.getPartesDeReserva().next().getInformacionModelo().getCaracteristica("DESCRIPCION");
-		    	agregarABodega(descripcion);
+		    	Double vidaUtil = taller.getPartesDeReserva().next().getVidaUtil();
+		    	
+		    	agregarABodega(descripcion+"("+vidaUtil+")");
 		    }catch(BoundsException e){}
 		    
 		    comboBox.setModel(listaPartesEnTaller);
@@ -182,6 +208,40 @@ public class PantallaTaller extends JPanelConImagen{
     	   this.boxDinero.setText(Double.toString(dinero) + " Algo$");
        }
        
+       /* PANEL CARGAR NAFTA */
+       private JPanel crearPanelCargarNafta(){
+    	   JPanel panelNafta = new JPanel();
+    	   Color nc = new Color(176,196,222);
+    	   panelNafta.setPreferredSize(new Dimension(100,150)); 
+   	   
+    	   panelNafta.setLayout (new GridBagLayout());
+    	   GridBagConstraints c = new GridBagConstraints();
+           c.gridx =0;
+           c.gridy =0;
+           c.anchor = GridBagConstraints.NORTH;
+
+           panelNafta.setBackground(nc); 
+           JLabel boxNafta = new JLabel("1");
+           Scrollbar barraTemp = new Scrollbar(Scrollbar.HORIZONTAL, 0, 10, -50, 160); 
+           barraTemp.setPreferredSize(new Dimension(100,20)); 
+           
+           panelNafta.add(boxNafta,c);
+           c.gridx =1;
+           c.gridy =0;
+           panelNafta.add(barraTemp,c);
+           
+           c.gridx =0;
+           c.gridy =2;
+           c.anchor = GridBagConstraints.SOUTH;
+           Boton botonCargar = new Boton("Cargar Nafta");
+           botonCargar.setOpaque(false);
+          
+           panelNafta.add(botonCargar,c);
+
+           
+           return panelNafta;
+   	}
+
        /* PANEL PISTA */
        private JPanel crearPanelPista(){
                
@@ -205,7 +265,6 @@ public class PantallaTaller extends JPanelConImagen{
        
        //Esto actualiza la PANELPISTA
        public void actualizarPanelPista(Pista proximaPista){
-    	   //TODO: fijate que puse 3 label... si ves alguna mejor cambialo
     	   this.boxPistaLongitud.setText( "Longitud: " + Double.toString( proximaPista.getLongitud() ) + " metros" );
     	   //TODO: siempre es cero la velocidad del aire??
     	   this.boxPistaVelodidadAire.setText( "Velocidad del aire: " + Integer.toString( proximaPista.getVelocidadAire() ) + " Km/h" );
@@ -218,11 +277,13 @@ public class PantallaTaller extends JPanelConImagen{
        private void crearPanelPistaDineroBodega(){
                
                JTabbedPane tabbedPane = new JTabbedPane();
-               tabbedPane.setPreferredSize(new Dimension(250,100));
+               tabbedPane.setPreferredSize(new Dimension(300,150));
 
 		       tabbedPane.addTab("Dinero",crearPanelDinero());
 		       
 		       tabbedPane.addTab("Bodega",crearPanelReserva());
+		       
+		       tabbedPane.addTab("Cargar Nafta",crearPanelCargarNafta());
 		      
 		       tabbedPane.addTab("Proxima Pista",crearPanelPista());
 	           
@@ -230,7 +291,7 @@ public class PantallaTaller extends JPanelConImagen{
 	           c.gridx =1;
 	           c.gridy =1;
 	           c.gridheight =1;
-	           Insets in=new Insets(200,0,0,0);
+	           Insets in=new Insets(200,50,0,0);
 	           c.insets=in;
 	           c.anchor = GridBagConstraints.CENTER;
            
