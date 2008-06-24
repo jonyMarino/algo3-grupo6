@@ -14,7 +14,13 @@ public class FabricaDeMotoresTest extends TestCase {
 	public void testFabricarMotor() {
 		FabricaDeMotores fabrica = new FabricaDeMotores();
 		ArrayList<InformacionDelModelo> modelos = fabrica.getModelos();
-		Motor unMotor = fabrica.fabricar(modelos.get(0));
+		Motor unMotor = null;
+		try {
+			unMotor = fabrica.fabricar(modelos.get(0));
+		} catch (BoundsException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			assertTrue(unMotor.getRPMMaximo()== Double.parseDouble(modelos.get(0).getCaracteristica("RPMMAX")));
 			assertTrue(unMotor.getDescripcion()== modelos.get(0).getCaracteristica("DESCRIPCION"));
