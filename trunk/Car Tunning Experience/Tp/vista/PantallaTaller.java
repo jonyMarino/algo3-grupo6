@@ -3,36 +3,27 @@ package vista;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
-
 import javax.swing.*;
-
 import auto.Auto;
 import auto.AutoManual;
 import combustible.Nafta;
 import controlador.ControladorJuego;
 import excepciones.BoundsException;
 import excepciones.WrongPartClassException;
-import excepciones.WrongUsername;
 import pista.Pista;
 import programaAuto.Usuario;
 import proveedorDePartes.fabricas.*;
 import taller.Taller;
-import taller.Taller.InformacionParteReserva;
 
+public class PantallaTaller extends JPanelConImagen {
 
-public class PantallaTaller extends JPanelConImagen{
-
-       private DefaultComboBoxModel listaPartesEnTaller;
-       private JLabel boxPistaLongitud;
-       private JLabel boxPistaVelodidadAire;
-       private JLabel boxPistaSuperficie;
+	   private JPanel panelAutoActual;
+       private JPanel panelPista;
+       private JPanel panelUsuario;
        private JLabel boxDinero;
-       private JLabel nombreUsuario;
-       private JPanel panelLabel;
+       private JComboBox comboPartesReserva;
        private static final long serialVersionUID = 1L;
-
-
-       
+     
        public PantallaTaller(ControladorJuego controladorJuego) {
                
                super();
@@ -44,7 +35,7 @@ public class PantallaTaller extends JPanelConImagen{
                crearPanelCatalogo();
                crearPanelAuto();
                crearPanelPistaDineroBodega();
-               crearPanelAvatar();
+               crearPanelUsuario();
                
                GridBagConstraints c = new GridBagConstraints();
                c.gridx=2;
@@ -58,8 +49,9 @@ public class PantallaTaller extends JPanelConImagen{
                this.add(botonComenzar, c);            
        }
        
+       
        /* PANEL INFORMACION AUTO USUARIO */
-       private void crearPanelAuto( ) {
+       private void crearPanelAuto() {
 
            JTabbedPane tabbedPane = new JTabbedPane();
            tabbedPane.setPreferredSize(new Dimension(300,300));
@@ -70,10 +62,10 @@ public class PantallaTaller extends JPanelConImagen{
            Color nc = new Color(176,196,222);
            panelAuto.setBackground(nc);
           
-           this.panelLabel = new JPanel();
-           panelLabel.setLayout(new BoxLayout(panelLabel,BoxLayout.Y_AXIS));
-           panelLabel.setOpaque(false);
-           panelAuto.add(panelLabel);
+           this.panelAutoActual = new JPanel();
+           panelAutoActual.setLayout(new BoxLayout(panelAutoActual,BoxLayout.Y_AXIS));
+           panelAutoActual.setOpaque(false);
+           panelAuto.add(panelAutoActual);
            
          
            tabbedPane.addTab("Mi Auto",panelAuto);
@@ -87,43 +79,40 @@ public class PantallaTaller extends JPanelConImagen{
        }
             
        //Esto actualiza la PANEL INFORMACION AUTO
-       public void actualizarInformacionAuto(Auto auto){
+       public void actualizarInformacionAuto(Auto auto) {
     	   
-       	   //Primero debe borrar contenido anterior
-    	   panelLabel.removeAll();
+       	   panelAutoActual.removeAll();
     	   
     	   ParteAuto parte;
            
            Hashtable<String,ParteAuto> tabla=new Hashtable<String,ParteAuto>();
            tabla = auto.getHashDePartes();
            Enumeration<ParteAuto> enumeracion = tabla.elements();
+           Double vidaUtil;
            
-           /*RECORRO LAS PARTES DEL AUTO IMRPIMO DESCRIPCION Y VIDA UTIL*/
            while(enumeracion.hasMoreElements()){   
         	        JLabel jParteAuto = new JLabel();
         	   		parte=enumeracion.nextElement();
              try{
                      String nombreParte =parte.getInformacionDelModelo().getCaracteristica("DESCRIPCION");
-                     Double vidaUtil= parte.getVidaUtil();
+                     vidaUtil = parte.getVidaUtil();
                      jParteAuto.setText(nombreParte+" "+vidaUtil);  
-                     panelLabel.add(jParteAuto);                
+                     panelAutoActual.add(jParteAuto);                
              }catch (BoundsException e){}
            
            }
       	   
        }
        
-       /*PANEL AVATAR Y NOMBRE USUARIO*/
-       private void crearPanelAvatar() {
-    	   JPanel panelAvatar = new JPanel();
+       
+       /*PANEL USUARIO*/
+       private void crearPanelUsuario() {
+    	   
+    	   this.panelUsuario = new JPanel();
     	   Color nc = new Color(176,196,222);
-    	   panelAvatar.setPreferredSize(new Dimension(250,200));
-    	   panelAvatar.setBackground(nc);
-    	   this.nombreUsuario = new JLabel();
-           panelAvatar.add(nombreUsuario);
-           
-           //agregar imagen proximamente
-          
+    	   panelUsuario.setPreferredSize(new Dimension(250,200));
+    	   panelUsuario.setBackground(nc);
+    	          
     	   GridBagConstraints c = new GridBagConstraints();
            c.gridx =1;
            c.gridy =1;
@@ -132,73 +121,63 @@ public class PantallaTaller extends JPanelConImagen{
            c.insets=in;
            c.anchor = GridBagConstraints.NORTH;
         
-    	   this.add(panelAvatar,c);
-          
+    	   this.add(panelUsuario,c);         
        }
        
        //Esto actualiza la PANEL INFORMACION USUARIO
-       public void actualizarInformacionUsuario(Usuario usuario){
-    	   this.nombreUsuario.setText(usuario.getNombre());
-    	   this.nombreUsuario.setIcon(usuario.getAvatar());
+       public void actualizarInformacionUsuario(Usuario usuario) {
+    	  
+    	   panelUsuario.removeAll();  	   
+    	   
+    	   JLabel jUsuario = new JLabel(usuario.getNombre());
+    	   jUsuario.setIcon(usuario.getAvatar());
+           panelUsuario.add(jUsuario);           
        }
 
        
-       /*TENGO QUE RECIBIR LA LISTA DE RESERVAS DEL TALLER*/
+       /* PANEL LISTA DE RESERVAS DEL TALLER*/
        private JPanel crearPanelReserva() {
 
     	   Color nc = new Color(176,196,222);
     	   JPanel panelBodega = new JPanel();
     	   panelBodega.setLayout(new GridBagLayout());
     	   panelBodega.setBackground(nc);
-         
-    	    try {
-    	    	panelBodega.add(actualizarListaReserva());
-    		} catch(WrongUsername e){}
-          
-          Boton botonCambiar = new Boton("Cambiar");
-          panelBodega.add(botonCambiar);
+        
+    	   this.comboPartesReserva = new JComboBox();
+    	   panelBodega.add(comboPartesReserva);
+    	   Boton botonCambiar = new Boton("Cambiar");
+    	   panelBodega.add(botonCambiar);
                
-          return panelBodega;
+    	   return panelBodega;
        }
 
-       //Esto actualiza la PANEL LISTA RESERVA
-       public JComboBox actualizarListaReserva( )throws WrongUsername{
+       //Esto actualiza el PANEL LISTA RESERVA
+       public void actualizarInformacionReserva(Taller taller) {
 
-		    /*DATOS TEMPORALES PARA PROBAR*/
-		    Usuario usuario = new Usuario("Vicky");
-		    Taller taller = new Taller(usuario);
-		    try{
-		    FabricaDeEscapes  fabricaEscapes = new FabricaDeEscapes();
-		    Escape escape = fabricaEscapes.fabricar(fabricaEscapes.getModelos().get(0));
-		    taller.aniadirAReserva(escape);
-		    FabricaDeCarrocerias  fabricaCarrocerias = new FabricaDeCarrocerias();
-		    Carroceria carroceria = fabricaCarrocerias.fabricar(fabricaCarrocerias.getModelos().get(0));
-		    taller.aniadirAReserva(carroceria);
-		    /**/
-		    }catch (BoundsException e){
-		    	e.printStackTrace();
+    	    comboPartesReserva.removeAllItems();
+    	   	
+    	    Double vidaUtil;
+		    String descripcion;
+		    boolean entre = false;
+		    				
+		    while (taller.getPartesDeReserva().hasNext()){
+		    	entre = true;
+		    	try {
+					descripcion = taller.getPartesDeReserva().next().getInformacionModelo().getCaracteristica("DESCRIPCION");
+			    	vidaUtil = taller.getPartesDeReserva().next().getVidaUtil();
+					
+			    	comboPartesReserva.addItem( descripcion + " " + vidaUtil );
+
+		    	} catch (BoundsException e) { }
+    			    
 		    }
-		    listaPartesEnTaller = new DefaultComboBoxModel();
-	
-		    JComboBox comboBox = new JComboBox();
-	        //no me toma bien el iterador nose porque sigue en tratativas
-		    try{
-		    	String descripcion = taller.getPartesDeReserva().next().getInformacionModelo().getCaracteristica("DESCRIPCION");
-		    	Double vidaUtil = taller.getPartesDeReserva().next().getVidaUtil();
-		    	
-		    	agregarABodega(descripcion+"("+vidaUtil+")");
-		    }catch(BoundsException e){}
-
-		    comboBox.setModel(listaPartesEnTaller);
 			
-		    return comboBox;
-       
+		    if (!entre) {
+		    	String mensajeVacio = "- Lista Vacía -";
+		    	comboPartesReserva.addItem(mensajeVacio);
+			}           
        }
-       
-       private void agregarABodega(String nombreParte){
-    	   		listaPartesEnTaller.addElement(nombreParte); 
-       }
-
+        
        
        /* PANEL DINERO */
        private JPanel crearPanelDinero(){
@@ -215,12 +194,15 @@ public class PantallaTaller extends JPanelConImagen{
        	}
        
        //Esto actualiza la PANEL DINERO
-       public void actualizarPanelDinero(double dinero){
+       public void actualizarInformacionDinero(double dinero){
+    	   
     	   this.boxDinero.setText(Double.toString(dinero) + " Algo$");
        }
        
+       
        /* PANEL CARGAR NAFTA */
        private JPanel crearPanelCargarNafta(){
+    	   
     	   JPanel panelNafta = new JPanel();
     	   Color nc = new Color(176,196,222);
     	   panelNafta.setPreferredSize(new Dimension(100,150)); 
@@ -248,40 +230,38 @@ public class PantallaTaller extends JPanelConImagen{
            botonCargar.setOpaque(false);
           
            panelNafta.add(botonCargar,c);
-
-           
+    
            return panelNafta;
-   	}
+   	   }
 
        /* PANEL PISTA */
        private JPanel crearPanelPista(){
-               
+             
                Color nc = new Color(176,196,222);
-               JPanel panelPista = new JPanel();
+               this.panelPista = new JPanel();
                panelPista.setLayout(new GridBagLayout());
                panelPista.setBackground(nc);
-               
-               boxPistaLongitud = new JLabel();
-               boxPistaVelodidadAire = new JLabel();
-               boxPistaSuperficie = new JLabel();
-               
-               panelPista.add(boxPistaLongitud);
-               panelPista.add(boxPistaVelodidadAire);
-               panelPista.add(boxPistaSuperficie);
-               
-               panelPista.setLayout(new BoxLayout(panelPista, BoxLayout.PAGE_AXIS));
                               
                return panelPista;
        }
        
        //Esto actualiza la PANELPISTA
-       public void actualizarPanelPista(Pista proximaPista){
-    	   this.boxPistaLongitud.setText( "Longitud: " + Double.toString( proximaPista.getLongitud() ) + " metros" );
-    	   //TODO: siempre es cero la velocidad del aire??
-    	   this.boxPistaVelodidadAire.setText( "Velocidad del aire: " + Integer.toString( proximaPista.getVelocidadAire() ) + " Km/h" );
-    	   //TODO: Se tendria que decir de que tipo es la pista. 
+       public void actualizarInformacionPista(Pista proximaPista){
+    	   
+    	   panelPista.removeAll();
+    	   
+    	   JLabel jLongitud = new JLabel("Longitud: " + Double.toString( proximaPista.getLongitud() ) + " metros");
+    	   JLabel jVelocidadAire = new JLabel("Velocidad del aire: " + Integer.toString( proximaPista.getVelocidadAire() ) + " Km/h");
     	   String superficie = "Asfalto"; //Supongo que es ASFALTO
-    	   this.boxPistaSuperficie.setText( "Superficie: " + superficie );	   
+    	   JLabel jSuperficie = new JLabel("Superficie: " + superficie);  	   
+    	   //TODO: siempre es cero la velocidad del aire??
+    	   //TODO: Se tendria que decir de que tipo es la pista. 
+    	   
+    	   panelPista.add(jLongitud);
+    	   panelPista.add(jVelocidadAire);
+    	   panelPista.add(jSuperficie);
+    	   
+           panelPista.setLayout(new BoxLayout(panelPista, BoxLayout.PAGE_AXIS));
        }
        
        /* PANEL PISTA DINERO BODEGA */
@@ -309,10 +289,6 @@ public class PantallaTaller extends JPanelConImagen{
 	           this.add(tabbedPane,c);
        }
        
-       //Esto actualiza la PANELBODEGA
-       public void actualizarPanelBodega(String datosBodega){
-    	   //metodos necesarios
-       }
 
        /* PANEL CATALOGO */
        private void crearPanelCatalogo(){
@@ -447,7 +423,6 @@ public class PantallaTaller extends JPanelConImagen{
 			try {
 				tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
 			} catch (BoundsException e2) {
-				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
                tanque.setCombustible(nafta);
@@ -487,7 +462,6 @@ public class PantallaTaller extends JPanelConImagen{
                        try {
 						caja = (CajaManual) fabricaCajas.fabricar(fabricaCajas.getModelos().get(0));
 					} catch (BoundsException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
                        

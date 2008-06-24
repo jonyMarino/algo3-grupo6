@@ -16,18 +16,18 @@ public class ControladorTaller {
 
 	public void actualizarPantallaTaller() {
 		//PANEL DINERO
-		pantallaTaller.actualizarPanelDinero( taller.getUsuario().getDinero() );
+		pantallaTaller.actualizarInformacionDinero( taller.getUsuario().getDinero() );
 		
 		//PANEL PROXIMA PISTA
-		pantallaTaller.actualizarPanelPista( proximaPista );
+		pantallaTaller.actualizarInformacionPista( proximaPista );
 		
-		//PANEL BODEGA
-		//pantallaTaller.actualizarListaReserva( taller.getPartesDeReserva() );
+		//PANEL RESERVA
+		pantallaTaller.actualizarInformacionReserva( taller );
 			
-		//PANEL AVATAR Y NOMBRE USUARIO
+		//PANEL USUARIO
 		pantallaTaller.actualizarInformacionUsuario( taller.getUsuario() );
 		
-		//INFORMACION AUTO
+		//PANEL AUTO
 		pantallaTaller.actualizarInformacionAuto( taller.getUsuario().getAuto() );
 	
 	}
