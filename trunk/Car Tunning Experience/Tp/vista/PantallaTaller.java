@@ -8,7 +8,7 @@ import javax.swing.*;
 import auto.Auto;
 import auto.AutoManual;
 import combustible.Nafta;
-import controlador.ControladorTaller;
+import controlador.ControladorJuego;
 import excepciones.BoundsException;
 import excepciones.WrongPartClassException;
 import excepciones.WrongUsername;
@@ -24,9 +24,10 @@ public class PantallaTaller extends JPanelConImagen{
        private JLabel boxPistaVelodidadAire;
        private JLabel boxPistaSuperficie;
        private JLabel boxDinero;
+       private JPanel panelLabel;
        private static final long serialVersionUID = 1L;
    
-       public PantallaTaller(ControladorTaller controladorTaller) {
+       public PantallaTaller(ControladorJuego controladorJuego) {
                
                super();
                
@@ -46,13 +47,12 @@ public class PantallaTaller extends JPanelConImagen{
                c.anchor = GridBagConstraints.NORTH;
                
                Boton botonComenzar = new Boton("Comenzar Carrera");
-               botonComenzar.addActionListener(controladorTaller);
+               botonComenzar.addActionListener(controladorJuego);
                this.add(botonComenzar, c);            
        }
        
-       /*TENGO QUE RECIBIR EL AUTO PARA PASARSELO A actualizarInformacionAuto*/
-       /* PANEL INFORCION AUTO USUARIO */
-       private void crearPanelAuto() {
+       /* PANEL INFORMACION AUTO USUARIO */
+       private void crearPanelAuto( ) {
 
            JTabbedPane tabbedPane = new JTabbedPane();
            tabbedPane.setPreferredSize(new Dimension(300,300));
@@ -67,7 +67,10 @@ public class PantallaTaller extends JPanelConImagen{
            Color nc = new Color(176,196,222);
            panelAuto.setBackground(nc);
           
-           panelAuto.add(actualizarInformacionAuto());
+           this.panelLabel = new JPanel();
+           panelLabel.setLayout(new BoxLayout(panelLabel,BoxLayout.Y_AXIS));
+           panelLabel.setOpaque(false);
+           panelAuto.add(panelLabel);
            
            panelAuto.add(botonCargar,c2);
            tabbedPane.addTab("Mi Auto",panelAuto);
@@ -79,40 +82,35 @@ public class PantallaTaller extends JPanelConImagen{
            c.anchor = GridBagConstraints.CENTER;
            this.add(tabbedPane,c);        
        }
-       
+            
        //Esto actualiza la PANEL INFORMACION AUTO
-       public JPanel actualizarInformacionAuto(){
+       public void actualizarInformacionAuto(Auto auto){
     	   
-    	   JPanel panelLabel = new JPanel();
-           panelLabel.setLayout(new BoxLayout(panelLabel,BoxLayout.Y_AXIS));
-           panelLabel.setOpaque(false);
-           JLabel elLabel;           
-   
-           Auto miauto = autoInicial(); //temporal para pruebas
-           ParteAuto parte;
+       	   //Primero debe borrar contenido anterior
+    	   panelLabel.removeAll();
+    	   
+    	   ParteAuto parte;
            
            Hashtable<String,ParteAuto> tabla=new Hashtable<String,ParteAuto>();
-           tabla = miauto.getHashDePartes();
+           tabla = auto.getHashDePartes();
            Enumeration<ParteAuto> enumeracion = tabla.elements();
            
            /*RECORRO LAS PARTES DEL AUTO IMRPIMO DESCRIPCION Y VIDA UTIL*/
            while(enumeracion.hasMoreElements()){   
-        	   		elLabel = new JLabel("");
+        	        JLabel jParteAuto = new JLabel();
         	   		parte=enumeracion.nextElement();
              try{
                      String nombreParte =parte.getInformacionDelModelo().getCaracteristica("DESCRIPCION");
                      Double vidaUtil= parte.getVidaUtil();
-                     elLabel.setText(nombreParte+" "+vidaUtil);  
-                     
+                     jParteAuto.setText(nombreParte+" "+vidaUtil);  
+                     panelLabel.add(jParteAuto);                
              }catch (BoundsException e){}
            
-             panelLabel.add(elLabel);
            }
-
-    	   return panelLabel;   
+      	   
        }
        
-      /*TENGO QUE RECIBIR LA LISTA DE RESERVAS DEL TALLER*/
+       /*TENGO QUE RECIBIR LA LISTA DE RESERVAS DEL TALLER*/
        private JPanel crearPanelReserva() {
 
     	   Color nc = new Color(176,196,222);
@@ -206,12 +204,13 @@ public class PantallaTaller extends JPanelConImagen{
        }
        
        //Esto actualiza la PANELPISTA
-       public void actualizarPanelPista(Double longitud, int velocidadAire, Double superficie){
+       public void actualizarPanelPista(Pista proximaPista){
     	   //TODO: fijate que puse 3 label... si ves alguna mejor cambialo
-    	   this.boxPistaLongitud.setText( "Longitud: " + Double.toString(longitud) + " metros" );
+    	   this.boxPistaLongitud.setText( "Longitud: " + Double.toString( proximaPista.getLongitud() ) + " metros" );
     	   //TODO: siempre es cero la velocidad del aire??
-    	   this.boxPistaVelodidadAire.setText( "Velocidad del aire: " + Integer.toString(velocidadAire) + " Km/h" );
-    	   //TODO: ACA SE TENDRIA QUE FIJAR SEGUN EL COEFICIENTE SI LA PISTA ES DE HIELO, TIERRA, ASFALTO
+    	   this.boxPistaVelodidadAire.setText( "Velocidad del aire: " + Integer.toString( proximaPista.getVelocidadAire() ) + " Km/h" );
+    	   //TODO: Se tendria que decir de que tipo es la pista. 
+    	   String superficie = "Asfalto"; //Supongo que es ASFALTO
     	   this.boxPistaSuperficie.setText( "Superficie: " + superficie );	   
        }
        
