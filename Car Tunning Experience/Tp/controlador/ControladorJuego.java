@@ -9,6 +9,7 @@ import programaAuto.Usuario;
 import vista.Boton;
 import vista.PanelBase;
 import vista.PantallaCarrera;
+import vista.PantallaContinuarPartida;
 import vista.PantallaTaller;
 import vista.PantallaUsuario;
 
@@ -36,6 +37,8 @@ public class ControladorJuego implements ActionListener {
 		Boton boton = (Boton)e.getSource();
 		if (boton.getText().equals("Nueva Partida"))
 			panelBase.crearPantalla(new PantallaUsuario(this));
+		if (boton.getText().equals("Continuar Partida"))
+			panelBase.crearPantalla(new PantallaContinuarPartida(this));
 		if (boton.getText().equals("Volver"))
 			panelBase.pantallaAnterior();
 		if (boton.getText().equals("Aceptar"))

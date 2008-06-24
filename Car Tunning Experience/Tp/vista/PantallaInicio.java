@@ -37,7 +37,8 @@ public class PantallaInicio extends JPanelConImagen {
 			botonNuevaPartida.addActionListener(controladorJuego);
 
 			Boton botonContinuarPartida = new Boton("Continuar Partida");
-
+			botonContinuarPartida.addActionListener(controladorJuego);
+			
 			Boton botonSalir = new Boton("Salir");
 			botonSalir.addActionListener(new CloseListener());
 
