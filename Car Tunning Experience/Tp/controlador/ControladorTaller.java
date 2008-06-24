@@ -22,9 +22,10 @@ public class ControladorTaller {
 		pantallaTaller.actualizarPanelPista( proximaPista );
 		
 		//PANEL BODEGA
-		/*
-		 * pantallaTaller.actualizarPanelBodega(datosBodega);
-		 */
+		//pantallaTaller.actualizarListaReserva( taller.getPartesDeReserva() );
+			
+		//PANEL AVATAR Y NOMBRE USUARIO
+		pantallaTaller.actualizarInformacionUsuario( taller.getUsuario() );
 		
 		//INFORMACION AUTO
 		pantallaTaller.actualizarInformacionAuto( taller.getUsuario().getAuto() );

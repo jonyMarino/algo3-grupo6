@@ -3,6 +3,7 @@ package vista;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
+
 import javax.swing.*;
 
 import auto.Auto;
@@ -16,6 +17,7 @@ import pista.Pista;
 import programaAuto.Usuario;
 import proveedorDePartes.fabricas.*;
 import taller.Taller;
+import taller.Taller.InformacionParteReserva;
 
 
 public class PantallaTaller extends JPanelConImagen{
@@ -25,6 +27,7 @@ public class PantallaTaller extends JPanelConImagen{
        private JLabel boxPistaVelodidadAire;
        private JLabel boxPistaSuperficie;
        private JLabel boxDinero;
+       private JLabel nombreUsuario;
        private JPanel panelLabel;
        private static final long serialVersionUID = 1L;
 
@@ -110,14 +113,14 @@ public class PantallaTaller extends JPanelConImagen{
       	   
        }
        
-       /*TENGO QUE RECIBIR LA LISTA DE RESERVAS DEL TALLER*/
+       /*PANEL AVATAR Y NOMBRE USUARIO*/
        private void crearPanelAvatar() {
     	   JPanel panelAvatar = new JPanel();
     	   Color nc = new Color(176,196,222);
     	   panelAvatar.setPreferredSize(new Dimension(250,200));
     	   panelAvatar.setBackground(nc);
-    	   JLabel nombre = new JLabel("Anonimo");
-           panelAvatar.add(nombre);
+    	   this.nombreUsuario = new JLabel();
+           panelAvatar.add(nombreUsuario);
            
            //agregar imagen proximamente
           
@@ -131,6 +134,12 @@ public class PantallaTaller extends JPanelConImagen{
         
     	   this.add(panelAvatar,c);
           
+       }
+       
+       //Esto actualiza la PANEL INFORMACION USUARIO
+       public void actualizarInformacionUsuario(Usuario usuario){
+    	   this.nombreUsuario.setText(usuario.getNombre());
+    	   this.nombreUsuario.setIcon(usuario.getAvatar());
        }
 
        
@@ -152,8 +161,8 @@ public class PantallaTaller extends JPanelConImagen{
           return panelBodega;
        }
 
-
-       public JComboBox actualizarListaReserva()throws WrongUsername{
+       //Esto actualiza la PANEL LISTA RESERVA
+       public JComboBox actualizarListaReserva( )throws WrongUsername{
 
 		    /*DATOS TEMPORALES PARA PROBAR*/
 		    Usuario usuario = new Usuario("Vicky");
