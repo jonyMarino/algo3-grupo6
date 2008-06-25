@@ -2,7 +2,16 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+
+import javax.swing.ImageIcon;
+
 import excepciones.WrongUserNameException;
+import programaAuto.NoPistaPickedException;
+import programaAuto.NotAbleWhileSimulatingException;
+import programaAuto.NotContainedPistaException;
+import programaAuto.Pista;
+import programaAuto.PistaPickedException;
 import programaAuto.ProgramaAuto;
 import vista.Boton;
 import vista.PanelBase;
@@ -40,13 +49,25 @@ public class ControladorJuego implements ActionListener {
 	private void inicializarJuego(){
 			try {
 				programaAuto = new ProgramaAuto(((PantallaUsuario)panelBase.getPantallaActual()).obtenerNombreBoxUsuario());
-				this.controladorTaller = new ControladorTaller(programaAuto, ((PantallaUsuario)panelBase.getPantallaActual()).obtenerNombreBoxUsuario(), ((PantallaUsuario)panelBase.getPantallaActual()).obtenerImagenSeleccionada());
+						
+				try {
+					programaAuto.setPista(this.generarProximaPista());
+				} catch (NotContainedPistaException e1) {} 
+				  catch (PistaPickedException e1) {}
+				
+				try {
+					this.controladorTaller = new ControladorTaller(programaAuto.entrarAlTaller());
+				} catch (NoPistaPickedException e) {}
+				  catch (NotAbleWhileSimulatingException e) {}
+				
+				ImageIcon imagen = ((PantallaUsuario)panelBase.getPantallaActual()).obtenerImagenSeleccionada(); 
 				
 				panelBase.crearPantalla(new PantallaTaller(this));	
-				this.controladorTaller.setPantallaTaller((PantallaTaller)panelBase.getPantallaActual());
+				controladorTaller.setPantallaTaller( (PantallaTaller)panelBase.getPantallaActual() );
 				
 				controladorTaller.setProximaPista(programaAuto.getPista());
-				controladorTaller.actualizarPantallaTaller();
+				controladorTaller.cargarPantallaTaller(imagen);	
+				
 			} catch (WrongUserNameException e) {
 				this.MensajeError();
 			}
@@ -59,6 +80,17 @@ public class ControladorJuego implements ActionListener {
 
 	public void setPanelBase(PanelBase panelBase) {
 		this.panelBase = panelBase;
+	}
+	
+	public void entrarATaller(){
+		
+	}
+	
+	//TODO: provisorio para que entre al taller, esto lo debe generar el programa auto
+	private Pista generarProximaPista(){
+		Iterator<Pista> pistas = programaAuto.getPistas();
+		
+		return (pistas.next());
 	}
 
 }
