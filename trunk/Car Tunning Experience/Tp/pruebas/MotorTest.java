@@ -1,7 +1,7 @@
 package pruebas;
 
 import junit.framework.TestCase;
-import pista.Pista;
+import programaAuto.Pista;
 import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.CajaManual;

@@ -7,7 +7,7 @@ import java.util.Observable;
 import excepciones.BoundsException;
 import excepciones.IncorrectPartForUbicationException;
 import excepciones.UbicationUnkownException;
-import pista.Pista;
+import programaAuto.Pista;
 import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.Carroceria;
@@ -420,7 +420,7 @@ public abstract class Auto extends Observable{
 			ruedas.add(null);
 
 		//Velocidad
-		this.setVelocidad(0);
+		setVelocidad(0);
 		
 		//Posicion
 		setPosicion(0);
@@ -958,6 +958,13 @@ public abstract class Auto extends Observable{
 
 	public void setPista(Pista pista) {
 		this.pista = pista;
+	}
+	/**
+	 * Resetea las variables fisicas del movimiento del auto.
+	 */
+	public void resetVariables(){
+		setPosicion(0);
+		setVelocidad(0);
 	}
 	
 
