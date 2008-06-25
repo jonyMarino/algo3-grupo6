@@ -1,6 +1,7 @@
 package proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 
 public class FabricaDeCajas extends FabricaDePartes {
@@ -17,12 +18,20 @@ public class FabricaDeCajas extends FabricaDePartes {
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
 		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
  		nuevaInfo.agregarCaracteristica(clase, "");
+		nuevaInfo.agregarCaracteristica("PARTE", "CAJA");
 		return nuevaInfo;
 	}
 	
-	public Caja fabricar(InformacionDelModelo modelo) throws BoundsException {
-		Caja caja;
+	public Caja fabricar(InformacionDelModelo modelo) throws NoSuchModelException {
+		NoSuchModelException unaExcepcion = new NoSuchModelException("El modelo no es una Caja");
+		try {
+			if (modelo.getCaracteristica("PARTE") != "CAJA")
+				throw unaExcepcion;
+		} catch (BoundsException e1) {
+			throw unaExcepcion;
+		}
 		try{
+			Caja caja;
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
 			int costo = Integer.parseInt(modelo.getCaracteristica("COSTO"));
 			double peso = Double.parseDouble(modelo.getCaracteristica("PESO"));
@@ -41,9 +50,8 @@ public class FabricaDeCajas extends FabricaDePartes {
 				caja.setPeso(peso);
 				return caja;		
 			}
-		}
-		catch(BoundsException e){
-			throw e;
+		}catch(BoundsException e){
+			throw unaExcepcion;
 		}
 	}
 	 

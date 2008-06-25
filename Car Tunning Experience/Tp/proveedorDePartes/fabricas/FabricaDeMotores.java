@@ -1,6 +1,7 @@
 package proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 
 public class FabricaDeMotores extends FabricaDePartes {
@@ -17,10 +18,18 @@ public class FabricaDeMotores extends FabricaDePartes {
 		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
  		nuevaInfo.agregarCaracteristica("RPMMAX", rpmmax.toString());
 		nuevaInfo.agregarCaracteristica("CILINDRADA", cilindrada.toString());
+		nuevaInfo.agregarCaracteristica("PARTE", "MOTOR");
 		return nuevaInfo;
 	}
 	
-	public Motor fabricar(InformacionDelModelo modelo) throws BoundsException {
+	public Motor fabricar(InformacionDelModelo modelo) throws NoSuchModelException{
+		NoSuchModelException unaExcepcion = new NoSuchModelException("El modelo no es un Motor");
+		try {
+			if (modelo.getCaracteristica("PARTE") != "MOTOR")
+				throw unaExcepcion;
+		} catch (BoundsException e1) {
+			throw unaExcepcion;
+		}
 		try{
 			double rpmmaximo = Double.parseDouble(modelo.getCaracteristica("RPMMAX"));
 			int rendimiento = Integer.parseInt(modelo.getCaracteristica("RENDIMIENTO"));
@@ -36,7 +45,7 @@ public class FabricaDeMotores extends FabricaDePartes {
 			return unMotor;
 		}
 		catch(BoundsException e){
-			throw e;
+			throw 	unaExcepcion;
 		}
 	}
 	

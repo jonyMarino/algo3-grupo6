@@ -4,6 +4,7 @@
 package proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 /**
  * @author lucas
@@ -24,10 +25,18 @@ public class FabricaDePedales extends FabricaDePartes {
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
 		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
  		nuevaInfo.agregarCaracteristica(clase, "");
+		nuevaInfo.agregarCaracteristica("PARTE", "PEDAL");
 		return nuevaInfo;
 	}
 	
-	public Pedal fabricar(InformacionDelModelo modelo) throws BoundsException {
+	public Pedal fabricar(InformacionDelModelo modelo) throws NoSuchModelException {
+		NoSuchModelException unaExcepcion = new NoSuchModelException("El modelo no es un Pedal");
+		try {
+			if (modelo.getCaracteristica("PARTE") != "PEDAL")
+				throw unaExcepcion;
+		} catch (BoundsException e1) {
+			throw unaExcepcion;
+		}
 		try{
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
 			int costo = Integer.parseInt(modelo.getCaracteristica("COSTO"));
@@ -51,7 +60,7 @@ public class FabricaDePedales extends FabricaDePartes {
 			}
 		}
 		catch(BoundsException e){
-			throw e;
+			throw unaExcepcion;
 		}
 	}
 

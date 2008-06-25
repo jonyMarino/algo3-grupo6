@@ -26,7 +26,7 @@ public class CadenaDeFabricas{
 			try {
 				unaParte = iteradorCadena.next().fabricar(modelo);
 				fabricado = true;
-			} catch (BoundsException e) {
+			} catch (NoSuchModelException e) {
 				fabricado=false;
 			}
 		}

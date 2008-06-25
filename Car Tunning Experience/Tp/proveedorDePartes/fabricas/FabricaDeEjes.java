@@ -1,6 +1,7 @@
 package proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 
 public class FabricaDeEjes extends FabricaDePartes {
@@ -11,10 +12,18 @@ public class FabricaDeEjes extends FabricaDePartes {
 		nuevaInfo.agregarCaracteristica("COSTO", "90");
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", "Eje básico.");
 		nuevaInfo.agregarCaracteristica("PESO", "40");
+		nuevaInfo.agregarCaracteristica("PARTE", "EJE");
 		agregarModelo(nuevaInfo); //agrega uneje básico
 	}
 	
-	public Eje fabricar(InformacionDelModelo modelo) throws BoundsException {
+	public Eje fabricar(InformacionDelModelo modelo) throws NoSuchModelException {
+		NoSuchModelException unaExcepcion = new NoSuchModelException("El modelo no es un Eje");
+		try {
+			if (modelo.getCaracteristica("PARTE") != "EJE")
+				throw unaExcepcion;
+		} catch (BoundsException e1) {
+			throw unaExcepcion;
+		}
 		try{
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
 			double peso = Double.parseDouble(modelo.getCaracteristica("PESO"));
@@ -27,7 +36,7 @@ public class FabricaDeEjes extends FabricaDePartes {
 			return unEje;
 		}
 		catch(BoundsException e){
-			throw e;
+			throw unaExcepcion;
 		}
 	}
 	 

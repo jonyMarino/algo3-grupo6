@@ -1,6 +1,7 @@
 package proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 
 public class FabricaDeEscapes extends FabricaDePartes {
@@ -15,10 +16,18 @@ public class FabricaDeEscapes extends FabricaDePartes {
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
  		nuevaInfo.agregarCaracteristica("EFICIENCIA", rendimiento.toString());
 		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
+		nuevaInfo.agregarCaracteristica("PARTE", "ESCAPE");
 		return nuevaInfo;
 	}
 	
-	public Escape fabricar(InformacionDelModelo modelo) throws BoundsException {
+	public Escape fabricar(InformacionDelModelo modelo) throws NoSuchModelException {
+		NoSuchModelException unaExcepcion = new NoSuchModelException("El modelo no es un Escape");
+		try {
+			if (modelo.getCaracteristica("PARTE") != "ESCAPE")
+				throw unaExcepcion;
+		} catch (BoundsException e1) {
+			throw unaExcepcion;
+		}
 		try{
 			int eficiencia = Integer.parseInt(modelo.getCaracteristica("EFICIENCIA"));
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
@@ -32,7 +41,7 @@ public class FabricaDeEscapes extends FabricaDePartes {
 			return unEscape;
 		}
 		catch(BoundsException e){
-			throw e;
+			throw unaExcepcion;
 		}
 	}
 	

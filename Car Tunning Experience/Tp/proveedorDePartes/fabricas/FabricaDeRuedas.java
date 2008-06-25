@@ -1,6 +1,7 @@
 package proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 
 public class FabricaDeRuedas extends FabricaDePartes {
@@ -14,9 +15,17 @@ public class FabricaDeRuedas extends FabricaDePartes {
 		nuevaInfo.agregarCaracteristica("RODADO", "10");
 		nuevaInfo.agregarCaracteristica("COEFICIENTEDINAMICO", "0.6");
 		nuevaInfo.agregarCaracteristica("PESO", "10");
+		nuevaInfo.agregarCaracteristica("PARTE", "RUEDA");
 		agregarModelo(nuevaInfo); //agrega una rueda básica al catálogo
 	}
-	public Rueda fabricar(InformacionDelModelo modelo) throws BoundsException {
+	public Rueda fabricar(InformacionDelModelo modelo) throws NoSuchModelException {
+		NoSuchModelException unaExcepcion = new NoSuchModelException("El modelo no es una Rueda");
+		try {
+			if (modelo.getCaracteristica("PARTE") != "RUEDA")
+				throw unaExcepcion;
+		} catch (BoundsException e1) {
+			throw unaExcepcion;
+		}
 		try{
 			double coeficienteEstatico = Double.parseDouble(modelo.getCaracteristica("COEFICIENTEESTATICO"));
 			int rodado = Integer.parseInt(modelo.getCaracteristica("RODADO"));
@@ -32,7 +41,7 @@ public class FabricaDeRuedas extends FabricaDePartes {
 			return unaRueda;
 		}
 		catch(BoundsException e){
-			throw e;
+			throw unaExcepcion;
 		}
 	}
 	 
