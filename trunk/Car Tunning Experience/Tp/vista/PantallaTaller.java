@@ -6,12 +6,8 @@ import java.util.*;
 import javax.swing.*;
 
 import auto.Auto;
-import auto.AutoManual;
-import combustible.Nafta;
 import controlador.ControladorJuego;
 import excepciones.BoundsException;
-import excepciones.NoSuchModelException;
-import excepciones.WrongPartClassException;
 import pista.Pista;
 import programaAuto.Usuario;
 import proveedorDePartes.fabricas.*;
@@ -23,7 +19,7 @@ public class PantallaTaller extends JPanelConImagen {
        private JPanel panelPista;
        private JPanel panelUsuario;
        private JPanel panelNafta;
-       private JLabel boxDinero;
+       private JLabel labelDinero;
        private JComboBox comboPartesReserva;
        private static final long serialVersionUID = 1L;
      
@@ -57,7 +53,7 @@ public class PantallaTaller extends JPanelConImagen {
        private void crearPanelAuto() {
 
            JTabbedPane tabbedPane = new JTabbedPane();
-           tabbedPane.setPreferredSize(new Dimension(300,300));
+           tabbedPane.setPreferredSize(new Dimension(300,350));
            
            JPanel panelAuto = new JPanel();
            panelAuto.setLayout(new GridBagLayout());
@@ -113,14 +109,14 @@ public class PantallaTaller extends JPanelConImagen {
     	   
     	   this.panelUsuario = new JPanel();
     	   Color nc = new Color(176,196,222);
-    	   panelUsuario.setPreferredSize(new Dimension(250,200));
+    	   panelUsuario.setPreferredSize(new Dimension(300,130));
     	   panelUsuario.setBackground(nc);
     	          
     	   GridBagConstraints c = new GridBagConstraints();
            c.gridx =1;
            c.gridy =1;
            c.gridheight =1;
-           Insets in=new Insets(100,0,0,0);
+           Insets in=new Insets(150,30,0,0);
            c.insets=in;
            c.anchor = GridBagConstraints.NORTH;
         
@@ -129,11 +125,14 @@ public class PantallaTaller extends JPanelConImagen {
        
        //Esto actualiza la PANEL INFORMACION USUARIO
        public void actualizarInformacionUsuario(Usuario usuario) {
-    	  
+
     	   panelUsuario.removeAll();  	   
     	   
-    	   JLabel jUsuario = new JLabel(usuario.getNombre());
+    	   JLabel jUsuario = new JLabel("JUGADOR ACTUAL: "+usuario.getNombre());
     	   jUsuario.setIcon(usuario.getAvatar());
+    	   jUsuario.setHorizontalTextPosition(JLabel.CENTER);
+    	   jUsuario.setVerticalTextPosition(JLabel.NORTH);
+    	   
            panelUsuario.add(jUsuario);           
        }
 
@@ -145,11 +144,20 @@ public class PantallaTaller extends JPanelConImagen {
     	   JPanel panelBodega = new JPanel();
     	   panelBodega.setLayout(new GridBagLayout());
     	   panelBodega.setBackground(nc);
-        
+    	 
+    	   
+    	    GridBagConstraints ubicacion = new GridBagConstraints();
+	        Insets in=new Insets(30,100,0,0);
+	        ubicacion.insets=in;
+	        ubicacion.gridx=1;
+	        ubicacion.gridy=0;
+	        ubicacion.anchor= GridBagConstraints.NORTH;
+	          
+    	   
     	   this.comboPartesReserva = new JComboBox();
-    	   panelBodega.add(comboPartesReserva);
+    	   panelBodega.add(comboPartesReserva,ubicacion);
     	   Boton botonCambiar = new Boton("Cambiar");
-    	   panelBodega.add(botonCambiar);
+    	   panelBodega.add(botonCambiar,posicionBoton());
                
     	   return panelBodega;
        }
@@ -190,8 +198,9 @@ public class PantallaTaller extends JPanelConImagen {
                panelDinero.setLayout(new GridBagLayout());
                panelDinero.setBackground(nc);
        
-               boxDinero = new JLabel();
-               panelDinero.add(boxDinero);
+               labelDinero = new JLabel();
+
+               panelDinero.add(labelDinero);
                
                return panelDinero;
        	}
@@ -199,7 +208,7 @@ public class PantallaTaller extends JPanelConImagen {
        //Esto actualiza la PANEL DINERO
        public void actualizarInformacionDinero(double dinero){
     	   
-    	   this.boxDinero.setText(Double.toString(dinero) + " Algo$");
+    	   this.labelDinero.setText(Double.toString(dinero) + " Algo$");
        }
        
        
@@ -221,27 +230,29 @@ public class PantallaTaller extends JPanelConImagen {
            return panelNafta;
    	   }
        
-       //Esto actualiza el PANEL NAFTA
+     //Esto actualiza el PANEL NAFTA
        public void actualizarInformacionNafta(Auto auto){
     	   
     	   panelNafta.removeAll();
     	    	   
-    	   JLabel boxNafta = new JLabel(Double.toString(auto.obtenerCantidadCombustible()) + " Litros"); 	   
-    	   JProgressBar barraTanque = new JProgressBar(0 , (int)auto.getTanqueCombustible().getCapacidad());
-    	   barraTanque.setPreferredSize(new Dimension(100,20));
+    	   JProgressBar barraTanque = new JProgressBar(0, (int)auto.getTanqueCombustible().getCapacidad());
+    	   barraTanque.setPreferredSize(new Dimension(227,20));
     	   barraTanque.setValue((int)auto.getTanqueCombustible().getCantidadCombustible());
+    	   barraTanque.setStringPainted(true);
+    	   barraTanque.setString(Double.toString(auto.getTanqueCombustible().getCantidadCombustible())+ 
+    			     " / " + Double.toString(auto.getTanqueCombustible().getCapacidad()) + " Litros");
     	   
     	   GridBagConstraints c = new GridBagConstraints();
            c.gridx =0;
+           c.gridwidth =3; 
            c.gridy =0;
-           c.anchor = GridBagConstraints.NORTH;
-           panelNafta.add(boxNafta,c);
-           c.gridx =1;
+           c.anchor = GridBagConstraints.CENTER;
            panelNafta.add(barraTanque,c);   
            
            //TODO: boton informativo, por si algo ocurre [falta de dinero].
-           JLabel mensaje = new JLabel();
+           JLabel mensaje = new JLabel("");
            c.gridx =0;
+           c.gridwidth =0; 
            c.gridy =1;
            c.anchor = GridBagConstraints.CENTER;
            panelNafta.add(mensaje,c);
@@ -249,19 +260,24 @@ public class PantallaTaller extends JPanelConImagen {
            Boton botonCargar = new Boton("Cargar Nafta");
            botonCargar.setOpaque(false);
            //TODO: 0,5 es cada cuanto aumenta el boton.
-           SpinnerModel model = new SpinnerNumberModel(0,0,auto.getTanqueCombustible().getCantidadCombustible()-auto.getTanqueCombustible().getCantidadCombustible(), 0.5);                
+           SpinnerModel model = new SpinnerNumberModel(0,0,auto.getTanqueCombustible().getCantidadCombustible() - auto.getTanqueCombustible().getCantidadCombustible(), 0.5);                
            JSpinner seleccionCargar = new JSpinner(model);
            JLabel cantidadLitros = new JLabel(" Litros");
            
+           c.gridx =0;
            c.gridy =2;
            c.anchor = GridBagConstraints.LAST_LINE_END;
            panelNafta.add(botonCargar,c);
-           c.gridx =1;
+           c.gridx =0;
+           c.gridy =1;
            panelNafta.add(seleccionCargar,c);   
-           c.gridx =2;
-           panelNafta.add(cantidadLitros,c);            
+           c.gridx =0;
+           c.gridy =0;
+           panelNafta.add(cantidadLitros,c);    
+          
        }
-
+       
+     
        /* PANEL PISTA */
        private JPanel crearPanelPista(){
              
@@ -269,13 +285,15 @@ public class PantallaTaller extends JPanelConImagen {
                this.panelPista = new JPanel();
                panelPista.setLayout(new GridBagLayout());
                panelPista.setBackground(nc);
-                              
+              
+            
                return panelPista;
        }
        
        //Esto actualiza la PANELPISTA
        public void actualizarInformacionPista(Pista proximaPista){
-    	   
+
+   	   
     	   panelPista.removeAll();
     	   
     	   JLabel jLongitud = new JLabel("Longitud: " + Double.toString( proximaPista.getLongitud() ) + " metros");
@@ -284,10 +302,11 @@ public class PantallaTaller extends JPanelConImagen {
     	   JLabel jSuperficie = new JLabel("Superficie: " + superficie);  	   
     	   //TODO: siempre es cero la velocidad del aire??
     	   //TODO: Se tendria que decir de que tipo es la pista. 
-    	   
+    	  
     	   panelPista.add(jLongitud);
     	   panelPista.add(jVelocidadAire);
     	   panelPista.add(jSuperficie);
+    	   
     	   
            panelPista.setLayout(new BoxLayout(panelPista, BoxLayout.PAGE_AXIS));
        }
@@ -430,81 +449,5 @@ public class PantallaTaller extends JPanelConImagen {
                
                
        }
-       
-       /*AUTO DE PRUEBA NOMAS*/
-       public Auto autoInicial(){
-               Pista pista = new Pista(5);
-               pista=null;
-               FabricaDeTanquesDeCombustible fabricaTanques = new FabricaDeTanquesDeCombustible();
-               FabricaDeMezcladores fabricaMezcladores = new FabricaDeMezcladores();
-               FabricaDeEscapes fabricaEscapes = new FabricaDeEscapes();
-                FabricaDeMotores fabricaMotores = new FabricaDeMotores();
-                FabricaDeRuedas fabricaRuedas = new FabricaDeRuedas();
-                FabricaDeCarrocerias fabricaCarrocerias = new FabricaDeCarrocerias();
-                FabricaDeCajas fabricaCajas = new FabricaDeCajas();
-                FabricaDeEjes fabricaEjes = new FabricaDeEjes();
-                FabricaDePedales fabricaPedales = new FabricaDePedales();
-               Auto auto=null;
-               Nafta nafta = new Nafta(85,15);
-               
-               TanqueNafta tanque = null;
-			try {
-				tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
-			} catch (NoSuchModelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-               tanque.setCombustible(nafta);
-       
-               try {
-                       tanque.llenarTanque(70);
-               } catch (BoundsException e1) {
-                       e1.printStackTrace();
-               }
-               
-               MezcladorNafta mezclador = null;
-               Escape escape = null;
-               Carroceria carroceria = null;
-               Motor motor = null;
-               Caja caja = null;
-               Eje eje = null;
-               Freno freno = null;
-               ArrayList<Rueda> ruedas = new ArrayList<Rueda>();
-               
-               try{
-               
-            	   		mezclador = (MezcladorNafta) fabricaMezcladores.fabricar(fabricaMezcladores.getModelos().get(0));
-                       
-                      escape = fabricaEscapes.fabricar(fabricaEscapes.getModelos().get(0));
-                       
-                      carroceria = fabricaCarrocerias.fabricar(fabricaCarrocerias.getModelos().get(0));
-
-                       
-                       for(int i=0;i<4;i++){
-                               Rueda rueda = fabricaRuedas.fabricar(fabricaRuedas.getModelos().get(0));
-                               ruedas.add(rueda);                              
-                       }
-                       
-                       eje = fabricaEjes.fabricar(fabricaEjes.getModelos().get(0));
-                       
-
-                       caja = (CajaManual) fabricaCajas.fabricar(fabricaCajas.getModelos().get(0));
-                       
-                       motor=fabricaMotores.fabricar(fabricaMotores.getModelos().get(0));
-                       
-                       freno =  (Freno) fabricaPedales.fabricar(fabricaPedales.getModelos().get(1));
-               }catch(NoSuchModelException e){
-            	   e.printStackTrace();
-               }
-                       try {
-                               auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje, freno);
-                       } catch (WrongPartClassException e) {
-                               e.printStackTrace();
-                       }
-                       auto.setPista(pista);
-
-               return auto;
-       }
-       
 
 }
