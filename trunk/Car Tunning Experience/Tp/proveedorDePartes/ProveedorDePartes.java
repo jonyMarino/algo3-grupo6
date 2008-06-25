@@ -44,4 +44,8 @@ public class ProveedorDePartes {
 		unaParte = miCadenaDeFabricas.fabricar(modelo);
 		return unaParte;
 	}
+
+	public CadenaDeFabricas getMiCadenaDeFabricas() {
+		return miCadenaDeFabricas;
+	}
 }

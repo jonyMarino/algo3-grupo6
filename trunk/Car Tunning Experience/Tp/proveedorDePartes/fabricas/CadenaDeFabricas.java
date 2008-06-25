@@ -53,4 +53,8 @@ public class CadenaDeFabricas{
 		return catalogo;
 	}
 
+	public ArrayList<FabricaDePartes> getMiCadenaDeFabricas() {
+		return miCadenaDeFabricas;
+	}
+
 }
