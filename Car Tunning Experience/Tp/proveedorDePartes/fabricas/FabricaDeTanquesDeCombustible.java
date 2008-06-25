@@ -28,7 +28,7 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 	public TanqueNafta fabricar(InformacionDelModelo modelo) throws NoSuchModelException {
 		NoSuchModelException unaExcepcion = new NoSuchModelException("El modelo no es un Tanque de Combustible");
 		try {
-			if (modelo.getCaracteristica("PARTE") != "TANQUEDENAFTA")
+			if (modelo.getCaracteristica("PARTE") != "TANQUEDECOMBUSTIBLE")
 				throw unaExcepcion;
 		} catch (BoundsException e1) {
 			throw unaExcepcion;
