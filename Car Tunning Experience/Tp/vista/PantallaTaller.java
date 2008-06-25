@@ -3,6 +3,7 @@ package vista;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
+
 import javax.swing.*;
 
 import auto.Auto;
@@ -10,6 +11,7 @@ import controlador.ControladorJuego;
 import excepciones.BoundsException;
 import pista.Pista;
 import programaAuto.Usuario;
+import proveedorDePartes.ProveedorDePartes;
 import proveedorDePartes.fabricas.*;
 import taller.Taller;
 
@@ -374,6 +376,55 @@ public class PantallaTaller extends JPanelConImagen {
        public void actualizarPanelCatalogo(String catalogo){
     	  //lo que haga actualizarla
        }
+     
+       /*ACA TENGO QUE RECIBIR UN PARAMETRO QUE SEA LA LISTA DE TODAS LAS LISTAS DE LAS FABRICAS*/
+       private JPanel contenedorPartes(){
+       
+		       ArrayList<FabricaDePartes> temporal = new   ArrayList<FabricaDePartes>();
+	           
+		       ProveedorDePartes nuevoPorveedor = new ProveedorDePartes();  //dato temporal
+		       temporal=nuevoPorveedor.getMiCadenaDeFabricas().getMiCadenaDeFabricas();
+	           JPanel panel = new JPanel();
+	           panel.setOpaque(false);
+	           panel.add(actualizarInformacionCatalogo(temporal));
+	           
+	           return panel;
+       }
+ 
+       public JPanel actualizarInformacionCatalogo(ArrayList<FabricaDePartes> contenedorDeListas) {
+	       
+		       JPanel panelCombo = new JPanel();
+		       panelCombo.setLayout (new GridLayout (5,2)); 
+		       JComboBox combo;
+		
+		       Iterator <FabricaDePartes> it;
+		       Iterator <InformacionDelModelo> itInformacion;
+		       
+		       FabricaDePartes informacionDeFabrica;
+		       InformacionDelModelo informacionDelModelo;
+		      
+		       it = contenedorDeListas.iterator();
+		               
+		            while (it.hasNext()){   //leo cada fabrica
+		            combo = new JComboBox();
+		            informacionDeFabrica = (FabricaDePartes)it.next();
+		
+		            itInformacion = informacionDeFabrica.getModelos().iterator();
+		            combo = new JComboBox();
+		                       
+			            while (itInformacion.hasNext()) {  //leo el catalogo de cada fabrica
+			            		informacionDelModelo = (InformacionDelModelo)itInformacion.next();
+			                    try{
+			                    	combo.addItem(informacionDelModelo.getCaracteristica("DESCRIPCION"));
+			                    }catch(BoundsException e){}
+			            } 
+		            
+			            panelCombo.add(combo);
+		            }
+		       
+		       return panelCombo;
+       }
+       
        
        private GridBagConstraints posicionBoton(){
 	               
@@ -387,63 +438,6 @@ public class PantallaTaller extends JPanelConImagen {
                return ubicacion;
        }
 
-       private JPanel contenedorPartes(){
-       
-           /*ESTAS FABRICAS SON DE PRUEBA NOMAS*/
-                FabricaDeEscapes  fabricaEscapes = new FabricaDeEscapes();
-                FabricaDeCarrocerias  fabricaCarrocerias = new FabricaDeCarrocerias();
-                FabricaDeEjes  fabricaEjes = new FabricaDeEjes();
-                               
-                ArrayList <ArrayList<InformacionDelModelo>> temporal = new ArrayList<ArrayList<InformacionDelModelo>>();
-                temporal.add(fabricaEscapes.getModelos());
-                temporal.add(fabricaEscapes.getModelos());
-                temporal.add(fabricaCarrocerias.getModelos());
-	            temporal.add(fabricaCarrocerias.getModelos());
-	            temporal.add(fabricaEjes.getModelos());
-	            temporal.add(fabricaEscapes.getModelos());
-	            temporal.add(fabricaEscapes.getModelos());
-	            temporal.add(fabricaCarrocerias.getModelos());
-	            temporal.add(fabricaCarrocerias.getModelos());
-	            temporal.add(fabricaEjes.getModelos());
-           //
-           
-           JPanel panel = new JPanel();
-           panel.setOpaque(false);
-           panel.add(actualizarInformacionCatalogo(temporal));
-           return panel;
-       }
-
-       /*ACA TENGO QUE RECIBIR UN PARAMETRO QUE SEA LA LISTA DE TODAS LAS LISTAS DE LAS FABRICAS*/
-       public JPanel actualizarInformacionCatalogo( ArrayList <ArrayList<InformacionDelModelo>> contenedorDeListas) {
-       /* se crean todas las fabricas y se las pasa una vez creadas todas juntas para armar el catalgo.*/
-               
-               JPanel panelCombo = new JPanel();
-               panelCombo.setLayout (new GridLayout (5,2)); //TOTAL 10 FABRICAS
-       JComboBox combo;
-
-       Iterator <ArrayList<InformacionDelModelo>> it;
-       Iterator <InformacionDelModelo> itInformacion;
-       InformacionDelModelo informacionDelModelo;
-       ArrayList<InformacionDelModelo> contenedorInformacion;
-               it = contenedorDeListas.iterator();
-               
-               while (it.hasNext()){
-                       contenedorInformacion = (ArrayList<InformacionDelModelo>)it.next();
-                       itInformacion = contenedorInformacion.iterator();
-                       combo = new JComboBox();
-                       
-                                       while (itInformacion.hasNext()) {
-                                               informacionDelModelo = (InformacionDelModelo)itInformacion.next();
-                                     
-                                               try{
-                                       combo.addItem(informacionDelModelo.getCaracteristica("DESCRIPCION"));
-                                               }catch(BoundsException e){}
-                                       }
-                       panelCombo.add(combo);
-               }
-       
-       return panelCombo;
-   }
        
        public void actionPerformed(ActionEvent e) {
                
