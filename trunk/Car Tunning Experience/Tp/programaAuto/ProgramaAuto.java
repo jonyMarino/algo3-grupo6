@@ -1,7 +1,17 @@
 package programaAuto;
 
+import nu.xom.Document;
+import nu.xom.Element;
+import nu.xom.Serializer;
+
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -36,9 +46,10 @@ public class ProgramaAuto extends Observable {
 		 * En nuestro modelo hay un solo usuario.
 		 */
         private Usuario usuario;
+        private final int[] PremiosEnAlgo={3000,1500,500};
         private Pista pistaActual=null;	//comienzo en la eleccion de pistas
-        SimuladorCarrera simulador;	//Objeto que se encarga de la simulacion de la carrera
-        Taller tallerActual;
+        SimuladorCarrera simulador=null;	//Objeto que se encarga de la simulacion de la carrera
+        Taller tallerActual=null;
         private LinkedList<Pista> pistas=generarPistas();
         private static final double  PASO_SIMULACION = 0.5;
         ProveedorDePartes unProveedor=new ProveedorDePartes();
@@ -49,15 +60,14 @@ public class ProgramaAuto extends Observable {
                 private boolean simulando;
                 private boolean pausa;
                 private Pista pistaActual;
-                private Hashtable<Usuario, Integer> posicionesFinales;
-                private int proximaPosicion=1; // indica el orden de llegada de los autos
+                private LinkedList<Usuario> posicionesFinales;// indica el orden de llegada de los autos
                 
                 SimuladorCarrera(Pista unaPista) {
                         pistaActual=unaPista;
                         simulando = false;
                         pausa = false;
                         listaDeCompetidores = new ArrayList<Usuario>();
-                        posicionesFinales = new Hashtable<Usuario, Integer>();
+                        posicionesFinales = new LinkedList<Usuario>();
                 }
                 
                 void agregarCompetidor(Usuario usuario){
@@ -84,16 +94,19 @@ public class ProgramaAuto extends Observable {
                         for (Usuario competidor:listaDeCompetidores){
                                 Auto unAuto = competidor.getAuto();
                                 if(unAuto.getPosicion() >= pistaActual.getLongitud()){
-                                        llegoAlFinal(competidor);
+                                		agregarAPosiciones(competidor);
                                         listaDeCompetidores.remove(competidor);
                                         if(competidor==usuario){
                                         	simulando=false;
-                                        	//TODO: Rellenar competidores
+                                        	rellenarPosiciones();
                                         }
                                         	
                                 }else if(unAuto.puedeSeguir()){
                                                 unAuto.simular(PASO_SIMULACION);
                                 }else if(competidor==usuario){
+                                	listaDeCompetidores.remove(competidor); //saco usuario
+                                	rellenarPosiciones();	//relleno las posiciones
+                                	agregarAPosiciones(competidor);	//se agrega como ultimo
                                 	simulando=false;
                                 	//TODO: Rellenar Competidores y poner usuario al final de la lista
                                 }
@@ -101,14 +114,10 @@ public class ProgramaAuto extends Observable {
                setChanged();
                notifyObservers();
                 }
-
                 
-                private void llegoAlFinal(Usuario competidor) {
-                        if(posicionesFinales.get(competidor) == null){
-                                posicionesFinales.put(competidor, proximaPosicion);
-                                competidor.getAuto().setPista(null);	//sale de la pista
-                                proximaPosicion++;
-                        }
+                private void agregarAPosiciones(Usuario competidor){
+	                posicionesFinales.add(competidor);
+	                competidor.getAuto().setPista(null);	//sale de la pista
                 }
                 
                 public synchronized void setPausa(boolean pausar){
@@ -118,8 +127,23 @@ public class ProgramaAuto extends Observable {
                 public synchronized boolean getPausa(){
                 	return pausa;
                 }
-                public synchronized Hashtable<Usuario, Integer> getResultados(){
+                public synchronized LinkedList<Usuario> getResultados(){
                 	return posicionesFinales;
+                }
+                
+                private Comparator<Usuario> getComparadorDePosiciones(){
+                	return new Comparator<Usuario>(){
+						@Override
+						public int compare(Usuario competidor1, Usuario competidor2) {
+							return (int)(competidor1.getAuto().getPosicion()-competidor2.getAuto().getPosicion());
+						}
+                	};
+                }
+                private void rellenarPosiciones(){
+                	
+                	Collections.sort(listaDeCompetidores,getComparadorDePosiciones());
+                	for(Usuario competidor:listaDeCompetidores)
+                		agregarAPosiciones(competidor);
                 }
                 
         }
@@ -211,11 +235,46 @@ public class ProgramaAuto extends Observable {
         	usuario=nuevoUsuario(nombre);
         }
         
-        /*
-         public ProgramaAuto (objetoPersistencia) throws CorruptFileException {
-        	Usuario(objetoPersistencia);
+        /**
+         * 
+         * @param programa
+         */
+        public ProgramaAuto (Element programa) {
+        	usuario= new Usuario(programa.getChildElements("programa").get(0));
         }
-         */     
+        /**
+         * Esta llamada guarda el estado actual del programa con su usuario.
+         */
+        private void guardar(){
+        	try {
+            	Element raiz= new Element("programa");
+            	raiz.appendChild(usuario.getElement());
+            	Document doc= new Document(raiz);
+				format(new BufferedOutputStream(new FileOutputStream(usuario.getNombre()+".xml")),
+						doc);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}     	
+        }
+        
+        /** Da un formato legible para los humanos
+         * 
+         * @param os
+         * @param doc
+         * @throws Exception
+         */
+        private void format(OutputStream os, Document doc) throws Exception {
+          Serializer serializer= new Serializer(os,"ISO-8859-1");
+          serializer.setIndent(4);
+          serializer.setMaxLength(60);
+          serializer.write(doc);
+          serializer.flush();
+        }
+             
 
         public Auto autoInicial(){
                 Auto auto=null;
@@ -328,7 +387,7 @@ public class ProgramaAuto extends Observable {
         	if(tallerActual!=null)
         		throw new NotInTallerException();
         	tallerActual.ensamblar();	//ensamblo lo que coloque en el taller.
-        	//TODO:guardar();
+        	guardar();
         	tallerActual=null;	//salgo del Taller
         	
         	simulador = inicializarCarrera();
@@ -342,10 +401,24 @@ public class ProgramaAuto extends Observable {
 	    	if(simulador==null)
 	    		throw new NotSimulatingException();
         	simulador.simular();
-	    	//TODO:premiarUsuario();
+	    	premiarUsuario();
 	        simulador=null;	    // termino la simulacion
 	        pistaActual=null;	// ya se debe elegir otra pista        
-	        //TODO:guardar();
+	        guardar();
+        }
+        /**
+         * De acuerdo al resultado de la carrera, aumenta el dinero del usuario.
+         */
+        protected void premiarUsuario(){
+        	int posicion=simulador.getResultados().indexOf(usuario);
+        	       	
+			try {
+				if(posicion<PremiosEnAlgo.length)
+					usuario.adquirirDinero(PremiosEnAlgo[posicion]);
+			} catch (BoundsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         
         /*

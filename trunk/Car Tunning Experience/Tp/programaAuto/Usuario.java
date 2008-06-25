@@ -4,6 +4,7 @@ package programaAuto;
  * El usuario pertenece al modelo, no puede tener referencias a Swing,
  * TODO: usuario visual
  */
+import nu.xom.Element;
 import auto.Auto;
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
@@ -19,6 +20,28 @@ public class Usuario {
 		this.setNombre(nombre);
     	this.setDinero(1000);
 		this.taller = new Taller(this);
+	}
+	/**
+	 * Constructor para restaurar un objeto Usuario
+	 * @param usuario
+	 */
+	public Usuario(Element usuario){
+		nombre=usuario.getFirstChildElement("nombre").getValue();
+		dinero = Double.parseDouble(usuario.getFirstChildElement("dinero").getValue());
+//TODO		auto = new Auto(usuario.getFirstChildElement("auto"));
+		this.taller = new Taller(this);	
+	}
+	
+	public Element getElement(){
+		Element usuario=new Element("usuario");
+		Element unNombre=new Element("nombre");
+		unNombre.appendChild(nombre);
+		Element unDinero=new Element("dinero");
+		unDinero.appendChild(dinero+"");
+		usuario.appendChild(unNombre);
+		usuario.appendChild(unDinero);
+//TODO		usuario.appendChild(auto.getElement());
+		return usuario;
 	}
 
 	public void setAuto(Auto miAuto) {
