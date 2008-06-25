@@ -1,11 +1,9 @@
 package controlador;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import excepciones.WrongUserNameException;
 import programaAuto.ProgramaAuto;
-import programaAuto.Usuario;
 import vista.Boton;
 import vista.PanelBase;
 import vista.PantallaCarrera;
@@ -24,14 +22,6 @@ public class ControladorJuego implements ActionListener {
 		this.controladorTaller = null;
 	}
 
-	public ProgramaAuto getProgramaAuto() {
-		return programaAuto;
-	}
-
-	public void setPanelBase(PanelBase panelBase) {
-		this.panelBase = panelBase;
-	}
-	
 	//TODO: Escribirlo de mejor forma
 	public void actionPerformed(ActionEvent e) {
 		Boton boton = (Boton)e.getSource();
@@ -48,15 +38,13 @@ public class ControladorJuego implements ActionListener {
 	}
 	
 	private void inicializarJuego(){
-			String nombre = ((PantallaUsuario)panelBase.getPantallaActual()).getPanelIngreso().getBox().getText();
-			Usuario usuario;
 			try {
-				usuario = this.programaAuto.nuevoUsuario(nombre);
-				usuario.setAvatar(((PantallaUsuario)panelBase.getPantallaActual()).getComboBoxCars().getSeleccionado());
-				this.controladorTaller = new ControladorTaller(usuario.getTaller());
+				programaAuto = new ProgramaAuto(((PantallaUsuario)panelBase.getPantallaActual()).obtenerNombreBoxUsuario());
+				this.controladorTaller = new ControladorTaller(programaAuto, ((PantallaUsuario)panelBase.getPantallaActual()).obtenerNombreBoxUsuario(), ((PantallaUsuario)panelBase.getPantallaActual()).obtenerImagenSeleccionada());
+				
 				panelBase.crearPantalla(new PantallaTaller(this));	
 				this.controladorTaller.setPantallaTaller((PantallaTaller)panelBase.getPantallaActual());
-				programaAuto.generarProximaPista();
+				
 				controladorTaller.setProximaPista(programaAuto.getPista());
 				controladorTaller.actualizarPantallaTaller();
 			} catch (WrongUserNameException e) {
@@ -64,15 +52,13 @@ public class ControladorJuego implements ActionListener {
 			}
 	}
 
-	public ControladorTaller getControladorTaller() {
-		return controladorTaller;
-	}
-	
 	private void MensajeError() {
-		String mensajeError = "Debe ingresar: NOMBRE USUARIO";
-		((PantallaUsuario)panelBase.getPantallaActual()).getBotonError().setText(mensajeError);
-		((PantallaUsuario)panelBase.getPantallaActual()).getPanelIngreso().getBox().setBackground(Color.WHITE);
-		((PantallaUsuario)panelBase.getPantallaActual()).getPanelIngreso().getBox().setOpaque(true);			
+
+		((PantallaUsuario)panelBase.getPantallaActual()).generarMensajeError("Debe ingresar: NOMBRE USUARIO");
+	}
+
+	public void setPanelBase(PanelBase panelBase) {
+		this.panelBase = panelBase;
 	}
 
 }

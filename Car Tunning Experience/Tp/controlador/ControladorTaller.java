@@ -1,6 +1,9 @@
 package controlador;
 
+import javax.swing.ImageIcon;
+
 import programaAuto.Pista;
+import programaAuto.ProgramaAuto;
 import programaAuto.Taller;
 import vista.PantallaTaller;
 
@@ -9,26 +12,29 @@ public class ControladorTaller {
 	private Taller taller;
 	private PantallaTaller pantallaTaller;
 	private Pista proximaPista;
+	private ImageIcon avatarUsuario;
+	private String nombreUsuario;
 	
-	public ControladorTaller(Taller taller) {
-		this.taller = taller;
+	public ControladorTaller(ProgramaAuto programaAuto, String nombreUsuario , ImageIcon avatarUsuario) {
+		this.avatarUsuario = avatarUsuario;
+		this.nombreUsuario = nombreUsuario;
 	}
 
 	public void actualizarPantallaTaller() {
 		//PANEL DINERO
-		pantallaTaller.actualizarInformacionDinero( taller.getUsuario().getDinero() );
+		pantallaTaller.actualizarInformacionDinero( "$$$" );
 		
 		//PANEL PROXIMA PISTA
-		pantallaTaller.actualizarInformacionPista( proximaPista );
+		//pantallaTaller.actualizarInformacionPista( proximaPista );
 		
 		//PANEL RESERVA
-		pantallaTaller.actualizarInformacionReserva( taller );
+		//pantallaTaller.actualizarInformacionReserva( taller );
 			
 		//PANEL NAFTA
-		pantallaTaller.actualizarInformacionNafta( taller.getUsuario().getAuto() );
+		//pantallaTaller.actualizarInformacionNafta( taller.getUsuario().getAuto() );
 		
 		//PANEL USUARIO
-		pantallaTaller.actualizarInformacionUsuario( taller.getUsuario() );
+		pantallaTaller.actualizarInformacionUsuario( nombreUsuario, avatarUsuario );
 		
 		//PANEL AUTO
 		pantallaTaller.actualizarInformacionAuto( taller.getUsuario().getAuto() );

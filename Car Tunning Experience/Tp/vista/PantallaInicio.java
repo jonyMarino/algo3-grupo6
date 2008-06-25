@@ -55,8 +55,7 @@ public class PantallaInicio extends JPanelConImagen {
 			this.setOpaque(false);
 		}
 
-		//Clase auxiliar para escuchar el evento de cerrado de la ventana
-		public class CloseListener implements ActionListener {
+		private class CloseListener implements ActionListener {
 
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);

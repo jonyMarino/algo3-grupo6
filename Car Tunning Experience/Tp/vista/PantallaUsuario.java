@@ -16,7 +16,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
-
 import controlador.ControladorJuego;
 
 public class PantallaUsuario extends JPanelConImagen {
@@ -27,22 +26,20 @@ public class PantallaUsuario extends JPanelConImagen {
 	private JLabel botonError;
 	
 	public PantallaUsuario(ControladorJuego controladorJuego) {
+		
 		super();
-		//FONDO
 		this.setImage("FondoTransparente");
 		
-		//PANEL USUARIO
 		JPanel panelUsuario = new JPanel();
 		panelUsuario.setLayout(new BoxLayout(panelUsuario,BoxLayout.Y_AXIS));
 		
-			//PANEL INGRESO
 			this.panelIngreso = new CuadroIngresoUsuario(controladorJuego);
 			this.panelIngreso.setOpaque(false);
-			//PERSONAJES
+			
 			this.comboBoxCars = new ComboBoxCars();
 			comboBoxCars.setOpaque(false);
-			//MENSAJE ERROR
-	        this.botonError = new JLabel();
+			
+			this.botonError = new JLabel();
 	        botonError.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
 	        botonError.setForeground(Color.BLACK);
 	        botonError.setFont(new Font("Arial", Font.BOLD, 17));      
@@ -59,8 +56,7 @@ public class PantallaUsuario extends JPanelConImagen {
 	    panelUsuario.add(botonError,c);
 	    panelUsuario.setOpaque(false);
 		
-		//BOTONERA
-       	BotoneraUsuario botoneraUsuario = new BotoneraUsuario(controladorJuego);
+		BotoneraUsuario botoneraUsuario = new BotoneraUsuario(controladorJuego);
 
 		this.add(panelUsuario);
 		this.add(botoneraUsuario);
@@ -69,15 +65,24 @@ public class PantallaUsuario extends JPanelConImagen {
    		this.setBorder(BorderFactory.createEmptyBorder(250, 0, 0, 0));
 	}
 
-	public CuadroIngresoUsuario getPanelIngreso() {
-		return panelIngreso;
+	public void generarMensajeError(String mensajeError) {
+	   
+	   botonError.setText(mensajeError);
+	   panelIngreso.getBox().setBackground(Color.WHITE);
+	   panelIngreso.getBox().setOpaque(true);			
+	}
+	
+	public String obtenerNombreBoxUsuario() {
+		
+		return panelIngreso.getBox().getText();
+	}
+	
+	public ImageIcon obtenerImagenSeleccionada() {
+		
+		return comboBoxCars.getSeleccionado();
 	}
 
-	public ComboBoxCars getComboBoxCars() {
-		return comboBoxCars;
-	}
-
-	public class BotoneraUsuario extends JPanel {
+	private class BotoneraUsuario extends JPanel {
 
 		private static final long serialVersionUID = 1L;
 
@@ -97,7 +102,7 @@ public class PantallaUsuario extends JPanelConImagen {
 
 	}
 	
-	public class ComboBoxCars extends JPanel {
+	private class ComboBoxCars extends JPanel {
 		    
 			private static final long serialVersionUID = 1L;
 			private ComboBoxRenderer renderer;
@@ -180,7 +185,7 @@ public class PantallaUsuario extends JPanelConImagen {
 
 	}
 	
-	public class CuadroIngresoUsuario extends JPanel {
+	private class CuadroIngresoUsuario extends JPanel {
 		
 		private static final long serialVersionUID = 1L;
 		private JTextField box;
@@ -204,9 +209,6 @@ public class PantallaUsuario extends JPanelConImagen {
 		}
 	}
 
-	public JLabel getBotonError() {
-		return botonError;
-	}
 
 }
 
