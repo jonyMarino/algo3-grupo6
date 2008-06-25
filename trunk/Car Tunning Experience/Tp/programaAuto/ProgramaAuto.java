@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Observable;
 import java.util.Random;
 import pista.Pista;
+import proveedorDePartes.ProveedorDePartes;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
@@ -20,6 +21,7 @@ import proveedorDePartes.fabricas.FabricaDePedales;
 import proveedorDePartes.fabricas.FabricaDeRuedas;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.Freno;
+import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.MezcladorNafta;
 import proveedorDePartes.fabricas.Motor;
 import proveedorDePartes.fabricas.Rueda;
@@ -29,6 +31,7 @@ import auto.AutoManual;
 import combustible.Nafta;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
+import excepciones.NotEnoughMoneyException;
 import excepciones.WrongPartClassException;
 import excepciones.WrongUsername;
 
@@ -37,15 +40,7 @@ public class ProgramaAuto extends Observable {
 	private static ArrayList<Usuario> usuarios;
 	private Pista pista;
 	private final int  SEGUNDOSASIMULAR = 10;
-	FabricaDeTanquesDeCombustible fabricaTanques;
-	FabricaDeMezcladores fabricaMezcladores;
-	FabricaDeMotores fabricaMotores;
-	FabricaDeCarrocerias fabricaCarrocerias;
-	FabricaDeEscapes fabricaEscapes;
-	FabricaDeRuedas fabricaRuedas;
-	FabricaDeCajas fabricaCajas;
-	FabricaDeEjes fabricaEjes;
-	FabricaDePedales fabricaPedales;
+	ProveedorDePartes unProveedor;
 	
 	
 	private class SimulacionDeLaCarrera{
@@ -106,49 +101,44 @@ public class ProgramaAuto extends Observable {
 	
 	public ProgramaAuto () {
 		this.pista=null;
-		fabricaTanques = new FabricaDeTanquesDeCombustible();
-		fabricaMezcladores = new FabricaDeMezcladores();
-		fabricaEscapes = new FabricaDeEscapes();
-		fabricaMotores = new FabricaDeMotores();
-		fabricaRuedas = new FabricaDeRuedas();
-		fabricaCarrocerias = new FabricaDeCarrocerias();
-		fabricaCajas = new FabricaDeCajas();
-		fabricaEjes = new FabricaDeEjes();
-		fabricaPedales = new FabricaDePedales();
+		unProveedor = new ProveedorDePartes();
 		usuarios = new ArrayList<Usuario>();		
 	}
 
 	public Auto autoInicial(){
 		Auto auto=null;
 		Nafta nafta = new Nafta(85,15);
+		
+		ArrayList<InformacionDelModelo> modelos = unProveedor.getModelosDisponibles();
+		
 		try{
-		TanqueNafta tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
-		tanque.setCombustible(nafta);
+			TanqueNafta tanque = (TanqueNafta) unProveedor.comprar(modelos.get(9));
 	
-		try {
-			tanque.llenarTanque(70);
-		} catch (BoundsException e1) {
-			e1.printStackTrace();
-		}
-			MezcladorNafta mezclador = (MezcladorNafta) fabricaMezcladores.fabricar(fabricaMezcladores.getModelos().get(0));
+			try {
+				tanque.llenarTanque(70);
+			} catch (BoundsException e1) {
+				e1.printStackTrace();
+			}
+		
+			MezcladorNafta mezclador = (MezcladorNafta) unProveedor.comprar(modelos.get(5));
+			Escape escape = (Escape) unProveedor.comprar(modelos.get(4));
 			
-			Escape escape = fabricaEscapes.fabricar(fabricaEscapes.getModelos().get(0));
-			
-			Carroceria carroceria = fabricaCarrocerias.fabricar(fabricaCarrocerias.getModelos().get(0));
+			Carroceria carroceria = (Carroceria) unProveedor.comprar(modelos.get(2));
 
 			ArrayList<Rueda> ruedas = new ArrayList<Rueda>();
+		
 			for(int i=0;i<4;i++){
-				Rueda rueda = fabricaRuedas.fabricar(fabricaRuedas.getModelos().get(0));
+				Rueda rueda = (Rueda) unProveedor.comprar(modelos.get(8));
 				ruedas.add(rueda);				
 			}
 			
-			Eje eje = fabricaEjes.fabricar(fabricaEjes.getModelos().get(0));
+			Eje eje = (Eje) unProveedor.comprar(modelos.get(3));
 			
-			CajaManual caja=(CajaManual) fabricaCajas.fabricar(fabricaCajas.getModelos().get(0));
+			CajaManual caja=(CajaManual) unProveedor.comprar(modelos.get(0));
 			
-			Motor motor=fabricaMotores.fabricar(fabricaMotores.getModelos().get(0));
+			Motor motor=(Motor) unProveedor.comprar(modelos.get(6));
 			
-			Freno freno =  (Freno) fabricaPedales.fabricar(fabricaPedales.getModelos().get(1));
+			Freno freno =  (Freno) unProveedor.comprar(modelos.get(7));
 			
 			try {
 				auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje, freno);
@@ -160,6 +150,9 @@ public class ProgramaAuto extends Observable {
 		catch (NoSuchModelException e)
 		{
 			e.printStackTrace();  //TODO: bastante sucio
+		} catch (NotEnoughMoneyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return auto;
 	}

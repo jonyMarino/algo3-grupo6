@@ -29,6 +29,9 @@ public class CadenaDeFabricas{
 			} catch (NoSuchModelException e) {
 				fabricado=false;
 			}
+			catch(NullPointerException e){
+				fabricado = false;
+			}
 		}
 		
 		if (fabricado)

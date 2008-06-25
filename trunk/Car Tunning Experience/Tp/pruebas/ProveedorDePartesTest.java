@@ -1,5 +1,7 @@
 package pruebas;
 
+import com.sun.net.httpserver.Authenticator.Success;
+
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 import proveedorDePartes.ProveedorDePartes;
@@ -7,6 +9,7 @@ import proveedorDePartes.fabricas.CajaAutomatica;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.ParteAuto;
+import proveedorDePartes.fabricas.Pedal;
 import junit.framework.TestCase;
 
 public class ProveedorDePartesTest extends TestCase {
@@ -51,6 +54,26 @@ public class ProveedorDePartesTest extends TestCase {
 			fail("No implementado");
 		}
 		
+		try {
+			ParteAuto unaParte = unProveedor.comprar(unProveedor.getModelosDisponibles().get(3));
+			assertFalse(unaParte instanceof Pedal);
+		} catch (NoSuchModelException e) {
+			fail("Se supone que el modelo existía.");
+		} catch (NotEnoughMoneyException e) {
+			fail("No implementado");
+		}
+		
+	}
+	
+	public void testComprarModeloInexistente(){
+		try {
+			ParteAuto unaParte = unProveedor.comprar(null);
+			fail("Se supone que el modelo era invalido");
+		} catch (NoSuchModelException e) {
+			assertTrue(true);
+		} catch (NotEnoughMoneyException e) {
+			fail("No implementado");
+		}
 	}
 
 }

@@ -14,7 +14,7 @@ public class FabricaDePedales extends FabricaDePartes {
 
 	public FabricaDePedales(){
 		super();
-		agregarModelo(nuevoModeloMezclador(10, "Un acelerador.", 1.0, "ACELERADOR"));
+	//	agregarModelo(nuevoModeloMezclador(10, "Un acelerador.", 1.0, "ACELERADOR"));
 		agregarModelo(nuevoModeloMezclador(10, "Un acelerador.", 1.0, "FRENO"));
 		//agrega un motor básico al catálogo
 	}
