@@ -1,12 +1,7 @@
 package vista;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-
-
 import javax.swing.*;
-
-import auto.Auto;
 import controlador.ControladorJuego;
 
 
@@ -17,8 +12,7 @@ public class PantallaTaller extends JPanelConImagen {
        private JPanel panelUsuario;
        private JPanel panelNafta;
        private JLabel labelDinero;
-       private JComboBox comboPartesReserva;
-       
+       private JComboBox comboPartesReserva;     
        private JComboBox fabricaComboCajas;
        private JComboBox fabricaComboCarrocerias ;
        private JComboBox fabricaComboEjes;
@@ -28,38 +22,35 @@ public class PantallaTaller extends JPanelConImagen {
        private JComboBox fabricaComboPedales;
        private JComboBox fabricaComboRuedas;
        private JComboBox fabricaComboTanques;
-     
        private static final long serialVersionUID = 1L;
      
        public PantallaTaller(ControladorJuego controladorJuego) {
+    	   super();
+            
+           this.setImage("FondoTransparente");
                
-               super();
+           this.setLayout(new GridBagLayout());
                
-               this.setImage("FondoTransparente");
+           crearPanelCatalogo();
+           crearPanelAuto();
+           crearPanelPistaDineroBodega();
+           crearPanelUsuario();
                
-               this.setLayout(new GridBagLayout());
-               
-               crearPanelCatalogo();
-               crearPanelAuto();
-               crearPanelPistaDineroBodega();
-               crearPanelUsuario();
-               
-               GridBagConstraints c = new GridBagConstraints();
-               c.gridx=2;
-               c.gridy=2;
-               Insets in=new Insets(170,20,0,0);
-               c.insets=in;
-               c.anchor = GridBagConstraints.NORTH;
-               
-               Boton botonComenzar = new Boton("Comenzar Carrera");
-               botonComenzar.addActionListener(controladorJuego);
-               this.add(botonComenzar, c);            
+           GridBagConstraints c = new GridBagConstraints();
+           c.gridx=2;
+           c.gridy=2;
+           Insets in=new Insets(170,20,0,0);
+           c.insets=in;
+           c.anchor = GridBagConstraints.NORTH;
+              
+           Boton botonComenzar = new Boton("Comenzar Carrera");
+           botonComenzar.addActionListener(controladorJuego);
+           this.add(botonComenzar, c);            
        }
        
        
        /* PANEL INFORMACION AUTO USUARIO */
        private void crearPanelAuto() {
-
            JTabbedPane tabbedPane = new JTabbedPane();
            tabbedPane.setPreferredSize(new Dimension(300,350));
            
@@ -85,41 +76,19 @@ public class PantallaTaller extends JPanelConImagen {
            this.add(tabbedPane,c);        
        }
             
-       //Esto actualiza la PANEL INFORMACION AUTO
-       public void agregarInformacionAuto(String nombreParte, String vidaUtil) {
-    	 
+       public void limpiarInformacionAuto() {
+    	   panelAutoActual.removeAll();
+       }
+       
+       public void agregarInformacionAuto(String nombreParte, String vidaUtil) { 
     	   JLabel jParteAuto = new JLabel();
     	   jParteAuto.setText(nombreParte+" "+vidaUtil);
     	   panelAutoActual.add(jParteAuto);
-    	   
-    	   /*
-       	   panelAutoActual.removeAll();
-    	   
-    	   ParteAuto parte;
-           
-           Hashtable<String,ParteAuto> tabla=new Hashtable<String,ParteAuto>();
-           tabla = auto.getHashDePartes();
-           Enumeration<ParteAuto> enumeracion = tabla.elements();
-           Double vidaUtil;
-           
-           while(enumeracion.hasMoreElements()){   
-        	        JLabel jParteAuto = new JLabel();
-        	   		parte=enumeracion.nextElement();
-             try{
-                     String nombreParte =parte.getInformacionDelModelo().getCaracteristica("DESCRIPCION");
-                     vidaUtil = parte.getVidaUtil();
-                     jParteAuto.setText(nombreParte+" "+vidaUtil);  
-                     panelAutoActual.add(jParteAuto);                
-            }catch (BoundsException e){}
-           
-           }*/
-      	   
        }
        
-       
+      
        /*PANEL USUARIO*/
-       private void crearPanelUsuario() {
-    	   
+       private void crearPanelUsuario() { 	   
     	   this.panelUsuario = new JPanel();
     	   Color nc = new Color(176,196,222);
     	   panelUsuario.setPreferredSize(new Dimension(300,130));
@@ -136,12 +105,10 @@ public class PantallaTaller extends JPanelConImagen {
     	   this.add(panelUsuario,c);         
        }
        
-       //Esto actualiza la PANEL INFORMACION USUARIO
        public void actualizarInformacionUsuario(String nombreUsuario, ImageIcon avatarUsuario) {
-
     	   panelUsuario.removeAll();  	   
     	   
-    	   JLabel jUsuario = new JLabel("JUGADOR ACTUAL: " + nombreUsuario);
+    	   JLabel jUsuario = new JLabel("JUGADOR ACTUAL:  " + nombreUsuario);
     	   jUsuario.setIcon( avatarUsuario );
     	   jUsuario.setHorizontalTextPosition(JLabel.CENTER);
     	   jUsuario.setVerticalTextPosition(JLabel.NORTH);
@@ -152,20 +119,18 @@ public class PantallaTaller extends JPanelConImagen {
        
        /* PANEL LISTA DE RESERVAS DEL TALLER*/
        private JPanel crearPanelReserva() {
-
     	   Color nc = new Color(176,196,222);
     	   JPanel panelBodega = new JPanel();
     	   panelBodega.setLayout(new GridBagLayout());
     	   panelBodega.setBackground(nc);
     	 
     	   
-    	    GridBagConstraints ubicacion = new GridBagConstraints();
-	        Insets in=new Insets(30,100,0,0);
-	        ubicacion.insets=in;
-	        ubicacion.gridx=1;
-	        ubicacion.gridy=0;
-	        ubicacion.anchor= GridBagConstraints.NORTH;
-	          
+    	   GridBagConstraints ubicacion = new GridBagConstraints();
+	       Insets in=new Insets(30,100,0,0);
+	       ubicacion.insets=in;
+	       ubicacion.gridx=1;
+	       ubicacion.gridy=0;
+	       ubicacion.anchor= GridBagConstraints.NORTH;
 	   	   
     	   this.comboPartesReserva = new JComboBox();
     	   comboPartesReserva.addItem("-Lista Vacía-");
@@ -176,70 +141,35 @@ public class PantallaTaller extends JPanelConImagen {
     	   return panelBodega;
        }
 
-       //Esto actualiza el PANEL LISTA RESERVA
        public void limpiarInformacionReserva() {
     	   comboPartesReserva.removeAllItems();
-    	   
-    	   /*
-    	    comboPartesReserva.removeAllItems();
-    	   	
-    	    Double vidaUtil;
-		    String descripcion;
-		    boolean entre = false;
-		    				
-		    while (taller.getPartesDeReserva().hasNext()){
-		    	entre = true;
-		    	try {
-					descripcion = taller.getPartesDeReserva().next().getInformacionModelo().getCaracteristica("DESCRIPCION");
-			    	vidaUtil = taller.getPartesDeReserva().next().getVidaUtil();
-					
-			    	comboPartesReserva.addItem( descripcion + " " + vidaUtil );
-
-		    	} catch (BoundsException e) { }
-    			    
-		    }
-			
-		    if (!entre) {
-		    	String mensajeVacio = "- Lista Vacía -";
-		    	comboPartesReserva.addItem(mensajeVacio);
-			}    */       
        }
    
-
-	   	public JComboBox getComboPartesReserva() {
-	   		return comboPartesReserva;
-	   	}
-
-       private void agregarAReserva(String descripcion,String vidaUtil){ 
+       public void agregarAReserva(String descripcion,String vidaUtil){ 
     	   comboPartesReserva.addItem( descripcion + " " + vidaUtil );
        }
-
+     
        
        /* PANEL DINERO */
-       private JPanel crearPanelDinero(){
-               
-               Color nc = new Color(176,196,222);
-               JPanel panelDinero = new JPanel();
-               panelDinero.setLayout(new GridBagLayout());
-               panelDinero.setBackground(nc);
+       private JPanel crearPanelDinero(){             
+    	   Color nc = new Color(176,196,222);
+           JPanel panelDinero = new JPanel();
+           panelDinero.setLayout(new GridBagLayout());
+           panelDinero.setBackground(nc);
        
-               labelDinero = new JLabel();
-
-               panelDinero.add(labelDinero);
+           labelDinero = new JLabel();
+           panelDinero.add(labelDinero);
                
-               return panelDinero;
+           return panelDinero;
        	}
        
-       //Esto actualiza la PANEL DINERO
-       public void actualizarInformacionDinero(String dinero){
-    	   
+       public void actualizarInformacionDinero(String dinero){ 	   
     	   this.labelDinero.setText(dinero + " Algo$");
        }
        
        
        /* PANEL CARGAR NAFTA */
-       private JPanel crearPanelCargarNafta(){
-    	   
+       private JPanel crearPanelCargarNafta(){ 	   
     	   this.panelNafta = new JPanel();
     	   Color nc = new Color(176,196,222);
     	   panelNafta.setPreferredSize(new Dimension(100,150)); 
@@ -255,9 +185,7 @@ public class PantallaTaller extends JPanelConImagen {
            return panelNafta;
    	   }
        
-     //Esto actualiza el PANEL NAFTA
-       public void actualizarInformacionNafta(Double cantidad, Double capacidad){
-    	   
+       public void actualizarInformacionNafta(Double cantidad, Double capacidad){  	   
     	   panelNafta.removeAll();
     	    	   
     	   JProgressBar barraTanque = new JProgressBar(0, (int)Math.floor(capacidad));
@@ -272,15 +200,7 @@ public class PantallaTaller extends JPanelConImagen {
            c.gridy =0;
            c.anchor = GridBagConstraints.CENTER;
            panelNafta.add(barraTanque,c);   
-           
-           //TODO: boton informativo, por si algo ocurre [falta de dinero].
-           JLabel mensaje = new JLabel("");
-           c.gridx =0;
-           c.gridwidth =0; 
-           c.gridy =1;
-           c.anchor = GridBagConstraints.CENTER;
-           panelNafta.add(mensaje,c);
-                      
+                              
            Boton botonCargar = new Boton("Cargar Nafta");
            botonCargar.setOpaque(false);
            //TODO: 0,5 es cada cuanto aumenta el boton.
@@ -297,156 +217,130 @@ public class PantallaTaller extends JPanelConImagen {
            panelNafta.add(seleccionCargar,c);   
            c.gridx =0;
            c.gridy =0;
-           panelNafta.add(cantidadLitros,c);    
-          
+           panelNafta.add(cantidadLitros,c);             
        }
        
      
        /* PANEL PISTA */
-       private JPanel crearPanelPista(){
-             
-               Color nc = new Color(176,196,222);
-               this.panelPista = new JPanel();
-               panelPista.setLayout(new GridBagLayout());
-               panelPista.setBackground(nc);
-              
-            
-               return panelPista;
+       private JPanel crearPanelPista(){            
+           Color nc = new Color(176,196,222);
+           this.panelPista = new JPanel();
+           panelPista.setLayout(new GridBagLayout());
+           panelPista.setBackground(nc);
+                         
+           return panelPista;
        }
        
-       //Esto actualiza la PANELPISTA
-       public void actualizarInformacionPista(Double longitud,String superficie,Integer velocidad){
-
-   	   
+       public void actualizarInformacionPista(String longitud, String superficie, String velocidad){ 
     	   panelPista.removeAll();
     	   
-    	   JLabel jLongitud = new JLabel("Longitud: " + Double.toString(longitud) + " metros");
-    	   JLabel jVelocidadAire = new JLabel("Velocidad del aire: " + Integer.toString(velocidad) + " Km/h");
+    	   JLabel jLongitud = new JLabel("Longitud: " + longitud + " metros");
+    	   JLabel jVelocidadAire = new JLabel("Velocidad del aire: " + velocidad + " Km/h");
     	   JLabel jSuperficie = new JLabel("Superficie: " + superficie);  	   
-    	   //TODO: siempre es cero la velocidad del aire??
-    	   //TODO: Se tendria que decir de que tipo es la pista. 
     	  
     	   panelPista.add(jLongitud);
     	   panelPista.add(jVelocidadAire);
     	   panelPista.add(jSuperficie);
-    	   
-    	   
+    	      	   
            panelPista.setLayout(new BoxLayout(panelPista, BoxLayout.PAGE_AXIS));
        }
 
-       
-       
+             
        /* PANEL PISTA DINERO BODEGA */
-       private void crearPanelPistaDineroBodega(){
-               
-               JTabbedPane tabbedPane = new JTabbedPane();
-               tabbedPane.setPreferredSize(new Dimension(300,150));
+       private void crearPanelPistaDineroBodega(){             
+           JTabbedPane tabbedPane = new JTabbedPane();
+           tabbedPane.setPreferredSize(new Dimension(300,150));
 
-		       tabbedPane.addTab("Dinero",crearPanelDinero());
-		       
-		       tabbedPane.addTab("Bodega",crearPanelReserva());
-		       
-		       tabbedPane.addTab("Cargar Nafta",crearPanelCargarNafta());
-		      
-		       tabbedPane.addTab("Proxima Pista",crearPanelPista());
+		   tabbedPane.addTab("Dinero",crearPanelDinero());
+		   tabbedPane.addTab("Bodega",crearPanelReserva());  
+		   tabbedPane.addTab("Cargar Nafta",crearPanelCargarNafta());
+		   tabbedPane.addTab("Proxima Pista",crearPanelPista());
 	           
-	           GridBagConstraints c = new GridBagConstraints();
-	           c.gridx =1;
-	           c.gridy =1;
-	           c.gridheight =1;
-	           Insets in=new Insets(200,50,0,0);
-	           c.insets=in;
-	           c.anchor = GridBagConstraints.CENTER;
+	       GridBagConstraints c = new GridBagConstraints();
+	       c.gridx =1;
+	       c.gridy =1;
+	       c.gridheight =1;
+	       Insets in=new Insets(200,50,0,0);
+	       c.insets=in;
+	       c.anchor = GridBagConstraints.CENTER;
            
-	           this.add(tabbedPane,c);
+	       this.add(tabbedPane,c);
        }
        
 
        /* PANEL CATALOGO */
-       private void crearPanelCatalogo(){
-               
-               Color nc = new Color(176,196,222);
+       private void crearPanelCatalogo(){            
+           Color nc = new Color(176,196,222);
  
-		       JTabbedPane tabbedPane = new JTabbedPane();
-		       tabbedPane.setPreferredSize(new Dimension(600,200));
+		   JTabbedPane tabbedPane = new JTabbedPane();
+		   tabbedPane.setPreferredSize(new Dimension(600,200));
 		 
-		       JPanel panelCatalogo = new JPanel();
-		       panelCatalogo.setBackground(nc);
-		       panelCatalogo.setLayout(new GridBagLayout());
+		   JPanel panelCatalogo = new JPanel();
+		   panelCatalogo.setBackground(nc);
+		   panelCatalogo.setLayout(new GridBagLayout());
 		       
-		       GridBagConstraints c4 = new GridBagConstraints();
-		       Insets in=new Insets(0,30,0,0);
-		       c4.insets=in;
+		   GridBagConstraints c4 = new GridBagConstraints();
+		   Insets in=new Insets(0,30,0,0);
+		   c4.insets=in;
 		       
-		     //  panelCatalogo.add(contenedorPartes(),c4);
-		       
-		       panelCatalogo.add(crearFabricas(),c4);
+		   panelCatalogo.add(crearFabricas(),c4);
 		     
-		       Boton botonComprar = new Boton("Comprar");
-		       c4 = posicionBoton();
-		       panelCatalogo.add(botonComprar,c4);
-		       tabbedPane.addTab("Catalogo",panelCatalogo);
+		   Boton botonComprar = new Boton("Comprar");
+		   c4 = posicionBoton();
+		   panelCatalogo.add(botonComprar,c4);
+		   tabbedPane.addTab("Catalogo",panelCatalogo);
 		     
-		       GridBagConstraints c = new GridBagConstraints();
-		       c.gridx=0;
-		       c.gridy=2;
-		       c.weighty = 1.0;
-		       c.gridwidth =2;
-		       c.anchor = GridBagConstraints.NORTH;
+		   GridBagConstraints c = new GridBagConstraints();
+		   c.gridx=0;
+		   c.gridy=2;
+		   c.weighty = 1.0;
+		   c.gridwidth =2;
+		   c.anchor = GridBagConstraints.NORTH;
 		       
-		       this.add(tabbedPane,c);
+		   this.add(tabbedPane,c);
        }
-       
-       //Esto actualiza la PANELCATALOGO
-       public void actualizarPanelCatalogo(String catalogo){
-    	  //lo que haga actualizarla
-       }
-     
-     
-       public JPanel crearFabricas() {
+            
+       private JPanel crearFabricas() {
 	       
-		       JPanel panelCombo = new JPanel();
-		       GridLayout g=new GridLayout (3,3);
-		       g.setVgap(5);
-		       g.setHgap(10);
-		       panelCombo.setLayout (g); 
-		       panelCombo.setOpaque(false);
+		   JPanel panelCombo = new JPanel();
+		   GridLayout g=new GridLayout (3,3);
+		   g.setVgap(5);
+		   g.setHgap(10);
+		   panelCombo.setLayout (g); 
+		   panelCombo.setOpaque(false);
 		       
-		       fabricaComboCajas = new JComboBox();
-		       fabricaComboCajas.addItem("-Cajas-");
-		       fabricaComboCarrocerias = new JComboBox();
-		       fabricaComboCarrocerias.addItem("-Carrocerias-");
-		       fabricaComboEjes = new JComboBox();
-		       fabricaComboEjes.addItem("-Ejes-");
-		       fabricaComboEscapes = new JComboBox();
-		       fabricaComboEscapes.addItem("-Escapes-");
-		       fabricaComboMezcladores = new JComboBox();
-		       fabricaComboMezcladores.addItem("-Mezcladores-");
-		       fabricaComboMotores = new JComboBox();
-		       fabricaComboMotores.addItem("-Motores-");
-		       fabricaComboPedales = new JComboBox();
-		       fabricaComboPedales.addItem("-Pedales-");
-		       fabricaComboRuedas = new JComboBox();
-		       fabricaComboRuedas.addItem("-Ruedas-");
-		       fabricaComboTanques = new JComboBox();
-		       fabricaComboTanques.addItem("-Tanques-");
+		   fabricaComboCajas = new JComboBox();
+		   fabricaComboCajas.addItem("-Cajas-");
+		   fabricaComboCarrocerias = new JComboBox();
+		   fabricaComboCarrocerias.addItem("-Carrocerias-");
+		   fabricaComboEjes = new JComboBox();
+		   fabricaComboEjes.addItem("-Ejes-");
+		   fabricaComboEscapes = new JComboBox();
+		   fabricaComboEscapes.addItem("-Escapes-");
+		   fabricaComboMezcladores = new JComboBox();
+		   fabricaComboMezcladores.addItem("-Mezcladores-");
+		   fabricaComboMotores = new JComboBox();
+		   fabricaComboMotores.addItem("-Motores-");
+		   fabricaComboPedales = new JComboBox();
+		   fabricaComboPedales.addItem("-Pedales-");
+		   fabricaComboRuedas = new JComboBox();
+		   fabricaComboRuedas.addItem("-Ruedas-");
+		   fabricaComboTanques = new JComboBox();
+		   fabricaComboTanques.addItem("-Tanques-");
 
-			        panelCombo.add(fabricaComboCajas);
-			        panelCombo.add(fabricaComboCarrocerias);
-			        panelCombo.add(fabricaComboEjes);
-			        panelCombo.add(fabricaComboEscapes);
-			        panelCombo.add(fabricaComboMezcladores);
-			        panelCombo.add(fabricaComboMotores);
-			        panelCombo.add(fabricaComboPedales);
-			        panelCombo.add(fabricaComboRuedas);
-			        panelCombo.add(fabricaComboTanques);   
-		       
-		       return panelCombo;
+		   panelCombo.add(fabricaComboCajas);
+		   panelCombo.add(fabricaComboCarrocerias);
+		   panelCombo.add(fabricaComboEjes);
+		   panelCombo.add(fabricaComboEscapes);
+		   panelCombo.add(fabricaComboMezcladores);
+		   panelCombo.add(fabricaComboMotores);
+		   panelCombo.add(fabricaComboPedales);
+		   panelCombo.add(fabricaComboRuedas);
+		   panelCombo.add(fabricaComboTanques);   
+		     
+		   return panelCombo;
        }
-       
-       
-       
-       
+            
        /*ACA TENGO QUE RECIBIR UN PARAMETRO QUE SEA LA LISTA DE TODAS LAS LISTAS DE LAS FABRICAS*/
        /*
        private JPanel contenedorPartes(){
@@ -499,90 +393,89 @@ public class PantallaTaller extends JPanelConImagen {
        */
        
        private GridBagConstraints posicionBoton(){
-	               
-	           GridBagConstraints ubicacion = new GridBagConstraints();
-	           Insets in=new Insets(0,0,5,5);
-	           ubicacion.insets=in;
-	           ubicacion.weightx = 1.0;
-	           ubicacion.weighty = 1.0;
-	           ubicacion.anchor = GridBagConstraints.SOUTHEAST;
+    	   GridBagConstraints ubicacion = new GridBagConstraints();
+	       Insets in=new Insets(0,0,5,5);
+	       ubicacion.insets=in;
+	       ubicacion.weightx = 1.0;
+	       ubicacion.weighty = 1.0;
+	       ubicacion.anchor = GridBagConstraints.SOUTHEAST;
                
-               return ubicacion;
+           return ubicacion;
+        }
+
+
+       /*TODOS LOS COMBOS FABRICAS*/
+       //TODO: Debe modificarse
+       public JComboBox getFabricaComboCajas() {
+    	   return fabricaComboCajas;
+       }
+	
+       public void agregarAComboCajas(String parte) {
+    	   fabricaComboCajas.addItem(parte);
        }
 
+       public JComboBox getFabricaComboCarrocerias() {
+    	   return fabricaComboCarrocerias;
+       }
 
-/*TODOS LOS COMBOS FABRICAS*/
-	public JComboBox getFabricaComboCajas() {
-		return fabricaComboCajas;
-	}
+       public void agregarAComboCarrocerias(String parte) {
+    	   fabricaComboCarrocerias.addItem(parte);
+       }
 	
-	public void agregarAComboCajas(String parte) {
-		fabricaComboCajas.addItem(parte);
-	}
+       public JComboBox getFabricaComboEjes() {
+    	   return fabricaComboEjes;
+       }
 
-	public JComboBox getFabricaComboCarrocerias() {
-		return fabricaComboCarrocerias;
-	}
+       public void agregarAComboEjes(String parte) {
+    	   fabricaComboEjes.addItem(parte);
+       }
 
-	public void agregarAComboCarrocerias(String parte) {
-		fabricaComboCarrocerias.addItem(parte);
-	}
+       public JComboBox getFabricaComboEscapes() {
+    	   return fabricaComboEscapes;
+       }
 	
-	public JComboBox getFabricaComboEjes() {
-		return fabricaComboEjes;
-	}
+       public void agregarAComboEscapes(String parte) {
+    	   fabricaComboEscapes.addItem(parte);
+       }
 
-	public void agregarAComboEjes(String parte) {
-		fabricaComboEjes.addItem(parte);
-	}
-
-	public JComboBox getFabricaComboEscapes() {
-		return fabricaComboEscapes;
-	}
+       public JComboBox getFabricaComboMezcladores() {
+    	   return fabricaComboMezcladores;
+       }
 	
-	public void agregarAComboEscapes(String parte) {
-		fabricaComboEscapes.addItem(parte);
-	}
+       public void agregarAComboMezcladores(String parte) {
+    	   fabricaComboMezcladores.addItem(parte);
+       }
 
-	public JComboBox getFabricaComboMezcladores() {
-		return fabricaComboMezcladores;
-	}
+       public JComboBox getFabricaComboMotores() {
+    	   return fabricaComboMotores;
+       }
 	
-	public void agregarAComboMezcladores(String parte) {
-		fabricaComboMezcladores.addItem(parte);
-	}
+       public void agregarAComboMotores(String parte) {
+    	   fabricaComboMotores.addItem(parte);
+       }
 
-	public JComboBox getFabricaComboMotores() {
-		return fabricaComboMotores;
-	}
+       public JComboBox getFabricaComboPedales() {
+    	   return fabricaComboPedales;
+       }
+
+       public void agregarAComboPedales(String parte) {
+    	   fabricaComboPedales.addItem(parte);
+       }
+
+       public JComboBox getFabricaComboRuedas() {
+    	   return fabricaComboRuedas;
+       }
+
+       public void agregarAComboRuedas(String parte) {
+    	   fabricaComboRuedas.addItem(parte);
+       }
+
+       public JComboBox getFabricaComboTanques() {
+    	   return fabricaComboTanques;
+       }
 	
-	public void agregarAComboMotores(String parte) {
-		fabricaComboMotores.addItem(parte);
-	}
-
-	public JComboBox getFabricaComboPedales() {
-		return fabricaComboPedales;
-	}
-
-	public void agregarAComboPedales(String parte) {
-		fabricaComboPedales.addItem(parte);
-	}
-
-	public JComboBox getFabricaComboRuedas() {
-		return fabricaComboRuedas;
-	}
-
-	public void agregarAComboRuedas(String parte) {
-		fabricaComboRuedas.addItem(parte);
-	}
-
-	public JComboBox getFabricaComboTanques() {
-		return fabricaComboTanques;
-	}
+       public void agregarAComboTanques(String parte) {
+    	   fabricaComboTanques.addItem(parte);
+       }
 	
-	public void agregarAComboTanques(String parte) {
-		fabricaComboTanques.addItem(parte);
-	}
-	
-
 }
