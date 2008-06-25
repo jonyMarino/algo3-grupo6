@@ -1,25 +1,19 @@
 package programaAuto;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Observable;
-import java.util.Random;
-import pista.Pista;
+
+import programaAuto.Taller.InformacionParteEnAuto;
+import programaAuto.Taller.InformacionParteReserva;
 import proveedorDePartes.ProveedorDePartes;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
 import proveedorDePartes.fabricas.Escape;
-import proveedorDePartes.fabricas.FabricaDeCajas;
-import proveedorDePartes.fabricas.FabricaDeCarrocerias;
-import proveedorDePartes.fabricas.FabricaDeEjes;
-import proveedorDePartes.fabricas.FabricaDeEscapes;
-import proveedorDePartes.fabricas.FabricaDeMezcladores;
-import proveedorDePartes.fabricas.FabricaDeMotores;
-import proveedorDePartes.fabricas.FabricaDePedales;
-import proveedorDePartes.fabricas.FabricaDeRuedas;
-import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.Freno;
 import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.MezcladorNafta;
@@ -30,172 +24,346 @@ import auto.Auto;
 import auto.AutoManual;
 import combustible.Nafta;
 import excepciones.BoundsException;
+import excepciones.IncorrectPartForUbicationException;
+import excepciones.InvalidPistaNameException;
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 import excepciones.WrongPartClassException;
-import excepciones.WrongUsername;
+import excepciones.WrongUserNameException;
 
 public class ProgramaAuto extends Observable {
+		/*
+		 * En nuestro modelo hay un solo usuario.
+		 */
+        private Usuario usuario;
+        private Pista pistaActual=null;	//comienzo en la eleccion de pistas
+        SimuladorCarrera simulador;	//Objeto que se encarga de la simulacion de la carrera
+        Taller tallerActual;
+        private LinkedList<Pista> pistas=generarPistas();
+        private static final double  PASO_SIMULACION = 0.5;
+        ProveedorDePartes unProveedor=new ProveedorDePartes();
+        
+        
+        public class SimuladorCarrera{
+                private ArrayList<Usuario> listaDeCompetidores;
+                private boolean simulando;
+                private boolean pausa;
+                private Pista pistaActual;
+                private Hashtable<Usuario, Integer> posicionesFinales;
+                private int proximaPosicion=1; // indica el orden de llegada de los autos
+                
+                SimuladorCarrera(Pista unaPista) {
+                        pistaActual=unaPista;
+                        simulando = false;
+                        pausa = false;
+                        listaDeCompetidores = new ArrayList<Usuario>();
+                        posicionesFinales = new Hashtable<Usuario, Integer>();
+                }
+                
+                void agregarCompetidor(Usuario usuario){
+                		usuario.getAuto().resetVariables();
+                        
+                		usuario.getAuto().setPista(getPista());
+                		listaDeCompetidores.add(usuario);
+                }
+                
+                synchronized void simular(){
+                        simulando = true;
+                        try{
+	                        while(simulando){
+	                                simularUnPaso();
+	                                Thread.sleep(500);	//0.5 segundos
+	                                while(pausa)			//espero a salir de la pausa
+	                                	Thread.sleep(0);
+	                        }
+                        }catch(InterruptedException e){}
 
-	private static ArrayList<Usuario> usuarios;
-	private Pista pista;
-	private final int  SEGUNDOSASIMULAR = 10;
-	ProveedorDePartes unProveedor;
-	
-	
-	private class SimulacionDeLaCarrera{
-		private ArrayList<Auto> listaDeAutos;
-		private boolean simulando;
-		private Pista laPista;
-		private Hashtable<Auto, Integer> posicionesFinales;
-		private Integer proximaPosicion;
-		
-		public SimulacionDeLaCarrera(Pista unaPista) {
-			laPista=unaPista;
-			simulando = false;
-			listaDeAutos = new ArrayList<Auto>();
-			posicionesFinales = new Hashtable<Auto, Integer>();
-			proximaPosicion = new Integer(1);
-		}
-		
-		public void agregarAutoALaSimulacion(Auto unAuto){
-			unAuto.setPosicion(0);
-			unAuto.setPista(getPista());
-			listaDeAutos.add(unAuto);
-		}
-		
-		public void simularTodo(){
-			simulando = true;
-			while(simulando){
-				simularUnTurno();
-			}
+                }
 
-		}
+                private void simularUnPaso(){
+                        for (Usuario competidor:listaDeCompetidores){
+                                Auto unAuto = competidor.getAuto();
+                                if(unAuto.getPosicion() >= pistaActual.getLongitud()){
+                                        llegoAlFinal(competidor);
+                                        listaDeCompetidores.remove(competidor);
+                                        if(competidor==usuario){
+                                        	simulando=false;
+                                        	//TODO: Rellenar competidores
+                                        }
+                                        	
+                                }else if(unAuto.puedeSeguir()){
+                                                unAuto.simular(PASO_SIMULACION);
+                                }else if(competidor==usuario){
+                                	simulando=false;
+                                	//TODO: Rellenar Competidores y poner usuario al final de la lista
+                                }
+                        }
+               setChanged();
+               notifyObservers();
+                }
 
-		public void simularUnTurno(){
-			simulando = false;
-			Iterator<Auto> iteradorAutos = listaDeAutos.iterator();
-			while (iteradorAutos.hasNext()){
-				Auto unAuto = iteradorAutos.next();
-				if(unAuto.getPosicion() >= laPista.getLongitud())
-					llegoAlFinal(unAuto);
-				else if(unAuto.puedeSeguir()){
-						unAuto.simular(SEGUNDOSASIMULAR);
-						simulando = true;
-				}
-			}
-	       setChanged();
-	       notifyObservers();
-		}
-
-		
-		private void llegoAlFinal(Auto unAuto) {
-			if(posicionesFinales.get(unAuto) == null){
-				posicionesFinales.put(unAuto, proximaPosicion);
-				proximaPosicion++;
-			}
-		}
-		
-	}
-	
-	
-	public ProgramaAuto () {
-		this.pista=null;
-		unProveedor = new ProveedorDePartes();
-		usuarios = new ArrayList<Usuario>();		
-	}
-
-	public Auto autoInicial(){
-		Auto auto=null;
-		Nafta nafta = new Nafta(85,15);
-		
-		ArrayList<InformacionDelModelo> modelos = unProveedor.getModelosDisponibles();
-		
-		try{
-			TanqueNafta tanque = (TanqueNafta) unProveedor.comprar(modelos.get(9));
-	
-			try {
-				tanque.llenarTanque(70);
-			} catch (BoundsException e1) {
-				e1.printStackTrace();
-			}
-		
-			MezcladorNafta mezclador = (MezcladorNafta) unProveedor.comprar(modelos.get(5));
-			Escape escape = (Escape) unProveedor.comprar(modelos.get(4));
-			
-			Carroceria carroceria = (Carroceria) unProveedor.comprar(modelos.get(2));
-
-			ArrayList<Rueda> ruedas = new ArrayList<Rueda>();
-		
-			for(int i=0;i<4;i++){
-				Rueda rueda = (Rueda) unProveedor.comprar(modelos.get(8));
-				ruedas.add(rueda);				
-			}
-			
-			Eje eje = (Eje) unProveedor.comprar(modelos.get(3));
-			
-			CajaManual caja=(CajaManual) unProveedor.comprar(modelos.get(0));
-			
-			Motor motor=(Motor) unProveedor.comprar(modelos.get(6));
-			
-			Freno freno =  (Freno) unProveedor.comprar(modelos.get(7));
-			
-			try {
-				auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje, freno);
-			} catch (WrongPartClassException e) {
+                
+                private void llegoAlFinal(Usuario competidor) {
+                        if(posicionesFinales.get(competidor) == null){
+                                posicionesFinales.put(competidor, proximaPosicion);
+                                competidor.getAuto().setPista(null);	//sale de la pista
+                                proximaPosicion++;
+                        }
+                }
+                
+                public synchronized void setPausa(boolean pausar){
+                	pausa=pausar;
+                }
+                
+                public synchronized boolean getPausa(){
+                	return pausa;
+                }
+                public synchronized Hashtable<Usuario, Integer> getResultados(){
+                	return posicionesFinales;
+                }
+                
+        }
+        /**
+         * genero la pista normal
+         * @return
+         */
+        private Pista pistaNormal(){
+        	try {
+				Pista pistaNormal = new Pista("Normal");
+				pistaNormal.setCoeficienteDeRozamientoRelativo(1);
+				pistaNormal.setLongitud(2000);	//2000m
+				pistaNormal.setVelocidadAire(10); //10km/h
+				return pistaNormal;
+			} catch (InvalidPistaNameException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (BoundsException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			auto.setPista(pista);
-		}
-		catch (NoSuchModelException e)
-		{
-			e.printStackTrace();  //TODO: bastante sucio
-		} catch (NotEnoughMoneyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return auto;
-	}
+        	throw new RuntimeException("o deberia llegar a aqui en pistaNormal()");
+        	
+        }
+        /**
+         * genero la pista nieve
+         * @return
+         */
+        private Pista pistaNieve(){
+        	try {
+				Pista pistaNieve = new Pista("Nieve");
+				pistaNieve.setCoeficienteDeRozamientoRelativo(0.4);
+				pistaNieve.setLongitud(2000);	//2000m
+				pistaNieve.setVelocidadAire(30); //30km/h
+				return pistaNieve;
+			} catch (InvalidPistaNameException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (BoundsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	throw new RuntimeException("o deberia llegar a aqui en pistaNieve()");
+        	
+        }
+        /**
+         * genero la pista larga
+         * @return
+         */
+        private Pista pistaLarga(){
+        	try {
+				Pista pistaLarga = new Pista("Larga");
+				pistaLarga.setCoeficienteDeRozamientoRelativo(0.8);
+				pistaLarga.setLongitud(20000);	//20000m
+				pistaLarga.setVelocidadAire(15); //15km/h
+				return pistaLarga;
+			} catch (InvalidPistaNameException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (BoundsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	throw new RuntimeException("o deberia llegar a aqui en pistaLarga()");
+        	
+        }        
+        /**
+         * Genera las pistas que se pueden elegir para jugar.
+         * @return
+         */
+        protected LinkedList<Pista> generarPistas(){
+        	LinkedList<Pista> pistas = new LinkedList<Pista>();
+        	pistas.add(pistaNormal());
+        	pistas.add(pistaNieve());
+        	pistas.add(pistaLarga());
+        	return pistas;
+        }
+        /*
+        public ProgramaAuto () {
+                this.pistaActual=null;
+                unProveedor = new ProveedorDePartes();
+                usuarios = new ArrayList<Usuario>();            
+        }
+        */      
+        /*
+         * segun el diagrama de clases ProgramaAuto comienza con el usuario cargado
+         */
+        public ProgramaAuto (String nombre) throws WrongUserNameException {
+        	usuario=nuevoUsuario(nombre);
+        }
+        
+        /*
+         public ProgramaAuto (objetoPersistencia) throws CorruptFileException {
+        	Usuario(objetoPersistencia);
+        }
+         */     
 
+        public Auto autoInicial(){
+                Auto auto=null;
+                Nafta nafta = new Nafta(85,15);
+                
+                ArrayList<InformacionDelModelo> modelos = unProveedor.getModelosDisponibles();
+                
+                try{
+                        TanqueNafta tanque = (TanqueNafta) unProveedor.comprar(modelos.get(9));
+        
+                        try {
+                                tanque.llenarTanque(70);
+                        } catch (BoundsException e1) {
+                                e1.printStackTrace();
+                        }
+                
+                        MezcladorNafta mezclador = (MezcladorNafta) unProveedor.comprar(modelos.get(5));
+                        Escape escape = (Escape) unProveedor.comprar(modelos.get(4));
+                        
+                        Carroceria carroceria = (Carroceria) unProveedor.comprar(modelos.get(2));
 
-	private void setPista(Pista pista){
-		this.pista = pista;
-	}
+                        ArrayList<Rueda> ruedas = new ArrayList<Rueda>();
+                
+                        for(int i=0;i<4;i++){
+                                Rueda rueda = (Rueda) unProveedor.comprar(modelos.get(8));
+                                ruedas.add(rueda);                              
+                        }
+                        
+                        Eje eje = (Eje) unProveedor.comprar(modelos.get(3));
+                        
+                        CajaManual caja=(CajaManual) unProveedor.comprar(modelos.get(0));
+                        
+                        Motor motor=(Motor) unProveedor.comprar(modelos.get(6));
+                        
+                        Freno freno =  (Freno) unProveedor.comprar(modelos.get(7));
+                        
+                        try {
+                                auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje, freno);
+                        } catch (WrongPartClassException e) {
+                                e.printStackTrace();
+                        }
+                        auto.setPista(pistaActual);
+                }
+                catch (NoSuchModelException e)
+                {
+                        e.printStackTrace();  //TODO: bastante sucio
+                } catch (NotEnoughMoneyException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                }
+                return auto;
+        }
 
-	public Pista getPista(){
-		return this.pista;
-	}
-	
-	public void generarProximaPista(){
-		setPista(new Pista(new Random().nextDouble()*40));
-		//TODO: Rápido y feo, pero puede servir para el testing. Alguien creativo que se encargue...
-	}
-	
-	public Usuario nuevoUsuario(String nombre) throws WrongUsername {
-		Auto unAuto = autoInicial();
-		unAuto.setPista(getPista());
-		Usuario unUsuario = new Usuario(nombre);
-		unUsuario.setAuto(unAuto);
-		usuarios.add(unUsuario);
-					
-		return unUsuario;
-	}
-	
-	
-	
-	
-	public void comenzarCarrera(){
-		SimulacionDeLaCarrera unaSimulacion = inicializarCarrera();
-		unaSimulacion.simularTodo();
-	}
+        /**
+         * Devuelve las pistas disponibles para jugar.
+         * @return
+         */
+        public Iterator<Pista> getPistas(){
+        	return ((Collection<Pista>)pistas.clone()).iterator();
+        }
+        /**
+         * Setea la pista a correr.
+         * @param pista
+         * @throws NotContainedPistaException
+         * @throws PistaPickedException
+         */
+        public void setPista(Pista pista)throws NotContainedPistaException, PistaPickedException{
+            if(pistaActual!=null)
+            	throw new PistaPickedException();            	
+        	if(!pistas.contains(pista)) 
+            	throw new NotContainedPistaException();
+        	pistaActual = pista;
+        }
+        /**
+         * Devuelve la pista actual
+         * @return
+         */
+        public Pista getPista(){
+                return this.pistaActual;
+        }
+        
+        public Taller entrarAlTaller() throws NoPistaPickedException, NotAbleWhileSimulatingException{
+        	if(pistaActual==null)
+        		throw new NoPistaPickedException();
+        	if(simulador!=null)
+        		throw new NotAbleWhileSimulatingException();        		
+        	tallerActual=usuario.getTaller();
+        	return tallerActual;
+        }
+        /*
+         * TODO: Ver si no combiene hacer un Proxy aqui, en vez de esto.
+         */
+        /**
+         * Checkea que se este en el estado correcto antes de llamar al Taller.
+         */
+        public 	void colocarParteDeReserva(InformacionParteReserva informacionReserva, InformacionParteEnAuto informacionParte)throws IncorrectPartForUbicationException, NotInTallerException{
+        	if(tallerActual==null)
+        		throw new NotInTallerException();       		
+        	tallerActual.colocarParteDeReserva(informacionReserva, informacionParte);
+        }
+        /**
+         * Salida del Taller y entrada a la carrera
+         * @return Simulador para conocer el estado de la carrera
+         * @throws NoPistaPickedException
+         * @throws NotInTallerException
+         */
+        public SimuladorCarrera entrarALaCarrera() throws NoPistaPickedException, NotInTallerException{
+        	if(pistaActual==null)
+        		throw new NoPistaPickedException();
+        	if(tallerActual!=null)
+        		throw new NotInTallerException();
+        	tallerActual.ensamblar();	//ensamblo lo que coloque en el taller.
+        	//TODO:guardar();
+        	tallerActual=null;	//salgo del Taller
+        	
+        	simulador = inicializarCarrera();
+            return simulador;
+        }
+        /**
+         * Se simula la carrera hasta terminar
+         * @throws NotSimulatingException 
+         */
+        public void correr() throws NotSimulatingException{
+	    	if(simulador==null)
+	    		throw new NotSimulatingException();
+        	simulador.simular();
+	    	//TODO:premiarUsuario();
+	        simulador=null;	    // termino la simulacion
+	        pistaActual=null;	// ya se debe elegir otra pista        
+	        //TODO:guardar();
+        }
+        
+        /*
+         * El usuario no se crea con una pista,
+         * Esta se elige luego.
+         */
+        protected Usuario nuevoUsuario(String nombre) throws WrongUserNameException {
+                Auto unAuto = autoInicial();
+                Usuario unUsuario = new Usuario(nombre);
+                unUsuario.setAuto(unAuto);
+                                      
+                return unUsuario;
+        }
 
-	private SimulacionDeLaCarrera inicializarCarrera() {
-		SimulacionDeLaCarrera unaSimulacion = new SimulacionDeLaCarrera(getPista());
-		Iterator<Usuario> usuarios = this.usuarios.iterator();
-
-		while(usuarios.hasNext())
-			unaSimulacion.agregarAutoALaSimulacion(usuarios.next().getAuto());
-		
-		return unaSimulacion;
-	}
+        private SimuladorCarrera inicializarCarrera() {
+                SimuladorCarrera unaSimulacion = new SimuladorCarrera(getPista());
+                unaSimulacion.agregarCompetidor(usuario);
+                
+                return unaSimulacion;
+        }
 }
