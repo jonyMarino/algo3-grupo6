@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import combustible.Nafta;
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 import excepciones.WrongUsername;
 import programaAuto.ProgramaAuto;
 import proveedorDePartes.fabricas.CajaManual;
@@ -42,7 +43,10 @@ public class ControladorPrincipal implements KeyListener{
 		unAuto.setTanqueCombustible(tanque);
 
 			tanque.llenarTanque(99999);
+		} catch (NoSuchModelException e) {
 		} catch (BoundsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 

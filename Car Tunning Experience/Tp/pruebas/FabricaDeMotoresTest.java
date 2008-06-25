@@ -3,6 +3,7 @@ package pruebas;
 import java.util.ArrayList;
 
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 import proveedorDePartes.fabricas.FabricaDeMotores;
 import proveedorDePartes.fabricas.InformacionDelModelo;
@@ -17,7 +18,7 @@ public class FabricaDeMotoresTest extends TestCase {
 		Motor unMotor = null;
 		try {
 			unMotor = fabrica.fabricar(modelos.get(0));
-		} catch (BoundsException e1) {
+		} catch (NoSuchModelException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}

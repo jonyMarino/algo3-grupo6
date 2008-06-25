@@ -10,6 +10,7 @@ import auto.AutoManual;
 import combustible.Nafta;
 import controlador.ControladorJuego;
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 import excepciones.WrongPartClassException;
 import pista.Pista;
 import programaAuto.Usuario;
@@ -449,8 +450,9 @@ public class PantallaTaller extends JPanelConImagen {
                TanqueNafta tanque = null;
 			try {
 				tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
-			} catch (BoundsException e2) {
-				e2.printStackTrace();
+			} catch (NoSuchModelException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
                tanque.setCombustible(nafta);
        
@@ -486,16 +488,12 @@ public class PantallaTaller extends JPanelConImagen {
                        eje = fabricaEjes.fabricar(fabricaEjes.getModelos().get(0));
                        
 
-                       try {
-						caja = (CajaManual) fabricaCajas.fabricar(fabricaCajas.getModelos().get(0));
-					} catch (BoundsException e1) {
-						e1.printStackTrace();
-					}
+                       caja = (CajaManual) fabricaCajas.fabricar(fabricaCajas.getModelos().get(0));
                        
                        motor=fabricaMotores.fabricar(fabricaMotores.getModelos().get(0));
                        
                        freno =  (Freno) fabricaPedales.fabricar(fabricaPedales.getModelos().get(1));
-               }catch(BoundsException e){
+               }catch(NoSuchModelException e){
             	   e.printStackTrace();
                }
                        try {
