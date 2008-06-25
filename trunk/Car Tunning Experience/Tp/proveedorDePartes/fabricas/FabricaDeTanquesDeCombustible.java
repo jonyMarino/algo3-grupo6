@@ -1,6 +1,7 @@
 package proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 
 public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
@@ -8,11 +9,6 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 	public FabricaDeTanquesDeCombustible(){
 		super();
 		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
-		nuevaInfo.agregarCaracteristica("COSTO", "100");
-		nuevaInfo.agregarCaracteristica("DESCRIPCION", "Tanque de Nafta básico.");
- 		nuevaInfo.agregarCaracteristica("CAPACIDAD", "70");
-		nuevaInfo.agregarCaracteristica("PESO", "10");
-		nuevaInfo.agregarCaracteristica("NAFTA", "");
 		agregarModelo(nuevoModeloTanque(100, "Tanque de Nafta básico.", 70, 10.0, "NAFTA")); //agrega un motor básico al catálogo
 	}
 	
@@ -24,11 +20,20 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
  		nuevaInfo.agregarCaracteristica("CAPACIDAD", capacidad.toString());
 		nuevaInfo.agregarCaracteristica(clase, "");
+		nuevaInfo.agregarCaracteristica("PARTE", "TANQUEDECOMBUSTIBLE");
 		
 		return nuevaInfo;
 	}
 	
-	public TanqueNafta fabricar(InformacionDelModelo modelo) throws BoundsException {
+	public TanqueNafta fabricar(InformacionDelModelo modelo) throws NoSuchModelException {
+		NoSuchModelException unaExcepcion = new NoSuchModelException("El modelo no es un Tanque de Combustible");
+		try {
+			if (modelo.getCaracteristica("PARTE") != "TANQUEDENAFTA")
+				throw unaExcepcion;
+		} catch (BoundsException e1) {
+			throw unaExcepcion;
+		}
+		
 		try{
 			int capacidad = Integer.parseInt(modelo.getCaracteristica("CAPACIDAD"));
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
@@ -46,7 +51,7 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 			return unTanque;
 		}
 		catch(BoundsException e){
-			throw e;
+			throw unaExcepcion;
 		}
 	}
 	

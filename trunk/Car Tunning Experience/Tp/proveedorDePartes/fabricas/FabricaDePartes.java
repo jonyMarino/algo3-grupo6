@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 import proveedorDePartes.ProveedorDePartes;
 
@@ -18,7 +19,7 @@ public abstract class FabricaDePartes {
 		modelosConocidos = new ArrayList<InformacionDelModelo>();
 	}
 	
-	public abstract ParteAuto fabricar(InformacionDelModelo modelo) throws BoundsException;
+	public abstract ParteAuto fabricar(InformacionDelModelo modelo) throws NoSuchModelException;
 	public Integer consultarPrecio(InformacionDelModelo modelo) {
 		return null;
 	}

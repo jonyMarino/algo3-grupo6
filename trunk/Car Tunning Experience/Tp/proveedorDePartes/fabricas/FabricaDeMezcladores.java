@@ -1,6 +1,7 @@
 package proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 
 public class FabricaDeMezcladores extends FabricaDePartes {
@@ -17,10 +18,18 @@ public class FabricaDeMezcladores extends FabricaDePartes {
  		nuevaInfo.agregarCaracteristica("RENDIMIENTO", rendimiento.toString());
 		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
  		nuevaInfo.agregarCaracteristica(clase, "");
+		nuevaInfo.agregarCaracteristica("PARTE", "MEZCLADOR");
 		return nuevaInfo;
 	}
 	
-	public Mezclador fabricar(InformacionDelModelo modelo) throws BoundsException {
+	public Mezclador fabricar(InformacionDelModelo modelo) throws NoSuchModelException {
+		NoSuchModelException unaExcepcion = new NoSuchModelException("El modelo no es un Mezclador");
+		try {
+			if (modelo.getCaracteristica("PARTE") != "MEZCLADOR")
+				throw unaExcepcion;
+		} catch (BoundsException e1) {
+			throw unaExcepcion;
+		}
 		try{
 			int rendimiento = Integer.parseInt(modelo.getCaracteristica("RENDIMIENTO"));
 			String descripcion = modelo.getCaracteristica("DESCRIPCION");
@@ -38,7 +47,7 @@ public class FabricaDeMezcladores extends FabricaDePartes {
 			return unMezclador;
 		}
 		catch(BoundsException e){
-			throw e;
+			throw unaExcepcion;
 		}
 
 	}

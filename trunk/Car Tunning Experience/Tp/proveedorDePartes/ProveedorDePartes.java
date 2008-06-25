@@ -22,7 +22,7 @@ public class ProveedorDePartes {
 	
 	CadenaDeFabricas miCadenaDeFabricas;
 	
-	ProveedorDePartes(){
+	public ProveedorDePartes(){
 		miCadenaDeFabricas = new CadenaDeFabricas();
 		miCadenaDeFabricas.agregarFabrica(new FabricaDeCajas());
 		miCadenaDeFabricas.agregarFabrica(new FabricaDeCarrocerias());
@@ -35,15 +35,13 @@ public class ProveedorDePartes {
 		miCadenaDeFabricas.agregarFabrica(new FabricaDeTanquesDeCombustible());
 	}
 	
-	ArrayList<InformacionDelModelo> getModelosDisponibles(){
+	public ArrayList<InformacionDelModelo> getModelosDisponibles(){
 		return miCadenaDeFabricas.getModelos();
 	}
 	
-	ParteAuto comprar(InformacionDelModelo modelo) throws NoSuchModelException, NotEnoughMoneyException{
+	public ParteAuto comprar(InformacionDelModelo modelo) throws NoSuchModelException, NotEnoughMoneyException{
 		ParteAuto unaParte = null;
-		
 		unaParte = miCadenaDeFabricas.fabricar(modelo);
-		
 		return unaParte;
 	}
 }

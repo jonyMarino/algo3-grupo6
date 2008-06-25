@@ -1,6 +1,7 @@
 package proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 
 public class FabricaDeCarrocerias extends FabricaDePartes {
@@ -17,10 +18,18 @@ public class FabricaDeCarrocerias extends FabricaDePartes {
  		nuevaInfo.agregarCaracteristica("AERODINAMIA", aerodinamia.toString());
 		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
  		nuevaInfo.agregarCaracteristica("VOLUMEN", volumen.toString());
+		nuevaInfo.agregarCaracteristica("PARTE", "CARROCERIA");
 		return nuevaInfo;
 	}
 	
-	public Carroceria fabricar(InformacionDelModelo modelo) throws BoundsException {
+	public Carroceria fabricar(InformacionDelModelo modelo) throws NoSuchModelException {
+		NoSuchModelException unaExcepcion = new NoSuchModelException("El modelo no es una Carroceria");
+		try {
+			if (modelo.getCaracteristica("PARTE") != "CARROCERIA")
+				throw unaExcepcion;
+		} catch (BoundsException e1) {
+			throw unaExcepcion;
+		}
 		try{
 			double volumen = Double.parseDouble(modelo.getCaracteristica("VOLUMEN"));
 			int aerodinamia = Integer.parseInt(modelo.getCaracteristica("AERODINAMIA"));
@@ -35,7 +44,7 @@ public class FabricaDeCarrocerias extends FabricaDePartes {
 			return unaCarroceria;
 		}
 		catch(BoundsException e){
-			throw e;	
+			throw unaExcepcion;
 		}
 	}
 	
