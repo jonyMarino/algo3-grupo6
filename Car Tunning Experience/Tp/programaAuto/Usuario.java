@@ -4,7 +4,6 @@ package programaAuto;
  * El usuario pertenece al modelo, no puede tener referencias a Swing,
  * TODO: usuario visual
  */
-import taller.Taller;
 import auto.Auto;
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
