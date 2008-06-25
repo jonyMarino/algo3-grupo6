@@ -1,15 +1,16 @@
 package controlador;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-
+import java.util.Iterator;
 import javax.swing.ImageIcon;
-
-
-
 import excepciones.BoundsException;
 import programaAuto.Pista;
+import programaAuto.ProgramaAuto;
 import programaAuto.Taller;
+import proveedorDePartes.fabricas.FabricaDePartes;
+import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.ParteAuto;
 import vista.PantallaTaller;
 
@@ -18,9 +19,11 @@ public class ControladorTaller {
 	private Taller taller;
 	private PantallaTaller pantallaTaller;
 	private Pista proximaPista;
+	private ProgramaAuto programaAuto;
 	
-	public ControladorTaller(Taller taller) {
+	public ControladorTaller(Taller taller, ProgramaAuto programaAuto) {
 		this.taller = taller;
+		this.programaAuto = programaAuto;
 	}
 
 	public void cargarPantallaTaller(ImageIcon avatarUsuario) {
@@ -41,9 +44,10 @@ public class ControladorTaller {
 		
 		//PANEL AUTO
 		this.actualizarInformacionAuto();
+		
+		//PANEL CATALOGO
+		this.actualizarCatalogo();
 	}
-
-
 
 	public void setPantallaTaller(PantallaTaller pantallaTaller) {
 		this.pantallaTaller = pantallaTaller;
@@ -59,7 +63,7 @@ public class ControladorTaller {
 		String descripcion,vidaUtil;
 		boolean cargo = false;
 		
-		while (taller.getPartesDeReserva().hasNext()){
+		while (taller.getPartesDeReserva().hasNext()) {
 			cargo = true;
 			try {
 				descripcion = taller.getPartesDeReserva().next().getInformacionModelo().getCaracteristica("DESCRIPCION");
@@ -82,7 +86,7 @@ public class ControladorTaller {
         Enumeration<ParteAuto> enumeracion = tabla.elements();
         String vidaUtil,nombreParte;
          
-        while(enumeracion.hasMoreElements()){   
+        while(enumeracion.hasMoreElements()) {   
       	   		parte=enumeracion.nextElement();
       	   		try{
                    nombreParte = parte.getInformacionDelModelo().getCaracteristica("DESCRIPCION");
@@ -90,5 +94,29 @@ public class ControladorTaller {
                    pantallaTaller.agregarInformacionAuto(nombreParte, vidaUtil);
       	   		}catch (BoundsException e){}
          }
+	}
+	
+	private void actualizarCatalogo() {
+		ArrayList<FabricaDePartes> fabricas = programaAuto.getUnProveedor().getMiCadenaDeFabricas().getMiCadenaDeFabricas();
+		Iterator<FabricaDePartes> it = fabricas.iterator();
+		
+		while(it.hasNext()){
+			FabricaDePartes fabrica = (FabricaDePartes)it.next();
+			ArrayList<InformacionDelModelo> productos = fabrica.getModelos();
+			Iterator<InformacionDelModelo> itProducto = productos.iterator();
+			while(it.hasNext()){
+				InformacionDelModelo info = (InformacionDelModelo) itProducto.next();
+				String descripcion;
+				try {
+					descripcion = info.getCaracteristica("DESCRIPCION");
+					pantallaTaller.agregarAComboCajas(descripcion);
+				} catch (BoundsException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				}
+				
+			}
+		}
+		
 	}
 }

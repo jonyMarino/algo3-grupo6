@@ -204,7 +204,7 @@ public class PantallaTaller extends JPanelConImagen {
            Boton botonCargar = new Boton("Cargar Nafta");
            botonCargar.setOpaque(false);
            //TODO: 0,5 es cada cuanto aumenta el boton.
-           SpinnerModel model = new SpinnerNumberModel(0,0,cantidad - cantidad, 0.5); //xq cantidad -cantidad?         
+           SpinnerModel model = new SpinnerNumberModel(0,0,capacidad - cantidad, 0.5);         
            JSpinner seleccionCargar = new JSpinner(model);
            JLabel cantidadLitros = new JLabel(" Litros");
            
@@ -340,58 +340,7 @@ public class PantallaTaller extends JPanelConImagen {
 		     
 		   return panelCombo;
        }
-            
-       /*ACA TENGO QUE RECIBIR UN PARAMETRO QUE SEA LA LISTA DE TODAS LAS LISTAS DE LAS FABRICAS*/
-       /*
-       private JPanel contenedorPartes(){
-       
-    	   
-		       ArrayList<FabricaDePartes> temporal = new   ArrayList<FabricaDePartes>();
-	           
-		       ProveedorDePartes nuevoPorveedor = new ProveedorDePartes();  //dato temporal
-		       temporal=nuevoPorveedor.getMiCadenaDeFabricas().getMiCadenaDeFabricas();
-	           JPanel panel = new JPanel();
-	           panel.setOpaque(false);
-	           panel.add(actualizarInformacionCatalogo(temporal));
-	           
-	           return panel;
-       }*/
- /*
-       public JPanel actualizarInformacionCatalogo(ArrayList<FabricaDePartes> contenedorDeListas) {
-	       
-		       JPanel panelCombo = new JPanel();
-		       panelCombo.setLayout (new GridLayout (5,2)); 
-		       JComboBox combo;
-		
-		       Iterator <FabricaDePartes> it;
-		       Iterator <InformacionDelModelo> itInformacion;
-		       
-		       FabricaDePartes informacionDeFabrica;
-		       InformacionDelModelo informacionDelModelo;
-		      
-		       it = contenedorDeListas.iterator();
-		               
-		            while (it.hasNext()){   //leo cada fabrica
-		            combo = new JComboBox();
-		            informacionDeFabrica = (FabricaDePartes)it.next();
-		
-		            itInformacion = informacionDeFabrica.getModelos().iterator();
-		            combo = new JComboBox();
-		                       
-			            while (itInformacion.hasNext()) {  //leo el catalogo de cada fabrica
-			            		informacionDelModelo = (InformacionDelModelo)itInformacion.next();
-			                    try{
-			                    	combo.addItem(informacionDelModelo.getCaracteristica("DESCRIPCION"));
-			                    }catch(BoundsException e){}
-			            } 
-		            
-			            panelCombo.add(combo);
-		            }
-		       
-		       return panelCombo;
-       }
-       */
-       
+              
        private GridBagConstraints posicionBoton(){
     	   GridBagConstraints ubicacion = new GridBagConstraints();
 	       Insets in=new Insets(0,0,5,5);

@@ -56,7 +56,7 @@ public class ControladorJuego implements ActionListener {
 				  catch (PistaPickedException e1) {}
 				
 				try {
-					this.controladorTaller = new ControladorTaller(programaAuto.entrarAlTaller());
+					this.controladorTaller = new ControladorTaller(programaAuto.entrarAlTaller(), programaAuto);
 				} catch (NoPistaPickedException e) {}
 				  catch (NotAbleWhileSimulatingException e) {}
 				
