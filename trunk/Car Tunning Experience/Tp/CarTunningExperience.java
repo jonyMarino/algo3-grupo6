@@ -7,7 +7,8 @@ public class CarTunningExperience {
 
 	public static void main(String[] args) {
 	
-		ProgramaAuto programaAuto = new ProgramaAuto();
+		ProgramaAuto programaAuto = null;
+		
 		ControladorJuego controlador = new ControladorJuego(programaAuto);
 				
 		VistaPrincipal vistaPrincipal = new VistaPrincipal();

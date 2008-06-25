@@ -20,23 +20,23 @@ public class Usuario {
     	this.setDinero(1000);
 		this.taller = new Taller(this);
 	}
-	
+
 	public void setAuto(Auto miAuto) {
 		this.auto = miAuto;
 	}
-	
+
 	public Auto getAuto() {
 		return auto;
 	}
-	
+
 	public void setDinero(double dinero) {
 		this.dinero = dinero;
 	}
-	
+
 	public double getDinero() {
 		return dinero;
 	}
-	
+
 	public void gastarDinero(double cantidadDeDineroAGastar) throws NotEnoughMoneyException{
 		if(cantidadDeDineroAGastar > getDinero())
 			throw new NotEnoughMoneyException("El usuario no puede gastar mas dinero del que tiene.");
@@ -49,7 +49,7 @@ public class Usuario {
 		}
 		else setDinero(getDinero()+cantidadDeDineroAdquirido);
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}

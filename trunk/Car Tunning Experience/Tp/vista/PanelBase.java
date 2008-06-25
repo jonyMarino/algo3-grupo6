@@ -1,6 +1,5 @@
 package vista;
 
-import java.awt.Color;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import controlador.ControladorJuego;
@@ -17,8 +16,6 @@ public class PanelBase extends JPanel {
 		this.controladorJuego = controladorJuego;
 		controladorJuego.setPanelBase(this);
 		
-		//Amarillo para que se vea!!!
-		this.setBackground(Color.YELLOW);
 		this.pantallaAnterior = null;
 		this.pantallaActual = null;
 	}
@@ -36,7 +33,6 @@ public class PanelBase extends JPanel {
 		this.pantallaAnterior = pantallaActual;
 		this.pantallaActual = pantalla;
 	}
-
 
 	public void pantallaAnterior() {
 		this.pantallaActual.setVisible(false);

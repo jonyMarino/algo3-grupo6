@@ -2,18 +2,9 @@ package vista;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.*;
-
 import javax.swing.*;
-
 import auto.Auto;
 import controlador.ControladorJuego;
-import excepciones.BoundsException;
-import pista.Pista;
-import programaAuto.Usuario;
-import proveedorDePartes.ProveedorDePartes;
-import proveedorDePartes.fabricas.*;
-import taller.Taller;
 
 public class PantallaTaller extends JPanelConImagen {
 
@@ -81,7 +72,7 @@ public class PantallaTaller extends JPanelConImagen {
             
        //Esto actualiza la PANEL INFORMACION AUTO
        public void actualizarInformacionAuto(Auto auto) {
-    	   
+    	   /*
        	   panelAutoActual.removeAll();
     	   
     	   ParteAuto parte;
@@ -102,7 +93,7 @@ public class PantallaTaller extends JPanelConImagen {
              }catch (BoundsException e){}
            
            }
-      	   
+      	   */
        }
        
        
@@ -126,16 +117,16 @@ public class PantallaTaller extends JPanelConImagen {
        }
        
        //Esto actualiza la PANEL INFORMACION USUARIO
-       public void actualizarInformacionUsuario(Usuario usuario) {
+       public void actualizarInformacionUsuario(String nombreUsuario, ImageIcon avatarUsuario) {
 
     	   panelUsuario.removeAll();  	   
     	   
-    	   JLabel jUsuario = new JLabel("JUGADOR ACTUAL: "+usuario.getNombre());
-    	   jUsuario.setIcon(usuario.getAvatar());
+    	   JLabel jUsuario = new JLabel("JUGADOR ACTUAL: " + nombreUsuario);
+    	   jUsuario.setIcon( avatarUsuario );
     	   jUsuario.setHorizontalTextPosition(JLabel.CENTER);
     	   jUsuario.setVerticalTextPosition(JLabel.NORTH);
     	   
-           panelUsuario.add(jUsuario);           
+           panelUsuario.add(jUsuario);         
        }
 
        
@@ -165,8 +156,8 @@ public class PantallaTaller extends JPanelConImagen {
        }
 
        //Esto actualiza el PANEL LISTA RESERVA
-       public void actualizarInformacionReserva(Taller taller) {
-
+       public void actualizarInformacionReserva() {
+/*
     	    comboPartesReserva.removeAllItems();
     	   	
     	    Double vidaUtil;
@@ -188,7 +179,7 @@ public class PantallaTaller extends JPanelConImagen {
 		    if (!entre) {
 		    	String mensajeVacio = "- Lista Vacía -";
 		    	comboPartesReserva.addItem(mensajeVacio);
-			}           
+			}    */       
        }
         
        
@@ -208,9 +199,9 @@ public class PantallaTaller extends JPanelConImagen {
        	}
        
        //Esto actualiza la PANEL DINERO
-       public void actualizarInformacionDinero(double dinero){
+       public void actualizarInformacionDinero(String dinero){
     	   
-    	   this.labelDinero.setText(Double.toString(dinero) + " Algo$");
+    	   this.labelDinero.setText(dinero + " Algo$");
        }
        
        
@@ -293,8 +284,8 @@ public class PantallaTaller extends JPanelConImagen {
        }
        
        //Esto actualiza la PANELPISTA
-       public void actualizarInformacionPista(Pista proximaPista){
-
+       public void actualizarInformacionPista(/*Pista proximaPista*/){
+/*
    	   
     	   panelPista.removeAll();
     	   
@@ -310,7 +301,7 @@ public class PantallaTaller extends JPanelConImagen {
     	   panelPista.add(jSuperficie);
     	   
     	   
-           panelPista.setLayout(new BoxLayout(panelPista, BoxLayout.PAGE_AXIS));
+           panelPista.setLayout(new BoxLayout(panelPista, BoxLayout.PAGE_AXIS));*/
        }
        
        /* PANEL PISTA DINERO BODEGA */
@@ -355,7 +346,7 @@ public class PantallaTaller extends JPanelConImagen {
 		       Insets in=new Insets(0,30,0,0);
 		       c4.insets=in;
 		       
-		       panelCatalogo.add(contenedorPartes(),c4);
+		     //  panelCatalogo.add(contenedorPartes(),c4);
 		     
 		       Boton botonComprar = new Boton("Comprar");
 		       c4 = posicionBoton();
@@ -378,8 +369,10 @@ public class PantallaTaller extends JPanelConImagen {
        }
      
        /*ACA TENGO QUE RECIBIR UN PARAMETRO QUE SEA LA LISTA DE TODAS LAS LISTAS DE LAS FABRICAS*/
+       /*
        private JPanel contenedorPartes(){
        
+    	   
 		       ArrayList<FabricaDePartes> temporal = new   ArrayList<FabricaDePartes>();
 	           
 		       ProveedorDePartes nuevoPorveedor = new ProveedorDePartes();  //dato temporal
@@ -389,8 +382,8 @@ public class PantallaTaller extends JPanelConImagen {
 	           panel.add(actualizarInformacionCatalogo(temporal));
 	           
 	           return panel;
-       }
- 
+       }*/
+ /*
        public JPanel actualizarInformacionCatalogo(ArrayList<FabricaDePartes> contenedorDeListas) {
 	       
 		       JPanel panelCombo = new JPanel();
@@ -424,7 +417,7 @@ public class PantallaTaller extends JPanelConImagen {
 		       
 		       return panelCombo;
        }
-       
+       */
        
        private GridBagConstraints posicionBoton(){
 	               
