@@ -439,4 +439,9 @@ public class ProgramaAuto extends Observable {
                 
                 return unaSimulacion;
         }
+		
+        //TODO: Necesito el proveedor!!!!!
+        public ProveedorDePartes getUnProveedor() {
+			return unProveedor;
+		}
 }
