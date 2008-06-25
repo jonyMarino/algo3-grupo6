@@ -1,6 +1,7 @@
 package pruebas;
 
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 import junit.framework.TestCase;
 
 import auto.Auto;
@@ -29,7 +30,12 @@ public class CarroceriaTest extends TestCase {
 	
 	public void testFuerzaAire() throws BoundsException {
 
-		carroceria= fabrica.fabricar(fabrica.getModelos().get(0));
+		try {
+			carroceria= fabrica.fabricar(fabrica.getModelos().get(0));
+		} catch (NoSuchModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		auto.setCarroceria(carroceria);
 		assertEquals(0.0, carroceria.getFuerzaAire());
 		pista.setVelocidadAire(15);
@@ -37,7 +43,12 @@ public class CarroceriaTest extends TestCase {
 	}
 
 	public void testFuerzaAireCarroceriaDesgastada()throws BoundsException {
-		carroceria= fabrica.fabricar(fabrica.getModelos().get(0));
+		try {
+			carroceria= fabrica.fabricar(fabrica.getModelos().get(0));
+		} catch (NoSuchModelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		auto.setCarroceria(carroceria);
 		carroceria.desgastar(100000);
 		try {

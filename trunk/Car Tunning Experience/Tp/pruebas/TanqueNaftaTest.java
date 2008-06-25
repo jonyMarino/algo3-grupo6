@@ -6,6 +6,7 @@ import proveedorDePartes.fabricas.Mezclador;
 import proveedorDePartes.fabricas.TanqueNafta;
 import combustible.Nafta;
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 import junit.framework.TestCase;
 
 public class TanqueNaftaTest extends TestCase {
@@ -126,6 +127,9 @@ public class TanqueNaftaTest extends TestCase {
 			tanque.llenarTanque(50);
 		} catch (BoundsException e) {
 			e.printStackTrace();
+		} catch (NoSuchModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		try {
 			mezclador.obtenerMezcla(1);
@@ -169,6 +173,9 @@ public class TanqueNaftaTest extends TestCase {
 			tanque.llenarTanque(50);
 		} catch (BoundsException e) {
 			e.printStackTrace();
+		} catch (NoSuchModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		try {
 			mezclador.obtenerMezcla(0.01);
@@ -187,6 +194,9 @@ public class TanqueNaftaTest extends TestCase {
 			mezclador.setTanqueCombustible(tanque);
 			tanque.llenarTanque(50);
 		} catch (BoundsException e) {
+			e.printStackTrace();
+		} catch (NoSuchModelException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -207,6 +217,9 @@ public class TanqueNaftaTest extends TestCase {
 			fail("No se puede llenar el Tanque con una cantidad de litros negativa");
 		} catch (BoundsException e) {
 			//Prueba exitosa
+		} catch (NoSuchModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		assertEquals(0.0, tanque.getCantidadCombustible());
 		mezclador = null;

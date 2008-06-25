@@ -8,6 +8,7 @@ import junit.framework.TestCase;
 
 import combustible.Nafta;
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 public class MezcladorTest extends TestCase {
 
@@ -44,6 +45,9 @@ public class MezcladorTest extends TestCase {
 			assertEquals(0.01, mezclador.obtenerMezcla(0.01));
 		} catch (BoundsException e) {
 			e.printStackTrace();
+		} catch (NoSuchModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		try {
 			assertEquals(1.1, mezclador.obtenerMezcla(1.1));
@@ -73,6 +77,9 @@ public class MezcladorTest extends TestCase {
 			assertEquals(0.1, mezclador.obtenerMezcla(0.1));
 		} catch (BoundsException e) {
 			e.printStackTrace();
+		} catch (NoSuchModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		mezclador = null;
 	}
@@ -84,6 +91,9 @@ public class MezcladorTest extends TestCase {
 			mezclador.setTanqueCombustible(tanque);
 			assertEquals(0.2, mezclador.obtenerMezcla(0.2));
 		} catch (BoundsException e) {
+			e.printStackTrace();
+		} catch (NoSuchModelException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		mezclador = null;
@@ -98,6 +108,9 @@ public class MezcladorTest extends TestCase {
 			fail("Debería haberse lanzado una excepción");
 		} catch (BoundsException e) {
 			//prueba exitosa
+		} catch (NoSuchModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		mezclador = null;
 	}

@@ -28,6 +28,7 @@ import auto.Auto;
 import auto.AutoManual;
 import combustible.Nafta;
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 import excepciones.WrongPartClassException;
 import excepciones.WrongUsername;
 
@@ -156,7 +157,7 @@ public class ProgramaAuto extends Observable {
 			}
 			auto.setPista(pista);
 		}
-		catch (BoundsException e)
+		catch (NoSuchModelException e)
 		{
 			e.printStackTrace();  //TODO: bastante sucio
 		}
