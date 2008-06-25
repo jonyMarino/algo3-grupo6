@@ -3,7 +3,7 @@ package controlador;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import excepciones.WrongUsername;
+import excepciones.WrongUserNameException;
 import programaAuto.ProgramaAuto;
 import programaAuto.Usuario;
 import vista.Boton;
@@ -59,7 +59,7 @@ public class ControladorJuego implements ActionListener {
 				programaAuto.generarProximaPista();
 				controladorTaller.setProximaPista(programaAuto.getPista());
 				controladorTaller.actualizarPantallaTaller();
-			} catch (WrongUsername e) {
+			} catch (WrongUserNameException e) {
 				this.MensajeError();
 			}
 	}

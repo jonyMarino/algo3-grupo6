@@ -5,7 +5,7 @@ import excepciones.NoSuchModelException;
 import junit.framework.TestCase;
 
 import auto.Auto;
-import pista.Pista;
+import programaAuto.Pista;
 import programaAuto.ProgramaAuto;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.FabricaDeCarrocerias;

@@ -1,7 +1,7 @@
 package controlador;
 
-import pista.Pista;
-import taller.Taller;
+import programaAuto.Pista;
+import programaAuto.Taller;
 import vista.PantallaTaller;
 
 public class ControladorTaller {
