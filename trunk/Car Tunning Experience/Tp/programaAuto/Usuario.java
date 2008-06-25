@@ -1,20 +1,22 @@
 package programaAuto;
 
-import javax.swing.ImageIcon;
+/*
+ * El usuario pertenece al modelo, no puede tener referencias a Swing,
+ * TODO: usuario visual
+ */
 import taller.Taller;
 import auto.Auto;
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
-import excepciones.WrongUsername;
+import excepciones.WrongUserNameException;
 
 public class Usuario {
 	private double dinero;
 	private Auto auto;
 	private String nombre;
-	private ImageIcon avatar;
 	private Taller taller;
 
-	public Usuario(String nombre) throws WrongUsername {
+	public Usuario(String nombre) throws WrongUserNameException {
 		this.setNombre(nombre);
     	this.setDinero(1000);
 		this.taller = new Taller(this);
@@ -49,13 +51,6 @@ public class Usuario {
 		else setDinero(getDinero()+cantidadDeDineroAdquirido);
 	}
 	
-	public ImageIcon getAvatar() {
-		return avatar;
-	}
-	public void setAvatar(ImageIcon avatar) {
-		this.avatar = avatar;
-	}
-	
 	public String getNombre() {
 		return nombre;
 	}
@@ -64,9 +59,9 @@ public class Usuario {
 		return taller;
 	}
 
-	private void setNombre(String nombre) throws WrongUsername {
+	private void setNombre(String nombre) throws WrongUserNameException {
 		if(nombre.equals(""))
-			throw new WrongUsername("Nombre usuario inválido");
+			throw new WrongUserNameException("Nombre usuario inválido");
 		else
 			this.nombre = nombre;
 	}
