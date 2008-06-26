@@ -11,9 +11,12 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Observable;
+import java.util.Random;
+
 import programaAuto.Taller.InformacionParteEnAuto;
 import programaAuto.Taller.InformacionParteReserva;
 import proveedorDePartes.ProveedorDePartes;
@@ -443,21 +446,12 @@ public class ProgramaAuto extends Observable {
 		}
         
         //TODO: debe ser generado por el programa, anda mal el random
+        /*
+         * No deberia poner esto aca, pero para que utilizen el random...
+         */
         public Pista generarProximaPista(){
-    		Pista[] pistasAux = new Pista[3];
-    		int contador = 0;
-    		Iterator<Pista> it = this.getPistas();
-    		while(it.hasNext()){
-        		pistasAux[contador] =  it.next();
-        		contador ++;
-    		}
-        	
-    		contador = 10;
-    		while(!(contador<3 && contador>=0)){
-    			contador = (int)Math.random()* 1000;
-    		}
-    		
-    		return(pistasAux[contador]);
+    		Random rand= new Random(new Date().getTime());
+    		return(pistas.get((int)(rand.nextDouble()*pistas.size())));	
         }
 		public Usuario getUsuario() {
 			return usuario;
