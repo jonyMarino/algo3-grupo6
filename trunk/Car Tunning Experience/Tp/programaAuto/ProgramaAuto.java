@@ -462,7 +462,7 @@ public class ProgramaAuto extends Observable {
 		}
         
         public void comprarNafta(double cantidad) throws NotEnoughMoneyException, BoundsException, TankIsFullException {
-            usuario.getAuto().getTanqueCombustible().llenarTanque(cantidad);
+            usuario.getAuto().cargarCombustible(cantidad);
             usuario.gastarDinero(cantidad * 4 );
         }
         
