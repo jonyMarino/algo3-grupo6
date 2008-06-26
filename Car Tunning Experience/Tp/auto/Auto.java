@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Observable;
 import excepciones.BoundsException;
 import excepciones.IncorrectPartForUbicationException;
+import excepciones.TankIsFullException;
 import excepciones.UbicationUnkownException;
 import programaAuto.Pista;
 import proveedorDePartes.fabricas.Acelerador;
@@ -833,15 +834,13 @@ public abstract class Auto extends Observable{
 	 * Carga el {@link TanqueCombustible} de Combustible.
 	 *
 	 * @param El combustible a asignar.
+	 * @throws BoundsException 
+	 * @throws TankIsFullException 
 	 *
 	 * @see TanqueCombustible
 	 */
-	public void cargarCombustible(double litros) {
-		try {
-			this.getTanqueCombustible().llenarTanque(litros);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		}
+	public void cargarCombustible(double litros) throws TankIsFullException, BoundsException {
+		this.getTanqueCombustible().llenarTanque(litros);
 	}
 
 //MEZCLADOR
