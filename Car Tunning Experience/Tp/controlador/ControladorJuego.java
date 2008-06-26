@@ -77,4 +77,8 @@ public class ControladorJuego implements ActionListener {
 		this.panelBase = panelBase;
 	}
 	
+	public ProgramaAuto getProgramaAuto(){
+		return programaAuto;
+	}
+	
 }

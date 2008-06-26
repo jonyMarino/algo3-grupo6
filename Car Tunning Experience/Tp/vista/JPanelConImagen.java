@@ -24,5 +24,5 @@ public class JPanelConImagen extends JPanel {
 	public void setImage(String nombreImage) {
 		this.imgFondo = new ImageIcon(getClass().getResource("/vista/images/"+ nombreImage +".jpg")).getImage();
     }
-
+	
 }
