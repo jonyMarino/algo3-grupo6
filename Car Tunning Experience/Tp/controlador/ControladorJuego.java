@@ -2,15 +2,11 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
-
 import javax.swing.ImageIcon;
-
 import excepciones.WrongUserNameException;
 import programaAuto.NoPistaPickedException;
 import programaAuto.NotAbleWhileSimulatingException;
 import programaAuto.NotContainedPistaException;
-import programaAuto.Pista;
 import programaAuto.PistaPickedException;
 import programaAuto.ProgramaAuto;
 import vista.Boton;
@@ -51,7 +47,7 @@ public class ControladorJuego implements ActionListener {
 				programaAuto = new ProgramaAuto(((PantallaUsuario)panelBase.getPantallaActual()).obtenerNombreBoxUsuario());
 						
 				try {
-					programaAuto.setPista(this.generarProximaPista());
+					programaAuto.setPista(programaAuto.generarProximaPista());
 				} catch (NotContainedPistaException e1) {} 
 				  catch (PistaPickedException e1) {}
 				
@@ -74,7 +70,6 @@ public class ControladorJuego implements ActionListener {
 	}
 
 	private void MensajeError() {
-
 		((PantallaUsuario)panelBase.getPantallaActual()).generarMensajeError("Debe ingresar: NOMBRE USUARIO");
 	}
 
@@ -82,15 +77,4 @@ public class ControladorJuego implements ActionListener {
 		this.panelBase = panelBase;
 	}
 	
-	public void entrarATaller(){
-		
-	}
-	
-	//TODO: provisorio para que entre al taller, esto lo debe generar el programa auto
-	private Pista generarProximaPista(){
-		Iterator<Pista> pistas = programaAuto.getPistas();
-		
-		return (pistas.next());
-	}
-
 }

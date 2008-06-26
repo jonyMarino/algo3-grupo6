@@ -203,7 +203,6 @@ public class PantallaTaller extends JPanelConImagen {
                               
            Boton botonCargar = new Boton("Cargar Nafta");
            botonCargar.setOpaque(false);
-           //TODO: 0,5 es cada cuanto aumenta el boton.
            SpinnerModel model = new SpinnerNumberModel(0,0,capacidad - cantidad, 0.5);         
            JSpinner seleccionCargar = new JSpinner(model);
            JLabel cantidadLitros = new JLabel(" Litros");

@@ -3,7 +3,6 @@ package programaAuto;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Serializer;
-
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,11 +11,9 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Observable;
-
 import programaAuto.Taller.InformacionParteEnAuto;
 import programaAuto.Taller.InformacionParteReserva;
 import proveedorDePartes.ProveedorDePartes;
@@ -133,7 +130,6 @@ public class ProgramaAuto extends Observable {
                 
                 private Comparator<Usuario> getComparadorDePosiciones(){
                 	return new Comparator<Usuario>(){
-						@Override
 						public int compare(Usuario competidor1, Usuario competidor2) {
 							return (int)(competidor1.getAuto().getPosicion()-competidor2.getAuto().getPosicion());
 						}
@@ -444,4 +440,22 @@ public class ProgramaAuto extends Observable {
         public ProveedorDePartes getUnProveedor() {
 			return unProveedor;
 		}
+        
+        //TODO: debe ser generado por el programa, anda mal el random
+        public Pista generarProximaPista(){
+    		Pista[] pistasAux = new Pista[3];
+    		int contador = 0;
+    		Iterator<Pista> it = this.getPistas();
+    		while(it.hasNext()){
+        		pistasAux[contador] =  it.next();
+        		contador ++;
+    		}
+        	
+    		contador = 10;
+    		while(!(contador<3 && contador>=0)){
+    			contador = (int)Math.random()* 1000;
+    		}
+    		
+    		return(pistasAux[contador]);
+        }
 }
