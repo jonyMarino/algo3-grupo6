@@ -1,6 +1,8 @@
 package vista;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -14,20 +16,14 @@ public class PantallaTaller extends JPanelConImagen {
 	   private JPanel panelAutoActual;
        private JPanel panelPista;
        private JPanel panelUsuario;
+       private JPanel panelCatalogo;
        private JPanel panelNafta;
        private JLabel labelDinero;
        private JLabel labelMensaje;
+       private JLabel labelPrecio;
        private JSpinner cantidadSeleccionada = new JSpinner();
        private JComboBox comboPartesReserva;     
-       private JComboBox fabricaComboCajas;
-       private JComboBox fabricaComboCarrocerias ;
-       private JComboBox fabricaComboEjes;
-       private JComboBox fabricaComboEscapes;
-       private JComboBox fabricaComboMezcladores ;
-       private JComboBox fabricaComboMotores;
-       private JComboBox fabricaComboPedales;
-       private JComboBox fabricaComboRuedas;
-       private JComboBox fabricaComboTanques;
+       private JComboBox elCatalogo;
        private ControladorTaller controladorTaller;;
        private static final long serialVersionUID = 1L;
      
@@ -107,7 +103,7 @@ public class PantallaTaller extends JPanelConImagen {
            c.gridx =1;
            c.gridy =1;
            c.gridheight =1;
-           Insets in=new Insets(150,30,0,0);
+           Insets in=new Insets(100,30,0,0);
            c.insets=in;
            c.anchor = GridBagConstraints.NORTH;
         
@@ -284,7 +280,7 @@ public class PantallaTaller extends JPanelConImagen {
        /*PANEL MENSAJES*/ 
        private void crearPanelMensajes() {       
            JPanel panelMensaje = new JPanel();
-           panelMensaje.setPreferredSize(new Dimension(150,100));
+           panelMensaje.setPreferredSize(new Dimension(300,100));
         
            Color nc = new Color(176,196,222);
            panelMensaje.setBackground(nc);
@@ -323,17 +319,24 @@ public class PantallaTaller extends JPanelConImagen {
            Color nc = new Color(176,196,222);
  
 		   JTabbedPane tabbedPane = new JTabbedPane();
-		   tabbedPane.setPreferredSize(new Dimension(600,200));
+		   tabbedPane.setPreferredSize(new Dimension(500,200));
 		 
-		   JPanel panelCatalogo = new JPanel();
+		   panelCatalogo = new JPanel();
 		   panelCatalogo.setBackground(nc);
+		   panelCatalogo.setPreferredSize(new Dimension(400,150));
 		   panelCatalogo.setLayout(new GridBagLayout());
 		       
 		   GridBagConstraints c4 = new GridBagConstraints();
 		   Insets in=new Insets(0,30,0,0);
+		   c4.gridx=0;
+		   c4.gridy=0;
 		   c4.insets=in;
-		       
+		   c4.anchor = GridBagConstraints.SOUTH;
 		   panelCatalogo.add(crearFabricas(),c4);
+		   c4.gridx=1;
+		   c4.gridy=0;
+		   c4.anchor = GridBagConstraints.CENTER;
+		   panelCatalogo.add(crearPanelPrecio(),c4);
 		     
 		   Boton botonComprar = new Boton("Comprar");
 		   c4 = posicionBoton();
@@ -350,6 +353,7 @@ public class PantallaTaller extends JPanelConImagen {
 		   this.add(tabbedPane,c);
        }
             
+    
        private JPanel crearFabricas() {
 	       
 		   JPanel panelCombo = new JPanel();
@@ -359,34 +363,11 @@ public class PantallaTaller extends JPanelConImagen {
 		   panelCombo.setLayout (g); 
 		   panelCombo.setOpaque(false);
 		       
-		   fabricaComboCajas = new JComboBox();
-		   fabricaComboCajas.addItem("-Cajas-");
-		   fabricaComboCarrocerias = new JComboBox();
-		   fabricaComboCarrocerias.addItem("-Carrocerias-");
-		   fabricaComboEjes = new JComboBox();
-		   fabricaComboEjes.addItem("-Ejes-");
-		   fabricaComboEscapes = new JComboBox();
-		   fabricaComboEscapes.addItem("-Escapes-");
-		   fabricaComboMezcladores = new JComboBox();
-		   fabricaComboMezcladores.addItem("-Mezcladores-");
-		   fabricaComboMotores = new JComboBox();
-		   fabricaComboMotores.addItem("-Motores-");
-		   fabricaComboPedales = new JComboBox();
-		   fabricaComboPedales.addItem("-Pedales-");
-		   fabricaComboRuedas = new JComboBox();
-		   fabricaComboRuedas.addItem("-Ruedas-");
-		   fabricaComboTanques = new JComboBox();
-		   fabricaComboTanques.addItem("-Tanques-");
+		   elCatalogo = new JComboBox();
+		   elCatalogo.addItem("-Catalogo-");
 
-		   panelCombo.add(fabricaComboCajas);
-		   panelCombo.add(fabricaComboCarrocerias);
-		   panelCombo.add(fabricaComboEjes);
-		   panelCombo.add(fabricaComboEscapes);
-		   panelCombo.add(fabricaComboMezcladores);
-		   panelCombo.add(fabricaComboMotores);
-		   panelCombo.add(fabricaComboPedales);
-		   panelCombo.add(fabricaComboRuedas);
-		   panelCombo.add(fabricaComboTanques);   
+		   panelCombo.add(elCatalogo);
+	 
 		     
 		   return panelCombo;
        }
@@ -402,79 +383,39 @@ public class PantallaTaller extends JPanelConImagen {
            return ubicacion;
         }
 
-
-       /*TODOS LOS COMBOS FABRICAS*/
-       //TODO: Debe modificarse
-       public JComboBox getFabricaComboCajas() {
-    	   return fabricaComboCajas;
+       public JComboBox getElCatalogo() {
+    	   return elCatalogo;
        }
 	
-       public void agregarAComboCajas(String parte) {
-    	   fabricaComboCajas.addItem(parte);
+       public void agregarACatalogo(String parte) {
+    	   elCatalogo.addItem(parte);
+       }
+       
+       /*RETORNA EL STRING QUE SELECCIONAS EN EL CATALOGO DE LA PARTE QUE SELECCIONAS*/
+       public String parteAComprar(){ 	
+    	   return (String)elCatalogo.getSelectedItem();
+       }
+       
+       public void precioParteSeleccionada(String precio){
+	    	labelPrecio.setText(precio);
+	    	  
+       }
+       
+       private JPanel crearPanelPrecio() {       
+           JPanel panelPrecio = new JPanel();
+           panelPrecio.setPreferredSize(new Dimension(150,50));
+           labelPrecio = new JLabel();
+           Color nc = new Color(176,196,222);
+           panelPrecio.setBackground(nc);
+           panelPrecio.setOpaque(true);
+           
+           Color nc2 = new Color(224,224,255);
+           Border border2 = BorderFactory.createMatteBorder(2,2,2,2,nc2);
+           Border border= BorderFactory.createTitledBorder(border2,"Precio");
+           precioParteSeleccionada("precio");
+           panelPrecio.add(labelPrecio);
+           panelPrecio.setBorder(border);
+           return panelPrecio;      
        }
 
-       public JComboBox getFabricaComboCarrocerias() {
-    	   return fabricaComboCarrocerias;
-       }
-
-       public void agregarAComboCarrocerias(String parte) {
-    	   fabricaComboCarrocerias.addItem(parte);
-       }
-	
-       public JComboBox getFabricaComboEjes() {
-    	   return fabricaComboEjes;
-       }
-
-       public void agregarAComboEjes(String parte) {
-    	   fabricaComboEjes.addItem(parte);
-       }
-
-       public JComboBox getFabricaComboEscapes() {
-    	   return fabricaComboEscapes;
-       }
-	
-       public void agregarAComboEscapes(String parte) {
-    	   fabricaComboEscapes.addItem(parte);
-       }
-
-       public JComboBox getFabricaComboMezcladores() {
-    	   return fabricaComboMezcladores;
-       }
-	
-       public void agregarAComboMezcladores(String parte) {
-    	   fabricaComboMezcladores.addItem(parte);
-       }
-
-       public JComboBox getFabricaComboMotores() {
-    	   return fabricaComboMotores;
-       }
-	
-       public void agregarAComboMotores(String parte) {
-    	   fabricaComboMotores.addItem(parte);
-       }
-
-       public JComboBox getFabricaComboPedales() {
-    	   return fabricaComboPedales;
-       }
-
-       public void agregarAComboPedales(String parte) {
-    	   fabricaComboPedales.addItem(parte);
-       }
-
-       public JComboBox getFabricaComboRuedas() {
-    	   return fabricaComboRuedas;
-       }
-
-       public void agregarAComboRuedas(String parte) {
-    	   fabricaComboRuedas.addItem(parte);
-       }
-
-       public JComboBox getFabricaComboTanques() {
-    	   return fabricaComboTanques;
-       }
-	
-       public void agregarAComboTanques(String parte) {
-    	   fabricaComboTanques.addItem(parte);
-       }
-	
 }
