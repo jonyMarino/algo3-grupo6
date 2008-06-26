@@ -27,25 +27,21 @@ public class ControladorTaller {
 	}
 
 	public void cargarPantallaTaller(ImageIcon avatarUsuario) {
-		//PANEL DINERO
-		pantallaTaller.actualizarInformacionDinero( Double.toString(taller.getUsuario().getDinero()) );
-		
-		//PANEL PROXIMA PISTA
-		pantallaTaller.actualizarInformacionPista( Double.toString(proximaPista.getLongitud()) , proximaPista.getNombre(), Integer.toString(proximaPista.getVelocidadAire()) );
-		
-		//PANEL RESERVA
+		pantallaTaller.actualizarInformacionDinero(Double.toString(taller.getUsuario().getDinero()));
+		pantallaTaller.actualizarInformacionPista(Double.toString(proximaPista.getLongitud()) , proximaPista.getNombre(), Integer.toString(proximaPista.getVelocidadAire()));
 		this.actualizarInformacionReserva();
-			
-		//PANEL NAFTA
-		pantallaTaller.actualizarInformacionNafta( taller.getUsuario().getAuto().getTanqueCombustible().getCantidadCombustible() , taller.getUsuario().getAuto().getTanqueCombustible().getCapacidad() );
-		
-		//PANEL USUARIO
-		pantallaTaller.actualizarInformacionUsuario( taller.getUsuario().getNombre(), avatarUsuario );
-		
-		//PANEL AUTO
+		pantallaTaller.actualizarInformacionNafta(taller.getUsuario().getAuto().getTanqueCombustible().getCantidadCombustible() , taller.getUsuario().getAuto().getTanqueCombustible().getCapacidad());
+		pantallaTaller.actualizarInformacionUsuario(taller.getUsuario().getNombre(), avatarUsuario);
 		this.actualizarInformacionAuto();
-		
-		//PANEL CATALOGO
+		this.actualizarCatalogo();
+	}
+	
+	public void actualizarPantallaTaller(){
+		pantallaTaller.actualizarInformacionDinero(Double.toString(taller.getUsuario().getDinero()));
+		pantallaTaller.actualizarInformacionPista(Double.toString(proximaPista.getLongitud()) , proximaPista.getNombre(), Integer.toString(proximaPista.getVelocidadAire()));
+		this.actualizarInformacionReserva();
+		pantallaTaller.actualizarInformacionNafta(taller.getUsuario().getAuto().getTanqueCombustible().getCantidadCombustible() , taller.getUsuario().getAuto().getTanqueCombustible().getCapacidad());
+		this.actualizarInformacionAuto();
 		this.actualizarCatalogo();
 	}
 
@@ -53,7 +49,7 @@ public class ControladorTaller {
 		this.pantallaTaller = pantallaTaller;
 	}
 
-	public void setProximaPista(Pista proximaPista) {
+	void setProximaPista(Pista proximaPista) {
 		this.proximaPista = proximaPista;
 	}
 
@@ -99,22 +95,39 @@ public class ControladorTaller {
 	private void actualizarCatalogo() {
 		ArrayList<FabricaDePartes> fabricas = programaAuto.getUnProveedor().getMiCadenaDeFabricas().getMiCadenaDeFabricas();
 		Iterator<FabricaDePartes> it = fabricas.iterator();
-		
+		String descripcion;
+		FabricaDePartes fabrica;
+		ArrayList<InformacionDelModelo> productos;
+		Iterator<InformacionDelModelo> itProducto;
+		int contador = 0;
 		while(it.hasNext()){
-			FabricaDePartes fabrica = (FabricaDePartes)it.next();
-			ArrayList<InformacionDelModelo> productos = fabrica.getModelos();
-			Iterator<InformacionDelModelo> itProducto = productos.iterator();
-			while(it.hasNext()){
-				InformacionDelModelo info = (InformacionDelModelo) itProducto.next();
-				String descripcion;
+			contador++;
+			fabrica = (FabricaDePartes)it.next();
+			productos = fabrica.getModelos();
+			itProducto = productos.iterator();
+			while(itProducto.hasNext()){
+				InformacionDelModelo info = (InformacionDelModelo) itProducto.next();			
 				try {
 					descripcion = info.getCaracteristica("DESCRIPCION");
-					pantallaTaller.agregarAComboCajas(descripcion);
-				} catch (BoundsException e) {
-					// TODO Auto-generated catch block
-					//e.printStackTrace();
-				}
-				
+					if(contador == 1)
+						pantallaTaller.agregarAComboCajas(descripcion);
+					if(contador == 2)
+						pantallaTaller.agregarAComboCarrocerias(descripcion);
+					if(contador == 3)
+						pantallaTaller.agregarAComboEjes(descripcion);
+					if(contador == 4)
+						pantallaTaller.agregarAComboEscapes(descripcion);
+					if(contador == 5)
+						pantallaTaller.agregarAComboMezcladores(descripcion);
+					if(contador == 6)
+						pantallaTaller.agregarAComboMotores(descripcion);
+					if(contador == 7)
+						pantallaTaller.agregarAComboPedales(descripcion);
+					if(contador == 8)
+						pantallaTaller.agregarAComboRuedas(descripcion);
+					if(contador == 9)
+						pantallaTaller.agregarAComboTanques(descripcion);						
+				} catch (BoundsException e) { }
 			}
 		}
 		
