@@ -1,46 +1,43 @@
 package controlador;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
 import excepciones.BoundsException;
+import excepciones.NotEnoughMoneyException;
+import excepciones.TankIsFullException;
 import programaAuto.Pista;
 import programaAuto.ProgramaAuto;
-import programaAuto.Taller;
 import proveedorDePartes.fabricas.FabricaDePartes;
 import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.ParteAuto;
+import vista.Boton;
 import vista.PantallaTaller;
 
-public class ControladorTaller {
+public class ControladorTaller implements ActionListener {
 	
-	private Taller taller;
 	private PantallaTaller pantallaTaller;
 	private Pista proximaPista;
 	private ProgramaAuto programaAuto;
 	
-	public ControladorTaller(Taller taller, ProgramaAuto programaAuto) {
-		this.taller = taller;
+	public ControladorTaller(ProgramaAuto programaAuto) {
 		this.programaAuto = programaAuto;
 	}
 
 	public void cargarPantallaTaller(ImageIcon avatarUsuario) {
-		pantallaTaller.actualizarInformacionDinero(Double.toString(taller.getUsuario().getDinero()));
-		pantallaTaller.actualizarInformacionPista(Double.toString(proximaPista.getLongitud()) , proximaPista.getNombre(), Integer.toString(proximaPista.getVelocidadAire()));
-		this.actualizarInformacionReserva();
-		pantallaTaller.actualizarInformacionNafta(taller.getUsuario().getAuto().getTanqueCombustible().getCantidadCombustible() , taller.getUsuario().getAuto().getTanqueCombustible().getCapacidad());
-		pantallaTaller.actualizarInformacionUsuario(taller.getUsuario().getNombre(), avatarUsuario);
-		this.actualizarInformacionAuto();
-		this.actualizarCatalogo();
+		pantallaTaller.actualizarInformacionUsuario(programaAuto.getUsuario().getNombre(), avatarUsuario);
+		this.actualizarPantallaTaller();
 	}
 	
 	public void actualizarPantallaTaller(){
-		pantallaTaller.actualizarInformacionDinero(Double.toString(taller.getUsuario().getDinero()));
+		pantallaTaller.actualizarInformacionDinero(Double.toString(programaAuto.getUsuario().getDinero()));
 		pantallaTaller.actualizarInformacionPista(Double.toString(proximaPista.getLongitud()) , proximaPista.getNombre(), Integer.toString(proximaPista.getVelocidadAire()));
 		this.actualizarInformacionReserva();
-		pantallaTaller.actualizarInformacionNafta(taller.getUsuario().getAuto().getTanqueCombustible().getCantidadCombustible() , taller.getUsuario().getAuto().getTanqueCombustible().getCapacidad());
+		pantallaTaller.actualizarInformacionNafta(programaAuto.getUsuario().getAuto().getTanqueCombustible().getCantidadCombustible() , programaAuto.getUsuario().getAuto().getTanqueCombustible().getCapacidad());
 		this.actualizarInformacionAuto();
 		this.actualizarCatalogo();
 	}
@@ -59,11 +56,11 @@ public class ControladorTaller {
 		String descripcion,vidaUtil;
 		boolean cargo = false;
 		
-		while (taller.getPartesDeReserva().hasNext()) {
+		while (programaAuto.getUsuario().getTaller().getPartesDeReserva().hasNext()) {
 			cargo = true;
 			try {
-				descripcion = taller.getPartesDeReserva().next().getInformacionModelo().getCaracteristica("DESCRIPCION");
-				vidaUtil = Double.toString(taller.getPartesDeReserva().next().getVidaUtil());
+				descripcion = programaAuto.getUsuario().getTaller().getPartesDeReserva().next().getInformacionModelo().getCaracteristica("DESCRIPCION");
+				vidaUtil = Double.toString(programaAuto.getUsuario().getTaller().getPartesDeReserva().next().getVidaUtil());
 				pantallaTaller.agregarAReserva(descripcion, vidaUtil);
 			} catch (BoundsException e) {}	    	
 		}
@@ -78,7 +75,7 @@ public class ControladorTaller {
 		
 		ParteAuto parte;
 		Hashtable<String,ParteAuto> tabla=new Hashtable<String,ParteAuto>();
-        tabla = taller.getUsuario().getAuto().getHashDePartes();
+        tabla = programaAuto.getUsuario().getAuto().getHashDePartes();
         Enumeration<ParteAuto> enumeracion = tabla.elements();
         String vidaUtil,nombreParte;
          
@@ -131,5 +128,37 @@ public class ControladorTaller {
 			}
 		}
 		
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		Boton boton = (Boton)e.getSource();
+		if (boton.getText().equals("Cargar Nafta"))
+			this.llenarTanque(Double.valueOf(pantallaTaller.obtenerCantidadPanelNafta()));
+	}
+
+	private void llenarTanque(double cantidad) {
+		try {
+			if(cantidad != 0){
+			programaAuto.comprarNafta(cantidad);
+			this.lanzarMensajeOperacionRealizada();
+			}
+		} catch (TankIsFullException e1) {
+	    	pantallaTaller.generarMensajeError("El tanque esta lleno");		
+		} catch (BoundsException e1) {
+	    	pantallaTaller.generarMensajeError("No puede cargar esa cantidad de nafta");		
+		} catch (NumberFormatException e1) {
+			// TODO Auto-generated catch block
+			//e1.printStackTrace();
+		} catch (NotEnoughMoneyException e1) {
+			pantallaTaller.generarMensajeError("No posee el dinero necesario");
+		} finally {
+			this.actualizarPantallaTaller();
+		}
+		
+	}
+
+	private void lanzarMensajeOperacionRealizada() {
+		pantallaTaller.generarMensaje("La operacion ha sido realizada satisfactoriamente");
+
 	}
 }

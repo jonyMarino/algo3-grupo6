@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import excepciones.WrongUserNameException;
-import programaAuto.NoPistaPickedException;
-import programaAuto.NotAbleWhileSimulatingException;
 import programaAuto.NotContainedPistaException;
 import programaAuto.PistaPickedException;
 import programaAuto.ProgramaAuto;
@@ -47,26 +45,18 @@ public class ControladorJuego implements ActionListener {
 	private void inicializarJuego(){
 			try {
 				programaAuto = new ProgramaAuto(((PantallaUsuario)panelBase.getPantallaActual()).obtenerNombreBoxUsuario());
-						
-				try {
-					programaAuto.setPista(programaAuto.generarProximaPista());
-				} catch (NotContainedPistaException e1) {} 
-				  catch (PistaPickedException e1) {}
-				
-				try {
-					this.controladorTaller = new ControladorTaller(programaAuto.entrarAlTaller(), programaAuto);
-				} catch (NoPistaPickedException e) {}
-				  catch (NotAbleWhileSimulatingException e) {}
-				
+				programaAuto.setPista(programaAuto.generarProximaPista());		
+				this.controladorTaller = new ControladorTaller(programaAuto);
 				ImageIcon imagen = ((PantallaUsuario)panelBase.getPantallaActual()).obtenerImagenSeleccionada(); 
 				
 				panelBase.crearPantalla(new PantallaTaller(this));	
 				controladorTaller.setPantallaTaller( (PantallaTaller)panelBase.getPantallaActual() );
 				
 				controladorTaller.setProximaPista(programaAuto.getPista());
-				controladorTaller.cargarPantallaTaller(imagen);	
-				
-			} catch (WrongUserNameException e) {
+				controladorTaller.cargarPantallaTaller(imagen);
+			} catch (NotContainedPistaException e1) {} 
+			  catch (PistaPickedException e1) {}		
+			  catch (WrongUserNameException e) {
 				this.MensajeError();
 			}
 	}
@@ -81,6 +71,10 @@ public class ControladorJuego implements ActionListener {
 	
 	public ProgramaAuto getProgramaAuto(){
 		return programaAuto;
+	}
+
+	public ControladorTaller getControladorTaller() {
+		return controladorTaller;
 	}
 	
 }

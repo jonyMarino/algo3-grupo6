@@ -1,8 +1,12 @@
 package vista;
 
 import java.awt.*;
+
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import controlador.ControladorJuego;
+import controlador.ControladorTaller;
 
 
 public class PantallaTaller extends JPanelConImagen {
@@ -12,6 +16,8 @@ public class PantallaTaller extends JPanelConImagen {
        private JPanel panelUsuario;
        private JPanel panelNafta;
        private JLabel labelDinero;
+       private JLabel labelMensaje;
+       private JSpinner cantidadSeleccionada = new JSpinner();
        private JComboBox comboPartesReserva;     
        private JComboBox fabricaComboCajas;
        private JComboBox fabricaComboCarrocerias ;
@@ -22,11 +28,13 @@ public class PantallaTaller extends JPanelConImagen {
        private JComboBox fabricaComboPedales;
        private JComboBox fabricaComboRuedas;
        private JComboBox fabricaComboTanques;
+       private ControladorTaller controladorTaller;;
        private static final long serialVersionUID = 1L;
      
        public PantallaTaller(ControladorJuego controladorJuego) {
     	   super();
-            
+           this.controladorTaller = controladorJuego.getControladorTaller();
+           
            this.setImage("FondoTransparente");
                
            this.setLayout(new GridBagLayout());
@@ -35,6 +43,7 @@ public class PantallaTaller extends JPanelConImagen {
            crearPanelAuto();
            crearPanelPistaDineroBodega();
            crearPanelUsuario();
+           crearPanelMensajes();
                
            GridBagConstraints c = new GridBagConstraints();
            c.gridx=2;
@@ -202,9 +211,10 @@ public class PantallaTaller extends JPanelConImagen {
            panelNafta.add(barraTanque,c);   
                               
            Boton botonCargar = new Boton("Cargar Nafta");
+           botonCargar.addActionListener(controladorTaller);
            botonCargar.setOpaque(false);
-           SpinnerModel model = new SpinnerNumberModel(0,0,capacidad - cantidad, 0.5);         
-           JSpinner seleccionCargar = new JSpinner(model);
+           SpinnerModel model = new SpinnerNumberModel(0,0,capacidad-0, 0.5);         
+           cantidadSeleccionada.setModel(model);
            JLabel cantidadLitros = new JLabel(" Litros");
            
            c.gridx =0;
@@ -213,10 +223,14 @@ public class PantallaTaller extends JPanelConImagen {
            panelNafta.add(botonCargar,c);
            c.gridx =0;
            c.gridy =1;
-           panelNafta.add(seleccionCargar,c);   
+           panelNafta.add(cantidadSeleccionada,c);   
            c.gridx =0;
            c.gridy =0;
            panelNafta.add(cantidadLitros,c);             
+       }
+       
+       public String obtenerCantidadPanelNafta() {
+    	   return(cantidadSeleccionada.getValue().toString());
        }
        
      
@@ -266,6 +280,43 @@ public class PantallaTaller extends JPanelConImagen {
 	       this.add(tabbedPane,c);
        }
        
+       
+       /*PANEL MENSAJES*/ 
+       private void crearPanelMensajes() {       
+           JPanel panelMensaje = new JPanel();
+           panelMensaje.setPreferredSize(new Dimension(150,100));
+        
+           Color nc = new Color(176,196,222);
+           panelMensaje.setBackground(nc);
+           panelMensaje.setOpaque(true);
+           Color nc2 = new Color(224,224,255);
+           Border border2 = BorderFactory.createMatteBorder(2,2,2,2,nc2);
+           Border border= BorderFactory.createTitledBorder(border2,"Informacion");
+        
+           labelMensaje = new JLabel("Mensaje");
+           panelMensaje.add(labelMensaje);
+           
+           panelMensaje.setBorder(border);
+           GridBagConstraints c = new GridBagConstraints();
+           c.gridx =2;
+           c.gridy =2;
+           c.gridheight =1;
+           Insets in=new Insets(30,30,0,0);
+           c.insets=in;
+           c.anchor = GridBagConstraints.NORTH;
+     
+           this.add(panelMensaje,c);         
+       }
+       
+       public void generarMensaje(String mensaje){
+           labelMensaje.setText(mensaje);
+           labelMensaje.setForeground(Color.GREEN);
+       }
+       
+       public void generarMensajeError(String mensaje){
+           labelMensaje.setText(mensaje);
+           labelMensaje.setForeground(Color.RED);
+       }
 
        /* PANEL CATALOGO */
        private void crearPanelCatalogo(){            
