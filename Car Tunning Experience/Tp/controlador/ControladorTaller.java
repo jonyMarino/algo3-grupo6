@@ -7,6 +7,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
 import excepciones.TankIsFullException;
@@ -106,27 +108,13 @@ public class ControladorTaller implements ActionListener {
 				InformacionDelModelo info = (InformacionDelModelo) itProducto.next();			
 				try {
 					descripcion = info.getCaracteristica("DESCRIPCION");
-					if(contador == 1)
-						pantallaTaller.agregarAComboCajas(descripcion);
-					if(contador == 2)
-						pantallaTaller.agregarAComboCarrocerias(descripcion);
-					if(contador == 3)
-						pantallaTaller.agregarAComboEjes(descripcion);
-					if(contador == 4)
-						pantallaTaller.agregarAComboEscapes(descripcion);
-					if(contador == 5)
-						pantallaTaller.agregarAComboMezcladores(descripcion);
-					if(contador == 6)
-						pantallaTaller.agregarAComboMotores(descripcion);
-					if(contador == 7)
-						pantallaTaller.agregarAComboPedales(descripcion);
-					if(contador == 8)
-						pantallaTaller.agregarAComboRuedas(descripcion);
-					if(contador == 9)
-						pantallaTaller.agregarAComboTanques(descripcion);						
+		
+						pantallaTaller.agregarACatalogo(descripcion);
+					
 				} catch (BoundsException e) { }
 			}
 		}
+		
 		
 	}
 
@@ -134,6 +122,7 @@ public class ControladorTaller implements ActionListener {
 		Boton boton = (Boton)e.getSource();
 		if (boton.getText().equals("Cargar Nafta"))
 			this.llenarTanque(Double.valueOf(pantallaTaller.obtenerCantidadPanelNafta()));
+		  
 	}
 
 	private void llenarTanque(double cantidad) {
