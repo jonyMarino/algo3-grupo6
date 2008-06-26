@@ -38,8 +38,10 @@ public class ControladorJuego implements ActionListener {
 			panelBase.pantallaAnterior();
 		if (boton.getText().equals("Aceptar"))
 			inicializarJuego();
-		if (boton.getText().equals("Comenzar Carrera"))
+		if (boton.getText().equals("Comenzar Carrera")){
 			panelBase.crearPantalla(new PantallaCarrera(this));
+		}
+			
 	}
 	
 	private void inicializarJuego(){

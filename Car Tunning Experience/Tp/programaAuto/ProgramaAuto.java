@@ -280,6 +280,7 @@ public class ProgramaAuto extends Observable {
                 
                 try{
                         TanqueNafta tanque = (TanqueNafta) unProveedor.comprar(modelos.get(9));
+                        tanque.setCombustible(nafta);
         
                         try {
                                 tanque.llenarTanque(70);
@@ -380,7 +381,7 @@ public class ProgramaAuto extends Observable {
         public SimuladorCarrera entrarALaCarrera() throws NoPistaPickedException, NotInTallerException{
         	if(pistaActual==null)
         		throw new NoPistaPickedException();
-        	if(tallerActual!=null)
+        	if(tallerActual==null)
         		throw new NotInTallerException();
         	tallerActual.ensamblar();	//ensamblo lo que coloque en el taller.
         	guardar();
@@ -458,4 +459,7 @@ public class ProgramaAuto extends Observable {
     		
     		return(pistasAux[contador]);
         }
+		public Usuario getUsuario() {
+			return usuario;
+		}
 }
