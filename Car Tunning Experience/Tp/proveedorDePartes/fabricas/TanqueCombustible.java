@@ -2,6 +2,7 @@ package proveedorDePartes.fabricas;
 
 import combustible.Combustible;
 import excepciones.BoundsException;
+import excepciones.TankIsFullException;
 
 /**
 * Clase abstracta que encapsula el comportamiento y las características
@@ -65,11 +66,11 @@ public abstract class TanqueCombustible extends ParteAuto {
 	* @throws BoundsException
 	*/
 	//TODO: No creo que deba ser publico
-	public void llenarTanque(double litros) throws BoundsException {
+	public void llenarTanque(double litros) throws TankIsFullException, BoundsException {
 		if(litros < 0)
 				throw new BoundsException("Llenar Tanque con litros negativos");
 		else if ((litros + this.getCantidadCombustible()) > this.getCapacidad())
-				throw new BoundsException("Se supera la capacidad del Tanque");
+				throw new TankIsFullException("Se supera la capacidad del Tanque");
 		else this.setCantidadCombustible(getCantidadCombustible() + litros);
 	}
 

@@ -38,6 +38,7 @@ import excepciones.IncorrectPartForUbicationException;
 import excepciones.InvalidPistaNameException;
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
+import excepciones.TankIsFullException;
 import excepciones.WrongPartClassException;
 import excepciones.WrongUserNameException;
 
@@ -286,8 +287,10 @@ public class ProgramaAuto extends Observable {
                         tanque.setCombustible(nafta);
         
                         try {
-                                tanque.llenarTanque(70);
-                        } catch (BoundsException e1) {
+                        		tanque.llenarTanque(70);
+						} catch (TankIsFullException e) {
+									e.printStackTrace();
+						} catch (BoundsException e1) {
                                 e1.printStackTrace();
                         }
                 
@@ -453,7 +456,14 @@ public class ProgramaAuto extends Observable {
     		Random rand= new Random(new Date().getTime());
     		return(pistas.get((int)(rand.nextDouble()*pistas.size())));	
         }
-		public Usuario getUsuario() {
+		
+        public Usuario getUsuario() {
 			return usuario;
 		}
+        
+        public void comprarNafta(double cantidad) throws NotEnoughMoneyException, BoundsException, TankIsFullException {
+            usuario.getAuto().getTanqueCombustible().llenarTanque(cantidad);
+            usuario.gastarDinero(cantidad * 4 );
+        }
+        
 }
