@@ -28,42 +28,31 @@ public class PantallaCarrera extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 
-	Image autoPrincipal;
-    BufferedImage bufferPrincipal;
+
     ControladorCarrera elControlador;
     int xAuto, yAuto;
+    VistaGrafica unaVista;
     
 	public PantallaCarrera(ControladorJuego controladorJuego) {
 		super();
 		int width = 900;
 		int height = 675;
 		this.setSize(width, height);
-		bufferPrincipal = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
-		Graphics2D buffer = (Graphics2D) bufferPrincipal.getGraphics();
-		buffer.setColor(Color.cyan);
-		buffer.fillRect(0, 0, width, height);
-		buffer.setColor(Color.green);
-		buffer.fillRect(0, height*3/4, width, height/4);
-		//this.setBorder(BorderFactory.createEmptyBorder(2, 0, 2,0));
+		this.setBorder(BorderFactory.createEmptyBorder(2, 0, 2,0));
 		this.add(new JSeparator(JSeparator.VERTICAL),BorderLayout.LINE_START);
-		autoPrincipal = new ImageIcon(getClass().getResource("/vista/images/"+ "UnAuto" +".gif")).getImage();
-		yAuto = height*3/4-autoPrincipal.getHeight(null)+5;
-		xAuto=0;
+		
+		unaVista = new VistaDeCostado(width, height, controladorJuego.getProgramaAuto());
 		setFocusable(true);
 		setVisible(true);
-		repaint();
 		elControlador = new ControladorCarrera(controladorJuego.getProgramaAuto(), this);
 		addKeyListener(elControlador);
-		//elControlador.comenzar();
+		elControlador.comenzar();
 	}
 	
 	public void paintComponent(Graphics g) {
 		 Graphics2D g2 =(Graphics2D) g;
-	        if(bufferPrincipal!=null){
-	        	BufferedImage temporal = new BufferedImage(bufferPrincipal.getWidth(), bufferPrincipal.getHeight(),  BufferedImage.TYPE_INT_RGB);
-	        	temporal.getGraphics().drawImage(bufferPrincipal,0, 0, null);
-	            temporal.getGraphics().drawImage(autoPrincipal,xAuto, yAuto, null);
-	        	g2.drawImage(temporal, 0, 0, getWidth(), getHeight(), null);
+	        if(g2!=null){
+	        	g2.drawImage(unaVista.getVista(), 0, 0, getWidth(), getHeight(), null);
 	        }
 	}
 

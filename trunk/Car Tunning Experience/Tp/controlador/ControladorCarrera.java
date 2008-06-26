@@ -47,7 +47,6 @@ public class ControladorCarrera implements KeyListener, Observer{
 		try {
 			unAuto.presionarAcelerador(aceleracion);
 			unAuto.setPosicion(unAuto.getPosicion()+aceleracion*10);
-			laPantalla.setXAuto((int)unAuto.getPosicion());
 			laPantalla.repaint();
 		} catch (BoundsException e1) {
 		}
@@ -108,14 +107,14 @@ public class ControladorCarrera implements KeyListener, Observer{
 		}
 	
 		
-		while (simulando){
-		unAuto.simular(tiempo*100);
-			try {
-			Thread.sleep((int)(tiempo));
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-	}
+		//while (simulando){
+		//unAuto.simular(tiempo*100);
+			//try {
+			//Thread.sleep((int)(tiempo));
+			//} catch (InterruptedException e) {
+				//e.printStackTrace();
+			//}
+	//}
 
 	/*try {
 		programaAuto.correr();
