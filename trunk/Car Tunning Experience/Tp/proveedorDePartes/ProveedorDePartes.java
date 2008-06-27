@@ -2,9 +2,11 @@ package proveedorDePartes;
 
 import java.util.ArrayList;
 
+import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 
+import programaAuto.Usuario;
 import proveedorDePartes.fabricas.CadenaDeFabricas;
 import proveedorDePartes.fabricas.FabricaDeCajas;
 import proveedorDePartes.fabricas.FabricaDeCarrocerias;
@@ -39,9 +41,25 @@ public class ProveedorDePartes {
 		return miCadenaDeFabricas.getModelos();
 	}
 	
-	public ParteAuto comprar(InformacionDelModelo modelo) throws NoSuchModelException, NotEnoughMoneyException{
+	public ParteAuto comprar(InformacionDelModelo modelo, Usuario usuario) throws NoSuchModelException, NotEnoughMoneyException{
 		ParteAuto unaParte = null;
+		int dineroNecesario = 0;
+		try {
+			dineroNecesario = Integer.parseInt(modelo.getCaracteristica("COSTO"));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BoundsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+			if( (usuario.getDinero()) < dineroNecesario ){
+				throw new NotEnoughMoneyException("No tiene suficiente dinero como para comprar la parte");
+			}
+
 		unaParte = miCadenaDeFabricas.fabricar(modelo);
+		usuario.gastarDinero(dineroNecesario);
 		return unaParte;
 	}
 

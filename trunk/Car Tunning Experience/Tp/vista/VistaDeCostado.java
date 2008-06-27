@@ -21,7 +21,7 @@ public class VistaDeCostado implements VistaGrafica {
 	BufferedImage bufferPrincipal;
 	BufferedImage autoPrincipal;
 	BufferedImage unArbol;
-	BufferedImage unArbolNevado;
+	ArrayList<BufferedImage> arboles;
 	ProgramaAuto elPrograma;
 	ArrayList<Point2D> listaDeArboles;
 
@@ -38,13 +38,27 @@ public class VistaDeCostado implements VistaGrafica {
 		try {
 			autoPrincipal = ImageIO.read(getClass().getResource("/vista/images/"+ "UnAuto" +".gif"));
 			unArbol = ImageIO.read(getClass().getResource("/vista/images/"+ "arbolito" +".gif"));
-			unArbolNevado =ImageIO.read(getClass().getResource("/vista/images/"+ "arbolitonieve" +".gif"));
+			//unArbolNevado =ImageIO.read(getClass().getResource("/vista/images/"+ "arbolitonieve" +".gif"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		proyectarArboles();
 
 	}
 
+	private void proyectarArboles(){
+		arboles = new ArrayList<BufferedImage>();
+		arboles.add(unArbol);
+		for (int i=1;i<5;i++){
+			int ancho = arboles.get(i-1).getWidth();
+			int alto = arboles.get(i-1).getHeight();
+			BufferedImage temporal = new BufferedImage(ancho-1*ancho/5, alto-1*alto/5 , BufferedImage.TYPE_INT_ARGB );
+			Graphics2D temporal2D = temporal.createGraphics();
+			temporal2D.drawImage(unArbol, 0, 0, temporal.getWidth(), temporal.getHeight(), null);
+			arboles.add(temporal);
+		}
+	}
+	
 	public void setArboles(ArrayList<Point2D> lista){
 		listaDeArboles = lista;
 	}
@@ -83,13 +97,18 @@ public class VistaDeCostado implements VistaGrafica {
 		System.out.println("-------------------------");
 		for(ImagenARenderizar p:listaDeRenderizado){
 			System.out.println(p.getCapa());
-			temporal2D.drawImage(p.getImagen(), p.getX(), p.getY(), null);
+			int y=getHeight()*3/4-p.getImagen().getHeight(null)/2;;
+			if(p.getCapa()!=2)
+				y=getHeight()*3/4-p.getImagen().getHeight(null)+(4-p.getCapa())*p.getImagen().getHeight(null)/7;
+			
+			temporal2D.drawImage(p.getImagen(), p.getX(), y, null);
 		}
 	}
 
 	private void agregarArboles(LinkedList<ImagenARenderizar> listaDeRenderizado, int posicionDeInicio) {
 		for( Point2D p:listaDeArboles){
-				listaDeRenderizado.add(new ImagenARenderizar(unArbol, (int) (p.getX()-posicionDeInicio), getHeight()*3/4-unArbol.getHeight(null)+5, (int) p.getY()));
+			
+			listaDeRenderizado.add(new ImagenARenderizar(arboles.get((int) p.getY()), (int) (p.getX()-posicionDeInicio*(5-p.getY())), (int) (getHeight()-unArbol.getHeight(null)-p.getY()*unArbol.getHeight()/4), (int) p.getY()));
 		}
 	}
 
