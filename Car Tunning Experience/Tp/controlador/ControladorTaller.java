@@ -49,11 +49,14 @@ public class ControladorTaller implements ActionListener {
 		String descripcion,vidaUtil;
 		boolean cargo = false;
 		
-		while (programaAuto.getUsuario().getTaller().getPartesDeReserva().hasNext()) {
+		Iterator<ParteAuto> iteradorReserva = programaAuto.getUsuario().getTaller().getPartesReserva(); 
+		
+		while (iteradorReserva.hasNext()) {
 			cargo = true;
 			try {
-				descripcion = programaAuto.getUsuario().getTaller().getPartesDeReserva().next().getInformacionModelo().getCaracteristica("DESCRIPCION");
-				vidaUtil = Double.toString(programaAuto.getUsuario().getTaller().getPartesDeReserva().next().getVidaUtil());
+				ParteAuto parte = iteradorReserva.next();
+				descripcion = parte.getInformacionDelModelo().getCaracteristica("DESCRIPCION");
+				vidaUtil = Double.toString(parte.getVidaUtil());
 				pantallaTaller.agregarAReserva(descripcion, vidaUtil);
 			} catch (BoundsException e) {}	    	
 		}
