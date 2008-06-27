@@ -114,5 +114,10 @@ public class Taller {
 		return usuario;
 	}
 	
+	//TODO: Lo agregue por conveniencia
+	//TODO: comentar	
+	public Iterator<ParteAuto> getPartesReserva(){
+		return partesDeReserva.iterator();
+	}
 	
 }
