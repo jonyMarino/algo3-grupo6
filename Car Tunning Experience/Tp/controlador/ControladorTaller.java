@@ -106,12 +106,8 @@ public class ControladorTaller implements ActionListener {
 			itProducto = productos.iterator();
 			while(itProducto.hasNext()){
 				InformacionDelModelo info = (InformacionDelModelo) itProducto.next();			
-				try {
-					descripcion = info.getCaracteristica("DESCRIPCION");
-		
-						pantallaTaller.agregarACatalogo(descripcion);
+						pantallaTaller.agregarACatalogo(info);
 					
-				} catch (BoundsException e) { }
 			}
 		}
 		

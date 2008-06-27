@@ -49,6 +49,14 @@ public class InformacionDelModelo {
 	InformacionDelModelo(){
 		informacionDeEstaParte = new Hashtable<String, String>();
 	}
+	
+	public String toString() {
+		try {
+			return getCaracteristica("DESCRIPCION");
+		} catch (BoundsException e) {
+			return super.toString();
+		}
+	}
 
 }
  
