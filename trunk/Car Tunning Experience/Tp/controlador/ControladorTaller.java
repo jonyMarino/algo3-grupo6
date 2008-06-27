@@ -102,9 +102,7 @@ public class ControladorTaller implements ActionListener {
 						pantallaTaller.agregarACatalogo(info);
 					
 			}
-		}
-		
-		
+		}	
 	}
 
 	public void actionPerformed(ActionEvent e) {
