@@ -294,7 +294,7 @@ public class PantallaTaller extends JPanelConImagen {
            Border border2 = BorderFactory.createMatteBorder(2,2,2,2,nc2);
            Border border= BorderFactory.createTitledBorder(border2,"Informacion");
         
-           labelMensaje = new JLabel("Mensaje");
+           labelMensaje = new JLabel();
            panelMensaje.add(labelMensaje);
            
            panelMensaje.setBorder(border);

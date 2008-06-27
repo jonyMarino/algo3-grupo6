@@ -7,7 +7,6 @@ import excepciones.WrongUserNameException;
 import programaAuto.NotContainedPistaException;
 import programaAuto.PistaPickedException;
 import programaAuto.ProgramaAuto;
-import vista.Boton;
 import vista.PanelBase;
 import vista.PantallaCarrera;
 import vista.PantallaContinuarPartida;
@@ -52,7 +51,6 @@ public class ControladorJuego implements ActionListener {
 				panelBase.crearPantalla(new PantallaTaller(this));	
 				controladorTaller.setPantallaTaller( (PantallaTaller)panelBase.getPantallaActual() );
 				
-				controladorTaller.setProximaPista(programaAuto.getPista());
 				controladorTaller.cargarPantallaTaller(imagen);
 			} catch (NotContainedPistaException e1) {} 
 			  catch (PistaPickedException e1) {}		
