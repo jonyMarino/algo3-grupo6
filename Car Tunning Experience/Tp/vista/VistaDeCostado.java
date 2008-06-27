@@ -82,7 +82,7 @@ public class VistaDeCostado implements VistaGrafica {
 		int posicion =  (int) elPrograma.getUsuario().getAuto().getPosicion();
 		int anchoAuto = autoPrincipal.getWidth(null);
 		if(posicion > (getWidth()-anchoAuto)/2){
-			inicio = posicion-getWidth()/2;
+			inicio = posicion-(getWidth()-anchoAuto)/2;
 			posicion = (getWidth()-anchoAuto)/2;
 		}
 		LinkedList<ImagenARenderizar> listaDeRenderizado = new LinkedList<ImagenARenderizar>();

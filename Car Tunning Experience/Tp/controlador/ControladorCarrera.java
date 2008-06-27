@@ -45,6 +45,7 @@ public class ControladorCarrera implements KeyListener, Observer{
 			break;
 		}
 		try {
+			//TODO: SOLO ES PARA PROBAR LA VISTA, BORRAR CUANDO ESTÉ FUNCIONANDO
 			unAuto.presionarAcelerador(aceleracion);
 			unAuto.setPosicion(unAuto.getPosicion()+aceleracion*10);
 			laPantalla.repaint();
