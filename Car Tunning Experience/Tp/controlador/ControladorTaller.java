@@ -7,23 +7,18 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
 import excepciones.TankIsFullException;
-import programaAuto.Pista;
 import programaAuto.ProgramaAuto;
 import proveedorDePartes.fabricas.FabricaDePartes;
 import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.ParteAuto;
-import vista.Boton;
 import vista.PantallaTaller;
 
 public class ControladorTaller implements ActionListener {
 	
 	private PantallaTaller pantallaTaller;
-	private Pista proximaPista;
 	private ProgramaAuto programaAuto;
 	
 	public ControladorTaller(ProgramaAuto programaAuto) {
@@ -37,7 +32,7 @@ public class ControladorTaller implements ActionListener {
 	
 	public void actualizarPantallaTaller(){
 		pantallaTaller.actualizarInformacionDinero(Double.toString(programaAuto.getUsuario().getDinero()));
-		pantallaTaller.actualizarInformacionPista(Double.toString(proximaPista.getLongitud()) , proximaPista.getNombre(), Integer.toString(proximaPista.getVelocidadAire()));
+		pantallaTaller.actualizarInformacionPista(Double.toString(programaAuto.getPista().getLongitud()) , programaAuto.getPista().getNombre(), Integer.toString(programaAuto.getPista().getVelocidadAire()));
 		this.actualizarInformacionReserva();
 		pantallaTaller.actualizarInformacionNafta(programaAuto.getUsuario().getAuto().getTanqueCombustible().getCantidadCombustible() , programaAuto.getUsuario().getAuto().getTanqueCombustible().getCapacidad());
 		this.actualizarInformacionAuto();
@@ -46,10 +41,6 @@ public class ControladorTaller implements ActionListener {
 
 	public void setPantallaTaller(PantallaTaller pantallaTaller) {
 		this.pantallaTaller = pantallaTaller;
-	}
-
-	void setProximaPista(Pista proximaPista) {
-		this.proximaPista = proximaPista;
 	}
 
 	private void actualizarInformacionReserva() {	
@@ -94,7 +85,6 @@ public class ControladorTaller implements ActionListener {
 	private void actualizarCatalogo() {
 		ArrayList<FabricaDePartes> fabricas = programaAuto.getUnProveedor().getMiCadenaDeFabricas().getMiCadenaDeFabricas();
 		Iterator<FabricaDePartes> it = fabricas.iterator();
-		String descripcion;
 		FabricaDePartes fabrica;
 		ArrayList<InformacionDelModelo> productos;
 		Iterator<InformacionDelModelo> itProducto;
