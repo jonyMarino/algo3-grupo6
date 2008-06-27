@@ -277,13 +277,21 @@ public class ProgramaAuto extends Observable {
              
 
         public Auto autoInicial(){
+        	Usuario usuariotemporal = null;
+			try {
+				usuariotemporal = new Usuario("___TEMPORAL_DE_PROGRAMA_AUTO___");
+			} catch (WrongUserNameException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+        	usuariotemporal.setDinero(999999999);
                 Auto auto=null;
                 Nafta nafta = new Nafta(85,15);
                 
                 ArrayList<InformacionDelModelo> modelos = unProveedor.getModelosDisponibles();
                 
                 try{
-                        TanqueNafta tanque = (TanqueNafta) unProveedor.comprar(modelos.get(9));
+                        TanqueNafta tanque = (TanqueNafta) unProveedor.comprar(modelos.get(9), usuariotemporal);
                         tanque.setCombustible(nafta);
         
                         try {
@@ -294,25 +302,25 @@ public class ProgramaAuto extends Observable {
                                 e1.printStackTrace();
                         }
                 
-                        MezcladorNafta mezclador = (MezcladorNafta) unProveedor.comprar(modelos.get(5));
-                        Escape escape = (Escape) unProveedor.comprar(modelos.get(4));
+                        MezcladorNafta mezclador = (MezcladorNafta) unProveedor.comprar(modelos.get(5), usuariotemporal);
+                        Escape escape = (Escape) unProveedor.comprar(modelos.get(4), usuariotemporal);
                         
-                        Carroceria carroceria = (Carroceria) unProveedor.comprar(modelos.get(2));
+                        Carroceria carroceria = (Carroceria) unProveedor.comprar(modelos.get(2), usuariotemporal);
 
                         ArrayList<Rueda> ruedas = new ArrayList<Rueda>();
                 
                         for(int i=0;i<4;i++){
-                                Rueda rueda = (Rueda) unProveedor.comprar(modelos.get(8));
+                                Rueda rueda = (Rueda) unProveedor.comprar(modelos.get(8), usuariotemporal);
                                 ruedas.add(rueda);                              
                         }
                         
-                        Eje eje = (Eje) unProveedor.comprar(modelos.get(3));
+                        Eje eje = (Eje) unProveedor.comprar(modelos.get(3), usuariotemporal);
                         
-                        CajaManual caja=(CajaManual) unProveedor.comprar(modelos.get(0));
+                        CajaManual caja=(CajaManual) unProveedor.comprar(modelos.get(0), usuariotemporal);
                         
-                        Motor motor=(Motor) unProveedor.comprar(modelos.get(6));
+                        Motor motor=(Motor) unProveedor.comprar(modelos.get(6), usuariotemporal);
                         
-                        Freno freno =  (Freno) unProveedor.comprar(modelos.get(7));
+                        Freno freno =  (Freno) unProveedor.comprar(modelos.get(7), usuariotemporal);
                         
                         try {
                                 auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje, freno);

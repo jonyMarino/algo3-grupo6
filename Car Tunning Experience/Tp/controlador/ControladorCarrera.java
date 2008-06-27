@@ -86,7 +86,6 @@ public class ControladorCarrera implements KeyListener, Observer{
 	public void update(Observable o, Object arg) {
 		if (o==programaAuto)
 		{
-			laPantalla.setXAuto((int)unAuto.getPosicion());
 		}
 	}
 

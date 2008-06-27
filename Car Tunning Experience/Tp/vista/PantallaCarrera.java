@@ -68,8 +68,8 @@ public class PantallaCarrera extends JPanel{
 		for(int i=0; i<cantidadArboles; i++){
 			int y=0;
 			do{
-				y = (int) Math.abs((Math.random()*100))&5;
-			}while(y==2);
+				y = (int) Math.abs((Math.random()*6));
+			}while(y==2 || y>4);
 			System.out.println(y);
 			Point2D temporal = new Point((int) (i*distanciaEntreArboles),y);
 			listaDeArboles.add(temporal);
