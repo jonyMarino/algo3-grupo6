@@ -379,10 +379,9 @@ public class PantallaTaller extends JPanelConImagen {
             		   controladorTaller.actualizarPantallaTaller();
             		   //agregarAReserva(descripcion, vidaUtil)
             	   } catch (NotEnoughMoneyException e) {
-            		   e.printStackTrace();
+            		   generarMensajeError("No posee el dinero necesario");
             	   } catch (NoSuchModelException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+            		   generarMensajeError("El modelo elegido es invalido.");
 				}
                }
                catch(ClassCastException e){
