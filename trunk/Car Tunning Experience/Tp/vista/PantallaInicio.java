@@ -34,12 +34,15 @@ public class PantallaInicio extends JPanelConImagen {
 		public BotoneraInicio(ControladorJuego controladorJuego) {
 
 			Boton botonNuevaPartida = new Boton("Nueva Partida");
+			botonNuevaPartida.setActionCommand("nueva");
 			botonNuevaPartida.addActionListener(controladorJuego);
 
 			Boton botonContinuarPartida = new Boton("Continuar Partida");
+			botonContinuarPartida.setActionCommand("continuar");
 			botonContinuarPartida.addActionListener(controladorJuego);
 			
 			Boton botonSalir = new Boton("Salir");
+			botonSalir.setActionCommand("salir");
 			botonSalir.addActionListener(new CloseListener());
 
 			botonNuevaPartida.setAlignmentX(Component.CENTER_ALIGNMENT);

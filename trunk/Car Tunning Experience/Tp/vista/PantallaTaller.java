@@ -50,6 +50,7 @@ public class PantallaTaller extends JPanelConImagen {
               
            Boton botonComenzar = new Boton("Comenzar Carrera");
            botonComenzar.addActionListener(controladorJuego);
+           botonComenzar.setActionCommand("comenzar");
            this.add(botonComenzar, c);            
        }
        
@@ -208,6 +209,7 @@ public class PantallaTaller extends JPanelConImagen {
                               
            Boton botonCargar = new Boton("Cargar Nafta");
            botonCargar.addActionListener(controladorTaller);
+           botonCargar.setActionCommand("cargar");
            botonCargar.setOpaque(false);
            SpinnerModel model = new SpinnerNumberModel(0,0,capacidad-0, 0.5);         
            cantidadSeleccionada.setModel(model);
