@@ -209,8 +209,9 @@ public class PantallaTaller extends JPanelConImagen {
     	   barraTanque.setString(Double.toString(cantidad)+ " / " + Double.toString(capacidad) + " Litros");
     	   
     	   GridBagConstraints c = new GridBagConstraints();
-           c.gridx =0;
-           c.gridwidth =3; 
+           c.gridx =0; 
+          // c.weightx=2;
+           c.gridwidth=2;
            c.gridy =0;
            c.anchor = GridBagConstraints.CENTER;
            panelNafta.add(barraTanque,c);   
@@ -222,17 +223,23 @@ public class PantallaTaller extends JPanelConImagen {
            SpinnerModel model = new SpinnerNumberModel(0,0,capacidad-0, 0.5);         
            cantidadSeleccionada.setModel(model);
            JLabel cantidadLitros = new JLabel(" Litros");
-           
+           c.gridwidth=0;
            c.gridx =0;
            c.gridy =2;
            c.anchor = GridBagConstraints.LAST_LINE_END;
+           
            panelNafta.add(botonCargar,c);
-           c.gridx =0;
+           c.gridx =1;
            c.gridy =1;
-           panelNafta.add(cantidadSeleccionada,c);   
-           c.gridx =0;
-           c.gridy =0;
-           panelNafta.add(cantidadLitros,c);             
+           c.anchor = GridBagConstraints.CENTER;
+           panelNafta.add(cantidadSeleccionada,c); 
+           
+           c.gridx =1;
+           c.gridy =1;
+           c.anchor = GridBagConstraints.EAST;
+           panelNafta.add(cantidadLitros,c); 
+            
+                       
        }
        
        public String obtenerCantidadPanelNafta() {

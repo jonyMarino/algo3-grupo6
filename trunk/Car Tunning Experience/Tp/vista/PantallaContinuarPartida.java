@@ -30,9 +30,11 @@ private static final long serialVersionUID = 1L;
 		public BotoneraContinuarPartida(ControladorJuego controladorJuego) {
 
 			Boton botonVolver = new Boton("Volver");
+			botonVolver.setActionCommand("volver");
 			botonVolver.addActionListener(controladorJuego);
 
 			Boton botonAceptar = new Boton("Cargar Partida");
+			//botonVolver.setActionCommand("cargarPartida");
 			//botonAceptar.addActionListener(controladorJuego);
 
 			this.add(botonVolver);
