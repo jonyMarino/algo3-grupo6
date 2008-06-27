@@ -94,9 +94,7 @@ public class VistaDeCostado implements VistaGrafica {
 
 	private void dibujarTodo(Graphics2D temporal2D,
 			LinkedList<ImagenARenderizar> listaDeRenderizado) {
-		System.out.println("-------------------------");
 		for(ImagenARenderizar p:listaDeRenderizado){
-			System.out.println(p.getCapa());
 			int y=getHeight()*3/4-p.getImagen().getHeight(null)/2;;
 			if(p.getCapa()!=2)
 				y=getHeight()*3/4-p.getImagen().getHeight(null)+(4-p.getCapa())*p.getImagen().getHeight(null)/7;

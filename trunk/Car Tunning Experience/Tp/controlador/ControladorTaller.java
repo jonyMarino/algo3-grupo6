@@ -136,4 +136,8 @@ public class ControladorTaller implements ActionListener {
 		pantallaTaller.generarMensaje("La operacion ha sido realizada satisfactoriamente");
 
 	}
+
+	public ProgramaAuto getProgramaAuto() {
+		return programaAuto;
+	}
 }
