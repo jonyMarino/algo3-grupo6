@@ -119,8 +119,8 @@ public class ControladorTaller implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		Boton boton = (Boton)e.getSource();
-		if (boton.getText().equals("Cargar Nafta"))
+		String comando = e.getActionCommand();
+		if (comando.equals("cargar"))
 			this.llenarTanque(Double.valueOf(pantallaTaller.obtenerCantidadPanelNafta()));
 		  
 	}

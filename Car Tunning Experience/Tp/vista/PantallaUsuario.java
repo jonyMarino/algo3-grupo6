@@ -89,9 +89,11 @@ public class PantallaUsuario extends JPanelConImagen {
 		public BotoneraUsuario(ControladorJuego controladorJuego) {
 
 			Boton botonVolver = new Boton("Volver");
+			botonVolver.setActionCommand("volver");
 			botonVolver.addActionListener(controladorJuego);
 
 			Boton botonAceptar = new Boton("Aceptar");
+			botonAceptar.setActionCommand("aceptar");
 			botonAceptar.addActionListener(controladorJuego);
 
 			this.add(botonVolver);

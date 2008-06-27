@@ -25,18 +25,18 @@ public class ControladorJuego implements ActionListener {
 		this.controladorTaller = null;
 	}
 
-	//TODO: Escribirlo de mejor forma
+
 	public void actionPerformed(ActionEvent e) {
-		Boton boton = (Boton)e.getSource();
-		if (boton.getText().equals("Nueva Partida"))
+		String comando = e.getActionCommand();
+		if (comando.equals("nueva"))
 			panelBase.crearPantalla(new PantallaUsuario(this));
-		if (boton.getText().equals("Continuar Partida"))
+		if (comando.equals("continuar"))
 			panelBase.crearPantalla(new PantallaContinuarPartida(this));
-		if (boton.getText().equals("Volver"))
+		if (comando.equals("volver"))
 			panelBase.pantallaAnterior();
-		if (boton.getText().equals("Aceptar"))
+		if (comando.equals("aceptar"))
 			inicializarJuego();
-		if (boton.getText().equals("Comenzar Carrera")){
+		if (comando.equals("comenzar")){
 			panelBase.crearPantalla(new PantallaCarrera(this));
 		}
 			
