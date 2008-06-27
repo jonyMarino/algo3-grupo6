@@ -1,24 +1,27 @@
 package vista;
 
 import java.awt.Color;
-import java.awt.Frame;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 
 import programaAuto.ProgramaAuto;
 
 public class VistaDeCostado implements VistaGrafica {
 
 	BufferedImage bufferPrincipal;
-	Image autoPrincipal;
-	Image unArbol;
-	Image unArbolNevado;
+	BufferedImage autoPrincipal;
+	BufferedImage unArbol;
+	BufferedImage unArbolNevado;
 	ProgramaAuto elPrograma;
 	ArrayList<Point2D> listaDeArboles;
 
@@ -32,10 +35,14 @@ public class VistaDeCostado implements VistaGrafica {
 		buffer.fillRect(0, alto*3/4, ancho, alto/4);
 
 		elPrograma = unPrograma;
+		try {
+			autoPrincipal = ImageIO.read(getClass().getResource("/vista/images/"+ "UnAuto" +".gif"));
+			unArbol = ImageIO.read(getClass().getResource("/vista/images/"+ "arbolito" +".gif"));
+			unArbolNevado =ImageIO.read(getClass().getResource("/vista/images/"+ "arbolitonieve" +".gif"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-		autoPrincipal = new ImageIcon(getClass().getResource("/vista/images/"+ "UnAuto" +".gif")).getImage();
-		unArbol = new ImageIcon(getClass().getResource("/vista/images/"+ "arbolito" +".gif")).getImage();
-		unArbolNevado = new ImageIcon(getClass().getResource("/vista/images/"+ "arbolitonieve" +".gif")).getImage();
 	}
 
 	public void setArboles(ArrayList<Point2D> lista){
@@ -50,6 +57,13 @@ public class VistaDeCostado implements VistaGrafica {
 		BufferedImage temporal = new  BufferedImage(getWidth(),getHeight(), BufferedImage.TYPE_INT_RGB);
 		Graphics2D temporal2D = (Graphics2D) temporal.getGraphics();
 		temporal2D.drawImage(bufferPrincipal,0, 0, null);
+
+		renderizar(temporal2D);
+
+		return temporal;
+	}
+
+	private void renderizar(Graphics2D temporal2D) {
 		int inicio=0;
 		int posicion =  (int) elPrograma.getUsuario().getAuto().getPosicion();
 		int anchoAuto = autoPrincipal.getWidth(null);
@@ -57,16 +71,26 @@ public class VistaDeCostado implements VistaGrafica {
 			inicio = posicion-getWidth()/2;
 			posicion = (getWidth()-anchoAuto)/2;
 		}
-		dibujarArboles(temporal2D, inicio);
-		temporal2D.drawImage(autoPrincipal,posicion, getHeight()*3/4-autoPrincipal.getHeight(null)/2, null);
-		return temporal;
+		LinkedList<ImagenARenderizar> listaDeRenderizado = new LinkedList<ImagenARenderizar>();
+		listaDeRenderizado.add(new ImagenARenderizar((BufferedImage) autoPrincipal,posicion, getHeight()*3/4-autoPrincipal.getHeight(null)/2, 2));
+		agregarArboles(listaDeRenderizado, inicio);
+		Collections.sort(listaDeRenderizado);
+		dibujarTodo(temporal2D, listaDeRenderizado);
 	}
 
-	private void dibujarArboles(Graphics2D temporal, int posicionDeInicio) {
-		for( Point2D p:listaDeArboles){
-				temporal.drawImage(unArbol, (int) (p.getX()-posicionDeInicio), getHeight()*3/4-unArbol.getHeight(null)+5, unArbol.getWidth(null), unArbol.getHeight(null), null);
+	private void dibujarTodo(Graphics2D temporal2D,
+			LinkedList<ImagenARenderizar> listaDeRenderizado) {
+		System.out.println("-------------------------");
+		for(ImagenARenderizar p:listaDeRenderizado){
+			System.out.println(p.getCapa());
+			temporal2D.drawImage(p.getImagen(), p.getX(), p.getY(), null);
 		}
+	}
 
+	private void agregarArboles(LinkedList<ImagenARenderizar> listaDeRenderizado, int posicionDeInicio) {
+		for( Point2D p:listaDeArboles){
+				listaDeRenderizado.add(new ImagenARenderizar(unArbol, (int) (p.getX()-posicionDeInicio), getHeight()*3/4-unArbol.getHeight(null)+5, (int) p.getY()));
+		}
 	}
 
 	public int getWidth() {
