@@ -2,22 +2,12 @@ package vista;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
 import javax.swing.border.Border;
-
-import programaAuto.Usuario;
-import proveedorDePartes.ProveedorDePartes;
 import proveedorDePartes.fabricas.InformacionDelModelo;
-import proveedorDePartes.fabricas.ParteAuto;
-
 import controlador.ControladorJuego;
 import controlador.ControladorTaller;
 import excepciones.BoundsException;
-import excepciones.NoSuchModelException;
-import excepciones.NotEnoughMoneyException;
-
 
 public class PantallaTaller extends JPanelConImagen {
 
@@ -356,7 +346,8 @@ public class PantallaTaller extends JPanelConImagen {
 		   panelCatalogo.add(crearPanelPrecio(),c4);
 		     
 		   Boton botonComprar = new Boton("Comprar");
-		   botonComprar.setAction(new AccionComprarParte());
+           botonComprar.addActionListener(controladorTaller);
+           botonComprar.setActionCommand("comprar");
 		   botonComprar.setText("Comprar");
 		   c4 = posicionBoton();
 		   panelCatalogo.add(botonComprar,c4);
@@ -370,34 +361,7 @@ public class PantallaTaller extends JPanelConImagen {
 		   c.anchor = GridBagConstraints.NORTH;
 		       
 		   this.add(tabbedPane,c);
-       }
-       
-       private class AccionComprarParte extends AbstractAction {
-
-           public void actionPerformed(ActionEvent evento) {
-        	   int precio;
-               try{
-            	   InformacionDelModelo info = (InformacionDelModelo) elCatalogo.getSelectedItem();
-            	   try {
-            		   Usuario elUsuario = controladorTaller.getProgramaAuto().getUsuario();
-            		   ProveedorDePartes elProveedor = controladorTaller.getProgramaAuto().getUnProveedor();
-            		   ParteAuto unaParte = elProveedor.comprar(info, elUsuario);
-            		   elUsuario.getTaller().aniadirAReserva(unaParte);
-            		   controladorTaller.actualizarPantallaTaller();
-            		   //agregarAReserva(descripcion, vidaUtil)
-            	   } catch (NotEnoughMoneyException e) {
-            		   generarMensajeError("No posee el dinero necesario");
-            	   } catch (NoSuchModelException e) {
-            		   generarMensajeError("El modelo elegido es invalido.");
-				}
-               }
-               catch(ClassCastException e){
-            	   
-               }
-           
-           }
-       }
-       
+       }     
     
        private JPanel crearFabricas() {
 	       

@@ -8,6 +8,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 import excepciones.TankIsFullException;
 import programaAuto.ProgramaAuto;
@@ -111,8 +112,23 @@ public class ControladorTaller implements ActionListener {
 		String comando = e.getActionCommand();
 		if (comando.equals("cargar"))
 			this.llenarTanque(Double.valueOf(pantallaTaller.obtenerCantidadPanelNafta()));
-		  
+		if (comando.equals("comprar"))
+			this.comprarParte();
+			
 	}
+	
+    private void comprarParte() {
+           try{
+        	   InformacionDelModelo info = (InformacionDelModelo) pantallaTaller.parteAComprar();
+         	   ParteAuto unaParte = programaAuto.getUnProveedor().comprar(info, programaAuto.getUsuario());
+         	   programaAuto.getUsuario().getTaller().aniadirAReserva(unaParte);
+         	   this.actualizarPantallaTaller();
+         	   } catch (NotEnoughMoneyException e) {
+         		  pantallaTaller.generarMensajeError("No posee el dinero necesario");
+         	   } catch (NoSuchModelException e) {
+         		  pantallaTaller.generarMensajeError("El modelo elegido es invalido.");
+			   } catch(ClassCastException e){}        
+        }
 
 	private void llenarTanque(double cantidad) {
 		try {
@@ -125,8 +141,6 @@ public class ControladorTaller implements ActionListener {
 		} catch (BoundsException e1) {
 	    	pantallaTaller.generarMensajeError("No puede cargar esa cantidad de nafta");		
 		} catch (NumberFormatException e1) {
-			// TODO Auto-generated catch block
-			//e1.printStackTrace();
 		} catch (NotEnoughMoneyException e1) {
 			pantallaTaller.generarMensajeError("No posee el dinero necesario");
 		} finally {
