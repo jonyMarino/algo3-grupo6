@@ -372,10 +372,31 @@ public class PantallaTaller extends JPanelConImagen {
 		   elCatalogo.addItem("-Catalogo-");
 
 		   panelCombo.add(elCatalogo);
-	 
+		   Action mostrarPrecio = new AccionActualizaarPrecio();
+	 		elCatalogo.setAction(mostrarPrecio);
 		     
 		   return panelCombo;
        }
+       
+       private class AccionActualizaarPrecio extends AbstractAction {
+
+           public void actionPerformed(ActionEvent evento) {
+               String precio = "";
+               try{
+            	   InformacionDelModelo info = (InformacionDelModelo) elCatalogo.getSelectedItem();
+            	   try {
+    				precio = info.getCaracteristica("COSTO");
+    			} catch (BoundsException e) {
+    				e.printStackTrace();
+    			}
+               }catch(ClassCastException e){
+            	   precio = "Seleccione Una parte";
+               }
+
+               labelPrecio.setText(precio);
+           }
+       }
+       
               
        private GridBagConstraints posicionBoton(){
     	   GridBagConstraints ubicacion = new GridBagConstraints();
