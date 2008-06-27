@@ -58,7 +58,9 @@ public class ControladorTaller implements ActionListener {
 				descripcion = parte.getInformacionDelModelo().getCaracteristica("DESCRIPCION");
 				vidaUtil = Double.toString(parte.getVidaUtil());
 				pantallaTaller.agregarAReserva(descripcion, vidaUtil);
-			} catch (BoundsException e) {}	    	
+			} catch (BoundsException e) {
+				e.printStackTrace();
+			}	    	
 		}
 		
 		if(!cargo){
