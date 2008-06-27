@@ -7,11 +7,16 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import programaAuto.Usuario;
+import proveedorDePartes.ProveedorDePartes;
 import proveedorDePartes.fabricas.InformacionDelModelo;
+import proveedorDePartes.fabricas.ParteAuto;
 
 import controlador.ControladorJuego;
 import controlador.ControladorTaller;
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
+import excepciones.NotEnoughMoneyException;
 
 
 public class PantallaTaller extends JPanelConImagen {
@@ -344,6 +349,8 @@ public class PantallaTaller extends JPanelConImagen {
 		   panelCatalogo.add(crearPanelPrecio(),c4);
 		     
 		   Boton botonComprar = new Boton("Comprar");
+		   botonComprar.setAction(new AccionComprarParte());
+		   botonComprar.setText("Comprar");
 		   c4 = posicionBoton();
 		   panelCatalogo.add(botonComprar,c4);
 		   tabbedPane.addTab("Catalogo",panelCatalogo);
@@ -357,7 +364,34 @@ public class PantallaTaller extends JPanelConImagen {
 		       
 		   this.add(tabbedPane,c);
        }
-            
+       
+       private class AccionComprarParte extends AbstractAction {
+
+           public void actionPerformed(ActionEvent evento) {
+        	   int precio;
+               try{
+            	   InformacionDelModelo info = (InformacionDelModelo) elCatalogo.getSelectedItem();
+            	   try {
+            		   Usuario elUsuario = controladorTaller.getProgramaAuto().getUsuario();
+            		   ProveedorDePartes elProveedor = controladorTaller.getProgramaAuto().getUnProveedor();
+            		   ParteAuto unaParte = elProveedor.comprar(info, elUsuario);
+            		   elUsuario.getTaller().aniadirAReserva(unaParte);
+            		   controladorTaller.actualizarPantallaTaller();
+            		   //agregarAReserva(descripcion, vidaUtil)
+            	   } catch (NotEnoughMoneyException e) {
+            		   e.printStackTrace();
+            	   } catch (NoSuchModelException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+               }
+               catch(ClassCastException e){
+            	   
+               }
+           
+           }
+       }
+       
     
        private JPanel crearFabricas() {
 	       
@@ -386,6 +420,7 @@ public class PantallaTaller extends JPanelConImagen {
             	   InformacionDelModelo info = (InformacionDelModelo) elCatalogo.getSelectedItem();
             	   try {
     				precio = info.getCaracteristica("COSTO");
+    				precio = "Algo$ " + precio;
     			} catch (BoundsException e) {
     				e.printStackTrace();
     			}
@@ -413,7 +448,7 @@ public class PantallaTaller extends JPanelConImagen {
     	   return elCatalogo;
        }
 	
-       public void agregarACatalogo(InformacionDelModelo parte) {
+       public void  agregarACatalogo(InformacionDelModelo parte) {
     	   elCatalogo.addItem(parte);
        }
        
@@ -431,6 +466,7 @@ public class PantallaTaller extends JPanelConImagen {
            JPanel panelPrecio = new JPanel();
            panelPrecio.setPreferredSize(new Dimension(150,50));
            labelPrecio = new JLabel();
+           labelPrecio.setMinimumSize(new Dimension(150, 30));
            Color nc = new Color(176,196,222);
            panelPrecio.setBackground(nc);
            panelPrecio.setOpaque(true);
