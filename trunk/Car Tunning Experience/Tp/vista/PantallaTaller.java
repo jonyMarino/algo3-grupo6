@@ -7,8 +7,11 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import proveedorDePartes.fabricas.InformacionDelModelo;
+
 import controlador.ControladorJuego;
 import controlador.ControladorTaller;
+import excepciones.BoundsException;
 
 
 public class PantallaTaller extends JPanelConImagen {
@@ -389,13 +392,13 @@ public class PantallaTaller extends JPanelConImagen {
     	   return elCatalogo;
        }
 	
-       public void agregarACatalogo(String parte) {
+       public void agregarACatalogo(InformacionDelModelo parte) {
     	   elCatalogo.addItem(parte);
        }
        
        /*RETORNA EL STRING QUE SELECCIONAS EN EL CATALOGO DE LA PARTE QUE SELECCIONAS*/
-       public String parteAComprar(){ 	
-    	   return (String)elCatalogo.getSelectedItem();
+       public Object parteAComprar(){ 	
+    	   return elCatalogo.getSelectedItem();
        }
        
        public void precioParteSeleccionada(String precio){
@@ -415,6 +418,20 @@ public class PantallaTaller extends JPanelConImagen {
            Border border2 = BorderFactory.createMatteBorder(2,2,2,2,nc2);
            Border border= BorderFactory.createTitledBorder(border2,"Precio");
            precioParteSeleccionada("precio");
+           String precio = "";
+           try{
+        	   InformacionDelModelo info = (InformacionDelModelo) elCatalogo.getSelectedItem();
+        	   try {
+				precio = info.getCaracteristica("COSTO");
+			} catch (BoundsException e) {
+				e.printStackTrace();
+			}
+           }catch(ClassCastException e){
+        	   precio = "Seleccione Una parte";
+           }
+
+           labelPrecio.setText(precio);
+
            panelPrecio.add(labelPrecio);
            panelPrecio.setBorder(border);
            return panelPrecio;      
