@@ -6,7 +6,9 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+
 
 import controlador.ControladorJuego;
 
@@ -27,8 +29,10 @@ public class PantallaInicio extends JPanelConImagen {
 		this.add(botonera, c);	
 	}
 	
-	public class BotoneraInicio extends JPanel{
-
+	public class BotoneraInicio extends JPanel implements ActionListener{
+		
+		JFileChooser fc; //PERMITE ABRIR UNA VENTANA DONDE BUSCAR LOS ARCHIVOS.
+		
 		private static final long serialVersionUID = 1L;
 
 		public BotoneraInicio(ControladorJuego controladorJuego) {
@@ -39,8 +43,9 @@ public class PantallaInicio extends JPanelConImagen {
 
 			Boton botonContinuarPartida = new Boton("Continuar Partida");
 			botonContinuarPartida.setActionCommand("continuar");
-			botonContinuarPartida.addActionListener(controladorJuego);
-			
+			//botonContinuarPartida.addActionListener(controladorJuego);
+			 fc = new JFileChooser();
+			botonContinuarPartida.addActionListener(this);
 			Boton botonSalir = new Boton("Salir");
 			botonSalir.setActionCommand("salir");
 			botonSalir.addActionListener(new CloseListener());
@@ -65,7 +70,13 @@ public class PantallaInicio extends JPanelConImagen {
 			}
 
 		}
+		
+		//TODO:PASAR A CONTROLADOR EN CASO DE QUE QUEDE ESTA OPCION
+		 public void actionPerformed(ActionEvent e) {
+		      if (e.getActionCommand() == "continuar") {
+		          fc.showOpenDialog(this);
+		    }
 
+		 }
 	}
-
 }

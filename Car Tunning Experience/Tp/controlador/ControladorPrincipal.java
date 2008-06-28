@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 import combustible.Nafta;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
-import excepciones.WrongUsername;
+import excepciones.WrongUserNameException;
 import programaAuto.ProgramaAuto;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
@@ -26,7 +26,7 @@ public class ControladorPrincipal implements KeyListener{
 		miPrograma.generarProximaPista();
 		try {
 			unAuto = (miPrograma.nuevoUsuario("Lucas")).getAuto();
-		} catch (WrongUsername e2) {
+		} catch (WrongUserNameException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
