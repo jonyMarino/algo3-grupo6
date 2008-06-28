@@ -6,7 +6,6 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
-import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 
@@ -32,7 +31,6 @@ public class PantallaInicio extends JPanelConImagen {
 	
 	public class BotoneraInicio extends JPanel{
 		
-		JFileChooser fc; //PERMITE ABRIR UNA VENTANA DONDE BUSCAR LOS ARCHIVOS.
 		
 		private static final long serialVersionUID = 1L;
 
