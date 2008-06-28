@@ -3,7 +3,6 @@ package vista;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
-import proveedorDePartes.fabricas.InformacionDelModelo;
 import controlador.ControladorJuego;
 import controlador.ControladorTaller;
 
@@ -120,7 +119,7 @@ public class PantallaTaller extends JPanelConImagen {
        }
 
        
-       /* PANEL LISTA DE RESERVAS DEL TALLER*/
+       /* PANEL RESERVAS */
        private JPanel crearPanelReserva() {
     	   Color nc = new Color(176,196,222);
     	   JPanel panelBodega = new JPanel();
@@ -137,6 +136,9 @@ public class PantallaTaller extends JPanelConImagen {
     	   comboPartesReserva.addItem("-Lista Vacía-");
     	   panelBodega.add(comboPartesReserva,ubicacion);
     	   Boton botonCambiar = new Boton("Cambiar");
+    	   botonCambiar.addActionListener(controladorTaller);
+           botonCambiar.setActionCommand("cambiar");
+		   
     	   panelBodega.add(botonCambiar,posicionBoton());
                
     	   return panelBodega;
@@ -148,6 +150,10 @@ public class PantallaTaller extends JPanelConImagen {
    
        public void agregarAReserva(String descripcion,String vidaUtil){ 
     	   comboPartesReserva.addItem( descripcion + " " + vidaUtil );
+       }
+       
+       public String parteACambiar(){
+    	   return (String)comboPartesReserva.getSelectedItem();
        }
      
        
@@ -354,7 +360,6 @@ public class PantallaTaller extends JPanelConImagen {
 		   Boton botonComprar = new Boton("Comprar");
            botonComprar.addActionListener(controladorTaller);
            botonComprar.setActionCommand("comprar");
-		   botonComprar.setText("Comprar");
 		   c4 = posicionBoton();
 		   
 		   c4.gridx=1;
@@ -390,7 +395,6 @@ public class PantallaTaller extends JPanelConImagen {
 		     
 		   return panelCombo;
        }
-
               
        private GridBagConstraints posicionBoton(){
     	   GridBagConstraints ubicacion = new GridBagConstraints();
@@ -406,18 +410,17 @@ public class PantallaTaller extends JPanelConImagen {
        public JComboBox getElCatalogo() {
     	   return elCatalogo;
        }
-	
-       public void  agregarACatalogo(InformacionDelModelo parte) {
-    	   elCatalogo.addItem(parte);
+
+       public void agregarACatalogo(String parteAgregar) {
+    	   elCatalogo.addItem(parteAgregar);
        }
        
-       public Object parteAComprar(){ 	
-    	   return elCatalogo.getSelectedItem();
+       public String parteAComprar(){ 	
+    	   return (String)elCatalogo.getSelectedItem();
        }
        
        public void precioParteSeleccionada(String precio){
-	    	labelPrecio.setText(precio);
-	    	  
+	    	labelPrecio.setText(precio);	    	  
        }
        
        private JPanel crearPanelPrecio() {       

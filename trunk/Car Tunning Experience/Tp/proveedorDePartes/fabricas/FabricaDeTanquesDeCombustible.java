@@ -10,6 +10,8 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 		super();
 		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
 		agregarModelo(nuevoModeloTanque(100, "Tanque de Nafta básico.", 70, 10.0, "NAFTA")); //agrega un motor básico al catálogo
+		//TODO: BORRAR!
+		agregarModelo(nuevoModeloTanque(99, "Tanque de Nafta Cool.", 80, 40.0, "NAFTA")); //agrega un motor básico al catálogo
 	}
 	
 	

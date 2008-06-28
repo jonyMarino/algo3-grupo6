@@ -14,9 +14,7 @@ public class Taller {
 	
 	static public class InformacionParteReserva {
 		private ParteAuto parte;
-		/*
-		 * Es private para que solo pueda instanciarlo Taller
-		*/
+
 		private InformacionParteReserva(ParteAuto parte){
 			this.parte=parte;	
 		}
@@ -28,9 +26,6 @@ public class Taller {
 			return parte.getVidaUtil();
 		}
 		
-		/*
-		 * Es protected para que solo pueda llamarlo Taller y classes derivadas
-		*/
 		private ParteAuto getParte(){
 			return parte;
 		}
@@ -38,6 +33,7 @@ public class Taller {
 	
 	static public class InformacionParteEnAuto extends InformacionParteReserva{
 		String ubicacion;
+		
 		private InformacionParteEnAuto(ParteAuto parte,String ubicacion){
 			super(parte);
 			this.ubicacion=ubicacion;
@@ -46,6 +42,7 @@ public class Taller {
 			return new String(ubicacion);	// no queremos que se modifique la ubicacion, por eso la copia.
 		}
 	}
+	
 	ArrayList<ParteAuto> partesDeReserva;
 	Usuario usuario;
 	

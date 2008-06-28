@@ -6,15 +6,17 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import excepciones.BoundsException;
+import excepciones.IncorrectPartForUbicationException;
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 import excepciones.TankIsFullException;
+import excepciones.UbicationUnkownException;
 import programaAuto.ProgramaAuto;
+import programaAuto.Taller.InformacionParteEnAuto;
 import proveedorDePartes.fabricas.FabricaDePartes;
 import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.ParteAuto;
@@ -90,12 +92,13 @@ public class ControladorTaller implements ActionListener {
                    nombreParte = parte.getInformacionDelModelo().getCaracteristica("DESCRIPCION");
                    vidaUtil = Double.toString(parte.getVidaUtil());
                    pantallaTaller.agregarInformacionAuto(nombreParte, vidaUtil);
-      	   		}catch (BoundsException e){}
+      	   		}catch (BoundsException e){
+        	 		e.printStackTrace();
+      	   		}
          }
 	}
 	
 	private void actualizarCatalogo() {
-		
 		ArrayList<FabricaDePartes> fabricas = programaAuto.getUnProveedor().getMiCadenaDeFabricas().getMiCadenaDeFabricas();
 		Iterator<FabricaDePartes> it = fabricas.iterator();
 		FabricaDePartes fabrica;
@@ -109,11 +112,13 @@ public class ControladorTaller implements ActionListener {
 			itProducto = productos.iterator();
 			while(itProducto.hasNext()){
 				InformacionDelModelo info = (InformacionDelModelo) itProducto.next();			
-						pantallaTaller.agregarACatalogo(info);
-					
+				try {
+					pantallaTaller.agregarACatalogo(info.getCaracteristica("DESCRIPCION"));
+				} catch (BoundsException e) {
+        	 		e.printStackTrace();
+				}				
 			}
-			
-		}	
+		}		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -122,27 +127,84 @@ public class ControladorTaller implements ActionListener {
 			this.llenarTanque(Double.valueOf(pantallaTaller.obtenerCantidadPanelNafta()));
 		if (comando.equals("comprar"))
 			this.comprarParte();
-			
+		if (comando.equals("cambiar"))
+			this.cambiarParte();		
 	}
 
-    private void comprarParte() {
-           try{
-        	   InformacionDelModelo info = (InformacionDelModelo) pantallaTaller.parteAComprar();
-         	   ParteAuto unaParte = programaAuto.getUnProveedor().comprar(info, programaAuto.getUsuario());
-         	   programaAuto.getUsuario().getTaller().aniadirAReserva(unaParte);
-         	   this.actualizarPantallaTaller();
-         	   } catch (NotEnoughMoneyException e) {
-         		  pantallaTaller.generarMensajeError("No posee el dinero necesario");
-         	   } catch (NoSuchModelException e) {
-         		  pantallaTaller.generarMensajeError("El modelo elegido es invalido.");
-			   } catch(ClassCastException e){}        
+    private void cambiarParte() {
+    	/*
+    	Hashtable<String, ParteAuto> partesAuto = programaAuto.getUsuario().getAuto().getHashDePartes();
+    	while (partesAuto.){
+    	try {
+       	  	String nombreProducto = pantallaTaller.parteAComprar();
+           	InformacionDelModelo informacionModelo = buscarInformacionModelo(nombreProducto);
+        	ParteAuto parte = this.buscarParteEnReserva(informacionModelo);
+        	String ubicacion = this.buscarUbicacion(informacionModelo);
+        	programaAuto.getUsuario().getAuto().colocarParte(parte, ubicacion);
+        	programaAuto.getUsuario().getAuto().ensamblar();
+   
+   		} catch (IncorrectPartForUbicationException e) {
+			e.printStackTrace();
+     		pantallaTaller.generarMensajeError("Incorrecto lugar");
+		} catch (UbicationUnkownException e) {
+			e.printStackTrace();
+     		pantallaTaller.generarMensajeError("No vaaaaaaaaaa");
+		} finally {
+        	this.actualizarPantallaTaller();
+		}
+    	}
+    	*/
+	}
+    
+    //NO BORRAR
+    private String unaPosiblebuscarUbicacion(InformacionDelModelo informacionModelo){
+    	Iterator<InformacionParteEnAuto> itInfoAuto = programaAuto.getUsuario().getTaller().getPartesEnAuto();
+    	InformacionParteEnAuto infoAuto = null; 
+    	boolean encontrado = false;
+		while(itInfoAuto.hasNext() && ! encontrado) {
+			infoAuto = itInfoAuto.next();
+			if(infoAuto.getInformacionModelo().equals(informacionModelo))
+				encontrado = true;			
+		}
+    	return infoAuto.getUbicacion();
+    }
+
+    //NO BORRAR	
+    private ParteAuto buscarParteEnReserva(InformacionDelModelo informacionModelo) {
+		Iterator<ParteAuto>  itReservas = programaAuto.getUsuario().getTaller().getPartesReserva();
+		boolean encontrado = false;
+		ParteAuto parte = null;
+		while(itReservas.hasNext() && !encontrado){
+			parte = itReservas.next();
+			if(parte.getInformacionDelModelo().equals(informacionModelo))
+				encontrado = true;			
+		}
+		return parte;
+	}
+
+	private void comprarParte() {
+    	try{
+        	String nombreProducto = pantallaTaller.parteAComprar();
+       	 	InformacionDelModelo info = buscarInformacionModelo(nombreProducto);
+        	ParteAuto unaParte = programaAuto.getUnProveedor().comprar(info, programaAuto.getUsuario());
+         	programaAuto.getUsuario().getTaller().aniadirAReserva(unaParte);
+			pantallaTaller.generarMensaje("La compra ha sido realizada satisfactoriamente");
+    		} catch (NotEnoughMoneyException e) {
+         		pantallaTaller.generarMensajeError("No posee el dinero necesario");
+         	} catch (NoSuchModelException e) {
+         		pantallaTaller.generarMensajeError("El modelo elegido es invalido.");
+			} catch(ClassCastException e){
+				e.printStackTrace();
+			} finally {
+	        	this.actualizarPantallaTaller();
+			}
     }
 
 	private void llenarTanque(double cantidad) {
 		try {
 			if(cantidad != 0){
 			programaAuto.comprarNafta(cantidad);
-			this.lanzarMensajeOperacionRealizada();
+			pantallaTaller.generarMensaje("La carga ha sido realizada satisfactoriamente");
 			}
 		} catch (TankIsFullException e1) {
 	    	pantallaTaller.generarMensajeError("El tanque esta lleno");		
@@ -157,16 +219,9 @@ public class ControladorTaller implements ActionListener {
 		
 	}
 
-	private void lanzarMensajeOperacionRealizada() {
-		pantallaTaller.generarMensaje("La operacion ha sido realizada satisfactoriamente");
-
-	}
-
 	public ProgramaAuto getProgramaAuto() {
 		return programaAuto;
 	}
-	
-
 	
 	private class AccionActualizarPrecio extends AbstractAction {
 
@@ -175,18 +230,45 @@ public class ControladorTaller implements ActionListener {
 		public void actionPerformed(ActionEvent evento) {
 		 String precio = "";
          try {
-      	   InformacionDelModelo info = (InformacionDelModelo) pantallaTaller.getElCatalogo().getSelectedItem();
-      	   try {
+        	 String nombreProducto = pantallaTaller.parteAComprar();
+        	 InformacionDelModelo info = buscarInformacionModelo(nombreProducto);
+        	 try {
 				precio = info.getCaracteristica("COSTO");
 				precio = "Algo$ " + precio;
-			} catch (BoundsException e) {
-				e.printStackTrace();
+        	 	} catch (BoundsException e) {
+        	 		e.printStackTrace();
+        	 	}
+         		} catch (ClassCastException e){
+         			precio = "Seleccione Una parte";
+         		}
+         		pantallaTaller.precioParteSeleccionada(precio);
+		}
+	}
+
+
+	InformacionDelModelo buscarInformacionModelo(String nombreProducto){
+		ArrayList<FabricaDePartes> fabricas = programaAuto.getUnProveedor().getMiCadenaDeFabricas().getMiCadenaDeFabricas();
+		Iterator<FabricaDePartes> it = fabricas.iterator();
+		FabricaDePartes fabrica;
+		InformacionDelModelo informacionModelo = null;			
+		ArrayList<InformacionDelModelo> productos;
+		Iterator<InformacionDelModelo> itProducto;
+		boolean encontrado = false;
+		while(it.hasNext()){
+			fabrica = (FabricaDePartes)it.next();
+			productos = fabrica.getModelos();
+			itProducto = productos.iterator();
+			while(itProducto.hasNext() && !encontrado){
+				informacionModelo = (InformacionDelModelo) itProducto.next();			
+				try {
+					if((informacionModelo.getCaracteristica("DESCRIPCION")).equals(nombreProducto))
+						encontrado = true;
+				} catch (BoundsException e) {
+        	 		e.printStackTrace();
+				}				
 			}
-         } catch (ClassCastException e){
-      	   precio = "Seleccione Una parte";
-         }
-         	pantallaTaller.precioParteSeleccionada(precio);
-    	}
+		}		
+		return informacionModelo;
 	}
 	
 }
