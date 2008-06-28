@@ -18,7 +18,8 @@ public class PantallaTaller extends JPanelConImagen {
        private JLabel labelPrecio;
        private JLabel labelPrecioNafta;
        private JSpinner cantidadSeleccionada = new JSpinner();
-       private JComboBox comboPartesReserva;     
+       private JComboBox comboPartesReserva;    
+       private JComboBox comboParteARemover; 
        private JComboBox elCatalogo;
        private ControladorTaller controladorTaller;;
        private static final long serialVersionUID = 1L;
@@ -132,9 +133,15 @@ public class PantallaTaller extends JPanelConImagen {
 	       ubicacion.gridy=0;
 	       ubicacion.anchor= GridBagConstraints.NORTH;
 	   	   
-    	   this.comboPartesReserva = new JComboBox();
+	       comboPartesReserva = new JComboBox();
     	   comboPartesReserva.addItem("-Lista Vacía-");
     	   panelBodega.add(comboPartesReserva,ubicacion);
+    	  
+    	   comboParteARemover=new JComboBox();
+	       comboParteARemover.addItem("-Parte a Cambiar-");
+    	   ubicacion.anchor= GridBagConstraints.SOUTH;
+    	   panelBodega.add(comboParteARemover,ubicacion);
+    	   
     	   Boton botonCambiar = new Boton("Cambiar");
     	   botonCambiar.addActionListener(controladorTaller);
            botonCambiar.setActionCommand("cambiar");
@@ -144,6 +151,14 @@ public class PantallaTaller extends JPanelConImagen {
     	   return panelBodega;
        }
 
+       public String parteARemover(){ 	
+    	   return (String)comboParteARemover.getSelectedItem();
+       }
+       
+       public void agregarARemover(String parteARemover){
+    	   comboParteARemover.addItem(parteARemover);   
+       }
+       
        public void limpiarInformacionReserva() {
     	   comboPartesReserva.removeAllItems();
        }
@@ -173,8 +188,7 @@ public class PantallaTaller extends JPanelConImagen {
        public void actualizarInformacionDinero(String dinero){ 	   
     	   this.labelDinero.setText(dinero + " Algo$");
        }
-       
-       
+          
        /* PANEL CARGAR NAFTA */
        private JPanel crearPanelCargarNafta(){ 	   
     	   this.panelNafta = new JPanel();
@@ -183,7 +197,6 @@ public class PantallaTaller extends JPanelConImagen {
    	   
     	   panelNafta.setLayout (new GridBagLayout());
            panelNafta.setBackground(nc); 
-           
            
            return panelNafta;
    	   }
@@ -232,13 +245,11 @@ public class PantallaTaller extends JPanelConImagen {
            c.gridy =1;
            c.anchor = GridBagConstraints.EAST;
            panelNafta.add(cantidadLitros,c); 
-           
-        
+
        }
        
        public void precioNafta(String precio){
-    	   labelPrecioNafta.setText(precio);
-	    	  
+    	   labelPrecioNafta.setText(precio);	  
        }
        
        public JLabel getLabelPrecioNafta() {
@@ -395,17 +406,7 @@ public class PantallaTaller extends JPanelConImagen {
 		     
 		   return panelCombo;
        }
-              
-       private GridBagConstraints posicionBoton(){
-    	   GridBagConstraints ubicacion = new GridBagConstraints();
-	       Insets in=new Insets(0,0,5,5);
-	       ubicacion.insets=in;
-	       ubicacion.weightx = 1.0;
-	       ubicacion.weighty = 1.0;
-	       ubicacion.anchor = GridBagConstraints.SOUTHEAST;
-               
-           return ubicacion;
-        }
+
 
        public JComboBox getElCatalogo() {
     	   return elCatalogo;
@@ -441,6 +442,18 @@ public class PantallaTaller extends JPanelConImagen {
            panelPrecio.setBorder(border);
            return panelPrecio;      
        }
+       
+       
+       private GridBagConstraints posicionBoton(){
+    	   GridBagConstraints ubicacion = new GridBagConstraints();
+	       Insets in=new Insets(0,0,5,5);
+	       ubicacion.insets=in;
+	       ubicacion.weightx = 1.0;
+	       ubicacion.weighty = 1.0;
+	       ubicacion.anchor = GridBagConstraints.SOUTHEAST;
+               
+           return ubicacion;
+        }
 
 
 }

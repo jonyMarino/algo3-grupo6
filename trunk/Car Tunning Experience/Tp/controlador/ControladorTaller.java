@@ -36,9 +36,17 @@ public class ControladorTaller implements ActionListener {
 		pantallaTaller.actualizarInformacionUsuario(programaAuto.getUsuario().getNombre(), avatarUsuario);
 		Action mostrarPrecio = new AccionActualizarPrecio();
 		pantallaTaller.getElCatalogo().setAction(mostrarPrecio);
+		this.actualizarParteARemover();
 		this.actualizarPantallaTaller();
 	}
 	
+	private void actualizarParteARemover() {
+		Iterator<InformacionParteEnAuto> itPartesAuto = programaAuto.getUsuario().getTaller().getPartesEnAuto();
+		while(itPartesAuto.hasNext()) {
+			pantallaTaller.agregarARemover(itPartesAuto.next().getUbicacion());		
+		}
+	}
+
 	public void actualizarPantallaTaller(){
 		pantallaTaller.actualizarInformacionDinero(Double.toString(programaAuto.getUsuario().getDinero()));
 		pantallaTaller.actualizarInformacionPista(Double.toString(programaAuto.getPista().getLongitud()) , programaAuto.getPista().getNombre(), Integer.toString(programaAuto.getPista().getVelocidadAire()));
@@ -132,44 +140,22 @@ public class ControladorTaller implements ActionListener {
 	}
 
     private void cambiarParte() {
-    	/*
-    	Hashtable<String, ParteAuto> partesAuto = programaAuto.getUsuario().getAuto().getHashDePartes();
-    	while (partesAuto.){
-    	try {
-       	  	String nombreProducto = pantallaTaller.parteAComprar();
+    	  	String nombreProducto = pantallaTaller.parteAComprar();
            	InformacionDelModelo informacionModelo = buscarInformacionModelo(nombreProducto);
         	ParteAuto parte = this.buscarParteEnReserva(informacionModelo);
-        	String ubicacion = this.buscarUbicacion(informacionModelo);
-        	programaAuto.getUsuario().getAuto().colocarParte(parte, ubicacion);
-        	programaAuto.getUsuario().getAuto().ensamblar();
-   
-   		} catch (IncorrectPartForUbicationException e) {
-			e.printStackTrace();
-     		pantallaTaller.generarMensajeError("Incorrecto lugar");
-		} catch (UbicationUnkownException e) {
-			e.printStackTrace();
-     		pantallaTaller.generarMensajeError("No vaaaaaaaaaa");
-		} finally {
-        	this.actualizarPantallaTaller();
-		}
-    	}
-    	*/
-	}
-    
-    //NO BORRAR
-    private String unaPosiblebuscarUbicacion(InformacionDelModelo informacionModelo){
-    	Iterator<InformacionParteEnAuto> itInfoAuto = programaAuto.getUsuario().getTaller().getPartesEnAuto();
-    	InformacionParteEnAuto infoAuto = null; 
-    	boolean encontrado = false;
-		while(itInfoAuto.hasNext() && ! encontrado) {
-			infoAuto = itInfoAuto.next();
-			if(infoAuto.getInformacionModelo().equals(informacionModelo))
-				encontrado = true;			
-		}
-    	return infoAuto.getUbicacion();
+        	try {
+				programaAuto.getUsuario().getAuto().colocarParte(parte, pantallaTaller.parteARemover());
+				programaAuto.getUsuario().getAuto().ensamblar();
+				pantallaTaller.generarMensaje("El cambio ha sido realizado satisfactoriamente");
+				} catch (IncorrectPartForUbicationException e) {
+					pantallaTaller.generarMensajeError("No se puede realizar ese cambio");
+				} catch (UbicationUnkownException e) {
+        	 		pantallaTaller.generarMensajeError("La parte seleccionada no es del tipo del auto");
+				} finally {
+					this.actualizarPantallaTaller();
+				}
     }
-
-    //NO BORRAR	
+   
     private ParteAuto buscarParteEnReserva(InformacionDelModelo informacionModelo) {
 		Iterator<ParteAuto>  itReservas = programaAuto.getUsuario().getTaller().getPartesReserva();
 		boolean encontrado = false;
