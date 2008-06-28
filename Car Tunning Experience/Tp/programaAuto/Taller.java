@@ -39,7 +39,8 @@ public class Taller {
 			this.ubicacion=ubicacion;
 		}
 		public String getUbicacion(){
-			return new String(ubicacion);	// no queremos que se modifique la ubicacion, por eso la copia.
+			return ubicacion; //TODO: PARA PASAR UNA COPIA LO ANTERIOR GENERABA UN BUG... 
+			// si alguien se toma el trabajo de clonar un string ...
 		}
 	}
 	
