@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
@@ -16,6 +19,7 @@ import proveedorDePartes.fabricas.FabricaDePartes;
 import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.ParteAuto;
 import vista.PantallaTaller;
+
 
 public class ControladorTaller implements ActionListener {
 	
@@ -28,6 +32,8 @@ public class ControladorTaller implements ActionListener {
 
 	public void cargarPantallaTaller(ImageIcon avatarUsuario) {
 		pantallaTaller.actualizarInformacionUsuario(programaAuto.getUsuario().getNombre(), avatarUsuario);
+		Action mostrarPrecio = new AccionActualizarPrecio();
+		pantallaTaller.getElCatalogo().setAction(mostrarPrecio);
 		this.actualizarPantallaTaller();
 	}
 	
@@ -89,6 +95,8 @@ public class ControladorTaller implements ActionListener {
 	}
 	
 	private void actualizarCatalogo() {
+		
+		
 		ArrayList<FabricaDePartes> fabricas = programaAuto.getUnProveedor().getMiCadenaDeFabricas().getMiCadenaDeFabricas();
 		Iterator<FabricaDePartes> it = fabricas.iterator();
 		FabricaDePartes fabrica;
@@ -105,6 +113,7 @@ public class ControladorTaller implements ActionListener {
 						pantallaTaller.agregarACatalogo(info);
 					
 			}
+			
 		}	
 	}
 
@@ -116,7 +125,7 @@ public class ControladorTaller implements ActionListener {
 			this.comprarParte();
 			
 	}
-	
+
     private void comprarParte() {
            try{
         	   InformacionDelModelo info = (InformacionDelModelo) pantallaTaller.parteAComprar();
@@ -157,4 +166,31 @@ public class ControladorTaller implements ActionListener {
 	public ProgramaAuto getProgramaAuto() {
 		return programaAuto;
 	}
+	
+
+	
+	private class AccionActualizarPrecio extends AbstractAction {
+
+		private static final long serialVersionUID = 1L;
+
+		public void actionPerformed(ActionEvent evento) {
+		
+		 String precio = "";
+         try{
+      	   InformacionDelModelo info = (InformacionDelModelo) pantallaTaller.getElCatalogo().getSelectedItem();
+      	   try {
+				precio = info.getCaracteristica("COSTO");
+				precio = "Algo$ " + precio;
+			} catch (BoundsException e) {
+				e.printStackTrace();
+			}
+         }catch(ClassCastException e){
+      	   precio = "Seleccione Una parte";
+         }
+         	pantallaTaller.precioParteSeleccionada(precio);
+
+     }
+
+	}
+	
 }
