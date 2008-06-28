@@ -3,13 +3,14 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import excepciones.WrongUserNameException;
 import programaAuto.NotContainedPistaException;
 import programaAuto.PistaPickedException;
 import programaAuto.ProgramaAuto;
 import vista.PanelBase;
 import vista.PantallaCarrera;
-import vista.PantallaContinuarPartida;
+import vista.PantallaInicio;
 import vista.PantallaTaller;
 import vista.PantallaUsuario;
 
@@ -22,6 +23,7 @@ public class ControladorJuego implements ActionListener {
 	public ControladorJuego(ProgramaAuto programaAuto) {
 		this.programaAuto = programaAuto;	
 		this.controladorTaller = null;
+		
 	}
 
 
@@ -30,7 +32,7 @@ public class ControladorJuego implements ActionListener {
 		if (comando.equals("nueva"))
 			panelBase.crearPantalla(new PantallaUsuario(this));
 		if (comando.equals("continuar"))
-			panelBase.crearPantalla(new PantallaContinuarPartida(this));
+			buscarArchivo();
 		if (comando.equals("volver"))
 			panelBase.pantallaAnterior();
 		if (comando.equals("aceptar"))
@@ -39,6 +41,14 @@ public class ControladorJuego implements ActionListener {
 			panelBase.crearPantalla(new PantallaCarrera(this));
 		}
 			
+	}
+	
+	private void buscarArchivo(){
+
+		PantallaInicio pantallaInicio =((PantallaInicio)panelBase.getPantallaActual());
+		JFileChooser fileChooser = pantallaInicio.getfileChooser();
+		fileChooser.showOpenDialog(fileChooser);
+
 	}
 	
 	private void inicializarJuego(){

@@ -9,11 +9,9 @@ public class VistaPrincipal extends JFrame {
 	public VistaPrincipal() {
 		super("Tunnig Car Experience '08");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
 		this.setSize(900,675);	
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		this.setLocationRelativeTo(null);
-		
+		this.setLocationRelativeTo(null);	
 	}
 
 }
