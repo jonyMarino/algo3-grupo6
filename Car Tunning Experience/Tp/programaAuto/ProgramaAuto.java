@@ -19,7 +19,6 @@ import java.util.Random;
 
 import programaAuto.Taller.InformacionParteEnAuto;
 import programaAuto.Taller.InformacionParteReserva;
-import proveedorDePartes.ProveedorDePartes;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
@@ -30,7 +29,6 @@ import proveedorDePartes.fabricas.MezcladorNafta;
 import proveedorDePartes.fabricas.Motor;
 import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.TanqueNafta;
-import auto.Auto;
 import auto.AutoManual;
 import combustible.Nafta;
 import excepciones.BoundsException;
@@ -207,7 +205,7 @@ public class ProgramaAuto extends Observable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        	throw new RuntimeException("o deberia llegar a aqui en pistaLarga()");
+        	throw new RuntimeException("no deberia llegar a aqui en pistaLarga()");
         	
         }        
         /**
@@ -240,25 +238,18 @@ public class ProgramaAuto extends Observable {
          * @param programa
          */
         public ProgramaAuto (Element programa) {
-        	usuario= new Usuario(programa.getChildElements("programa").get(0));
+        	usuario= new Usuario(unProveedor,programa.getChildElements("programa").get(0));
         }
         /**
          * Esta llamada guarda el estado actual del programa con su usuario.
          */
-        private void guardar(){
-        	try {
+        public Element getElement(){
             	Element raiz= new Element("programa");
             	raiz.appendChild(usuario.getElement());
-            	Document doc= new Document(raiz);
-				format(new BufferedOutputStream(new FileOutputStream(usuario.getNombre()+".xml")),
-						doc);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}     	
+            	return raiz;
+            	//Document doc= new Document(raiz);
+				//format(new BufferedOutputStream(new FileOutputStream(usuario.getNombre()+".xml")),
+				//		doc);
         }
         
         /** Da un formato legible para los humanos
@@ -398,7 +389,6 @@ public class ProgramaAuto extends Observable {
         	if(tallerActual==null)
         		throw new NotInTallerException();
         	tallerActual.ensamblar();	//ensamblo lo que coloque en el taller.
-        	guardar();
         	tallerActual=null;	//salgo del Taller
         	
         	simulador = inicializarCarrera();
@@ -415,7 +405,6 @@ public class ProgramaAuto extends Observable {
 	    	premiarUsuario();
 	        simulador=null;	    // termino la simulacion
 	        pistaActual=null;	// ya se debe elegir otra pista        
-	        guardar();
         }
         /**
          * De acuerdo al resultado de la carrera, aumenta el dinero del usuario.

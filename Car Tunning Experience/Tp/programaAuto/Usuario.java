@@ -5,7 +5,6 @@ package programaAuto;
  * TODO: usuario visual
  */
 import nu.xom.Element;
-import auto.Auto;
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
 import excepciones.WrongUserNameException;
@@ -25,11 +24,12 @@ public class Usuario {
 	 * Constructor para restaurar un objeto Usuario
 	 * @param usuario
 	 */
-	public Usuario(Element usuario){
+	public Usuario(ProveedorDePartes proveedor,Element element){
+		Element usuario = element.getFirstChildElement("usuario");
 		nombre=usuario.getFirstChildElement("nombre").getValue();
 		dinero = Double.parseDouble(usuario.getFirstChildElement("dinero").getValue());
-//TODO		auto = new Auto(usuario.getFirstChildElement("auto"));
-		this.taller = new Taller(this);	
+		auto = new Auto(proveedor,usuario);	
+		this.taller = new Taller(this,proveedor,usuario.getFirstChildElement("taller"));	
 	}
 	
 	public Element getElement(){
@@ -40,7 +40,7 @@ public class Usuario {
 		unDinero.appendChild(dinero+"");
 		usuario.appendChild(unNombre);
 		usuario.appendChild(unDinero);
-//TODO		usuario.appendChild(auto.getElement());
+		usuario.appendChild(auto.getElement());
 		return usuario;
 	}
 
