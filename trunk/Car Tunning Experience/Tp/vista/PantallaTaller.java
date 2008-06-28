@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import javax.swing.*;
 import javax.swing.border.Border;
 import proveedorDePartes.fabricas.InformacionDelModelo;
@@ -130,9 +129,7 @@ public class PantallaTaller extends JPanelConImagen {
     	 
     	   
     	   GridBagConstraints ubicacion = new GridBagConstraints();
-	       Insets in=new Insets(30,100,0,0);
-	       ubicacion.insets=in;
-	       ubicacion.gridx=1;
+	       ubicacion.gridx=0;
 	       ubicacion.gridy=0;
 	       ubicacion.anchor= GridBagConstraints.NORTH;
 	   	   
@@ -376,32 +373,10 @@ public class PantallaTaller extends JPanelConImagen {
 		   elCatalogo.addItem("-Catalogo-");
 
 		   panelCombo.add(elCatalogo);
-		   Action mostrarPrecio = new AccionActualizaarPrecio();
-	 		elCatalogo.setAction(mostrarPrecio);
 		     
 		   return panelCombo;
        }
-       
-       private class AccionActualizaarPrecio extends AbstractAction {
 
-           public void actionPerformed(ActionEvent evento) {
-               String precio = "";
-               try{
-            	   InformacionDelModelo info = (InformacionDelModelo) elCatalogo.getSelectedItem();
-            	   try {
-    				precio = info.getCaracteristica("COSTO");
-    				precio = "Algo$ " + precio;
-    			} catch (BoundsException e) {
-    				e.printStackTrace();
-    			}
-               }catch(ClassCastException e){
-            	   precio = "Seleccione Una parte";
-               }
-
-               labelPrecio.setText(precio);
-           }
-       }
-       
               
        private GridBagConstraints posicionBoton(){
     	   GridBagConstraints ubicacion = new GridBagConstraints();
