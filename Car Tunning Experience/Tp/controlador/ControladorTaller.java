@@ -96,7 +96,6 @@ public class ControladorTaller implements ActionListener {
 	
 	private void actualizarCatalogo() {
 		
-		
 		ArrayList<FabricaDePartes> fabricas = programaAuto.getUnProveedor().getMiCadenaDeFabricas().getMiCadenaDeFabricas();
 		Iterator<FabricaDePartes> it = fabricas.iterator();
 		FabricaDePartes fabrica;
@@ -137,7 +136,7 @@ public class ControladorTaller implements ActionListener {
          	   } catch (NoSuchModelException e) {
          		  pantallaTaller.generarMensajeError("El modelo elegido es invalido.");
 			   } catch(ClassCastException e){}        
-        }
+    }
 
 	private void llenarTanque(double cantidad) {
 		try {
@@ -174,9 +173,8 @@ public class ControladorTaller implements ActionListener {
 		private static final long serialVersionUID = 1L;
 
 		public void actionPerformed(ActionEvent evento) {
-		
 		 String precio = "";
-         try{
+         try {
       	   InformacionDelModelo info = (InformacionDelModelo) pantallaTaller.getElCatalogo().getSelectedItem();
       	   try {
 				precio = info.getCaracteristica("COSTO");
@@ -184,13 +182,11 @@ public class ControladorTaller implements ActionListener {
 			} catch (BoundsException e) {
 				e.printStackTrace();
 			}
-         }catch(ClassCastException e){
+         } catch (ClassCastException e){
       	   precio = "Seleccione Una parte";
          }
          	pantallaTaller.precioParteSeleccionada(precio);
-
-     }
-
+    	}
 	}
 	
 }

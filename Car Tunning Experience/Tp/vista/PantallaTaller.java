@@ -6,7 +6,6 @@ import javax.swing.border.Border;
 import proveedorDePartes.fabricas.InformacionDelModelo;
 import controlador.ControladorJuego;
 import controlador.ControladorTaller;
-import excepciones.BoundsException;
 
 public class PantallaTaller extends JPanelConImagen {
 
@@ -18,6 +17,7 @@ public class PantallaTaller extends JPanelConImagen {
        private JLabel labelDinero;
        private JLabel labelMensaje;
        private JLabel labelPrecio;
+       private JLabel labelPrecioNafta;
        private JSpinner cantidadSeleccionada = new JSpinner();
        private JComboBox comboPartesReserva;     
        private JComboBox elCatalogo;
@@ -176,13 +176,9 @@ public class PantallaTaller extends JPanelConImagen {
     	   panelNafta.setPreferredSize(new Dimension(100,150)); 
    	   
     	   panelNafta.setLayout (new GridBagLayout());
-    	   GridBagConstraints c = new GridBagConstraints();
-           c.gridx =0;
-           c.gridy =0;
-           c.anchor = GridBagConstraints.NORTH;
-
            panelNafta.setBackground(nc); 
-
+           
+           
            return panelNafta;
    	   }
        
@@ -197,7 +193,6 @@ public class PantallaTaller extends JPanelConImagen {
     	   
     	   GridBagConstraints c = new GridBagConstraints();
            c.gridx =0; 
-          // c.weightx=2;
            c.gridwidth=2;
            c.gridy =0;
            c.anchor = GridBagConstraints.CENTER;
@@ -209,6 +204,7 @@ public class PantallaTaller extends JPanelConImagen {
            botonCargar.setOpaque(false);
            SpinnerModel model = new SpinnerNumberModel(0,0,capacidad-0, 0.5);         
            cantidadSeleccionada.setModel(model);
+          
            JLabel cantidadLitros = new JLabel(" Litros");
            c.gridwidth=0;
            c.gridx =0;
@@ -221,13 +217,27 @@ public class PantallaTaller extends JPanelConImagen {
            c.anchor = GridBagConstraints.CENTER;
            panelNafta.add(cantidadSeleccionada,c); 
            
+           labelPrecioNafta = new JLabel("$$$$");
+           labelPrecioNafta.setMinimumSize(new Dimension(30, 30));
+           c.anchor = GridBagConstraints.WEST;
+           panelNafta.add(labelPrecioNafta,c);
+           
            c.gridx =1;
            c.gridy =1;
            c.anchor = GridBagConstraints.EAST;
            panelNafta.add(cantidadLitros,c); 
-            
-                       
+           
+        
        }
+       
+       public void precioNafta(String precio){
+    	   labelPrecioNafta.setText(precio);
+	    	  
+       }
+       
+       public JLabel getLabelPrecioNafta() {
+   			return labelPrecioNafta;
+   		}
        
        public String obtenerCantidadPanelNafta() {
     	   return(cantidadSeleccionada.getValue().toString());
@@ -300,10 +310,9 @@ public class PantallaTaller extends JPanelConImagen {
            GridBagConstraints c = new GridBagConstraints();
            c.gridx =2;
            c.gridy =2;
-           c.gridheight =1;
-           Insets in=new Insets(30,30,0,0);
+           Insets in=new Insets(30,0,0,0);
            c.insets=in;
-           c.anchor = GridBagConstraints.NORTH;
+           c.anchor = GridBagConstraints.NORTHWEST;
      
            this.add(panelMensaje,c);         
        }
@@ -323,11 +332,11 @@ public class PantallaTaller extends JPanelConImagen {
            Color nc = new Color(176,196,222);
  
 		   JTabbedPane tabbedPane = new JTabbedPane();
-		   tabbedPane.setPreferredSize(new Dimension(500,200));
+		   tabbedPane.setPreferredSize(new Dimension(400,200));
 		 
 		   panelCatalogo = new JPanel();
 		   panelCatalogo.setBackground(nc);
-		   panelCatalogo.setPreferredSize(new Dimension(400,150));
+		   panelCatalogo.setPreferredSize(new Dimension(100,150));
 		   panelCatalogo.setLayout(new GridBagLayout());
 		       
 		   GridBagConstraints c4 = new GridBagConstraints();
@@ -347,6 +356,11 @@ public class PantallaTaller extends JPanelConImagen {
            botonComprar.setActionCommand("comprar");
 		   botonComprar.setText("Comprar");
 		   c4 = posicionBoton();
+		   
+		   c4.gridx=1;
+		   c4.gridy=0;
+		   c4.anchor = GridBagConstraints.SOUTHEAST;
+
 		   panelCatalogo.add(botonComprar,c4);
 		   tabbedPane.addTab("Catalogo",panelCatalogo);
 		     
@@ -397,7 +411,6 @@ public class PantallaTaller extends JPanelConImagen {
     	   elCatalogo.addItem(parte);
        }
        
-       /*RETORNA EL STRING QUE SELECCIONAS EN EL CATALOGO DE LA PARTE QUE SELECCIONAS*/
        public Object parteAComprar(){ 	
     	   return elCatalogo.getSelectedItem();
        }
@@ -420,23 +433,11 @@ public class PantallaTaller extends JPanelConImagen {
            Border border2 = BorderFactory.createMatteBorder(2,2,2,2,nc2);
            Border border= BorderFactory.createTitledBorder(border2,"Precio");
            precioParteSeleccionada("precio");
-           String precio = "";
-           try{
-        	   InformacionDelModelo info = (InformacionDelModelo) elCatalogo.getSelectedItem();
-        	   try {
-				precio = info.getCaracteristica("COSTO");
-			} catch (BoundsException e) {
-				e.printStackTrace();
-			}
-           }catch(ClassCastException e){
-        	   precio = "Seleccione Una parte";
-           }
-
-           labelPrecio.setText(precio);
-
+    
            panelPrecio.add(labelPrecio);
            panelPrecio.setBorder(border);
            return panelPrecio;      
        }
+
 
 }
