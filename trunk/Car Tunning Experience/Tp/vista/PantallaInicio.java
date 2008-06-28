@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import controlador.ControladorJuego;
 
 public class PantallaInicio extends JPanelConImagen {
-	JFileChooser fc; //PERMITE ABRIR UNA VENTANA DONDE BUSCAR LOS ARCHIVOS.
+	JFileChooser fileChooser;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -31,7 +31,12 @@ public class PantallaInicio extends JPanelConImagen {
 		this.add(botonera, c);	
 	}
 	
-	public class BotoneraInicio extends JPanel implements ActionListener{
+
+	public JFileChooser getfileChooser() {
+		return fileChooser;
+	}
+	
+	public class BotoneraInicio extends JPanel{
 		
 		
 		private static final long serialVersionUID = 1L;
@@ -44,9 +49,8 @@ public class PantallaInicio extends JPanelConImagen {
 
 			Boton botonContinuarPartida = new Boton("Continuar Partida");
 			botonContinuarPartida.setActionCommand("continuar");
-			fc = new JFileChooser();
-			botonContinuarPartida.addActionListener(this);
-			//botonContinuarPartida.addActionListener(controladorJuego);
+			fileChooser = new JFileChooser();
+			botonContinuarPartida.addActionListener(controladorJuego);
 
 			Boton botonSalir = new Boton("Salir");
 			botonSalir.setActionCommand("salir");
@@ -71,14 +75,13 @@ public class PantallaInicio extends JPanelConImagen {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
+			
+
 
 		}
 		
-		//TODO:PASAR A CONTROLADOR
-		 
-	 			 public void actionPerformed(ActionEvent e) {
-	 			      if (e.getActionCommand() == "continuar") {
-	 			          fc.showOpenDialog(this);
-	 			  }
 	}
-	}}
+}
+
+	
+
