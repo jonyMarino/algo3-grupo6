@@ -36,6 +36,7 @@ public class ControladorTaller implements ActionListener {
 		pantallaTaller.actualizarInformacionUsuario(programaAuto.getUsuario().getNombre(), avatarUsuario);
 		Action mostrarPrecio = new AccionActualizarPrecio();
 		pantallaTaller.getElCatalogo().setAction(mostrarPrecio);
+		this.actualizarCatalogo();
 		this.actualizarParteARemover();
 		this.actualizarPantallaTaller();
 	}
@@ -53,7 +54,6 @@ public class ControladorTaller implements ActionListener {
 		this.actualizarInformacionReserva();
 		pantallaTaller.actualizarInformacionNafta(programaAuto.getUsuario().getAuto().getTanqueCombustible().getCantidadCombustible() , programaAuto.getUsuario().getAuto().getTanqueCombustible().getCapacidad());
 		this.actualizarInformacionAuto();
-		this.actualizarCatalogo();
 	}
 
 	public void setPantallaTaller(PantallaTaller pantallaTaller) {
