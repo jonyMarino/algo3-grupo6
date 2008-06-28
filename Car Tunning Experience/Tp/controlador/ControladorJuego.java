@@ -61,7 +61,7 @@ public class ControladorJuego implements ActionListener {
 				panelBase.crearPantalla(new PantallaTaller(this));	
 				controladorTaller.setPantallaTaller( (PantallaTaller)panelBase.getPantallaActual() );
 				
-				controladorTaller.cargarPantallaTaller(imagen);
+				controladorTaller.getActualizadorTaller().cargarPantallaTaller(imagen);
 			} catch (NotContainedPistaException e1) {} 
 			  catch (PistaPickedException e1) {}		
 			  catch (WrongUserNameException e) {
