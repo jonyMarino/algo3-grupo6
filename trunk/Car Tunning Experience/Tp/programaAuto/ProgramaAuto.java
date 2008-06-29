@@ -14,6 +14,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Random;
 
@@ -69,8 +70,22 @@ public class ProgramaAuto extends Observable {
                         listaDeCompetidores = new ArrayList<Usuario>();
                         posicionesFinales = new LinkedList<Usuario>();
                 }
+                /**
+                 * Indica si la carrera se esta simulando o si no empezo  o termino.
+                 * @return
+                 */
+                public boolean estaCorriendo(){
+                	return simulando; 
+                }
+                /**
+                 * Obtiene una lista de los competidores de la carrera
+                 * @return
+                 */
+                public List<Usuario> getCompetidores(){
+                	return (List<Usuario>)listaDeCompetidores.clone();
+                }
                 
-                void agregarCompetidor(Usuario usuario){
+                private void agregarCompetidor(Usuario usuario){
                 		usuario.getAuto().resetVariables();
                         
                 		usuario.getAuto().setPista(getPista());
