@@ -32,13 +32,13 @@ public class Taller {
 	}
 	
 	static public class InformacionParteEnAuto extends InformacionParteReserva{
-		String ubicacion;
+		Auto.Ubicacion ubicacion;
 		
-		private InformacionParteEnAuto(ParteAuto parte,String ubicacion){
+		private InformacionParteEnAuto(ParteAuto parte,Auto.Ubicacion ubicacion){
 			super(parte);
 			this.ubicacion=ubicacion;
 		}
-		public String getUbicacion(){
+		public Auto.Ubicacion getUbicacion(){
 			return ubicacion; //TODO: PARA PASAR UNA COPIA LO ANTERIOR GENERABA UN BUG... 
 			// si alguien se toma el trabajo de clonar un string ...
 		}
@@ -78,8 +78,8 @@ public class Taller {
 	
 	public Iterator<InformacionParteEnAuto> getPartesEnAuto(){
 		LinkedList<InformacionParteEnAuto> lista = new LinkedList<InformacionParteEnAuto>();
-		Hashtable<String,ParteAuto> hashPartesAuto=usuario.getAuto().getHashDePartes();
-		for(String keyParte :hashPartesAuto.keySet()){
+		Hashtable<Auto.Ubicacion,ParteAuto> hashPartesAuto=usuario.getAuto().getHashDePartes();
+		for(Auto.Ubicacion keyParte :hashPartesAuto.keySet()){
 			InformacionParteEnAuto info = new InformacionParteEnAuto(hashPartesAuto.get(keyParte),keyParte);
 			lista.add(info);
 		}
