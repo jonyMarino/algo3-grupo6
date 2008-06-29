@@ -3,6 +3,7 @@ package pruebas;
 import java.util.ArrayList;
 
 import excepciones.BoundsException;
+import excepciones.WrongUserNameException;
 
 import junit.framework.TestCase;
 import auto.AutoManual;
@@ -13,15 +14,20 @@ import programaAuto.ProgramaAuto;
 
 public class VelocidadTest extends TestCase {
 	
-	Pista pista=new Pista(200);
-	/*protected void setUp() throws Exception {
+	Pista pista;
+	protected void setUp() throws Exception {
 		super.setUp();
-		auto= (AutoManual)ProgramaAuto.autoInicial();
-		auto.setPista(pista);
+		pista =new Pista("Pista");
 	}
-	*/
+	
 	public void testCambio()throws BoundsException {
-		ProgramaAuto programa = new ProgramaAuto();
+		ProgramaAuto programa = null;
+		try {
+			programa = new ProgramaAuto("PruebaVelocidad");
+		} catch (WrongUserNameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<Auto> autos = new ArrayList<Auto>();
 		for(int i=0;i<5;i++){
 			AutoManual auto=(AutoManual)programa.autoInicial(); 

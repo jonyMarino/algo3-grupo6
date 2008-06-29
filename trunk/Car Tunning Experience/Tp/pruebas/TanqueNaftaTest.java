@@ -7,6 +7,7 @@ import proveedorDePartes.fabricas.TanqueNafta;
 import combustible.Nafta;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
+import excepciones.TankIsFullException;
 import junit.framework.TestCase;
 
 public class TanqueNaftaTest extends TestCase {
@@ -42,6 +43,9 @@ public class TanqueNaftaTest extends TestCase {
 			tanque.llenarTanque(20);
 		} catch (BoundsException e) {
 			e.printStackTrace();
+		} catch (TankIsFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		assertEquals(20.0*0.75, tanque.getPeso());
 	}
@@ -51,31 +55,37 @@ public class TanqueNaftaTest extends TestCase {
 		try {
 			tanque.llenarTanque(20);
 		} catch (BoundsException e) {
-			e.printStackTrace();
+			fail("Error no esperado");
+		} catch (TankIsFullException e) {
+			fail("Error no esperado");
 		}
+		
 		assertEquals(20.0, tanque.getCantidadCombustible());
 		try {
 			tanque.llenarTanque(20);
 		} catch (BoundsException e) {
-			e.printStackTrace();
+			fail("Error no esperado");
+		} catch (TankIsFullException e) {
+			fail("Error no esperado");
 		}
 		assertEquals(40.0, tanque.getCantidadCombustible());
 		try {
 			tanque.llenarTanque(100);
 			fail("No se puede superar la capacidad máxima del tanque");
 		} catch (BoundsException e) {
-			if("Se supera la capacidad del Tanque" == e.getMessage())
-				try {
-					tanque.llenarTanque(tanque.getCapacidad() - tanque.getCantidadCombustible());
-				} catch (BoundsException e1) {}
+			fail("Error no esperado");
+		} catch (TankIsFullException e) {
+			assertTrue(true);
 		}
-		assertEquals(70.0, tanque.getCantidadCombustible());
 	}
 
 	public void testUsarNafta() {
 		try {
 			tanque.llenarTanque(20);
 		} catch (BoundsException e) {
+			e.printStackTrace();
+		} catch (TankIsFullException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -108,6 +118,9 @@ public class TanqueNaftaTest extends TestCase {
 			tanque.llenarTanque(20);
 		} catch (BoundsException e) {
 			e.printStackTrace();
+		} catch (TankIsFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		try {
 			tanque.usarCombustible(-10);
@@ -118,7 +131,7 @@ public class TanqueNaftaTest extends TestCase {
 		assertEquals(20.0, tanque.getCantidadCombustible());
 	}
 
-	public void testConsumoDeNaftaAlMezclarMaximaEficiencia() {
+	public void testConsumoDeNaftaAlMezclarMaximaEficiencia() throws TankIsFullException {
 		try {
 			mezclador = fabricaDeMezcladores.fabricar(fabricaDeMezcladores.getModelos().get(1));
 			mezclador.setTanqueCombustible(tanque);
@@ -176,6 +189,9 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (NoSuchModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (TankIsFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		try {
 			mezclador.obtenerMezcla(0.01);
@@ -198,6 +214,9 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (NoSuchModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (TankIsFullException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		try {
 			mezclador.obtenerMezcla(0.5);
@@ -218,6 +237,9 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (BoundsException e) {
 			//Prueba exitosa
 		} catch (NoSuchModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TankIsFullException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
