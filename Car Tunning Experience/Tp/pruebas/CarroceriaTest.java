@@ -4,7 +4,7 @@ import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 import junit.framework.TestCase;
 
-import auto.Auto;
+import programaAuto.Auto;
 import programaAuto.Pista;
 import programaAuto.ProgramaAuto;
 import proveedorDePartes.fabricas.Carroceria;

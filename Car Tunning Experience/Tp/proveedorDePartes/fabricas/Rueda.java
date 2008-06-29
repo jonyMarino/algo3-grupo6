@@ -1,7 +1,7 @@
 package proveedorDePartes.fabricas;
 import excepciones.BoundsException;
+import programaAuto.Auto;
 import programaAuto.Pista;
-import auto.Auto;
 
 public class Rueda extends ParteAuto{
 

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
 
+import programaAuto.Auto;
 import programaAuto.ProgramaAuto;
 
-import auto.Auto;
 
 public class VistaCarreraInformativa  implements VistaGrafica {
 	private ArrayList listaDeTexto;
