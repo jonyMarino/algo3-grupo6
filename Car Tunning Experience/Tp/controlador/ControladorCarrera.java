@@ -106,21 +106,40 @@ public class ControladorCarrera implements KeyListener, Observer{
 			e.printStackTrace();
 		}
 	
+		AuxiliarSimulacion laSimulacion = new AuxiliarSimulacion(programaAuto);
 		
-		//while (simulando){
-		//unAuto.simular(tiempo*100);
-			//try {
-			//Thread.sleep((int)(tiempo));
-			//} catch (InterruptedException e) {
-				//e.printStackTrace();
-			//}
-	//}
+		laSimulacion.start();
+	/*
+		while (simulando){
+			try {
+				Thread.sleep((int)(tiempo));
+				laPantalla.actualizar();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		*/
+		
 
-	/*try {
-		programaAuto.correr();
-	} catch (NotSimulatingException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}	*/
 	}
+	
+	private class AuxiliarSimulacion extends Thread {
+		private ProgramaAuto unPrograma;
+		
+		public AuxiliarSimulacion(ProgramaAuto unPrograma) {
+			this.unPrograma = unPrograma;
+		}
+		
+		public void run() {
+			try {
+				unPrograma.correr();
+			} catch (NotSimulatingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		}
+		
+	}
+	
 }

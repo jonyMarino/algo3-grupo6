@@ -19,6 +19,7 @@ import java.util.Random;
 
 import programaAuto.Taller.InformacionParteEnAuto;
 import programaAuto.Taller.InformacionParteReserva;
+import proveedorDePartes.ProveedorDePartes;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
@@ -29,6 +30,7 @@ import proveedorDePartes.fabricas.MezcladorNafta;
 import proveedorDePartes.fabricas.Motor;
 import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.TanqueNafta;
+import auto.Auto;
 import auto.AutoManual;
 import combustible.Nafta;
 import excepciones.BoundsException;
