@@ -83,5 +83,9 @@ public class PantallaCarrera extends JPanel{
 	        	g2.drawImage(unaVista.getVista(), 0, 0, getWidth(), getHeight(), null);
 	        }
 	}
+	
+	public void actualizar(){
+		repaint();
+	}
 
 }

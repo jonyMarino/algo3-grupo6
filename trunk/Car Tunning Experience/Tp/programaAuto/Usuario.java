@@ -4,6 +4,8 @@ package programaAuto;
  * El usuario pertenece al modelo, no puede tener referencias a Swing,
  * TODO: usuario visual
  */
+import proveedorDePartes.ProveedorDePartes;
+import auto.Auto;
 import nu.xom.Element;
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;

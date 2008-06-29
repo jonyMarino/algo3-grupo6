@@ -38,7 +38,7 @@ import proveedorDePartes.fabricas.TanqueCombustible;
  *   @see Eje
  *   @see Mezclador
  */
-public abstract class Auto extends Observable{
+public class Auto extends Observable{
 	private Escape 		           escape;
 	private Carroceria 	           carroceria;
 	private Motor 		           motor;
