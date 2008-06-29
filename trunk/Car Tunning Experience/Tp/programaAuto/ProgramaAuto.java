@@ -30,7 +30,6 @@ import proveedorDePartes.fabricas.MezcladorNafta;
 import proveedorDePartes.fabricas.Motor;
 import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.TanqueNafta;
-import auto.Auto;
 import auto.AutoManual;
 import combustible.Nafta;
 import excepciones.BoundsException;

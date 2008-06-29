@@ -7,6 +7,7 @@ import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 import excepciones.TankIsFullException;
 import excepciones.WrongUserNameException;
+import programaAuto.Auto;
 import programaAuto.NoPistaPickedException;
 import programaAuto.NotAbleWhileSimulatingException;
 import programaAuto.NotContainedPistaException;
@@ -17,7 +18,6 @@ import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.TanqueCombustible;
 import vista.VistaGraficador;
-import auto.Auto;
 
 public class ControladorPrincipal implements KeyListener{
 

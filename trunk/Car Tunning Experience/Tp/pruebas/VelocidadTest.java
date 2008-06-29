@@ -7,7 +7,7 @@ import excepciones.WrongUserNameException;
 
 import junit.framework.TestCase;
 import auto.AutoManual;
-import auto.Auto;
+import programaAuto.Auto;
 import programaAuto.Pista;
 import programaAuto.ProgramaAuto; 
 

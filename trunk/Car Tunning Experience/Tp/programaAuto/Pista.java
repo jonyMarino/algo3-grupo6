@@ -1,5 +1,4 @@
 package programaAuto;
-import auto.Auto;
 
 import java.util.*;
 

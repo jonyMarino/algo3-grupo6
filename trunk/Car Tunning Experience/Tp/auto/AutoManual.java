@@ -1,5 +1,6 @@
 package auto;
 
+import programaAuto.Auto;
 import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.CajaManual;

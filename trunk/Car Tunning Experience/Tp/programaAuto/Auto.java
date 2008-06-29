@@ -1,4 +1,4 @@
-package auto;
+package programaAuto;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -8,7 +8,6 @@ import excepciones.BoundsException;
 import excepciones.IncorrectPartForUbicationException;
 import excepciones.TankIsFullException;
 import excepciones.UbicationUnkownException;
-import programaAuto.Pista;
 import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.Carroceria;

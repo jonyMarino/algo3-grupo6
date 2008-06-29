@@ -5,8 +5,8 @@ import java.awt.event.KeyListener;
 import java.util.Observable;
 import java.util.Observer;
 
-import auto.Auto;
 
+import programaAuto.Auto;
 import programaAuto.NoPistaPickedException;
 import programaAuto.NotAbleWhileSimulatingException;
 import programaAuto.NotInTallerException;

@@ -5,7 +5,6 @@ package programaAuto;
  * TODO: usuario visual
  */
 import proveedorDePartes.ProveedorDePartes;
-import auto.Auto;
 import nu.xom.Element;
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
