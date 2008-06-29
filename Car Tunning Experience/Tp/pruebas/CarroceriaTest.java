@@ -19,10 +19,10 @@ public class CarroceriaTest extends TestCase {
 	Auto auto;
 	
 	protected void setUp() throws Exception {
-		ProgramaAuto programa = new ProgramaAuto();
+		ProgramaAuto programa = new ProgramaAuto("Prueba");
 		super.setUp();
 		auto = programa.autoInicial();
-		pista=new Pista(5);
+		pista=new Pista("unaPista");
 		auto.setPista(pista);
 		fabrica = new FabricaDeCarrocerias();
 		
@@ -33,7 +33,7 @@ public class CarroceriaTest extends TestCase {
 		try {
 			carroceria= fabrica.fabricar(fabrica.getModelos().get(0));
 		} catch (NoSuchModelException e) {
-			// TODO Auto-generated catch block
+			 //TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		auto.setCarroceria(carroceria);
@@ -52,7 +52,7 @@ public class CarroceriaTest extends TestCase {
 		auto.setCarroceria(carroceria);
 		carroceria.desgastar(100000);
 		try {
-			pista.setVelocidadAire(25);
+			//pista.setVelocidadAire(25);
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}

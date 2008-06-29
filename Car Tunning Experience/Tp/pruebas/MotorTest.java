@@ -56,7 +56,7 @@ public class MotorTest extends TestCase {
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		pista = new Pista(100);
+		pista = new Pista("UnaPista");
 		nafta = new Nafta(95,20);
 		fabricaTanques = new FabricaDeTanquesDeCombustible();
 		fabricaMezcladores = new FabricaDeMezcladores();
@@ -98,7 +98,7 @@ public class MotorTest extends TestCase {
 
 		caja.setMotor(motor);
 		
-		freno =  (Freno) fabricaPedales.fabricar(fabricaPedales.getModelos().get(1));
+		freno =  (Freno) fabricaPedales.fabricar(fabricaPedales.getModelos().get(0));
 		
 		auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, rueda, rueda, rueda, rueda, eje, freno);
 		auto.setPista(pista);
@@ -125,7 +125,7 @@ public class MotorTest extends TestCase {
 		assertEquals(0.0, motor.obtenerRPM());
 		motor.acelerar(1);
 		auto.simular(1);
-		assertEquals(240, motor.obtenerRPM(), 5);
+		assertEquals(36600, motor.obtenerRPM(), 50);
 	}
 
 	
