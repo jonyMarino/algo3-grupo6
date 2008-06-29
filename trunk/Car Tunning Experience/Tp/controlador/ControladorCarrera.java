@@ -2,8 +2,14 @@ package controlador;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.sun.jmx.snmp.tasks.Task;
 
 
 import programaAuto.Auto;
@@ -48,7 +54,7 @@ public class ControladorCarrera implements KeyListener, Observer{
 			//TODO: SOLO ES PARA PROBAR LA VISTA, BORRAR CUANDO ESTÉ FUNCIONANDO
 			unAuto.presionarAcelerador(aceleracion);
 			//unAuto.setPosicion(unAuto.getPosicion()+aceleracion*10);
-			laPantalla.actualizar();
+			//laPantalla.actualizar();
 		} catch (BoundsException e1) {
 		}
 	}
@@ -105,10 +111,26 @@ public class ControladorCarrera implements KeyListener, Observer{
 		}
 	
 		AuxiliarSimulacion laSimulacion = new AuxiliarSimulacion(programaAuto);
+		AuxiliarActualizacion sim = new AuxiliarActualizacion(laPantalla);
 		laSimulacion.start();
+		Timer timer = new Timer();
+	    timer.schedule(sim, 0, 10);
 	
 	}
 	
+	
+	private class AuxiliarActualizacion extends TimerTask{
+		private PantallaCarrera laPantalla;
+		public AuxiliarActualizacion(PantallaCarrera laPantalla) {
+			this.laPantalla =laPantalla;
+		}
+		
+		public void run() {
+			laPantalla.actualizar();
+			
+		}
+		
+	}
 	
 	private class AuxiliarSimulacion extends Thread {
 		private ProgramaAuto unPrograma;
