@@ -12,7 +12,7 @@ public class FabricaDeRuedas extends FabricaDePartes {
 		nuevaInfo.agregarCaracteristica("COSTO", "500");
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", "Rueda básica.");
 		nuevaInfo.agregarCaracteristica("COEFICIENTEESTATICO", "0.9");
-		nuevaInfo.agregarCaracteristica("RODADO", "10");
+		nuevaInfo.agregarCaracteristica("RODADO", "28");
 		nuevaInfo.agregarCaracteristica("COEFICIENTEDINAMICO", "0.6");
 		nuevaInfo.agregarCaracteristica("PESO", "10");
 		nuevaInfo.agregarCaracteristica("PARTE", "RUEDA");
