@@ -10,6 +10,8 @@ import excepciones.NotEnoughMoneyException;
 import excepciones.TankIsFullException;
 import excepciones.UbicationUnkownException;
 import programaAuto.ProgramaAuto;
+import programaAuto.Auto.Ubicacion;
+import programaAuto.Taller.InformacionParteEnAuto;
 import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.ParteAuto;
 import vista.PantallaTaller;
@@ -47,8 +49,9 @@ public class ControladorTaller implements ActionListener {
            	InformacionDelModelo informacionModelo = actualizadorTaller.buscarInformacionModelo(nombreProducto);
         	ParteAuto parte = this.buscarParteEnReserva(informacionModelo);
         	try {
-				programaAuto.getUsuario().getAuto().colocarParte(parte, pantallaTaller.parteARemover());
-				programaAuto.getUsuario().getAuto().ensamblar();
+				String parteARemover = pantallaTaller.parteARemover();
+        		Ubicacion ubicacion = this.buscarUbicacion(parteARemover);
+        		programaAuto.getUsuario().getAuto().colocarParte(parte, ubicacion);
 				pantallaTaller.generarMensaje("El cambio ha sido realizado satisfactoriamente");
 				} catch (IncorrectPartForUbicationException e) {
 					pantallaTaller.generarMensajeError("No se puede realizar ese cambio");
@@ -59,6 +62,18 @@ public class ControladorTaller implements ActionListener {
 				}
     }
    
+    private Ubicacion buscarUbicacion(String parteARemover) {
+		Iterator<InformacionParteEnAuto> itPartesAuto = programaAuto.getUsuario().getTaller().getPartesEnAuto();
+    	boolean encontrado = false;
+    	Ubicacion ubicacion = null;
+    	while(itPartesAuto.hasNext() && !encontrado){
+    		ubicacion = itPartesAuto.next().getUbicacion();
+    		if(parteARemover == ubicacion.toString())
+    			encontrado = true;
+    	}
+    	return ubicacion;
+    }
+    
     private ParteAuto buscarParteEnReserva(InformacionDelModelo informacionModelo) {
 		Iterator<ParteAuto>  itReservas = programaAuto.getUsuario().getTaller().getPartesReserva();
 		boolean encontrado = false;
