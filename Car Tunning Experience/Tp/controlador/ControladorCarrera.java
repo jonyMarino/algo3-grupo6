@@ -47,8 +47,8 @@ public class ControladorCarrera implements KeyListener, Observer{
 		try {
 			//TODO: SOLO ES PARA PROBAR LA VISTA, BORRAR CUANDO ESTÉ FUNCIONANDO
 			unAuto.presionarAcelerador(aceleracion);
-			unAuto.setPosicion(unAuto.getPosicion()+aceleracion*10);
-			laPantalla.repaint();
+			//unAuto.setPosicion(unAuto.getPosicion()+aceleracion*10);
+			//laPantalla.actualizar();
 		} catch (BoundsException e1) {
 		}
 	}
@@ -62,9 +62,7 @@ public class ControladorCarrera implements KeyListener, Observer{
 			case '3': aceleracion=0;
 			case '4': aceleracion=0; 
 			case '5': aceleracion=0;
-			try {
-					unAuto.presionarAcelerador(0);
-			} catch (BoundsException e1) {} break;
+			break;
 		default: break;
 		}
 	}
@@ -109,19 +107,17 @@ public class ControladorCarrera implements KeyListener, Observer{
 		AuxiliarSimulacion laSimulacion = new AuxiliarSimulacion(programaAuto);
 		
 		laSimulacion.start();
-	/*
+	
 		while (simulando){
-			try {
-				Thread.sleep((int)(tiempo));
-				laPantalla.actualizar();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			//Thread.sleep((int)(tiempo));
+			laPantalla.actualizar();
+
 		}
-		*/
+		
 		
 
 	}
+	
 	
 	private class AuxiliarSimulacion extends Thread {
 		private ProgramaAuto unPrograma;

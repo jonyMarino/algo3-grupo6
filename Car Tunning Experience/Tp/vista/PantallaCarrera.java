@@ -49,8 +49,9 @@ public class PantallaCarrera extends JPanel{
 		elPrograma = controladorJuego.getProgramaAuto();
 		elControlador = new ControladorCarrera(elPrograma, this);
 		generarArboles();
-		unaVista = new VistaDeCostado(width, height, controladorJuego.getProgramaAuto());
-		((VistaDeCostado)unaVista).setArboles(listaDeArboles);
+		//unaVista = new VistaDeCostado(width, height, controladorJuego.getProgramaAuto());
+		unaVista = new VistaCarreraInformativa(width, height, controladorJuego.getProgramaAuto());
+		//((VistaDeCostado)unaVista).setArboles(listaDeArboles);
 		setFocusable(true);
 		setVisible(true);
 		addKeyListener(elControlador);

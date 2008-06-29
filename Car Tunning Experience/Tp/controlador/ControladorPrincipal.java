@@ -5,7 +5,13 @@ import java.awt.event.KeyListener;
 import combustible.Nafta;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
+import excepciones.TankIsFullException;
 import excepciones.WrongUserNameException;
+import programaAuto.NoPistaPickedException;
+import programaAuto.NotAbleWhileSimulatingException;
+import programaAuto.NotContainedPistaException;
+import programaAuto.NotInTallerException;
+import programaAuto.PistaPickedException;
 import programaAuto.ProgramaAuto;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
@@ -22,14 +28,15 @@ public class ControladorPrincipal implements KeyListener{
 	VistaGraficador vista1;
 	public ControladorPrincipal(){
 		
-		ProgramaAuto miPrograma = new ProgramaAuto();
-		miPrograma.generarProximaPista();
+		ProgramaAuto miPrograma = null;
 		try {
-			unAuto = (miPrograma.nuevoUsuario("Lucas")).getAuto();
-		} catch (WrongUserNameException e2) {
+			miPrograma = new ProgramaAuto("PROGRAMAPRUEBA");
+		} catch (WrongUserNameException e3) {
 			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			e3.printStackTrace();
 		}
+		miPrograma.generarProximaPista();
+		unAuto = (miPrograma.getUsuario()).getAuto();
 		FabricaDeTanquesDeCombustible fabricaTanques = new FabricaDeTanquesDeCombustible();
 		try {
 			fabricaTanques.proponerMotor("Tanque exageradamente grande", 99999, 200, "NAFTA");
@@ -42,7 +49,12 @@ public class ControladorPrincipal implements KeyListener{
 		tanque.setCombustible(new Nafta(90, 10));
 		unAuto.setTanqueCombustible(tanque);
 
-			tanque.llenarTanque(99999);
+			try {
+				tanque.llenarTanque(99999);
+			} catch (TankIsFullException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (NoSuchModelException e) {
 		} catch (BoundsException e) {
 			// TODO Auto-generated catch block
@@ -58,6 +70,35 @@ public class ControladorPrincipal implements KeyListener{
 		simulando = true;
 		tiempo =0.05;
 		fastForward = 1;
+		unAuto.ensamblar();
+
+		try {
+			miPrograma.setPista(miPrograma.generarProximaPista());
+		} catch (NotContainedPistaException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (PistaPickedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		try {
+			miPrograma.entrarAlTaller();
+			miPrograma.entrarALaCarrera();
+		} catch (NoPistaPickedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NotAbleWhileSimulatingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NotInTallerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+
+
 		while (simulando){
 					unAuto.simular(tiempo*fastForward);
 					try {
