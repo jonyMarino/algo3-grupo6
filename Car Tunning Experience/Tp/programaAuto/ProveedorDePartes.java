@@ -1,4 +1,4 @@
-package proveedorDePartes;
+package programaAuto;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,6 @@ import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 
-import programaAuto.Usuario;
 import proveedorDePartes.fabricas.CadenaDeFabricas;
 import proveedorDePartes.fabricas.FabricaDeCajas;
 import proveedorDePartes.fabricas.FabricaDeCarrocerias;

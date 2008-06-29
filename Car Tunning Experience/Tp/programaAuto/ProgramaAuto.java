@@ -20,7 +20,6 @@ import java.util.Random;
 
 import programaAuto.Taller.InformacionParteEnAuto;
 import programaAuto.Taller.InformacionParteReserva;
-import proveedorDePartes.ProveedorDePartes;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
