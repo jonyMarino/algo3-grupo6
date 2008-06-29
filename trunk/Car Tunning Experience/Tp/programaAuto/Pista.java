@@ -21,13 +21,18 @@ public class Pista {
 			e.printStackTrace();
 		}
 		try {
-			setCoeficienteDeRozamientoRelativo(0.8);
+			setCoeficienteDeRozamientoRelativo(1);
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
 		autos = new LinkedList<Auto>();
 	}
-
+	public Pista(String nombre,double longitud,int velocidadAire,double coeficienteDeRozamientoRelativo)throws InvalidPistaNameException, BoundsException{	
+		setNombre(nombre);
+		setVelocidadAire(velocidadAire);
+		setCoeficienteDeRozamientoRelativo(coeficienteDeRozamientoRelativo);
+		autos = new LinkedList<Auto>();	
+	}
 	void addAuto(Auto auto)throws NullPointerException{
 		if(auto==null)
 			throw new NullPointerException("Referencia a auto null.");

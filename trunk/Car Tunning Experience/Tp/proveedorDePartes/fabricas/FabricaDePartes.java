@@ -6,7 +6,7 @@ import java.util.Iterator;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 
-import proveedorDePartes.ProveedorDePartes;
+import programaAuto.ProveedorDePartes;
 
 
 public abstract class FabricaDePartes {

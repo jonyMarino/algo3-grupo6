@@ -4,7 +4,6 @@ package programaAuto;
  * El usuario pertenece al modelo, no puede tener referencias a Swing,
  * TODO: usuario visual
  */
-import proveedorDePartes.ProveedorDePartes;
 import nu.xom.Element;
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
@@ -29,8 +28,8 @@ public class Usuario {
 		Element usuario = element.getFirstChildElement("usuario");
 		nombre=usuario.getFirstChildElement("nombre").getValue();
 		dinero = Double.parseDouble(usuario.getFirstChildElement("dinero").getValue());
-		auto = new Auto(proveedor,usuario);	
-		this.taller = new Taller(this,proveedor,usuario.getFirstChildElement("taller"));	
+//		auto = new Auto(proveedor,usuario);	
+//		this.taller = new Taller(this,proveedor,usuario.getFirstChildElement("taller"));	
 	}
 	
 	public Element getElement(){
@@ -41,7 +40,7 @@ public class Usuario {
 		unDinero.appendChild(dinero+"");
 		usuario.appendChild(unNombre);
 		usuario.appendChild(unDinero);
-		usuario.appendChild(auto.getElement());
+//		usuario.appendChild(auto.getElement());
 		return usuario;
 	}
 

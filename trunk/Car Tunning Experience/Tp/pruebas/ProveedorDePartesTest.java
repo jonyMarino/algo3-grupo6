@@ -4,8 +4,8 @@ import com.sun.net.httpserver.Authenticator.Success;
 
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
+import programaAuto.ProveedorDePartes;
 import programaAuto.Usuario;
-import proveedorDePartes.ProveedorDePartes;
 import proveedorDePartes.fabricas.CajaAutomatica;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;

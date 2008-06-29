@@ -1,6 +1,7 @@
 package pruebas;
 
 import excepciones.BoundsException;
+import excepciones.InvalidPistaNameException;
 import excepciones.NoSuchModelException;
 import junit.framework.TestCase;
 
@@ -28,17 +29,17 @@ public class CarroceriaTest extends TestCase {
 		
 	}
 	
-	public void testFuerzaAire() throws BoundsException {
-
+	public void testFuerzaAire() throws BoundsException, InvalidPistaNameException {
+		Pista otraPista=new Pista("otraPista",20,15,1);
 		try {
 			carroceria= fabrica.fabricar(fabrica.getModelos().get(0));
 		} catch (NoSuchModelException e) {
 			 //TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		auto.setPista(otraPista);
 		auto.setCarroceria(carroceria);
 		assertEquals(0.0, carroceria.getFuerzaAire());
-		pista.setVelocidadAire(15);
 		assertEquals(1.5, carroceria.getFuerzaAire());
 	}
 
@@ -51,11 +52,6 @@ public class CarroceriaTest extends TestCase {
 		}
 		auto.setCarroceria(carroceria);
 		carroceria.desgastar(100000);
-		try {
-			//pista.setVelocidadAire(25);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		}
 		assertEquals(25.0,carroceria.getFuerzaAire());
 	}
 
