@@ -57,9 +57,13 @@ public class ProveedorDePartes {
 				throw new NotEnoughMoneyException("No tiene suficiente dinero como para comprar la parte");
 			}
 
-		unaParte = miCadenaDeFabricas.fabricar(modelo);
+		unaParte = obtenerParte(modelo);
 		usuario.gastarDinero(dineroNecesario);
 		return unaParte;
+	}
+	
+	ParteAuto obtenerParte(InformacionDelModelo modelo) throws NoSuchModelException{
+		return miCadenaDeFabricas.fabricar(modelo);
 	}
 
 	public CadenaDeFabricas getMiCadenaDeFabricas() {

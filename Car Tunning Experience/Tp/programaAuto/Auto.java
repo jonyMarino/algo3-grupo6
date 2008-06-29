@@ -493,13 +493,13 @@ public abstract class Auto extends Observable{
 		Element auto=element.getFirstChildElement("auto");
 		
 		for(Ubicacion ubicacion: Ubicacion.values()){
-	//TODO:
-			/*		Element elemento=auto.getFirstChildElement(ubicacion);
-			InformacionDelModelo informacionDelModelo=InformacionDelModelo(elemento.getFirstChildElement("Informacion del modelo"));
-			ParteAuto parte=proveedor.obtener(informacionDelModelo);
+			Element elemento=auto.getFirstChildElement(ubicacion.toString());
+			String nombreModelo = elemento.getFirstChild("modelo");
+			InformacionDelModelo informacionDelModelo=proveedor.getModelo(nombreModelo);
+			ParteAuto parte=proveedor.obtenerParte(informacionDelModelo);
 			parte.updateSinceElement(elemento);
 			colocarParte(parte,ubicacion);
-		*/
+		
 		}
 		ensamblar();
 	}
