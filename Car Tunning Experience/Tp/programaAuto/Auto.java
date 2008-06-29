@@ -4,6 +4,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Observable;
+
+import nu.xom.Element;
 import excepciones.BoundsException;
 import excepciones.IncorrectPartForUbicationException;
 import excepciones.TankIsFullException;
@@ -14,6 +16,7 @@ import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
 import proveedorDePartes.fabricas.Escape;
 import proveedorDePartes.fabricas.Freno;
+import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.Mezclador;
 import proveedorDePartes.fabricas.Motor;
 import proveedorDePartes.fabricas.ParteAuto;
@@ -37,18 +40,22 @@ import proveedorDePartes.fabricas.TanqueCombustible;
  *   @see Eje
  *   @see Mezclador
  */
-public class Auto extends Observable{
+public abstract class Auto extends Observable{
+	public enum Ubicacion{
+		MOTOR,CAJA,MEZCLADOR,EJE,ESCAPE,CARROCERIA,FRENO,TANQUE,
+		RUEDA_TRASERA_IZQUIERDA,RUEDA_TRASERA_DERECHA,
+		RUEDA_DELANTERA_IZQUIERDA,RUEDA_DELANTERA_DERECHA
+	}
 	private Escape 		           escape;
 	private Carroceria 	           carroceria;
 	private Motor 		           motor;
 	private Freno 		           freno;
-	private LinkedList<Rueda>      ruedas;
 	private Eje                    eje;
 	private TanqueCombustible      tanqueCombustible;
 	private Mezclador              mezclador;
 	private double		           velocidad;
 	private double		           posicion;
-	private Hashtable<String, ParteAuto> partes;
+	private Hashtable<Ubicacion, ParteAuto> partes= new Hashtable <Ubicacion, ParteAuto>();
 	private Caja 				   caja;
 	private Pista	               pista;
 	// cuando se coloca una parte, se le avisa a esta cadena.
@@ -64,13 +71,13 @@ public class Auto extends Observable{
 		 * @param Ubicacion 
 		 * @return verdadero si sabe colocar la parte
 		 */
-		boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException;
+		boolean colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException;
 		/**
 		 * Ensambla la parte ya colocada al Auto si es que corresponde a Ubicacion
 		 * @param ubicacion ubicacion en el Auto
 		 * @return verdadero si pudo ensamblarla
 		 */
-		boolean ensamblar(String ubicacion);
+		boolean ensamblar(Ubicacion ubicacion);
 		/**
 		 * Ensambla su parte.
 		 */
@@ -83,20 +90,20 @@ public class Auto extends Observable{
 	 */
 	private class CadenaEnsambladores{
 		LinkedList<Ensamblador> ensambladores=new LinkedList<Ensamblador>();
-		LinkedList<String> partesAEnsamblar=new LinkedList<String>();
+		LinkedList<Ubicacion> partesAEnsamblar=new LinkedList<Ubicacion>();
 		LinkedList<Ensamblador> ensambladoresParaEnsamblar=new LinkedList<Ensamblador>();
 		//Hashtable<String,Ensamblador> partesAEnsamblarConEnsamblador=new Hashtable<String,Ensamblador>();
-		void colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException,UbicationUnkownException{
+		void colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException,UbicationUnkownException{
 			for(Ensamblador ensamblador:ensambladores){
 				if(ensamblador.colocar(parte, ubicacion)){
 					//aniadirAListaPorEnsamblar(ubicacion,ensamblador);
 					return;
 				}
 			}
-			throw new UbicationUnkownException(ubicacion);
+			throw new UbicationUnkownException(ubicacion.toString());
 		}
 		void ensamblar()throws UbicationUnkownException{
-			for(String ubicacion:partesAEnsamblar){
+			for(Ubicacion ubicacion:partesAEnsamblar){
 				boolean found=false;
 				for(Ensamblador ensamblador:ensambladores){
 					found=ensamblador.ensamblar(ubicacion);
@@ -104,7 +111,7 @@ public class Auto extends Observable{
 						break;
 				}
 				if(!found)
-					throw new UbicationUnkownException(ubicacion);
+					throw new UbicationUnkownException(ubicacion.toString());
 			}
 			partesAEnsamblar.clear();
 			
@@ -115,7 +122,7 @@ public class Auto extends Observable{
 			}
 			*/
 		}
-		void aniadirAListaPorEnsamblar(String ubicacion){
+		void aniadirAListaPorEnsamblar(Ubicacion ubicacion){
 			partesAEnsamblar.add(ubicacion);
 		}
 		void aniadirAListaPorEnsamblar(Ensamblador ensamblador){
@@ -128,6 +135,7 @@ public class Auto extends Observable{
 		void aniadirEnsamblador(Ensamblador ensamblador){
 			ensambladores.add(ensamblador);
 		}
+		
 	}
 /**
  * 
@@ -135,8 +143,8 @@ public class Auto extends Observable{
  *
  */
 	private class EnsambladorMotor implements Ensamblador{
-		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			if(ubicacion!="MOTOR")
+		public boolean colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!=Ubicacion.MOTOR)
 				return false;
 			if(!(parte instanceof Motor))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a un motor");			
@@ -151,8 +159,8 @@ public class Auto extends Observable{
 			setMotor((Motor)parte);	//coloco el nuevo motor
 			return true;
 		}
-		public boolean ensamblar(String ubicacion){	
-			if(ubicacion!="MOTOR")
+		public boolean ensamblar(Ubicacion ubicacion){	
+			if(ubicacion!=Ubicacion.MOTOR)
 				return false;
 			ensamblar();
 			return true;
@@ -170,8 +178,8 @@ public class Auto extends Observable{
 	 *
 	 */
 	private class EnsambladorCaja implements Ensamblador{
-		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			if(ubicacion!="CAJA")
+		public boolean colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!=Ubicacion.CAJA)
 				return false;
 			if(!(parte instanceof Caja))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a una caja");
@@ -180,8 +188,8 @@ public class Auto extends Observable{
 			setCaja((Caja)parte);
 			return true;
 		}
-		public boolean ensamblar(String ubicacion){	
-			if(ubicacion!="CAJA")
+		public boolean ensamblar(Ubicacion ubicacion){	
+			if(ubicacion!=Ubicacion.CAJA)
 				return false;
 			ensamblar();
 			return true;
@@ -198,8 +206,8 @@ public class Auto extends Observable{
 	 *
 	 */
 	private class EnsambladorEje implements Ensamblador{
-		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			if(ubicacion!="EJE")
+		public boolean colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!=Ubicacion.EJE)
 				return false;
 			if(!(parte instanceof Eje))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a un eje");
@@ -209,8 +217,8 @@ public class Auto extends Observable{
 			setCaja((Caja)parte);
 			return true;			
 		}
-		public boolean ensamblar(String ubicacion){	
-			if(ubicacion!="EJE")
+		public boolean ensamblar(Ubicacion ubicacion){	
+			if(ubicacion!=Ubicacion.EJE)
 				return false;
 			ensamblar();
 			return true;
@@ -227,8 +235,8 @@ public class Auto extends Observable{
 	 *
 	 */
 	private class EnsambladorEscape implements Ensamblador{
-		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			if(ubicacion!="ESCAPE")
+		public boolean colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!=Ubicacion.ESCAPE)
 				return false;
 			if(!(parte instanceof Escape))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a un escape");			
@@ -236,8 +244,8 @@ public class Auto extends Observable{
 			setEscape((Escape)parte);
 			return true;
 		}
-		public boolean ensamblar(String ubicacion){	
-			if(ubicacion!="ESCAPE")
+		public boolean ensamblar(Ubicacion ubicacion){	
+			if(ubicacion!=Ubicacion.ESCAPE)
 				return false;	
 			ensamblar();
 			return true;
@@ -252,8 +260,8 @@ public class Auto extends Observable{
 	 *
 	 */
 	private class EnsambladorCarroceria implements Ensamblador{
-		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			if(ubicacion!="CARROCERIA")
+		public boolean colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!=Ubicacion.CARROCERIA)
 				return false;
 			if(!(parte instanceof Carroceria))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a una carroceria");			
@@ -261,8 +269,8 @@ public class Auto extends Observable{
 			setCarroceria((Carroceria)parte);
 			return true;
 		}
-		public boolean ensamblar(String ubicacion){	
-			if(ubicacion!="CARROCERIA")
+		public boolean ensamblar(Ubicacion ubicacion){	
+			if(ubicacion!=Ubicacion.CARROCERIA)
 				return false;
 			ensamblar();
 			return true;
@@ -277,8 +285,8 @@ public class Auto extends Observable{
 	 *
 	 */
 	private class EnsambladorFreno implements Ensamblador{
-		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			if(ubicacion!="FRENO")
+		public boolean colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!=Ubicacion.FRENO)
 				return false;
 			if(!(parte instanceof Freno))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a un freno");			
@@ -286,8 +294,8 @@ public class Auto extends Observable{
 			setFreno((Freno)parte);
 			return true;
 		}
-		public boolean ensamblar(String ubicacion){	
-			if(ubicacion!="FRENO")
+		public boolean ensamblar(Ubicacion ubicacion){	
+			if(ubicacion!=Ubicacion.FRENO)
 				return false;
 			ensamblar();
 			return true;
@@ -302,8 +310,8 @@ public class Auto extends Observable{
 	 *
 	 */
 	private class EnsambladorMezclador implements Ensamblador{
-		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			if(ubicacion!="MEZCLADOR")
+		public boolean colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!=Ubicacion.MEZCLADOR)
 				return false;
 			if(!(parte instanceof Mezclador))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a un mezclador");			
@@ -312,8 +320,8 @@ public class Auto extends Observable{
 			setMezclador((Mezclador)parte);
 			return true;
 		}
-		public boolean ensamblar(String ubicacion){	
-			if(ubicacion!="MEZCLADOR")
+		public boolean ensamblar(Ubicacion ubicacion){	
+			if(ubicacion!=Ubicacion.MEZCLADOR)
 				return false;
 			getMezclador().setTanqueCombustible(getTanqueCombustible());
 			getMotor().setMezclador(getMezclador());
@@ -327,43 +335,49 @@ public class Auto extends Observable{
 	 *
 	 */
 	private class EnsambladorRueda implements Ensamblador{
-		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			if(ubicacion!="RUEDA1" && ubicacion!="RUEDA2" && ubicacion!="RUEDA3" && ubicacion!="RUEDA4")
+		public boolean colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!=Ubicacion.RUEDA_DELANTERA_DERECHA 
+			   && ubicacion!=Ubicacion.RUEDA_DELANTERA_IZQUIERDA
+			   && ubicacion!=Ubicacion.RUEDA_TRASERA_DERECHA
+			   && ubicacion!=Ubicacion.RUEDA_TRASERA_IZQUIERDA)
 				return false;
 			if(!(parte instanceof Rueda))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a una rueda.");			
-			if ( ubicacion == "RUEDA1" ){
+			if ( ubicacion == Ubicacion.RUEDA_DELANTERA_DERECHA ){
 					getRuedaDelanteraDerecha().setAuto(null);
 					setRuedaDelanteraDerecha((Rueda)parte);
 			}
-			if ( ubicacion == "RUEDA2" ){
+			if ( ubicacion == Ubicacion.RUEDA_DELANTERA_IZQUIERDA){
 					getRuedaDelanteraIzquierda().setAuto(null);
 					setRuedaDelanteraIzquierda((Rueda)parte);
 			}
-			if ( ubicacion == "RUEDA3" ){
+			if ( ubicacion == Ubicacion.RUEDA_TRASERA_DERECHA){
 					getRuedaTraseraDerecha().setAuto(null);
 					setRuedaTraseraDerecha((Rueda)parte);
 			}
-			if ( ubicacion == "RUEDA4" ){
+			if ( ubicacion == Ubicacion.RUEDA_TRASERA_IZQUIERDA ){
 					getRuedaTraseraIzquierda().setAuto(null);
 					getEje().setRuedaTrasera(null);
 					setRuedaTraseraIzquierda((Rueda)parte);
 			}
 			return true;
 		}
-		public boolean ensamblar(String ubicacion){	
-			if(ubicacion!="RUEDA1" && ubicacion!="RUEDA2" && ubicacion!="RUEDA3" && ubicacion!="RUEDA4")
-				return false;			
-			if ( ubicacion == "RUEDA1" ){
+		public boolean ensamblar(Ubicacion ubicacion){	
+			if(ubicacion!=Ubicacion.RUEDA_DELANTERA_DERECHA 
+			   && ubicacion!=Ubicacion.RUEDA_DELANTERA_IZQUIERDA
+			   && ubicacion!=Ubicacion.RUEDA_TRASERA_DERECHA
+			   && ubicacion!=Ubicacion.RUEDA_TRASERA_IZQUIERDA)
+						return false;		
+			if ( ubicacion == Ubicacion.RUEDA_DELANTERA_DERECHA ){
 					getRuedaDelanteraDerecha().setAuto(Auto.this);
 			}
-			if ( ubicacion == "RUEDA2" ){
+			if ( ubicacion == Ubicacion.RUEDA_DELANTERA_IZQUIERDA ){
 					getRuedaDelanteraIzquierda().setAuto(Auto.this);
 			}
-			if ( ubicacion == "RUEDA3" ){
+			if ( ubicacion == Ubicacion.RUEDA_TRASERA_DERECHA ){
 					getRuedaTraseraDerecha().setAuto(Auto.this);
 			}
-			if ( ubicacion == "RUEDA4" ){
+			if ( ubicacion == Ubicacion.RUEDA_TRASERA_IZQUIERDA ){
 					getRuedaTraseraIzquierda().setAuto(Auto.this);
 					getEje().setRuedaTrasera(getRuedaTraseraIzquierda());
 			}
@@ -377,8 +391,8 @@ public class Auto extends Observable{
 	 *
 	 */
 	private class EnsambladorTanqueCombustible implements Ensamblador{
-		public boolean colocar(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException{
-			if(ubicacion!="TANQUE")
+		public boolean colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException{
+			if(ubicacion!=Ubicacion.TANQUE)
 				return false;
 			if(!(parte instanceof TanqueCombustible))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a un tanque");			
@@ -386,13 +400,35 @@ public class Auto extends Observable{
 			setTanqueCombustible((TanqueCombustible)parte);
 			return true;
 		}
-		public boolean ensamblar(String ubicacion){	
-			if(ubicacion!="TANQUE")
+		public boolean ensamblar(Ubicacion ubicacion){	
+			if(ubicacion!=Ubicacion.TANQUE)
 				return false;
 			getMezclador().setTanqueCombustible(getTanqueCombustible());
 			return true;	
 		}
 		public void ensamblar(){}
+	}
+	/**
+	 * 
+	 */
+	private void crearCadenaDeEnsamblaje(){
+		cadenaEnsambladores=new CadenaEnsambladores();
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorMotor());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorCaja());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorEje());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorEscape());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorFreno());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorMezclador());	
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorTanqueCombustible());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorRueda());
+		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorCarroceria());
+
+	}
+	/*
+	 * Inicializacion comun a todos los constructores 
+	 */
+	{
+		crearCadenaDeEnsamblaje();
 	}
 	/**
 	 * Crea un nuevo auto con las partes especificadas.
@@ -412,44 +448,40 @@ public class Auto extends Observable{
 	            Caja caja,Mezclador mezclador, TanqueCombustible tanqueCombustible,
 	            Rueda rueda1, Rueda rueda2, Rueda rueda3, Rueda rueda4, Eje eje, Freno freno) {
 
-		partes = new Hashtable <String, ParteAuto>();
-		
-		//Ruedas
-		ruedas = new LinkedList<Rueda>();
-		for(int i=0;i<4;i++)	//dejamos el lugar para las cuatro ruedas
-			ruedas.add(null);
-
-		//Velocidad
-		setVelocidad(0);
-		
-		//Posicion
-		setPosicion(0);
-		
-		cadenaEnsambladores=new CadenaEnsambladores();
-		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorMotor());
-		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorCaja());
-		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorEje());
-		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorEscape());
-		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorFreno());
-		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorMezclador());	
-		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorTanqueCombustible());
-		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorRueda());
-		cadenaEnsambladores.aniadirEnsamblador(new EnsambladorCarroceria());
-		
 		setCarroceria(carroceria);
 		setMotor(motor);
 		setEscape(escape);
 		setMezclador(mezclador);
 		setTanqueCombustible(tanqueCombustible);
 		setEje(eje);
-		setCaja(caja);
-		setPista(null);
+		setCaja(caja);	
 		setFreno(freno);
 		setRuedaDelanteraDerecha(rueda1);
 		setRuedaDelanteraIzquierda(rueda2);
 		setRuedaTraseraDerecha(rueda3);
 		setRuedaTraseraIzquierda(rueda4);
 		
+		setPista(null);
+		
+		ensamblar();
+	}
+	/**
+	 * 
+	 * @param auto
+	 */
+	public Auto(ProveedorDePartes proveedor,Element element){
+		
+		Element auto=element.getFirstChildElement("auto");
+		
+		for(Ubicacion ubicacion: Ubicacion.values()){
+	//TODO:
+			/*		Element elemento=auto.getFirstChildElement(ubicacion);
+			InformacionDelModelo informacionDelModelo=InformacionDelModelo(elemento.getFirstChildElement("Informacion del modelo"));
+			ParteAuto parte=proveedor.obtener(informacionDelModelo);
+			parte.updateSinceElement(elemento);
+			colocarParte(parte,ubicacion);
+		*/
+		}
 		ensamblar();
 	}
 
@@ -460,7 +492,7 @@ public class Auto extends Observable{
 	 * @throws IncorrectPartForUbicationException
 	 * @throws UbicationUnkownException
 	 */
-	public void colocarParte(ParteAuto parte,String ubicacion)throws IncorrectPartForUbicationException,UbicationUnkownException{
+	public void colocarParte(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException,UbicationUnkownException{
 		cadenaEnsambladores.colocar(parte, ubicacion);
 	}
 	/**
@@ -475,8 +507,8 @@ public class Auto extends Observable{
 	}
 //Partes Auto
 	@SuppressWarnings("unchecked")
-	public Hashtable<String, ParteAuto> getHashDePartes(){
-		return (Hashtable<String, ParteAuto>)partes.clone();
+	public Hashtable<Ubicacion, ParteAuto> getHashDePartes(){
+		return (Hashtable<Ubicacion, ParteAuto>)partes.clone();
 	}
 //VELOCIDAD
 
@@ -497,7 +529,7 @@ public class Auto extends Observable{
 	 * @see Rueda
 	 */
 	public double obtenerRpm() {
-		return ruedas.get(0).getRPM();
+		return getRuedaTraseraIzquierda().getRPM();
 	}
 	/**
 	 * convierte metros por segundo a kilometros por hora
@@ -578,8 +610,8 @@ public class Auto extends Observable{
 	 */
 	public void setEscape(Escape escape) {
 		this.escape = escape;
-		partes.put("ESCAPE", escape);
-		cadenaEnsambladores.aniadirAListaPorEnsamblar("ESCAPE");
+		partes.put(Ubicacion.ESCAPE, escape);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar(Ubicacion.ESCAPE);
 	}
 
 //CARROCERIA
@@ -604,8 +636,8 @@ public class Auto extends Observable{
 	 */
 	public void setCarroceria(Carroceria carroceria) {
 		this.carroceria = carroceria;
-		partes.put("CARROCERIA", carroceria);
-		cadenaEnsambladores.aniadirAListaPorEnsamblar("CARROCERIA");
+		partes.put(Ubicacion.CARROCERIA, carroceria);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar(Ubicacion.CARROCERIA);
 	}
 
 //MOTOR
@@ -630,8 +662,8 @@ public class Auto extends Observable{
 	 */
 	public void setMotor(Motor motor) {
 		this.motor = motor;
-		partes.put("MOTOR", motor);
-		cadenaEnsambladores.aniadirAListaPorEnsamblar("MOTOR");
+		partes.put(Ubicacion.MOTOR, motor);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar(Ubicacion.MOTOR);
 	}
 
 	/**
@@ -668,8 +700,8 @@ public class Auto extends Observable{
 	 */
 	public void setFreno(Freno freno) {
 		this.freno = freno;
-		partes.put("FRENO", freno);
-		cadenaEnsambladores.aniadirAListaPorEnsamblar("FRENO");
+		partes.put(Ubicacion.FRENO, freno);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar(Ubicacion.FRENO);
 	}
 
 	/**
@@ -704,7 +736,7 @@ public class Auto extends Observable{
 	 * @see Rueda
 	 */
 	public Rueda getRuedaDelanteraDerecha() {
-		return ((Rueda)(ruedas.get(0)));
+		return (Rueda)partes.get(Ubicacion.RUEDA_DELANTERA_DERECHA);
 	}
 
 	/**
@@ -715,9 +747,8 @@ public class Auto extends Observable{
 	 * @see Rueda
 	 */
 	public void setRuedaDelanteraDerecha(Rueda rueda) {
-		ruedas.set(0,rueda);
-		partes.put("RUEDA1", rueda);
-		cadenaEnsambladores.aniadirAListaPorEnsamblar("RUEDA1");
+		partes.put(Ubicacion.RUEDA_DELANTERA_DERECHA, rueda);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar(Ubicacion.RUEDA_DELANTERA_DERECHA);
 	}
 
 	/**
@@ -728,7 +759,7 @@ public class Auto extends Observable{
 	 * @see Rueda
 	 */
 	public Rueda getRuedaDelanteraIzquierda() {
-		return ((Rueda)(ruedas.get(1)));
+		return ((Rueda)partes.get(Ubicacion.RUEDA_DELANTERA_IZQUIERDA));
 	}
 
 	/**
@@ -739,9 +770,8 @@ public class Auto extends Observable{
 	 * @see Rueda
 	 */
 	public void setRuedaDelanteraIzquierda(Rueda rueda) {
-		ruedas.set(1,rueda);
-		partes.put("RUEDA2", rueda);
-		cadenaEnsambladores.aniadirAListaPorEnsamblar("RUEDA2");
+		partes.put(Ubicacion.RUEDA_DELANTERA_IZQUIERDA, rueda);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar(Ubicacion.RUEDA_DELANTERA_IZQUIERDA);
 	}
 
 	/**
@@ -752,7 +782,7 @@ public class Auto extends Observable{
 	 * @see Rueda
 	 */
 	public Rueda getRuedaTraseraDerecha() {
-		return ((Rueda)(ruedas.get(2)));
+		return (Rueda)partes.get(Ubicacion.RUEDA_TRASERA_DERECHA);
 	}
 
 	/**
@@ -763,9 +793,8 @@ public class Auto extends Observable{
 	 * @see Rueda
 	 */
 	public void setRuedaTraseraDerecha(Rueda rueda) {
-		ruedas.set(2,rueda);
-		partes.put("RUEDA3", rueda);
-		cadenaEnsambladores.aniadirAListaPorEnsamblar("RUEDA3");
+		partes.put(Ubicacion.RUEDA_TRASERA_DERECHA, rueda);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar(Ubicacion.RUEDA_TRASERA_DERECHA);
 	}
 
 	/**
@@ -776,7 +805,7 @@ public class Auto extends Observable{
 	 * @see Rueda
 	 */
 	public Rueda getRuedaTraseraIzquierda() {
-		return ((Rueda)(ruedas.get(3)));
+		return (Rueda)partes.get(Ubicacion.RUEDA_TRASERA_IZQUIERDA);
 	}
 
 	/**
@@ -787,9 +816,8 @@ public class Auto extends Observable{
 	 * @see Rueda
 	 */
 	public void setRuedaTraseraIzquierda(Rueda rueda) {
-		ruedas.set(3,rueda);
-		partes.put("RUEDA4", rueda);
-		cadenaEnsambladores.aniadirAListaPorEnsamblar("RUEDA4");
+		partes.put(Ubicacion.RUEDA_TRASERA_IZQUIERDA, rueda);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar(Ubicacion.RUEDA_TRASERA_IZQUIERDA);
 	}
 
 //TANQUE COMBUSTIBLE
@@ -814,8 +842,8 @@ public class Auto extends Observable{
 	 */
 	public void setTanqueCombustible(TanqueCombustible tanqueCombustible) {
 		this.tanqueCombustible = tanqueCombustible;
-		partes.put("TANQUE", tanqueCombustible);
-		cadenaEnsambladores.aniadirAListaPorEnsamblar("TANQUE");
+		partes.put(Ubicacion.TANQUE, tanqueCombustible);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar(Ubicacion.TANQUE);
 	}
 
 	/**
@@ -865,8 +893,8 @@ public class Auto extends Observable{
 	public void setMezclador(Mezclador mezclador) {
 		this.mezclador = mezclador;
 		this.getMotor().setMezclador(this.getMezclador());
-		partes.put("MEZCLADOR", mezclador);
-		cadenaEnsambladores.aniadirAListaPorEnsamblar("MEZCLADOR");
+		partes.put(Ubicacion.MEZCLADOR, mezclador);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar(Ubicacion.MEZCLADOR);
 	}
 
 // CAJA
@@ -880,8 +908,8 @@ public class Auto extends Observable{
 	 */
 	public void setCaja(Caja caja){
 		this.caja = caja;
-		partes.put("CAJA", caja);
-		cadenaEnsambladores.aniadirAListaPorEnsamblar("CAJA");
+		partes.put(Ubicacion.CAJA, caja);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar(Ubicacion.CAJA);
 	}
 
 	/**
@@ -917,8 +945,8 @@ public class Auto extends Observable{
 	 */
 	public void setEje(Eje eje) {
 		this.eje = eje;
-		partes.put("EJE", eje);
-		cadenaEnsambladores.aniadirAListaPorEnsamblar("EJE");
+		partes.put(Ubicacion.EJE, eje);
+		cadenaEnsambladores.aniadirAListaPorEnsamblar(Ubicacion.EJE);
 	}
 
 //PESO
