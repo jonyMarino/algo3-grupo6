@@ -80,7 +80,8 @@ public class ProgramaAuto extends Observable {
                  * Obtiene una lista de los competidores de la carrera
                  * @return
                  */
-                public List<Usuario> getCompetidores(){
+                @SuppressWarnings("unchecked")
+				public List<Usuario> getCompetidores(){
                 	return (List<Usuario>)listaDeCompetidores.clone();
                 }
                 
@@ -122,7 +123,7 @@ public class ProgramaAuto extends Observable {
                                 	rellenarPosiciones();	//relleno las posiciones
                                 	agregarAPosiciones(competidor);	//se agrega como ultimo
                                 	simulando=false;
-                                	//TODO: Rellenar Competidores y poner usuario al final de la lista
+                      
                                 }
                         }
                setChanged();

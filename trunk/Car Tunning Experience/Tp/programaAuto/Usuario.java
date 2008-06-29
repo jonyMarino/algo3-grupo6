@@ -28,8 +28,8 @@ public class Usuario {
 		Element usuario = element.getFirstChildElement("usuario");
 		nombre=usuario.getFirstChildElement("nombre").getValue();
 		dinero = Double.parseDouble(usuario.getFirstChildElement("dinero").getValue());
-//		auto = new Auto(proveedor,usuario);	
-//		this.taller = new Taller(this,proveedor,usuario.getFirstChildElement("taller"));	
+		auto = new Auto(proveedor,usuario);	
+		this.taller = new Taller(this,proveedor,usuario.getFirstChildElement("taller"));	
 	}
 	
 	public Element getElement(){
@@ -40,7 +40,8 @@ public class Usuario {
 		unDinero.appendChild(dinero+"");
 		usuario.appendChild(unNombre);
 		usuario.appendChild(unDinero);
-//		usuario.appendChild(auto.getElement());
+		usuario.appendChild(auto.getElement());
+		usuario.appendChild(taller.getElement());
 		return usuario;
 	}
 
