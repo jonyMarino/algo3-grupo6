@@ -42,9 +42,28 @@ import proveedorDePartes.fabricas.TanqueCombustible;
  */
 public abstract class Auto extends Observable{
 	public enum Ubicacion{
-		MOTOR,CAJA,MEZCLADOR,EJE,ESCAPE,CARROCERIA,FRENO,TANQUE,
-		RUEDA_TRASERA_IZQUIERDA,RUEDA_TRASERA_DERECHA,
-		RUEDA_DELANTERA_IZQUIERDA,RUEDA_DELANTERA_DERECHA
+		
+		MOTOR("Motor"),
+		CAJA("Caja"),
+		MEZCLADOR("Mezclador"),
+		EJE("Eje"),
+		ESCAPE("Escape"),
+		CARROCERIA("Carroceria"),
+		FRENO("Freno"),
+		TANQUE("Tanque"),
+		RUEDA_TRASERA_IZQUIERDA("Rueda trasera izquierda"),
+		RUEDA_TRASERA_DERECHA("Rueda trasera derecha"),
+		RUEDA_DELANTERA_IZQUIERDA("Rueda delantera izquierda"),
+		RUEDA_DELANTERA_DERECHA("Rueda delantera derecha");
+		private String descripcion;
+		Ubicacion(String descripcion){
+			this.descripcion=descripcion;
+		}
+		@Override
+		public String toString(){
+			return descripcion;
+		}
+		
 	}
 	private Escape 		           escape;
 	private Carroceria 	           carroceria;
