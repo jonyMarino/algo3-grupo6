@@ -11,6 +11,7 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import excepciones.BoundsException;
 import programaAuto.ProgramaAuto;
+import programaAuto.Auto.Ubicacion;
 import programaAuto.Taller.InformacionParteEnAuto;
 import proveedorDePartes.fabricas.FabricaDePartes;
 import proveedorDePartes.fabricas.InformacionDelModelo;
@@ -43,7 +44,7 @@ public class ActualizadorPantallaTaller {
 	private void actualizarParteARemover() {
 		Iterator<InformacionParteEnAuto> itPartesAuto = programaAuto.getUsuario().getTaller().getPartesEnAuto();
 		while(itPartesAuto.hasNext()) {
-			pantallaTaller.agregarARemover(itPartesAuto.next().getUbicacion());		
+			pantallaTaller.agregarARemover(itPartesAuto.next().getUbicacion().toString());		
 		}
 	}
 
@@ -84,7 +85,7 @@ public class ActualizadorPantallaTaller {
 		pantallaTaller.limpiarInformacionAuto();
 		
 		ParteAuto parte;
-		Hashtable<String,ParteAuto> tabla=new Hashtable<String,ParteAuto>();
+		Hashtable<Ubicacion,ParteAuto> tabla=new Hashtable<Ubicacion,ParteAuto>();
         tabla = programaAuto.getUsuario().getAuto().getHashDePartes();
         Enumeration<ParteAuto> enumeracion = tabla.elements();
         String vidaUtil,nombreParte;
