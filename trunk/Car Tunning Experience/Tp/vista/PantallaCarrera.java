@@ -43,7 +43,7 @@ public class PantallaCarrera extends JPanel{
 	
 	public PantallaCarrera(ControladorJuego controladorJuego) {
 		super();
-		pixelesPorMetro=10;
+		pixelesPorMetro=20;
 		int width = 900;
 		int height = 675;
 		this.setSize(width, height);
