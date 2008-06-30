@@ -1,5 +1,6 @@
 package pruebas;
 
+import proveedorDeNafta.FabricaDeNafta;
 import proveedorDeNafta.Nafta;
 import proveedorDePartes.fabricas.FabricaDeMezcladores;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
@@ -15,6 +16,7 @@ public class TanqueNaftaTest extends TestCase {
 	TanqueNafta tanque;
 	FabricaDeTanquesDeCombustible fabricaDeTanques;
 	FabricaDeMezcladores fabricaDeMezcladores;
+	FabricaDeNafta fabricaDeNafta;
 	Nafta nafta;
 	private Mezclador mezclador;
 	double naftaUtilRestante;
@@ -22,12 +24,13 @@ public class TanqueNaftaTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		nafta = new Nafta(95,20);
 		fabricaDeTanques = new FabricaDeTanquesDeCombustible();
 		fabricaDeMezcladores = new FabricaDeMezcladores();
+		fabricaDeNafta = new FabricaDeNafta();
 		fabricaDeMezcladores.proponerMezclador("Mezclador 100% eficiente", 100, 50, "NAFTA");
 		fabricaDeMezcladores.proponerMezclador("Mezclador 50% eficiente", 50, 25, "NAFTA");
 		fabricaDeMezcladores.proponerMezclador("Mezclador 0% eficiente", 1, 10, "NAFTA");
+		nafta = fabricaDeNafta.fabricar(fabricaDeNafta.getTipos().get(0));
 		tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(0));
 		tanque.setCombustible(nafta);
 	}
