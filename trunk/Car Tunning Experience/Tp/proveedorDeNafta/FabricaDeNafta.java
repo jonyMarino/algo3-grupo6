@@ -3,36 +3,36 @@ package proveedorDeNafta;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import proveedorDePartes.fabricas.InformacionDelModelo;
-import combustible.Nafta;
+
+
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 
 public class FabricaDeNafta {
 	
-	private ArrayList<InformacionDelModelo> tiposConocidos;
+	private ArrayList<InformacionCombustible> tiposConocidos;
 
 	public FabricaDeNafta() {
-		tiposConocidos = new ArrayList<InformacionDelModelo>();
+		tiposConocidos = new ArrayList<InformacionCombustible>();
 		agregarTipo(nuevoTipoNafta(600,50.0));
 	}
 	
-	public Integer consultarPrecio(InformacionDelModelo modelo) {
+	public Integer consultarPrecio(InformacionCombustible modelo) {
 		return null;
 	}
 	 
-	public ArrayList<InformacionDelModelo> getTipos() {
+	public ArrayList<InformacionCombustible> getTipos() {
 		return tiposConocidos;
 	}
 
-	public void agregarTipo(InformacionDelModelo datosDelModelo) {
-		Iterator<InformacionDelModelo> iteradorModelos = getTipos().iterator();
+	public void agregarTipo(InformacionCombustible datosDelModelo) {
+		Iterator<InformacionCombustible> iteradorModelos = getTipos().iterator();
 		ArrayList<String> claves = datosDelModelo.getCaracteristicasDisponibles();
 		boolean encontrado = false;
 		
 		while(iteradorModelos.hasNext() && !encontrado){
 			Iterator<String> iteradorClaves = claves.iterator();
-			InformacionDelModelo modeloAComparar = iteradorModelos.next();
+			InformacionCombustible modeloAComparar = iteradorModelos.next();
 			encontrado = true;
 			while(iteradorClaves.hasNext() && encontrado){
 				try{
@@ -50,24 +50,22 @@ public class FabricaDeNafta {
 			
 	}
 
-	private InformacionDelModelo nuevoTipoNafta(int octanaje,Double costo){
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+	private InformacionCombustible nuevoTipoNafta(int octanaje,Double costo){
+		InformacionCombustible nuevaInfo = new InformacionCombustible();
 		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		nuevaInfo.agregarCaracteristica("OCTANAJE",Integer.toString(octanaje));
 		return nuevaInfo;
 	}
 	
-	public Nafta fabricar(InformacionDelModelo modelo) throws NoSuchModelException{
+	public Nafta fabricar(InformacionCombustible modelo) throws NoSuchModelException{
 		NoSuchModelException unaExcepcion = new NoSuchModelException("No es un tipo de Nafta");
 		Nafta nafta;
 		try{
 			double costo = Double.parseDouble(modelo.getCaracteristica("COSTO"));
 			int octanaje = Integer.parseInt(modelo.getCaracteristica("OCTANAJE"));
 			nafta = new Nafta(octanaje,costo);
-			nafta.setOctanaje(octanaje);
-			nafta.setCosto(costo);
 
-			nafta.setInformacionDelModelo(modelo);
+			nafta.setInformacionCombustible(modelo);
 			return nafta;
 		}
 		catch(BoundsException e){
