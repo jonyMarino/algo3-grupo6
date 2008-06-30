@@ -24,6 +24,18 @@ public class VistaVelocimetro  implements VistaGrafica {
 	private ProgramaAuto elPrograma;
 	private BufferedImage panel;
 	private BufferedImage aguja;
+
+    /**
+     *
+     * Crea una nueva @link{VistaGrafica} que representa la velocidad del
+     * @link{Auto} del @link{Usuario} principal en forma de un velocímetro.
+     *
+     * @param ancho El ancho de la vista
+     * @param alto El alto de la vista
+     * @param unPrograma La instancia de @link{ProgramaAuto} a la que pertenece el @link{Usuario} principal.
+     *
+     * @see VistaGrafica
+     */
 	
 	public VistaVelocimetro(int ancho, int alto, ProgramaAuto unPrograma) {
 		bufferPrincipal = new BufferedImage(ancho,alto, BufferedImage.TYPE_INT_ARGB);
