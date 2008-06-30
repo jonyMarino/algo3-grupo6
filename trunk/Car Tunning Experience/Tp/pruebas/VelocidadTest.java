@@ -10,6 +10,7 @@ import auto.AutoManual;
 import programaAuto.Auto;
 import programaAuto.Pista;
 import programaAuto.ProgramaAuto; 
+import programaAuto.ProgramaAuto.TipoAuto;
 
 
 public class VelocidadTest extends TestCase {
@@ -23,13 +24,13 @@ public class VelocidadTest extends TestCase {
 	public void testCambio()throws BoundsException {
 		ProgramaAuto programa = null;
 		try {
-			programa = new ProgramaAuto("PruebaVelocidad");
+			programa = new ProgramaAuto("PruebaVelocidad",TipoAuto.MANUAL);
 		} catch (WrongUserNameException e) {
 			e.printStackTrace();
 		}
 		ArrayList<Auto> autos = new ArrayList<Auto>();
 		for(int i=0;i<5;i++){
-			AutoManual auto=(AutoManual)programa.autoInicial(); 
+			AutoManual auto=(AutoManual)programa.autoInicial(TipoAuto.MANUAL); 
 			auto.setPista(pista);
 			auto.setCambio(i+1);
 			auto.presionarAcelerador(1);
