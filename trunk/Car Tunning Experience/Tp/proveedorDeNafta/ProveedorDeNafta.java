@@ -3,7 +3,10 @@ package proveedorDeNafta;
 import java.util.ArrayList;
 import programaAuto.Usuario;
 import proveedorDeNafta.FabricaDeNafta;
+import proveedorDePartes.fabricas.InformacionDelModelo;
+import proveedorDePartes.fabricas.ParteAuto;
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 import excepciones.TankIsFullException;
 
@@ -32,6 +35,11 @@ public class ProveedorDeNafta {
 
 			usuario.gastarDinero(dineroNecesario);
 			return cantidad;
+	}
+	
+	public Nafta obtenerNafta() throws NoSuchModelException{
+		InformacionCombustible modelo =getFabricasDisponibles().get(0).getTipos().get(0);
+		return fabricasDisponibles.get(0).fabricar(modelo);
 	}
 	
 	public ArrayList<FabricaDeNafta> getFabricasDisponibles(){

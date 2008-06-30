@@ -54,6 +54,7 @@ public class ProgramaAuto extends Observable {
         private LinkedList<Pista> pistas=generarPistas();
         private static final double  PASO_SIMULACION = 0.05;
         ProveedorDePartes unProveedor=new ProveedorDePartes();
+        ProveedorDeNafta unProveedorNafta=new ProveedorDeNafta();
         
         
         public class SimuladorCarrera{
@@ -294,11 +295,11 @@ public class ProgramaAuto extends Observable {
 			}
         	usuariotemporal.setDinero(999999999);
                 Auto auto=null;
-                Nafta nafta = new Nafta(85,15);
-                
+          
                 ArrayList<InformacionDelModelo> modelos = unProveedor.getModelosDisponibles();
                 
                 try{
+                	    Nafta nafta = unProveedorNafta.obtenerNafta();
                         TanqueNafta tanque = (TanqueNafta) unProveedor.comprar(modelos.get(9), usuariotemporal);
                         tanque.setCombustible(nafta);
         
