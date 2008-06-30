@@ -36,11 +36,14 @@ public class PantallaCarrera extends JPanel{
 
     ControladorCarrera elControlador;
     VistaGrafica unaVista;
+    VistaGrafica informacion;
     ProgramaAuto elPrograma;
 	ArrayList<Point2D> listaDeArboles;
+	public static int pixelesPorMetro;
 	
 	public PantallaCarrera(ControladorJuego controladorJuego) {
 		super();
+		pixelesPorMetro=10;
 		int width = 900;
 		int height = 675;
 		this.setSize(width, height);
@@ -49,9 +52,9 @@ public class PantallaCarrera extends JPanel{
 		elPrograma = controladorJuego.getProgramaAuto();
 		elControlador = new ControladorCarrera(elPrograma, this);
 		generarArboles();
-		//unaVista = new VistaDeCostado(width, height, controladorJuego.getProgramaAuto());
-		unaVista = new VistaCarreraInformativa(width, height, controladorJuego.getProgramaAuto());
-		//((VistaDeCostado)unaVista).setArboles(listaDeArboles);
+		unaVista = new VistaDeCostado(width, height, controladorJuego.getProgramaAuto());
+		informacion = new VistaCarreraInformativa(width, height/4, controladorJuego.getProgramaAuto());
+		((VistaDeCostado)unaVista).setArboles(listaDeArboles);
 		setFocusable(true);
 		setVisible(true);
 		addKeyListener(elControlador);
@@ -59,8 +62,8 @@ public class PantallaCarrera extends JPanel{
 	}
 	
 	private void generarArboles() {
-		int cantidadArboles = 25;
-		int distanciaEntreArboles = (int) (elPrograma.getPista().getLongitud()*10/cantidadArboles);
+		int cantidadArboles = 60;
+		int distanciaEntreArboles = (int) (elPrograma.getPista().getLongitud()*pixelesPorMetro/cantidadArboles);
 		
 		System.out.println(distanciaEntreArboles);
 		
@@ -82,6 +85,7 @@ public class PantallaCarrera extends JPanel{
 		 Graphics2D g2 =(Graphics2D) g;
 	        if(g2!=null){
 	        	g2.drawImage(unaVista.getVista(), 0, 0, getWidth(), getHeight(), null);
+	        	g2.drawImage(informacion.getVista(), 0, 0, informacion.getWidth(), informacion.getHeight(), null);
 	        }
 	}
 	

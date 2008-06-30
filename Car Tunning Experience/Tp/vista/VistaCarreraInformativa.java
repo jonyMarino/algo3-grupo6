@@ -27,7 +27,7 @@ public class VistaCarreraInformativa  implements VistaGrafica {
 	
 	private void dibujarMensajes(){
 		Graphics2D superficie = bufferPrincipal.createGraphics();
-		superficie.setBackground(Color.white);
+		superficie.setBackground(new Color(0,0,0,0));
 		superficie.clearRect(0, 0, getWidth(), getHeight());
 		superficie.setColor(Color.black); //colorMensajes);
 		superficie.setFont(new Font("Arial",Font.BOLD,12));

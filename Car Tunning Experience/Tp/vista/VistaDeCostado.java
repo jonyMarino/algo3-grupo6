@@ -79,7 +79,7 @@ public class VistaDeCostado implements VistaGrafica {
 
 	private void renderizar(Graphics2D temporal2D) {
 		int inicio=0;
-		int posicion =  (int) elPrograma.getUsuario().getAuto().getPosicion();
+		int posicion =  (int) elPrograma.getUsuario().getAuto().getPosicion()*PantallaCarrera.pixelesPorMetro;
 		int anchoAuto = autoPrincipal.getWidth(null);
 		if(posicion > (getWidth()-anchoAuto)/2){
 			inicio = posicion-(getWidth()-anchoAuto)/2;
