@@ -1,6 +1,6 @@
 package proveedorDePartes.fabricas;
 
-import combustible.Nafta;
+
 import excepciones.BoundsException;
 
 /**
