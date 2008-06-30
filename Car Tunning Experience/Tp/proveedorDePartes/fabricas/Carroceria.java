@@ -100,14 +100,10 @@ public class Carroceria extends ParteAuto{
 		else 
 			return velocidadRespectoDelViento;
 	}
-
-
-
+	
 	public Auto getAuto() {
 		return auto;
 	}
-
-
 
 	public void setAuto(Auto auto) {
 		this.auto = auto;

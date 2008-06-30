@@ -130,7 +130,7 @@ public class MotorTest extends TestCase {
 		assertEquals(0.0, motor.obtenerRPM());
 		motor.acelerar(1);
 		auto.simular(1);
-		assertEquals(36600, motor.obtenerRPM(), 50);
+		assertEquals(4671.63, motor.obtenerRPM(), 50);
 	}
 
 	
