@@ -10,6 +10,7 @@ import excepciones.NotEnoughMoneyException;
 import excepciones.TankIsFullException;
 import excepciones.UbicationUnkownException;
 import programaAuto.ProgramaAuto;
+import programaAuto.Usuario;
 import programaAuto.Auto.Ubicacion;
 import programaAuto.Taller.InformacionParteEnAuto;
 import proveedorDePartes.fabricas.InformacionDelModelo;
@@ -107,9 +108,11 @@ public class ControladorTaller implements ActionListener {
 	private void llenarTanque(double cantidad) {
 		try {
 			if(cantidad != 0){
-			programaAuto.comprarNafta(cantidad);
+			Usuario usuario = programaAuto.getUsuario();
+			programaAuto.getUnProveedorDeNafta().comprar(cantidad, usuario);
+			//programaAuto.comprarNafta(cantidad);
 			pantallaTaller.generarMensaje("La carga ha sido realizada satisfactoriamente");
-			}
+		}
 		} catch (TankIsFullException e1) {
 	    	pantallaTaller.generarMensajeError("El tanque esta lleno");		
 		} catch (BoundsException e1) {

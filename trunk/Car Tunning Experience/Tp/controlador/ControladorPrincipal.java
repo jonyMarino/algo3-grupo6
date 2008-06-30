@@ -10,12 +10,12 @@ import programaAuto.NotContainedPistaException;
 import programaAuto.NotInTallerException;
 import programaAuto.PistaPickedException;
 import programaAuto.ProgramaAuto;
+import proveedorDeNafta.Nafta;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.TanqueCombustible;
 import vista.VistaGraficador;
 
-import combustible.Nafta;
 
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;

@@ -20,6 +20,8 @@ import java.util.Random;
 
 import programaAuto.Taller.InformacionParteEnAuto;
 import programaAuto.Taller.InformacionParteReserva;
+import proveedorDeNafta.Nafta;
+import proveedorDeNafta.ProveedorDeNafta;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
@@ -31,7 +33,6 @@ import proveedorDePartes.fabricas.Motor;
 import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.TanqueNafta;
 import auto.AutoManual;
-import combustible.Nafta;
 import excepciones.BoundsException;
 import excepciones.IncorrectPartForUbicationException;
 import excepciones.InvalidPistaNameException;
@@ -473,10 +474,17 @@ public class ProgramaAuto extends Observable {
         public Usuario getUsuario() {
 			return usuario;
 		}
-        
+        /*
         public void comprarNafta(double cantidad) throws NotEnoughMoneyException, BoundsException, TankIsFullException {
             usuario.getAuto().cargarCombustible(cantidad);
             usuario.gastarDinero(cantidad * 4 );
+        }*/
+        
+        public ProveedorDeNafta getUnProveedorDeNafta(){
+        
+        	ProveedorDeNafta proveedorDeNafta = new ProveedorDeNafta();
+        	return proveedorDeNafta;
         }
+        
         
 }
