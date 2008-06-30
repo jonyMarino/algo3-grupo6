@@ -151,7 +151,7 @@ public class PantallaTaller extends JPanelConImagen {
     	   return panelBodega;
        }
 
-       public String parteARemover(){ 	
+       public String obtenerParteARemover(){ 	
     	   return (String)comboParteARemover.getSelectedItem();
        }
        
@@ -167,7 +167,7 @@ public class PantallaTaller extends JPanelConImagen {
     	   comboPartesReserva.addItem( descripcion + " " + vidaUtil );
        }
        
-       public String parteACambiar(){
+       public String obtenerParteACambiar(){
     	   return (String)comboPartesReserva.getSelectedItem();
        }
      
@@ -248,19 +248,14 @@ public class PantallaTaller extends JPanelConImagen {
 
        }
        
-       public void precioNafta(String precio){
+       public void cambiarPrecioNafta(String precio){
     	   labelPrecioNafta.setText(precio);	  
        }
        
-       public JLabel getLabelPrecioNafta() {
-   			return labelPrecioNafta;
-   		}
-       
-       public String obtenerCantidadPanelNafta() {
+       public String obtenerCantidadNafta() {
     	   return(cantidadSeleccionada.getValue().toString());
        }
-       
-     
+           
        /* PANEL PISTA */
        private JPanel crearPanelPista(){            
            Color nc = new Color(176,196,222);
@@ -407,8 +402,7 @@ public class PantallaTaller extends JPanelConImagen {
 		   return panelCombo;
        }
 
-
-       public JComboBox getElCatalogo() {
+       public JComboBox obtenerCatalogo() {
     	   return elCatalogo;
        }
 
@@ -416,11 +410,11 @@ public class PantallaTaller extends JPanelConImagen {
     	   elCatalogo.addItem(parteAgregar);
        }
        
-       public String parteAComprar(){ 	
+       public String obtenerParteAComprar(){ 	
     	   return (String)elCatalogo.getSelectedItem();
        }
        
-       public void precioParteSeleccionada(String precio){
+       public void cambiarPrecioParteSeleccionada(String precio){
 	    	labelPrecio.setText(precio);	    	  
        }
        
@@ -436,7 +430,7 @@ public class PantallaTaller extends JPanelConImagen {
            Color nc2 = new Color(224,224,255);
            Border border2 = BorderFactory.createMatteBorder(2,2,2,2,nc2);
            Border border= BorderFactory.createTitledBorder(border2,"Precio");
-           precioParteSeleccionada("precio");
+           cambiarPrecioParteSeleccionada("precio");
     
            panelPrecio.add(labelPrecio);
            panelPrecio.setBorder(border);
