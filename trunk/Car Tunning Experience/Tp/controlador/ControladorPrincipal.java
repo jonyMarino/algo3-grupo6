@@ -2,11 +2,7 @@ package controlador;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import combustible.Nafta;
-import excepciones.BoundsException;
-import excepciones.NoSuchModelException;
-import excepciones.TankIsFullException;
-import excepciones.WrongUserNameException;
+
 import programaAuto.Auto;
 import programaAuto.NoPistaPickedException;
 import programaAuto.NotAbleWhileSimulatingException;
@@ -18,6 +14,13 @@ import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.TanqueCombustible;
 import vista.VistaGraficador;
+
+import combustible.Nafta;
+
+import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
+import excepciones.TankIsFullException;
+import excepciones.WrongUserNameException;
 
 public class ControladorPrincipal implements KeyListener{
 
@@ -68,7 +71,7 @@ public class ControladorPrincipal implements KeyListener{
 		vista1.addKeyListener(this);
 		unAuto.addObserver(vista1);
 		simulando = true;
-		tiempo =0.05;
+		tiempo =0.5;
 		fastForward = 1;
 		unAuto.ensamblar();
 

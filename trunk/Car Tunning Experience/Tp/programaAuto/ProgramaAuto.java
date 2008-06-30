@@ -51,7 +51,7 @@ public class ProgramaAuto extends Observable {
         SimuladorCarrera simulador=null;	//Objeto que se encarga de la simulacion de la carrera
         Taller tallerActual=null;
         private LinkedList<Pista> pistas=generarPistas();
-        private static final double  PASO_SIMULACION = 0.5;
+        private static final double  PASO_SIMULACION = 0.05;
         ProveedorDePartes unProveedor=new ProveedorDePartes();
         
         
@@ -97,7 +97,7 @@ public class ProgramaAuto extends Observable {
                         try{
 	                        while(simulando){
 	                                simularUnPaso();
-	                                Thread.sleep(500);	//0.5 segundos
+	                                Thread.sleep(50);	//0.5 segundos
 	                                while(pausa)			//espero a salir de la pausa
 	                                	Thread.sleep(0);
 	                        }
