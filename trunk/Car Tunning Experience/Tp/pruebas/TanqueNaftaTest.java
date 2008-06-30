@@ -148,31 +148,25 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
-		assertEquals(49, tanque.getCantidadCombustible(), 0.2);
+		assertEquals(49.99, tanque.getCantidadCombustible(), 0.2);
 		try {
 			mezclador.obtenerMezcla(5);
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
-		assertEquals(43.5, tanque.getCantidadCombustible(), 0.2);
+		assertEquals(49.98, tanque.getCantidadCombustible(), 0.2);
 		try {
 			mezclador.obtenerMezcla(10);
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
-		assertEquals(33.15, tanque.getCantidadCombustible(), 0.4);
+		assertEquals(49.94, tanque.getCantidadCombustible(), 0.4);
 		try {
 			mezclador.obtenerMezcla(90);
-			fail("No se puede obtener esa cantidad de mezcla");
 		} catch (BoundsException e) {
-			if("Faltante de nafta necesaria para la mezcla pedida" == e.getMessage())
-				naftaUtilRestante = ((tanque.getCantidadCombustible()*tanque.getCombustible().getOctanaje())/100);
-				mezclaMinima = ((mezclador.getRendimiento()*naftaUtilRestante)/100);
-				try {
-					mezclador.obtenerMezcla(mezclaMinima);
-				} catch (BoundsException e1) {}
+			e.printStackTrace();
 		}
-		assertEquals(0.0, tanque.getCantidadCombustible(), 0.4);
+		assertEquals(49.64, tanque.getCantidadCombustible(), 0.4);
 		mezclador = null;
 
 	}
@@ -195,7 +189,7 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
-		assertEquals(49, tanque.getCantidadCombustible(), 0.2);
+		assertEquals(49.9, tanque.getCantidadCombustible(), 0.1);
 		mezclador = null;
 
 	}
@@ -218,7 +212,7 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
-		assertEquals(49, tanque.getCantidadCombustible(), 0.2);
+		assertEquals(49.9, tanque.getCantidadCombustible(), 0.1);
 		mezclador = null;
 
 	}
