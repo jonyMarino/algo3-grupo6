@@ -47,7 +47,7 @@ public class PantallaCarrera extends JPanel{
 		int width = 900;
 		int height = 675;
 		this.setSize(width, height);
-		this.setBorder(BorderFactory.createEmptyBorder(2, 0, 2,0));
+		//this.setBorder(BorderFactory.createEmptyBorder(2, 0, 2,0));
 		this.add(new JSeparator(JSeparator.VERTICAL),BorderLayout.LINE_START);
 		elPrograma = controladorJuego.getProgramaAuto();
 		elControlador = new ControladorCarrera(elPrograma, this);
@@ -58,6 +58,8 @@ public class PantallaCarrera extends JPanel{
 		setFocusable(true);
 		setVisible(true);
 		addKeyListener(elControlador);
+		JFrame.getFrames()[0].setVisible(false);
+		JFrame.getFrames()[0].setVisible(true);
 		elControlador.comenzar();
 	}
 	
