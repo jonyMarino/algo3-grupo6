@@ -32,10 +32,7 @@ public class Acelerador extends Pedal {
 	*/
 	public void presionar(double intensidad) throws BoundsException {
 		super.setUsado(intensidad > 0);
-		//deMarino: esta siendo usado se la aceleracion no es 0
-		//if(this.getVidaUtil() > 0){ //deMarino: en caso de ser cero tiene su funcion
-		getMotor().acelerar(intensidad); //deMarino: el caso de excepcion es el mismo
-		//}
+		getMotor().acelerar(intensidad); 
 	}
 
 	/**
