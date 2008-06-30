@@ -3,7 +3,6 @@ package proveedorDeNafta;
 import java.util.ArrayList;
 import programaAuto.Usuario;
 import proveedorDeNafta.FabricaDeNafta;
-import proveedorDePartes.fabricas.InformacionDelModelo;
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
 import excepciones.TankIsFullException;
@@ -18,7 +17,7 @@ public class ProveedorDeNafta {
 	}
 	
 	public double comprar(double cantidad,Usuario usuario) throws NotEnoughMoneyException, BoundsException, TankIsFullException{
-		InformacionDelModelo modelo =getFabricasDisponibles().get(0).getTipos().get(0);
+		InformacionCombustible modelo =getFabricasDisponibles().get(0).getTipos().get(0);
 		//como siempre usamos el mismo tipo de nafta por eso esto es interno
 		double dineroNecesario = 0;
 		try {
