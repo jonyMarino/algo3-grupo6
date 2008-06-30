@@ -117,7 +117,7 @@ public class Motor extends ParteAuto implements Torqueador{
 			//e.printStackTrace();
 		}	
 		double energiaDeCombustion=realizarCombustion(mezcla);
-		torque*=energiaDeCombustion*5000; 
+		torque*=energiaDeCombustion*80; 
 		return torque;
 
 	}
