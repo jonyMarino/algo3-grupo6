@@ -446,7 +446,24 @@ public class ProgramaAuto extends Observable {
         private SimuladorCarrera inicializarCarrera() {
                 SimuladorCarrera unaSimulacion = new SimuladorCarrera(getPista());
                 unaSimulacion.agregarCompetidor(usuario);
-                
+                //TODO: AGREGAR COMPETIDORES
+                Usuario unRival = null;
+				try {
+					unRival = new Usuario("Rival1");
+				} catch (WrongUserNameException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				unRival.setAuto(autoInicial(TipoAuto.MANUAL));
+                unaSimulacion.agregarCompetidor(unRival);
+                try {
+					((CajaManual)unRival.getAuto().getCaja()).setCambioManual(5);
+					unRival.getAuto().presionarAcelerador(1);
+				} catch (BoundsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                //TODO: AGREGAR COMPETIDORES
                 return unaSimulacion;
         }
 		

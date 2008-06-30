@@ -44,6 +44,7 @@ public class PantallaCarrera extends JPanel{
 		generarArboles();
 		unaVista = new VistaDeCostado(width, height, controladorJuego.getProgramaAuto());
 		((VistaDeCostado)unaVista).setArboles(listaDeArboles);
+		((VistaDeCostado)unaVista).setCompetidores(elControlador.getListaDeCompetidores());
 		informacion = new VistaCarreraInformativa(width, height/4, controladorJuego.getProgramaAuto());
 		velocimetro = new VistaVelocimetro(150, 150, controladorJuego.getProgramaAuto());
 		setFocusable(true);
