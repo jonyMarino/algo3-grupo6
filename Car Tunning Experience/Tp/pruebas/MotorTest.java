@@ -2,6 +2,7 @@ package pruebas;
 
 import junit.framework.TestCase;
 import programaAuto.Pista;
+import proveedorDeNafta.FabricaDeNafta;
 import proveedorDeNafta.Nafta;
 import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.Caja;
@@ -52,13 +53,13 @@ public class MotorTest extends TestCase {
 	FabricaDeCajas fabricaCajas;
 	FabricaDeEjes fabricaEjes;
 	FabricaDePedales fabricaPedales;
+	FabricaDeNafta fabricaDeNafta;
 	Acelerador acelerador;
 	Freno freno;
 	
 	protected void setUp() throws Exception {
 		super.setUp();
 		pista = new Pista("UnaPista");
-		nafta = new Nafta(95,20);
 		fabricaTanques = new FabricaDeTanquesDeCombustible();
 		fabricaMezcladores = new FabricaDeMezcladores();
 		fabricaEscapes = new FabricaDeEscapes();
@@ -68,6 +69,9 @@ public class MotorTest extends TestCase {
 		fabricaCajas = new FabricaDeCajas();
 		fabricaEjes = new FabricaDeEjes();
 		fabricaPedales = new FabricaDePedales();
+		fabricaDeNafta = new FabricaDeNafta();
+		
+		nafta = fabricaDeNafta.fabricar(fabricaDeNafta.getTipos().get(0));
 		
 		tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
 		tanque.setCombustible(nafta);
