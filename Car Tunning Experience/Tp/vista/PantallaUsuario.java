@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -23,6 +25,7 @@ public class PantallaUsuario extends JPanelConImagen {
 	private static final long serialVersionUID = 1L;
 	private CuadroIngresoUsuario panelIngreso;
 	private ComboBoxCars comboBoxCars;
+	private JComboBox tipoAuto;
 	private JLabel botonError;
 	
 	public PantallaUsuario(ControladorJuego controladorJuego) {
@@ -51,13 +54,18 @@ public class PantallaUsuario extends JPanelConImagen {
 	    panelUsuario.setLayout(new GridBagLayout());
 	    panelUsuario.add(panelIngreso,c);
 	    c.gridy =1;
+	    Insets margenes= new Insets(15,0,0,0);
+	    c.insets=margenes;
+	    panelUsuario.add(crearPanelTipoAuto(),c);
+	    Insets margenes2= new Insets(70,0,0,0);
+	    c.insets=margenes2;
 	    panelUsuario.add(comboBoxCars,c);
 	    c.gridy =2;
 	    panelUsuario.add(botonError,c);
 	    panelUsuario.setOpaque(false);
 		
 		BotoneraUsuario botoneraUsuario = new BotoneraUsuario(controladorJuego);
-
+		
 		this.add(panelUsuario);
 		this.add(botoneraUsuario);
 
@@ -81,6 +89,37 @@ public class PantallaUsuario extends JPanelConImagen {
 		
 		return comboBoxCars.getSeleccionado();
 	}
+	
+	 private JPanel crearPanelTipoAuto() {
+  	   
+		   JPanel panelTipoAuto = new JPanel();
+	  	   panelTipoAuto.setLayout(new GridBagLayout());
+	  	   panelTipoAuto.setOpaque(false);
+	  	   JLabel label = new JLabel("Tipo de Auto: ");
+	  	   GridBagConstraints ubicacion = new GridBagConstraints();
+		   ubicacion.gridx=0;
+		   ubicacion.gridy=0; 
+		   tipoAuto = new JComboBox();
+		   label.setFont(new Font("Verdana",Font.BOLD,16));
+		   ubicacion.anchor= GridBagConstraints.EAST;
+		   panelTipoAuto.add(label,ubicacion);
+		   ubicacion.gridx=1;
+		   ubicacion.gridy=0; 
+		   ubicacion.anchor= GridBagConstraints.WEST;
+	  	   panelTipoAuto.add(tipoAuto,ubicacion);
+	             
+	  	   return panelTipoAuto;
+     }
+	 
+	 public String obtenerTipoAutoSeleccionado(){ 
+		 
+		 return (String)tipoAuto.getSelectedItem();
+     }
+     
+     public void agregarTipoAuto(String tipo){
+    	 
+    	 tipoAuto.addItem(tipo);   
+     }
 
 	private class BotoneraUsuario extends JPanel {
 
