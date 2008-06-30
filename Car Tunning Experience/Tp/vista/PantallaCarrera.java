@@ -1,31 +1,18 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
 import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 
 import programaAuto.ProgramaAuto;
-
-import sun.awt.RepaintArea;
-import sun.java2d.loops.DrawRect;
-
 import controlador.ControladorCarrera;
 import controlador.ControladorJuego;
 
@@ -37,12 +24,15 @@ public class PantallaCarrera extends JPanel{
     ControladorCarrera elControlador;
     VistaGrafica unaVista;
     VistaGrafica informacion;
+    VistaGrafica velocimetro;
     ProgramaAuto elPrograma;
 	ArrayList<Point2D> listaDeArboles;
 	public static int pixelesPorMetro;
+	private ControladorJuego elJuego;
 	
 	public PantallaCarrera(ControladorJuego controladorJuego) {
 		super();
+		elJuego = controladorJuego;
 		pixelesPorMetro=20;
 		int width = 900;
 		int height = 675;
@@ -53,8 +43,9 @@ public class PantallaCarrera extends JPanel{
 		elControlador = new ControladorCarrera(elPrograma, this);
 		generarArboles();
 		unaVista = new VistaDeCostado(width, height, controladorJuego.getProgramaAuto());
-		informacion = new VistaCarreraInformativa(width, height/4, controladorJuego.getProgramaAuto());
 		((VistaDeCostado)unaVista).setArboles(listaDeArboles);
+		informacion = new VistaCarreraInformativa(width, height/4, controladorJuego.getProgramaAuto());
+		velocimetro = new VistaVelocimetro(150, 150, controladorJuego.getProgramaAuto());
 		setFocusable(true);
 		setVisible(true);
 		addKeyListener(elControlador);
@@ -88,11 +79,18 @@ public class PantallaCarrera extends JPanel{
 	        if(g2!=null){
 	        	g2.drawImage(unaVista.getVista(), 0, 0, getWidth(), getHeight(), null);
 	        	g2.drawImage(informacion.getVista(), 0, 0, informacion.getWidth(), informacion.getHeight(), null);
+	        	g2.drawImage(velocimetro.getVista(), getWidth()*3/4, 0, velocimetro.getWidth(), velocimetro.getHeight(), null);
 	        }
 	}
 	
 	public void actualizar(){
 		repaint();
 	}
+
+	public void finalizarCarrera() {
+		elJuego.actionPerformed(new ActionEvent(null,0, "nueva"));
+		
+	}
+
 
 }
