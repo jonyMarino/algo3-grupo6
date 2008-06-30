@@ -41,6 +41,8 @@ public class ProveedorDePartes {
 	}
 	
 	public ParteAuto comprar(InformacionDelModelo modelo, Usuario usuario) throws NoSuchModelException, NotEnoughMoneyException{
+		if (modelo == null)
+			throw new NoSuchModelException("No existe ese modelo");
 		ParteAuto unaParte = null;
 		int dineroNecesario = 0;
 		try {
@@ -51,9 +53,9 @@ public class ProveedorDePartes {
 			e.printStackTrace();
 		}
 
-			if( (usuario.getDinero()) < dineroNecesario ){
+		if( (usuario.getDinero()) < dineroNecesario ){
 				throw new NotEnoughMoneyException("No tiene suficiente dinero como para comprar la parte");
-			}
+		}
 
 		unaParte = obtenerParte(modelo);
 		usuario.gastarDinero(dineroNecesario);
