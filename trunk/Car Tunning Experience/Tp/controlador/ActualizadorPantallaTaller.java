@@ -2,17 +2,13 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.Iterator;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 import programaAuto.ProgramaAuto;
-import programaAuto.Auto.Ubicacion;
 import programaAuto.Taller.InformacionParteEnAuto;
 import proveedorDePartes.fabricas.FabricaDePartes;
 import proveedorDePartes.fabricas.InformacionDelModelo;
@@ -66,10 +62,8 @@ public class ActualizadorPantallaTaller {
 
 	private void actualizarInformacionReserva() {	
 		pantallaTaller.limpiarInformacionReserva();
-		
 		String descripcion,vidaUtil;
 		boolean cargo = false;
-		
 		Iterator<ParteAuto> iteradorReserva = programaAuto.getUsuario().getTaller().getPartesReserva(); 
 		
 		while (iteradorReserva.hasNext()) {
@@ -82,8 +76,7 @@ public class ActualizadorPantallaTaller {
 			} catch (BoundsException e) {
 				e.printStackTrace();
 			}	    	
-		}
-		
+		}	
 		if(!cargo){
 			pantallaTaller.agregarAReserva("- Lista ", "Vacía -");
 		}
@@ -104,23 +97,20 @@ public class ActualizadorPantallaTaller {
 	}
 	
 	private void actualizarInformacionAuto() {
-		pantallaTaller.limpiarInformacionAuto();
-		
-		ParteAuto parte;
-		Hashtable<Ubicacion,ParteAuto> tabla=new Hashtable<Ubicacion,ParteAuto>();
-        tabla = programaAuto.getUsuario().getAuto().getHashDePartes();
-        Enumeration<ParteAuto> enumeracion = tabla.elements();
-        String vidaUtil,nombreParte;
-         
-        while(enumeracion.hasMoreElements()) {   
-      	   		parte=enumeracion.nextElement();
-      	   		try{
-                   nombreParte = parte.getInformacionDelModelo().getCaracteristica("DESCRIPCION");
-                   vidaUtil = Double.toString(parte.getVidaUtil());
-                   pantallaTaller.agregarInformacionAuto(nombreParte, vidaUtil);
-      	   		}catch (BoundsException e){
-        	 		e.printStackTrace();
-      	   		}
+		pantallaTaller.limpiarInformacionAuto();	
+		String vidaUtil,nombreParte,ubicacion;
+		Iterator<InformacionParteEnAuto> itPartesAuto = programaAuto.getUsuario().getTaller().getPartesEnAuto();
+		InformacionParteEnAuto informacionParte = null; 
+		while(itPartesAuto.hasNext()){
+			informacionParte = itPartesAuto.next();
+    		try{
+                nombreParte = informacionParte.getInformacionModelo().getCaracteristica("DESCRIPCION");
+                vidaUtil = Double.toString(informacionParte.getVidaUtil());
+                ubicacion = informacionParte.getUbicacion().toString();
+                pantallaTaller.agregarInformacionAuto(nombreParte, vidaUtil, ubicacion);
+      	   	}catch (BoundsException e){
+        	    e.printStackTrace();
+      	   	}
          }
 	}
 	
@@ -193,5 +183,6 @@ public class ActualizadorPantallaTaller {
 		}		
 		return informacionModelo;
 	}
+
 	
 }

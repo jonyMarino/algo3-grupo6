@@ -7,7 +7,7 @@ import excepciones.NoSuchModelException;
 public class FabricaDeMezcladores extends FabricaDePartes {
 	public FabricaDeMezcladores(){
 		super();
-		agregarModelo(nuevoModeloMezclador(200, "Mezclador básico", 80, 30.0, "NAFTA"));
+		agregarModelo(nuevoModeloMezclador(200, "Mezclador básico.", 80, 30.0, "NAFTA"));
 		//agrega un motor básico al catálogo
 	}
 	
