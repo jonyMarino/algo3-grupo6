@@ -10,6 +10,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 import programaAuto.ProgramaAuto;
 import programaAuto.Auto.Ubicacion;
 import programaAuto.Taller.InformacionParteEnAuto;
@@ -50,12 +51,19 @@ public class ActualizadorPantallaTaller {
 
 	public void actualizarPantallaTaller(){
 		pantallaTaller.actualizarInformacionDinero(Double.toString(programaAuto.getUsuario().getDinero()));
-		pantallaTaller.actualizarInformacionPista(Double.toString(programaAuto.getPista().getLongitud()) , programaAuto.getPista().getNombre(), Integer.toString(programaAuto.getPista().getVelocidadAire()));
+		this.actualizarInformacionPista();
 		this.actualizarInformacionReserva();
-		pantallaTaller.actualizarInformacionNafta(programaAuto.getUsuario().getAuto().getTanqueCombustible().getCantidadCombustible() , programaAuto.getUsuario().getAuto().getTanqueCombustible().getCapacidad());
+		this.actualizarInformacionNafta();
 		this.actualizarInformacionAuto();
 	}
 	
+	private void actualizarInformacionPista() {
+		String longitud = Double.toString(programaAuto.getPista().getLongitud());
+		String nombre = programaAuto.getPista().getNombre();
+		String velocidadAire = Integer.toString(programaAuto.getPista().getVelocidadAire());
+		pantallaTaller.actualizarInformacionPista( longitud, nombre, velocidadAire);
+	}
+
 	private void actualizarInformacionReserva() {	
 		pantallaTaller.limpiarInformacionReserva();
 		
@@ -79,6 +87,20 @@ public class ActualizadorPantallaTaller {
 		if(!cargo){
 			pantallaTaller.agregarAReserva("- Lista ", "Vacía -");
 		}
+	}
+	
+	private void actualizarInformacionNafta() {
+		Double cantidad = programaAuto.getUsuario().getAuto().getTanqueCombustible().getCantidadCombustible();
+		Double capacidad = programaAuto.getUsuario().getAuto().getTanqueCombustible().getCapacidad();
+		String precio = "";
+		try {
+			precio = programaAuto.getUnProveedorDeNafta().obtenerNafta().getInformacionCombustible().getCaracteristica("COSTO");
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		} catch (NoSuchModelException e) {
+			e.printStackTrace();
+		}
+		pantallaTaller.actualizarInformacionNafta(cantidad, capacidad, precio);
 	}
 	
 	private void actualizarInformacionAuto() {

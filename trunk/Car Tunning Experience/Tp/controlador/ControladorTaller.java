@@ -12,7 +12,6 @@ import excepciones.UbicationUnkownException;
 import programaAuto.NoPistaPickedException;
 import programaAuto.NotAbleWhileSimulatingException;
 import programaAuto.ProgramaAuto;
-import programaAuto.Usuario;
 import programaAuto.Auto.Ubicacion;
 import programaAuto.Taller.InformacionParteEnAuto;
 import proveedorDePartes.fabricas.InformacionDelModelo;
@@ -32,10 +31,8 @@ public class ControladorTaller implements ActionListener {
 		try {
 			programaAuto.entrarAlTaller();
 		} catch (NoPistaPickedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotAbleWhileSimulatingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -44,7 +41,6 @@ public class ControladorTaller implements ActionListener {
 		this.pantallaTaller = pantallaTaller;
 		this.actualizadorTaller.setPantallaTaller(pantallaTaller);
 	}
-
 
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
@@ -119,9 +115,8 @@ public class ControladorTaller implements ActionListener {
 	private void llenarTanque(double cantidad) {
 		try {
 			if(cantidad != 0){
-			Usuario usuario = programaAuto.getUsuario();	
-			programaAuto.getUnProveedorDeNafta().comprar(cantidad,usuario);
-			usuario.getAuto().cargarCombustible(cantidad);
+			programaAuto.getUnProveedorDeNafta().comprar(cantidad,programaAuto.getUsuario());
+			programaAuto.getUsuario().getAuto().cargarCombustible(cantidad);
 			//TODO:falta arreglar que se le descuenta el dinero aunque el tanque este lleno.
 			pantallaTaller.generarMensaje("La carga ha sido realizada satisfactoriamente");
 		}
