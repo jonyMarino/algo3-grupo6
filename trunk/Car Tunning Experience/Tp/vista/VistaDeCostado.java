@@ -97,7 +97,7 @@ public class VistaDeCostado implements VistaGrafica {
 		
 		for(Usuario p:competidores){
 			if(p.getAuto() != elPrograma.getUsuario().getAuto())
-				listaDeRenderizado.add(new ImagenARenderizar((BufferedImage) autoPrincipal, (int) (p.getAuto().getPosicion()-inicio), getHeight()*3/4-autoPrincipal.getHeight(null)/2, 2));
+				listaDeRenderizado.add(new ImagenARenderizar((BufferedImage) autoPrincipal, (int) (p.getAuto().getPosicion()*PantallaCarrera.pixelesPorMetro-inicio), getHeight()*3/4-autoPrincipal.getHeight(null)/2, 2));
 		}
 		agregarArboles(listaDeRenderizado, inicio);
 		Collections.sort(listaDeRenderizado);

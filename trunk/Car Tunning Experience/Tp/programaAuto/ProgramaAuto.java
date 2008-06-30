@@ -458,7 +458,7 @@ public class ProgramaAuto extends Observable {
                 unaSimulacion.agregarCompetidor(unRival);
                 try {
 					((CajaManual)unRival.getAuto().getCaja()).setCambioManual(5);
-					unRival.getAuto().presionarAcelerador(1);
+					unRival.getAuto().presionarAcelerador(0.8);
 				} catch (BoundsException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
