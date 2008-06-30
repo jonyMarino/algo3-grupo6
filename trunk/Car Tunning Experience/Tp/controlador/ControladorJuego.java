@@ -8,6 +8,7 @@ import excepciones.WrongUserNameException;
 import programaAuto.NotContainedPistaException;
 import programaAuto.PistaPickedException;
 import programaAuto.ProgramaAuto;
+import programaAuto.ProgramaAuto.TipoAuto;
 import vista.PanelBase;
 import vista.PantallaCarrera;
 import vista.PantallaInicio;
@@ -22,15 +23,15 @@ public class ControladorJuego implements ActionListener {
 	
 	public ControladorJuego(ProgramaAuto programaAuto) {
 		this.programaAuto = programaAuto;	
-		this.controladorTaller = null;
-		
+		this.controladorTaller = null;	
 	}
-
 
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
-		if (comando.equals("nueva"))
+		if (comando.equals("nueva")) {
 			panelBase.crearPantalla(new PantallaUsuario(this));
+			this.cargarPantallaUsuario((PantallaUsuario)panelBase.getPantallaActual());
+		}
 		if (comando.equals("continuar"))
 			buscarArchivo();
 		if (comando.equals("volver"))
@@ -39,34 +40,43 @@ public class ControladorJuego implements ActionListener {
 			inicializarJuego();
 		if (comando.equals("comenzar")){
 			panelBase.crearPantalla(new PantallaCarrera(this));
-		}
-			
+		}			
 	}
 	
-	private void buscarArchivo(){
+	private void cargarPantallaUsuario(PantallaUsuario pantallaUsuario) {
+		pantallaUsuario.agregarTipoAuto(TipoAuto.MANUAL.toString());
+		pantallaUsuario.agregarTipoAuto(TipoAuto.AUTOMATICO.toString());
+	}
 
+	private void buscarArchivo(){
 		PantallaInicio pantallaInicio =((PantallaInicio)panelBase.getPantallaActual());
 		JFileChooser fileChooser = pantallaInicio.getfileChooser();
 		fileChooser.showOpenDialog(fileChooser);
-
 	}
 	
 	private void inicializarJuego(){
 			try {
-				programaAuto = new ProgramaAuto(((PantallaUsuario)panelBase.getPantallaActual()).obtenerNombreBoxUsuario());
+				String nombreUsuario = ((PantallaUsuario)panelBase.getPantallaActual()).obtenerNombreBoxUsuario();
+				TipoAuto tipoAuto = this.buscarTipoAuto(((PantallaUsuario)panelBase.getPantallaActual()).obtenerTipoAutoSeleccionado()); 
+				programaAuto = new ProgramaAuto(nombreUsuario, tipoAuto);
 				programaAuto.setPista(programaAuto.generarProximaPista());		
 				this.controladorTaller = new ControladorTaller(programaAuto);
-				ImageIcon imagen = ((PantallaUsuario)panelBase.getPantallaActual()).obtenerImagenSeleccionada(); 
-				
+				ImageIcon imagen = ((PantallaUsuario)panelBase.getPantallaActual()).obtenerImagenSeleccionada(); 		
 				panelBase.crearPantalla(new PantallaTaller(this));	
-				controladorTaller.setPantallaTaller( (PantallaTaller)panelBase.getPantallaActual() );
-				
+				controladorTaller.setPantallaTaller((PantallaTaller)panelBase.getPantallaActual());
 				controladorTaller.getActualizadorTaller().cargarPantallaTaller(imagen);
-			} catch (NotContainedPistaException e1) {} 
-			  catch (PistaPickedException e1) {}		
-			  catch (WrongUserNameException e) {
+			} catch (NotContainedPistaException e1) {	
+			} catch (PistaPickedException e1) {		
+			} catch (WrongUserNameException e) {
 				this.MensajeError();
 			}
+	}
+
+	private TipoAuto buscarTipoAuto(String tipoAuto) {
+		if(TipoAuto.AUTOMATICO.toString() == tipoAuto)
+			return TipoAuto.AUTOMATICO;
+		else
+			return TipoAuto.MANUAL;
 	}
 
 	private void MensajeError() {

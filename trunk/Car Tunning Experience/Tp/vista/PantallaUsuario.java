@@ -80,13 +80,11 @@ public class PantallaUsuario extends JPanelConImagen {
 	   panelIngreso.getBox().setOpaque(true);			
 	}
 	
-	public String obtenerNombreBoxUsuario() {
-		
+	public String obtenerNombreBoxUsuario() {		
 		return panelIngreso.getBox().getText();
 	}
 	
 	public ImageIcon obtenerImagenSeleccionada() {
-		
 		return comboBoxCars.getSeleccionado();
 	}
 	
@@ -111,13 +109,11 @@ public class PantallaUsuario extends JPanelConImagen {
 	  	   return panelTipoAuto;
      }
 	 
-	 public String obtenerTipoAutoSeleccionado(){ 
-		 
+	 public String obtenerTipoAutoSeleccionado(){ 	 
 		 return (String)tipoAuto.getSelectedItem();
      }
      
      public void agregarTipoAuto(String tipo){
-    	 
     	 tipoAuto.addItem(tipo);   
      }
 

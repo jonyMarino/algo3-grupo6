@@ -21,6 +21,8 @@ import programaAuto.Taller.InformacionParteEnAuto;
 import programaAuto.Taller.InformacionParteReserva;
 import proveedorDeNafta.Nafta;
 import proveedorDeNafta.ProveedorDeNafta;
+import proveedorDePartes.fabricas.Caja;
+import proveedorDePartes.fabricas.CajaAutomatica;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
@@ -32,6 +34,7 @@ import proveedorDePartes.fabricas.Motor;
 import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.TanqueNafta;
 import auto.AutoManual;
+import auto.AutoSecuencial;
 import excepciones.BoundsException;
 import excepciones.IncorrectPartForUbicationException;
 import excepciones.InvalidPistaNameException;
@@ -162,6 +165,11 @@ public class ProgramaAuto extends Observable {
                 }
                 
         }
+        
+        public enum TipoAuto {
+        	MANUAL,
+        	AUTOMATICO,
+        }
         /**
          * genero la pista normal
          * @return
@@ -230,18 +238,10 @@ public class ProgramaAuto extends Observable {
         	pistas.add(pistaLarga());
         	return pistas;
         }
-        /*
-        public ProgramaAuto () {
-                this.pistaActual=null;
-                unProveedor = new ProveedorDePartes();
-                usuarios = new ArrayList<Usuario>();            
-        }
-        */      
-        /*
-         * segun el diagrama de clases ProgramaAuto comienza con el usuario cargado
-         */
-        public ProgramaAuto (String nombre) throws WrongUserNameException {
-        	usuario=nuevoUsuario(nombre);
+
+        //TODO: para elegir el tipo de auto
+        public ProgramaAuto (String nombre, TipoAuto tipoAuto) throws WrongUserNameException {
+        	usuario=nuevoUsuario(nombre,tipoAuto);
         }
         
         /**
@@ -278,7 +278,7 @@ public class ProgramaAuto extends Observable {
         }
              
 
-        public Auto autoInicial(){
+        public Auto autoInicial(TipoAuto tipoAuto){
         	Usuario usuariotemporal = null;
 			try {
 				usuariotemporal = new Usuario("___TEMPORAL_DE_PROGRAMA_AUTO___");
@@ -317,24 +317,29 @@ public class ProgramaAuto extends Observable {
                         
                         Eje eje = (Eje) unProveedor.comprar(modelos.get(3), usuariotemporal);
                         
-                        CajaManual caja=(CajaManual) unProveedor.comprar(modelos.get(0), usuariotemporal);
-                        
                         Motor motor=(Motor) unProveedor.comprar(modelos.get(6), usuariotemporal);
                         
                         Freno freno =  (Freno) unProveedor.comprar(modelos.get(7), usuariotemporal);
                         
+                        //TODO: se modifico
+                        Caja caja = null;
+                        
                         try {
-                                auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje, freno);
+                        	if(TipoAuto.MANUAL == tipoAuto) {
+                        		caja=(Caja) unProveedor.comprar(modelos.get(0), usuariotemporal);
+                            	auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje, freno);
+                        	} else {
+                        		caja=(Caja) unProveedor.comprar(modelos.get(1), usuariotemporal);
+                                auto = new AutoSecuencial(escape, carroceria, motor, (CajaAutomatica) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje, freno);
+                        	}
                         } catch (WrongPartClassException e) {
                                 e.printStackTrace();
                         }
                         auto.setPista(pistaActual);
                 }
-                catch (NoSuchModelException e)
-                {
+                catch (NoSuchModelException e) {
                         e.printStackTrace();  //TODO: bastante sucio
                 } catch (NotEnoughMoneyException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                 }
                 return auto;
@@ -430,8 +435,8 @@ public class ProgramaAuto extends Observable {
 			}
         }
         
-        protected Usuario nuevoUsuario(String nombre) throws WrongUserNameException {
-                Auto unAuto = autoInicial();
+        protected Usuario nuevoUsuario(String nombre, TipoAuto tipoAuto) throws WrongUserNameException {
+                Auto unAuto = autoInicial(tipoAuto);
                 Usuario unUsuario = new Usuario(nombre);
                 unUsuario.setAuto(unAuto);
                                       
