@@ -201,7 +201,7 @@ public class PantallaTaller extends JPanelConImagen {
            return panelNafta;
    	   }
        
-       public void actualizarInformacionNafta(Double cantidad, Double capacidad){  	   
+       public void actualizarInformacionNafta(Double cantidad, Double capacidad, String precio){  	   
     	   panelNafta.removeAll();
     	    	   
     	   JProgressBar barraTanque = new JProgressBar(0, (int)Math.floor(capacidad));
@@ -236,7 +236,7 @@ public class PantallaTaller extends JPanelConImagen {
            c.anchor = GridBagConstraints.CENTER;
            panelNafta.add(cantidadSeleccionada,c); 
            
-           labelPrecioNafta = new JLabel("$$$$");
+           labelPrecioNafta = new JLabel("$ " + precio);
            labelPrecioNafta.setMinimumSize(new Dimension(30, 30));
            c.anchor = GridBagConstraints.WEST;
            panelNafta.add(labelPrecioNafta,c);
