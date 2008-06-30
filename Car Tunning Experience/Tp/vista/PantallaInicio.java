@@ -8,9 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-
-
-
 import controlador.ControladorJuego;
 
 public class PantallaInicio extends JPanelConImagen {	
@@ -31,17 +28,15 @@ public class PantallaInicio extends JPanelConImagen {
 		this.add(botonera, c);	
 	}
 	
-
 	public JFileChooser getfileChooser() {
 		return fileChooser;
 	}
 	
-	public class BotoneraInicio extends JPanel{
-		
-		
+	private class BotoneraInicio extends JPanel{
+			
 		private static final long serialVersionUID = 1L;
 
-		public BotoneraInicio(ControladorJuego controladorJuego) {
+		private BotoneraInicio(ControladorJuego controladorJuego) {
 
 			Boton botonNuevaPartida = new Boton("Nueva Partida");
 			botonNuevaPartida.setActionCommand("nueva");
@@ -75,12 +70,11 @@ public class PantallaInicio extends JPanelConImagen {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
-			
-
-
 		}
 		
 	}
+
+	
 }
 
 	

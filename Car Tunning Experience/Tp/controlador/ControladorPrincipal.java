@@ -2,7 +2,6 @@ package controlador;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import programaAuto.Auto;
 import programaAuto.NoPistaPickedException;
 import programaAuto.NotAbleWhileSimulatingException;
@@ -10,14 +9,13 @@ import programaAuto.NotContainedPistaException;
 import programaAuto.NotInTallerException;
 import programaAuto.PistaPickedException;
 import programaAuto.ProgramaAuto;
+import programaAuto.ProgramaAuto.TipoAuto;
 import proveedorDeNafta.FabricaDeNafta;
 import proveedorDeNafta.Nafta;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.TanqueCombustible;
 import vista.VistaGraficador;
-
-
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 import excepciones.TankIsFullException;
@@ -34,7 +32,7 @@ public class ControladorPrincipal implements KeyListener{
 		
 		ProgramaAuto miPrograma = null;
 		try {
-			miPrograma = new ProgramaAuto("PROGRAMAPRUEBA");
+			miPrograma = new ProgramaAuto("PROGRAMAPRUEBA",TipoAuto.MANUAL);
 		} catch (WrongUserNameException e3) {
 			e3.printStackTrace();
 		}
