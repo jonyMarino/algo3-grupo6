@@ -16,7 +16,7 @@ public class Nafta extends Combustible {
 	 * @param octanaje El octanaje de la Nafta.
 	 * @param costo El costo por litro de la Nafta.
 	 */
-	public Nafta (int octanaje, double costo) {
+	Nafta (int octanaje, double costo) {
 		super(costo);
 		this.setOctanaje(octanaje);
 	}

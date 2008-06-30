@@ -10,6 +10,7 @@ import programaAuto.NotContainedPistaException;
 import programaAuto.NotInTallerException;
 import programaAuto.PistaPickedException;
 import programaAuto.ProgramaAuto;
+import proveedorDeNafta.FabricaDeNafta;
 import proveedorDeNafta.Nafta;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
@@ -49,7 +50,9 @@ public class ControladorPrincipal implements KeyListener{
 
 		try {
 		TanqueCombustible tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(1));
-		tanque.setCombustible(new Nafta(90, 10));
+		FabricaDeNafta fabricaDeNafta = new FabricaDeNafta();
+		Nafta nafta = fabricaDeNafta.fabricar(fabricaDeNafta.getTipos().get(0));	
+		tanque.setCombustible(nafta);
 		unAuto.setTanqueCombustible(tanque);
 
 			try {
