@@ -35,7 +35,7 @@ public class ActualizadorPantallaTaller {
 	public void cargarPantallaTaller(ImageIcon avatarUsuario) {
 		pantallaTaller.actualizarInformacionUsuario(programaAuto.getUsuario().getNombre(), avatarUsuario);
 		Action mostrarPrecio = new AccionActualizarPrecio();
-		pantallaTaller.getElCatalogo().setAction(mostrarPrecio);
+		pantallaTaller.obtenerCatalogo().setAction(mostrarPrecio);
 		this.actualizarCatalogo();
 		this.actualizarParteARemover();
 		this.actualizarPantallaTaller();
@@ -132,7 +132,7 @@ public class ActualizadorPantallaTaller {
 		public void actionPerformed(ActionEvent evento) {
 		 String precio = "";
          try {
-        	 String nombreProducto = pantallaTaller.parteAComprar();
+        	 String nombreProducto = pantallaTaller.obtenerParteAComprar();
         	 InformacionDelModelo info = buscarInformacionModelo(nombreProducto);
         	 try {
 				precio = info.getCaracteristica("COSTO");
@@ -143,7 +143,7 @@ public class ActualizadorPantallaTaller {
          		} catch (ClassCastException e){
          			precio = "Seleccione Una parte";
          		}
-         		pantallaTaller.precioParteSeleccionada(precio);
+         		pantallaTaller.cambiarPrecioParteSeleccionada(precio);
 		}
 	}
 	
