@@ -33,6 +33,16 @@ public class VistaDeCostado implements VistaGrafica {
 	ArrayList<Point2D> listaDeArboles;
 	private ArrayList<Usuario> competidores;
 
+    /**
+     * Crea una nueva @link{VistaDeCostado}, con los parámetros dados.
+     *
+     * @param ancho El ancho de la Vista.
+     * @param alto  El alto de la vista.
+     * @param unPrograma La instancia de @link{ProgramaAuto} a la cual se quiere representar.
+     *
+     * @see ProgramaAuto
+     */
+
 	public VistaDeCostado(int ancho, int alto, ProgramaAuto unPrograma){
 		bufferPrincipal = new BufferedImage(ancho,alto, BufferedImage.TYPE_INT_RGB);
 
@@ -67,10 +77,25 @@ public class VistaDeCostado implements VistaGrafica {
 			arboles.add(temporal);
 		}
 	}
+
+    /**
+     * Opcionalmente, la @link{VistaDeCostado}, puede renderizar arboles a los costados de la @link{Pista}
+     * Este mètodo sirve para asignar esa lista de arboles.
+     *
+     * @param lista Una lista de @link{Point2D}, que representa las posiciones de los arboles
+     * @see Point2D
+     */
 	
 	public void setArboles(ArrayList<Point2D> lista){
 		listaDeArboles = lista;
 	}
+
+
+    /**
+     * 
+     *@param competidores Un @link{ArrayList} de @link{Usuario}s que contiene a todos los Usuarios que intervienen en la carrera
+     *@see Usuario
+     */
 
 	public void setCompetidores(ArrayList<Usuario> competidores){
 		this.competidores = competidores;
