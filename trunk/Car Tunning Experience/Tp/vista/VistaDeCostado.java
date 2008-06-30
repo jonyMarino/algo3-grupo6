@@ -38,7 +38,7 @@ public class VistaDeCostado implements VistaGrafica {
      *
      * @param ancho El ancho de la Vista.
      * @param alto  El alto de la vista.
-     * @param unPrograma La instancia de @link{ProgramaAuto} a la cual se quiere representar.
+     * @param unPrograma La instancia de @{link ProgramaAuto} a la cual se quiere representar.
      *
      * @see ProgramaAuto
      */
@@ -79,10 +79,10 @@ public class VistaDeCostado implements VistaGrafica {
 	}
 
     /**
-     * Opcionalmente, la @link{VistaDeCostado}, puede renderizar arboles a los costados de la @link{Pista}
+     * Opcionalmente, la @{link VistaDeCostado}, puede renderizar arboles a los costados de la @{link Pista}
      * Este mètodo sirve para asignar esa lista de arboles.
      *
-     * @param lista Una lista de @link{Point2D}, que representa las posiciones de los arboles
+     * @param lista Una lista de @{link Point2D}, que representa las posiciones de los arboles
      * @see Point2D
      */
 	
@@ -93,7 +93,7 @@ public class VistaDeCostado implements VistaGrafica {
 
     /**
      * 
-     *@param competidores Un @link{ArrayList} de @link{Usuario}s que contiene a todos los Usuarios que intervienen en la carrera
+     *@param competidores Un @{link ArrayList} de @{link Usuario}s que contiene a todos los Usuarios que intervienen en la carrera
      *@see Usuario
      */
 
