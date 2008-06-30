@@ -233,7 +233,7 @@ public abstract class Auto extends Observable{
 			getCaja().setEje(null);//Caja vieja
 			getCaja().setMotor(null);
 			getMotor().setCaja(null);
-			setCaja((Caja)parte);
+			setEje((Eje)parte);
 			return true;			
 		}
 		public boolean ensamblar(Ubicacion ubicacion){	
