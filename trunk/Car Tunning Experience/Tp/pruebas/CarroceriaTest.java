@@ -8,6 +8,7 @@ import junit.framework.TestCase;
 import programaAuto.Auto;
 import programaAuto.Pista;
 import programaAuto.ProgramaAuto;
+import programaAuto.ProgramaAuto.TipoAuto;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.FabricaDeCarrocerias;
 
@@ -20,9 +21,9 @@ public class CarroceriaTest extends TestCase {
 	Auto auto;
 	
 	protected void setUp() throws Exception {
-		ProgramaAuto programa = new ProgramaAuto("Prueba");
+		ProgramaAuto programa = new ProgramaAuto("Prueba", TipoAuto.MANUAL);
 		super.setUp();
-		auto = programa.autoInicial();
+		auto = programa.autoInicial(TipoAuto.MANUAL);
 		pista=new Pista("unaPista");
 		auto.setPista(pista);
 		fabrica = new FabricaDeCarrocerias();

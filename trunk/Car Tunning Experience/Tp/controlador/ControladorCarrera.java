@@ -84,7 +84,7 @@ public class ControladorCarrera implements KeyListener{
 		try {
 			unAuto.presionarAcelerador(aceleracion);
 		} catch (BoundsException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 	}
 
@@ -117,7 +117,7 @@ public class ControladorCarrera implements KeyListener{
 		
 		
 		laSimulacion.start();
-	    timer.schedule(sim, 0, 10);
+	    timer.schedule(sim, 0, 16);
 	
 	}
 	

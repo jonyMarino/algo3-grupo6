@@ -11,6 +11,12 @@ import java.util.Observable;
 import programaAuto.Auto;
 import programaAuto.ProgramaAuto;
 
+/**
+ * Vista gráfica que muestra una representacion de la carrera con texto.
+ * 
+ * @see VistaGrafica
+ *
+ */
 
 public class VistaCarreraInformativa  implements VistaGrafica {
 	private ArrayList listaDeTexto;
@@ -40,7 +46,7 @@ public class VistaCarreraInformativa  implements VistaGrafica {
 		
 	}
 	
-	public void actualizar() {
+	private void actualizar() {
 
 			listaDeTexto.clear();
 			listaDeTexto.add("Velocidad:        " + (int)unAuto.getKilometrosPorHora() + " Km/h");
