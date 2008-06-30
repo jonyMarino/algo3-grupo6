@@ -115,22 +115,21 @@ public class ControladorTaller implements ActionListener {
 	private void llenarTanque(double cantidad) {
 		try {
 			if(cantidad != 0){
-			programaAuto.getUnProveedorDeNafta().comprar(cantidad,programaAuto.getUsuario());
-			programaAuto.getUsuario().getAuto().cargarCombustible(cantidad);
-			//TODO:falta arreglar que se le descuenta el dinero aunque el tanque este lleno.
-			pantallaTaller.generarMensaje("La carga ha sido realizada satisfactoriamente");
-		}
+				if(!(cantidad < 0))
+					programaAuto.getUnProveedorDeNafta().comprar(cantidad,programaAuto.getUsuario());
+				programaAuto.getUsuario().getAuto().cargarCombustible(cantidad);
+				pantallaTaller.generarMensaje("La carga ha sido realizada satisfactoriamente");
+			}
 		} catch (TankIsFullException e1) {
-	    	pantallaTaller.generarMensajeError("El tanque esta lleno");		
+	    	pantallaTaller.generarMensajeError("El tanque ya estaba lleno, has perdido dinero");	
 		} catch (BoundsException e1) {
-	    	pantallaTaller.generarMensajeError("No puede cargar esa cantidad de nafta");		
+	    	pantallaTaller.generarMensajeError("No puede cargar una cantidad negativa");		
 		} catch (NumberFormatException e1) {
 		} catch (NotEnoughMoneyException e1) {
 			pantallaTaller.generarMensajeError("No posee el dinero necesario");
 		} finally {
 			actualizadorTaller.actualizarPantallaTaller();
-		}
-		
+		}	
 	}
 
 	public ProgramaAuto getProgramaAuto() {
