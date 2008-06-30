@@ -1,6 +1,8 @@
 package proveedorDePartes.fabricas;
 
-import combustible.Nafta;
+import proveedorDeNafta.Nafta;
+
+
 
 /**
  * El Tanque de Nafta sirve para almacenar {@link Nafta}.

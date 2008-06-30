@@ -2,6 +2,7 @@ package pruebas;
 
 import junit.framework.TestCase;
 import programaAuto.Pista;
+import proveedorDeNafta.Nafta;
 import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.CajaManual;
@@ -25,7 +26,7 @@ import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.TanqueNafta;
 import auto.AutoManual;
 
-import combustible.Nafta;
+
 
 import excepciones.BoundsException;
 
