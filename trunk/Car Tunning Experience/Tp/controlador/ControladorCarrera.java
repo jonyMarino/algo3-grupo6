@@ -102,8 +102,14 @@ public class ControladorCarrera implements KeyListener{
 	
 		AuxiliarSimulacion laSimulacion = new AuxiliarSimulacion(programaAuto);
 		AuxiliarActualizacion sim = new AuxiliarActualizacion(laPantalla, simulacion);
-		laSimulacion.start();
 		Timer timer = new Timer();
+		
+		//TODO: !!!!!!!!!!!!!!SOLO PARA TESTING!!!!!!!!!!!!!!!!
+		//programaAuto.getUsuario().getAuto().setPosicion(1900);
+		//TODO: !!!!!!!!!!!!!!SOLO PARA TESTING!!!!!!!!!!!!!!!!
+		
+		
+		laSimulacion.start();
 	    timer.schedule(sim, 0, 10);
 	
 	}
@@ -120,7 +126,11 @@ public class ControladorCarrera implements KeyListener{
 		public void run() {
 			if (simulacion.estaCorriendo())
 				laPantalla.actualizar();
-			//else laPantalla.finalizarCarrera();
+			else {
+				//laPantalla.finalizarCarrera();
+				//System.out.println("LLEGADA");
+				//this.cancel();
+			}
 			
 		}
 		
@@ -137,7 +147,6 @@ public class ControladorCarrera implements KeyListener{
 			try {
 				unPrograma.correr();
 			} catch (NotSimulatingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		
