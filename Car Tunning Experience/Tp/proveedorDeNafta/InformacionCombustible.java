@@ -10,6 +10,10 @@ import excepciones.BoundsException;
 public class InformacionCombustible {
 	private Hashtable<String,String> informacionCombustible;
 	  
+	public InformacionCombustible(){
+		informacionCombustible = new Hashtable<String, String>();
+	}
+	
 	public ArrayList<String> getCaracteristicasDisponibles() {
 		Enumeration<String> listaDeClaves = informacionCombustible.keys();
 		ArrayList<String> listaCaracteristicas = new ArrayList<String>();
@@ -26,7 +30,7 @@ public class InformacionCombustible {
 		if(informacionCombustible.containsKey(caracteristica)){
 			return informacionCombustible.get(caracteristica);
 		}
-		else throw new BoundsException("El modelo no posee la característica "+ caracteristica + ".");
+		else throw new BoundsException("El combustible no posee la característica "+ caracteristica + ".");
 
 	}
 	 
@@ -34,7 +38,7 @@ public class InformacionCombustible {
 		if(informacionCombustible.containsKey(nombre)){
 			informacionCombustible.put(nombre, valor);
 		}
-		else throw new BoundsException("El modelo no posee la característica "+ nombre + ".");
+		else throw new BoundsException("El combustible no posee la característica "+ nombre + ".");
 	}
 	 
 	void InformacionCombutible(ArrayList<String> listaDeCaracteristicasDisponibles) {
@@ -44,10 +48,7 @@ public class InformacionCombustible {
 			agregarCaracteristica(iteradorDeCaracteristicas.next(), "");
 		}
 	}
-	
-	void InformacionCombutible(){
-		informacionCombustible = new Hashtable<String, String>();
-	}
+
 	
 	public String toString() {
 		try {

@@ -52,8 +52,9 @@ public class FabricaDeNafta {
 
 	private InformacionCombustible nuevoTipoNafta(int octanaje,Double costo){
 		InformacionCombustible nuevaInfo = new InformacionCombustible();
-		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		nuevaInfo.agregarCaracteristica("OCTANAJE",Integer.toString(octanaje));
+		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
+		
 		return nuevaInfo;
 	}
 	

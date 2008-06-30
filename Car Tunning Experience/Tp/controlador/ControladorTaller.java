@@ -108,9 +108,10 @@ public class ControladorTaller implements ActionListener {
 	private void llenarTanque(double cantidad) {
 		try {
 			if(cantidad != 0){
-			Usuario usuario = programaAuto.getUsuario();
-			programaAuto.getUnProveedorDeNafta().comprar(cantidad, usuario);
-			//programaAuto.comprarNafta(cantidad);
+			Usuario usuario = programaAuto.getUsuario();	
+			programaAuto.getUnProveedorDeNafta().comprar(cantidad,usuario);
+			usuario.getAuto().cargarCombustible(cantidad);
+			//TODO:falta arreglar que se le descuenta el dinero aunque el tanque este lleno.
 			pantallaTaller.generarMensaje("La carga ha sido realizada satisfactoriamente");
 		}
 		} catch (TankIsFullException e1) {

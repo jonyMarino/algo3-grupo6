@@ -16,7 +16,7 @@ public class ProveedorDeNafta {
 		agregarFabrica(new FabricaDeNafta());	
 	}
 	
-	public double comprar(double cantidad,Usuario usuario) throws NotEnoughMoneyException, BoundsException, TankIsFullException{
+	public double comprar(double cantidad,Usuario usuario) throws NotEnoughMoneyException, BoundsException{
 		InformacionCombustible modelo =getFabricasDisponibles().get(0).getTipos().get(0);
 		//como siempre usamos el mismo tipo de nafta por eso esto es interno
 		double dineroNecesario = 0;
