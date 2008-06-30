@@ -457,7 +457,7 @@ public class ProgramaAuto extends Observable {
                 return unaSimulacion;
         }
 		
-        //TODO: Necesito el proveedor!!!!!
+
         public ProveedorDePartes getUnProveedor() {
 			return unProveedor;
 		}
@@ -474,14 +474,8 @@ public class ProgramaAuto extends Observable {
         public Usuario getUsuario() {
 			return usuario;
 		}
-        /*
-        public void comprarNafta(double cantidad) throws NotEnoughMoneyException, BoundsException, TankIsFullException {
-            usuario.getAuto().cargarCombustible(cantidad);
-            usuario.gastarDinero(cantidad * 4 );
-        }*/
-        
+
         public ProveedorDeNafta getUnProveedorDeNafta(){
-        
         	ProveedorDeNafta proveedorDeNafta = new ProveedorDeNafta();
         	return proveedorDeNafta;
         }
