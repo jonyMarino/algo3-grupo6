@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -28,8 +27,7 @@ public class PantallaUsuario extends JPanelConImagen {
 	private JComboBox tipoAuto;
 	private JLabel botonError;
 	
-	public PantallaUsuario(ControladorJuego controladorJuego) {
-		
+	public PantallaUsuario(ControladorJuego controladorJuego) {	
 		super();
 		this.setImage("FondoTransparente");
 		
@@ -73,8 +71,7 @@ public class PantallaUsuario extends JPanelConImagen {
    		this.setBorder(BorderFactory.createEmptyBorder(250, 0, 0, 0));
 	}
 
-	public void generarMensajeError(String mensajeError) {
-	   
+	public void generarMensajeError(String mensajeError) {  
 	   botonError.setText(mensajeError);
 	   panelIngreso.getBox().setBackground(Color.WHITE);
 	   panelIngreso.getBox().setOpaque(true);			
@@ -87,9 +84,16 @@ public class PantallaUsuario extends JPanelConImagen {
 	public ImageIcon obtenerImagenSeleccionada() {
 		return comboBoxCars.getSeleccionado();
 	}
-	
-	 private JPanel crearPanelTipoAuto() {
-  	   
+	 
+	public String obtenerTipoAutoSeleccionado(){ 	 
+		 return (String)tipoAuto.getSelectedItem();
+    }
+     
+    public void agregarTipoAuto(String tipo){
+    	 tipoAuto.addItem(tipo);   
+    }
+
+	private JPanel crearPanelTipoAuto() {	   
 		   JPanel panelTipoAuto = new JPanel();
 	  	   panelTipoAuto.setLayout(new GridBagLayout());
 	  	   panelTipoAuto.setOpaque(false);
@@ -107,21 +111,13 @@ public class PantallaUsuario extends JPanelConImagen {
 	  	   panelTipoAuto.add(tipoAuto,ubicacion);
 	             
 	  	   return panelTipoAuto;
-     }
-	 
-	 public String obtenerTipoAutoSeleccionado(){ 	 
-		 return (String)tipoAuto.getSelectedItem();
-     }
-     
-     public void agregarTipoAuto(String tipo){
-    	 tipoAuto.addItem(tipo);   
-     }
+	}
 
-	private class BotoneraUsuario extends JPanel {
+    private class BotoneraUsuario extends JPanel {
 
 		private static final long serialVersionUID = 1L;
 
-		public BotoneraUsuario(ControladorJuego controladorJuego) {
+		private BotoneraUsuario(ControladorJuego controladorJuego) {
 
 			Boton botonVolver = new Boton("Volver");
 			botonVolver.setActionCommand("volver");
@@ -146,7 +142,7 @@ public class PantallaUsuario extends JPanelConImagen {
 			private ImageIcon[] images;
 			private String[] carStrings = { "Guido", "Flo", "Mate", "Sheriff", "Rayo McQueen" };
 
-		    public  ComboBoxCars() {
+		    private  ComboBoxCars() {
 		        super(new BorderLayout());
 
 		        images = new ImageIcon[carStrings.length];
@@ -170,7 +166,7 @@ public class PantallaUsuario extends JPanelConImagen {
 		        setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 		    }
 
-		   public ImageIcon getSeleccionado(){
+		   private ImageIcon getSeleccionado(){
 			   return images[renderer.getSelectedIndex()];
 		   }
 		   
@@ -184,7 +180,7 @@ public class PantallaUsuario extends JPanelConImagen {
 		        }
 		    }
 		    
-		    class ComboBoxRenderer extends JLabel implements ListCellRenderer {
+		    private class ComboBoxRenderer extends JLabel implements ListCellRenderer {
 		
 				private static final long serialVersionUID = 1L;
 				private int selectedIndex;
@@ -227,7 +223,7 @@ public class PantallaUsuario extends JPanelConImagen {
 		private static final long serialVersionUID = 1L;
 		private JTextField box;
 		
-		public CuadroIngresoUsuario(ControladorJuego controladorJuego){
+		private CuadroIngresoUsuario(ControladorJuego controladorJuego){
 			setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 
 			JLabel label = new JLabel("Nombre Usuario: ");
@@ -241,7 +237,7 @@ public class PantallaUsuario extends JPanelConImagen {
 			this.add(box);
 		}
 
-		public JTextField getBox() {
+		private JTextField getBox() {
 			return box;
 		}
 	}

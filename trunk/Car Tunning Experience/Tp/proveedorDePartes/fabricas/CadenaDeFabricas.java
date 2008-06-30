@@ -1,13 +1,8 @@
 package proveedorDePartes.fabricas;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
-
-import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
-
-
 
 public class CadenaDeFabricas{
 

@@ -51,34 +51,7 @@ public class PantallaTaller extends JPanelConImagen {
            this.add(botonComenzar, c);            
        }
        
-       
-       /* PANEL INFORMACION AUTO USUARIO */
-       private void crearPanelAuto() {
-           JTabbedPane tabbedPane = new JTabbedPane();
-           tabbedPane.setPreferredSize(new Dimension(300,350));
-           
-           JPanel panelAuto = new JPanel();
-           panelAuto.setLayout(new GridBagLayout());
-        
-           Color nc = new Color(176,196,222);
-           panelAuto.setBackground(nc);
-          
-           this.panelAutoActual = new JPanel();
-           panelAutoActual.setLayout(new BoxLayout(panelAutoActual,BoxLayout.Y_AXIS));
-           panelAutoActual.setOpaque(false);
-           panelAuto.add(panelAutoActual);
-           
-         
-           tabbedPane.addTab("Mi Auto",panelAuto);
-       
-           GridBagConstraints c = new GridBagConstraints();
-           c.gridx =0;
-           c.gridy =1;
-           c.weighty = 1.0;
-           c.anchor = GridBagConstraints.CENTER;
-           this.add(tabbedPane,c);        
-       }
-            
+       /* PANEL AUTO */         
        public void limpiarInformacionAuto() {
     	   panelAutoActual.removeAll();
        }
@@ -89,25 +62,7 @@ public class PantallaTaller extends JPanelConImagen {
     	   panelAutoActual.add(jParteAuto);
        }
        
-      
-       /*PANEL USUARIO*/
-       private void crearPanelUsuario() { 	   
-    	   this.panelUsuario = new JPanel();
-    	   Color nc = new Color(176,196,222);
-    	   panelUsuario.setPreferredSize(new Dimension(300,130));
-    	   panelUsuario.setBackground(nc);
-    	          
-    	   GridBagConstraints c = new GridBagConstraints();
-           c.gridx =1;
-           c.gridy =1;
-           c.gridheight =1;
-           Insets in=new Insets(100,30,0,0);
-           c.insets=in;
-           c.anchor = GridBagConstraints.NORTH;
-        
-    	   this.add(panelUsuario,c);         
-       }
-       
+       /*PANEL USUARIO*/             
        public void actualizarInformacionUsuario(String nombreUsuario, ImageIcon avatarUsuario) {
     	   panelUsuario.removeAll();  	   
     	   
@@ -119,88 +74,33 @@ public class PantallaTaller extends JPanelConImagen {
            panelUsuario.add(jUsuario);         
        }
 
-       
        /* PANEL RESERVAS */
-       private JPanel crearPanelReserva() {
-    	   Color nc = new Color(176,196,222);
-    	   JPanel panelBodega = new JPanel();
-    	   panelBodega.setLayout(new GridBagLayout());
-    	   panelBodega.setBackground(nc);
-    	 
-    	   
-    	   GridBagConstraints ubicacion = new GridBagConstraints();
-	       ubicacion.gridx=0;
-	       ubicacion.gridy=0;
-	       ubicacion.anchor= GridBagConstraints.NORTH;
-	   	   
-	       comboPartesReserva = new JComboBox();
-    	   comboPartesReserva.addItem("-Lista Vacía-");
-    	   panelBodega.add(comboPartesReserva,ubicacion);
-    	  
-    	   comboParteARemover=new JComboBox();
-	       comboParteARemover.addItem("-Parte a Cambiar-");
-    	   ubicacion.anchor= GridBagConstraints.SOUTH;
-    	   panelBodega.add(comboParteARemover,ubicacion);
-    	   
-    	   Boton botonCambiar = new Boton("Cambiar");
-    	   botonCambiar.addActionListener(controladorTaller);
-           botonCambiar.setActionCommand("cambiar");
-		   
-    	   panelBodega.add(botonCambiar,posicionBoton());
-               
-    	   return panelBodega;
-       }
-
-       public String obtenerParteARemover(){ 	
-    	   return (String)comboParteARemover.getSelectedItem();
+       public void agregarAReserva(String descripcion,String vidaUtil){ 
+    	   comboPartesReserva.addItem( descripcion + " " + vidaUtil );
        }
        
        public void agregarARemover(String parteARemover){
     	   comboParteARemover.addItem(parteARemover);   
        }
        
-       public void limpiarInformacionReserva() {
-    	   comboPartesReserva.removeAllItems();
-       }
-   
-       public void agregarAReserva(String descripcion,String vidaUtil){ 
-    	   comboPartesReserva.addItem( descripcion + " " + vidaUtil );
-       }
-       
        public String obtenerParteACambiar(){
     	   return (String)comboPartesReserva.getSelectedItem();
        }
-     
        
-       /* PANEL DINERO */
-       private JPanel crearPanelDinero(){             
-    	   Color nc = new Color(176,196,222);
-           JPanel panelDinero = new JPanel();
-           panelDinero.setLayout(new GridBagLayout());
-           panelDinero.setBackground(nc);
+       public String obtenerParteARemover(){ 	
+    	   return (String)comboParteARemover.getSelectedItem();
+       }
        
-           labelDinero = new JLabel();
-           panelDinero.add(labelDinero);
-               
-           return panelDinero;
-       	}
-       
+       public void limpiarInformacionReserva() {
+    	   comboPartesReserva.removeAllItems();
+       }
+      
+       /* PANEL DINERO */     
        public void actualizarInformacionDinero(String dinero){ 	   
     	   this.labelDinero.setText(dinero + " Algo$");
        }
           
-       /* PANEL CARGAR NAFTA */
-       private JPanel crearPanelCargarNafta(){ 	   
-    	   this.panelNafta = new JPanel();
-    	   Color nc = new Color(176,196,222);
-    	   panelNafta.setPreferredSize(new Dimension(100,150)); 
-   	   
-    	   panelNafta.setLayout (new GridBagLayout());
-           panelNafta.setBackground(nc); 
-           
-           return panelNafta;
-   	   }
-       
+       /* PANEL NAFTA */   
        public void actualizarInformacionNafta(Double cantidad, Double capacidad, String precio){  	   
     	   panelNafta.removeAll();
     	    	   
@@ -256,16 +156,7 @@ public class PantallaTaller extends JPanelConImagen {
     	   return(cantidadSeleccionada.getValue().toString());
        }
            
-       /* PANEL PISTA */
-       private JPanel crearPanelPista(){            
-           Color nc = new Color(176,196,222);
-           this.panelPista = new JPanel();
-           panelPista.setLayout(new GridBagLayout());
-           panelPista.setBackground(nc);
-                         
-           return panelPista;
-       }
-       
+       /* PANEL PISTA */      
        public void actualizarInformacionPista(String longitud, String superficie, String velocidad){ 
     	   panelPista.removeAll();
     	   
@@ -278,10 +169,143 @@ public class PantallaTaller extends JPanelConImagen {
     	   panelPista.add(jSuperficie);
     	      	   
            panelPista.setLayout(new BoxLayout(panelPista, BoxLayout.PAGE_AXIS));
+       }     
+       
+       /* PANEL MENSAJE */    
+       public void generarMensaje(String mensaje){
+           labelMensaje.setText(mensaje);
+           labelMensaje.setForeground(Color.BLUE);
+       }
+       
+       public void generarMensajeError(String mensaje){
+           labelMensaje.setText(mensaje);
+           labelMensaje.setForeground(Color.RED);
+       }
+       
+       /* PANEL CATALOGO */
+       public JComboBox obtenerCatalogo() {
+    	   return elCatalogo;
        }
 
-             
-       /* PANEL PISTA DINERO BODEGA */
+       public void agregarACatalogo(String parteAgregar) {
+    	   elCatalogo.addItem(parteAgregar);
+       }
+       
+       public String obtenerParteAComprar(){ 	
+    	   return (String)elCatalogo.getSelectedItem();
+       }
+       
+       public void cambiarPrecioParteSeleccionada(String precio){
+	    	labelPrecio.setText(precio);	    	  
+       }
+       
+       
+       
+       private void crearPanelAuto() {
+           JTabbedPane tabbedPane = new JTabbedPane();
+           tabbedPane.setPreferredSize(new Dimension(300,350));
+           
+           JPanel panelAuto = new JPanel();
+           panelAuto.setLayout(new GridBagLayout());
+        
+           Color nc = new Color(176,196,222);
+           panelAuto.setBackground(nc);
+          
+           this.panelAutoActual = new JPanel();
+           panelAutoActual.setLayout(new BoxLayout(panelAutoActual,BoxLayout.Y_AXIS));
+           panelAutoActual.setOpaque(false);
+           panelAuto.add(panelAutoActual);
+           
+         
+           tabbedPane.addTab("Mi Auto",panelAuto);
+       
+           GridBagConstraints c = new GridBagConstraints();
+           c.gridx =0;
+           c.gridy =1;
+           c.weighty = 1.0;
+           c.anchor = GridBagConstraints.CENTER;
+           this.add(tabbedPane,c);        
+       }
+       
+       private void crearPanelUsuario() { 	   
+    	   this.panelUsuario = new JPanel();
+    	   Color nc = new Color(176,196,222);
+    	   panelUsuario.setPreferredSize(new Dimension(300,130));
+    	   panelUsuario.setBackground(nc);
+    	          
+    	   GridBagConstraints c = new GridBagConstraints();
+           c.gridx =1;
+           c.gridy =1;
+           c.gridheight =1;
+           Insets in=new Insets(100,30,0,0);
+           c.insets=in;
+           c.anchor = GridBagConstraints.NORTH;
+        
+    	   this.add(panelUsuario,c);         
+       }
+       
+       private JPanel crearPanelReserva() {
+    	   Color nc = new Color(176,196,222);
+    	   JPanel panelBodega = new JPanel();
+    	   panelBodega.setLayout(new GridBagLayout());
+    	   panelBodega.setBackground(nc);
+    	 
+    	   
+    	   GridBagConstraints ubicacion = new GridBagConstraints();
+	       ubicacion.gridx=0;
+	       ubicacion.gridy=0;
+	       ubicacion.anchor= GridBagConstraints.NORTH;
+	   	   
+	       comboPartesReserva = new JComboBox();
+    	   comboPartesReserva.addItem("-Lista Vacía-");
+    	   panelBodega.add(comboPartesReserva,ubicacion);
+    	  
+    	   comboParteARemover=new JComboBox();
+	       comboParteARemover.addItem("-Parte a Cambiar-");
+    	   ubicacion.anchor= GridBagConstraints.SOUTH;
+    	   panelBodega.add(comboParteARemover,ubicacion);
+    	   
+    	   Boton botonCambiar = new Boton("Cambiar");
+    	   botonCambiar.addActionListener(controladorTaller);
+           botonCambiar.setActionCommand("cambiar");
+		   
+    	   panelBodega.add(botonCambiar,posicionBoton());
+               
+    	   return panelBodega;
+       }
+       
+       private JPanel crearPanelDinero(){             
+    	   Color nc = new Color(176,196,222);
+           JPanel panelDinero = new JPanel();
+           panelDinero.setLayout(new GridBagLayout());
+           panelDinero.setBackground(nc);
+       
+           labelDinero = new JLabel();
+           panelDinero.add(labelDinero);
+               
+           return panelDinero;
+       	}
+       
+       private JPanel crearPanelCargarNafta(){ 	   
+    	   this.panelNafta = new JPanel();
+    	   Color nc = new Color(176,196,222);
+    	   panelNafta.setPreferredSize(new Dimension(100,150)); 
+   	   
+    	   panelNafta.setLayout (new GridBagLayout());
+           panelNafta.setBackground(nc); 
+           
+           return panelNafta;
+   	   }
+       
+       private JPanel crearPanelPista(){            
+           Color nc = new Color(176,196,222);
+           this.panelPista = new JPanel();
+           panelPista.setLayout(new GridBagLayout());
+           panelPista.setBackground(nc);
+                         
+           return panelPista;
+       }
+       
        private void crearPanelPistaDineroBodega(){             
            JTabbedPane tabbedPane = new JTabbedPane();
            tabbedPane.setPreferredSize(new Dimension(300,150));
@@ -302,8 +326,6 @@ public class PantallaTaller extends JPanelConImagen {
 	       this.add(tabbedPane,c);
        }
        
-       
-       /*PANEL MENSAJES*/ 
        private void crearPanelMensajes() {       
            JPanel panelMensaje = new JPanel();
            panelMensaje.setPreferredSize(new Dimension(300,100));
@@ -328,18 +350,7 @@ public class PantallaTaller extends JPanelConImagen {
      
            this.add(panelMensaje,c);         
        }
-       
-       public void generarMensaje(String mensaje){
-           labelMensaje.setText(mensaje);
-           labelMensaje.setForeground(Color.BLUE);
-       }
-       
-       public void generarMensajeError(String mensaje){
-           labelMensaje.setText(mensaje);
-           labelMensaje.setForeground(Color.RED);
-       }
-       
-       /* PANEL CATALOGO */
+     
        private void crearPanelCatalogo(){            
            Color nc = new Color(176,196,222);
  
@@ -402,22 +413,6 @@ public class PantallaTaller extends JPanelConImagen {
 		   return panelCombo;
        }
 
-       public JComboBox obtenerCatalogo() {
-    	   return elCatalogo;
-       }
-
-       public void agregarACatalogo(String parteAgregar) {
-    	   elCatalogo.addItem(parteAgregar);
-       }
-       
-       public String obtenerParteAComprar(){ 	
-    	   return (String)elCatalogo.getSelectedItem();
-       }
-       
-       public void cambiarPrecioParteSeleccionada(String precio){
-	    	labelPrecio.setText(precio);	    	  
-       }
-       
        private JPanel crearPanelPrecio() {       
            JPanel panelPrecio = new JPanel();
            panelPrecio.setPreferredSize(new Dimension(150,50));
@@ -437,7 +432,6 @@ public class PantallaTaller extends JPanelConImagen {
            return panelPrecio;      
        }
        
-       
        private GridBagConstraints posicionBoton(){
     	   GridBagConstraints ubicacion = new GridBagConstraints();
 	       Insets in=new Insets(0,0,5,5);
@@ -449,5 +443,5 @@ public class PantallaTaller extends JPanelConImagen {
            return ubicacion;
         }
 
-
+       
 }
