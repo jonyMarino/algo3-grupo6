@@ -25,7 +25,6 @@ public class VelocidadTest extends TestCase {
 		try {
 			programa = new ProgramaAuto("PruebaVelocidad");
 		} catch (WrongUserNameException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ArrayList<Auto> autos = new ArrayList<Auto>();

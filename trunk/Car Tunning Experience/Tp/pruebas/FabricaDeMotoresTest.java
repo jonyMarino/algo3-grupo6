@@ -19,7 +19,6 @@ public class FabricaDeMotoresTest extends TestCase {
 		try {
 			unMotor = fabrica.fabricar(modelos.get(0));
 		} catch (NoSuchModelException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {

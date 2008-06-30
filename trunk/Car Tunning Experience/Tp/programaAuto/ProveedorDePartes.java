@@ -46,10 +46,8 @@ public class ProveedorDePartes {
 		try {
 			dineroNecesario = Integer.parseInt(modelo.getCaracteristica("COSTO"));
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (BoundsException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

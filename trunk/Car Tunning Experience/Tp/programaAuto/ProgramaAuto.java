@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Random;
-
 import programaAuto.Taller.InformacionParteEnAuto;
 import programaAuto.Taller.InformacionParteReserva;
 import proveedorDeNafta.Nafta;
@@ -175,10 +174,8 @@ public class ProgramaAuto extends Observable {
 				pistaNormal.setVelocidadAire(10); //10km/h
 				return pistaNormal;
 			} catch (InvalidPistaNameException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (BoundsException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	throw new RuntimeException("o deberia llegar a aqui en pistaNormal()");
@@ -196,10 +193,8 @@ public class ProgramaAuto extends Observable {
 				pistaNieve.setVelocidadAire(30); //30km/h
 				return pistaNieve;
 			} catch (InvalidPistaNameException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (BoundsException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	throw new RuntimeException("o deberia llegar a aqui en pistaNieve()");
@@ -217,10 +212,8 @@ public class ProgramaAuto extends Observable {
 				pistaLarga.setVelocidadAire(15); //15km/h
 				return pistaLarga;
 			} catch (InvalidPistaNameException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (BoundsException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	throw new RuntimeException("no deberia llegar a aqui en pistaLarga()");
@@ -290,7 +283,6 @@ public class ProgramaAuto extends Observable {
 			try {
 				usuariotemporal = new Usuario("___TEMPORAL_DE_PROGRAMA_AUTO___");
 			} catch (WrongUserNameException e2) {
-				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
         	usuariotemporal.setDinero(999999999);
@@ -434,15 +426,10 @@ public class ProgramaAuto extends Observable {
 				if(posicion<PremiosEnAlgo.length)
 					usuario.adquirirDinero(PremiosEnAlgo[posicion]);
 			} catch (BoundsException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
         
-        /*
-         * El usuario no se crea con una pista,
-         * Esta se elige luego.
-         */
         protected Usuario nuevoUsuario(String nombre) throws WrongUserNameException {
                 Auto unAuto = autoInicial();
                 Usuario unUsuario = new Usuario(nombre);
@@ -458,15 +445,10 @@ public class ProgramaAuto extends Observable {
                 return unaSimulacion;
         }
 		
-
         public ProveedorDePartes getUnProveedor() {
 			return unProveedor;
 		}
         
-        //TODO: debe ser generado por el programa, anda mal el random
-        /*
-         * No deberia poner esto aca, pero para que utilizen el random...
-         */
         public Pista generarProximaPista(){
     		Random rand= new Random(new Date().getTime());
     		return(pistas.get((int)(rand.nextDouble()*pistas.size())));	

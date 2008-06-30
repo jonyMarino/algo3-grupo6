@@ -49,7 +49,6 @@ public class MezcladorTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		} catch (NoSuchModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -81,7 +80,6 @@ public class MezcladorTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		} catch (NoSuchModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		mezclador = null;
@@ -96,7 +94,6 @@ public class MezcladorTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		} catch (NoSuchModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		mezclador = null;
@@ -112,7 +109,6 @@ public class MezcladorTest extends TestCase {
 		} catch (BoundsException e) {
 			//prueba exitosa
 		} catch (NoSuchModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		mezclador = null;

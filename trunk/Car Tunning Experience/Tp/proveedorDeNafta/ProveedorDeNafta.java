@@ -26,10 +26,8 @@ public class ProveedorDeNafta {
 		try {
 			dineroNecesario = Double.parseDouble(modelo.getCaracteristica("COSTO"))*cantidad;
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (BoundsException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

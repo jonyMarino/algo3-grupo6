@@ -34,7 +34,6 @@ public class CarroceriaTest extends TestCase {
 		try {
 			carroceria= fabrica.fabricar(fabrica.getModelos().get(0));
 		} catch (NoSuchModelException e) {
-			 //TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		auto.setPista(otraPista);
@@ -47,7 +46,6 @@ public class CarroceriaTest extends TestCase {
 		try {
 			carroceria= fabrica.fabricar(fabrica.getModelos().get(0));
 		} catch (NoSuchModelException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		auto.setCarroceria(carroceria);

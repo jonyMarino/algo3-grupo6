@@ -196,8 +196,8 @@ public abstract class Auto extends Observable{
 	 * @author Jony
 	 *
 	 */
-	private class EnsambladorCaja implements Ensamblador{
-		public boolean colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException{
+	private class EnsambladorCaja implements Ensamblador {
+		public boolean colocar(ParteAuto parte,Ubicacion ubicacion)throws IncorrectPartForUbicationException {
 			if(ubicacion!=Ubicacion.CAJA)
 				return false;
 			if(!(parte instanceof Caja))
