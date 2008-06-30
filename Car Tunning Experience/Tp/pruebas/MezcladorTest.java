@@ -20,6 +20,7 @@ public class MezcladorTest extends TestCase {
 	FabricaDeMezcladores fabricaDeMezcladores;
 	FabricaDeTanquesDeCombustible fabricaDeTanques;
 	FabricaDeNafta fabricaDeNafta;
+	
 	protected void setUp() throws Exception {
 		super.setUp();
 		fabricaDeTanques = new FabricaDeTanquesDeCombustible();
@@ -62,7 +63,7 @@ public class MezcladorTest extends TestCase {
 			e.printStackTrace();
 		}
 		try {
-			assertEquals(40.49, mezclador.obtenerMezcla(90));
+			assertEquals(90.0, mezclador.obtenerMezcla(50000));
 			fail("Debería haberse lanzado una excepción");
 		} catch (BoundsException e) {
 			//prueba exitosa
