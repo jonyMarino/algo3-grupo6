@@ -26,9 +26,9 @@ public class VistaCarreraInformativa  implements VistaGrafica {
 	
 
     /**
-     * Crea una nueva @link{VistaGrafica} que muestra una representacion de
-     * algunos parametros del @link{Auto} del @link{Usuario} principal, como ser
-     * la velocidad, las RPM del @link{Motor}, la distancia recorrida, etc., con texto.
+     * Crea una nueva @{link VistaGrafica} que muestra una representacion de
+     * algunos parametros del @{link Auto} del @{link Usuario} principal, como ser
+     * la velocidad, las RPM del @{link Motor}, la distancia recorrida, etc., con texto.
      *
      * @param ancho El ancho de la vista
      * @param alto El alto de la vista
