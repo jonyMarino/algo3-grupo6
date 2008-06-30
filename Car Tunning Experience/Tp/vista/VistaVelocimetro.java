@@ -10,6 +10,13 @@ import javax.imageio.ImageIO;
 import programaAuto.Auto;
 import programaAuto.ProgramaAuto;
 
+/**
+ * Vista gráfica que muestra una representacion de la velocidad del auto principal
+ * con forma de velocímetro
+ * 
+ * @see VistaGrafica
+ *
+ */
 
 public class VistaVelocimetro  implements VistaGrafica {
 	private Auto unAuto;

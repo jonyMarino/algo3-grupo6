@@ -17,6 +17,12 @@ import javax.swing.ImageIcon;
 import programaAuto.ProgramaAuto;
 import programaAuto.Usuario;
 
+/**
+ * Vista gráfica que muestra una representacion de la carrera vista de costado.
+ * 
+ * @see VistaGrafica
+ *
+ */
 public class VistaDeCostado implements VistaGrafica {
 
 	BufferedImage bufferPrincipal;
