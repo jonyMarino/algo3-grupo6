@@ -1,7 +1,6 @@
 package pruebas;
 
-import com.sun.net.httpserver.Authenticator.Success;
-
+//import com.sun.net.httpserver.Authenticator.Success;
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 import programaAuto.ProveedorDePartes;
@@ -72,6 +71,7 @@ public class ProveedorDePartesTest extends TestCase {
 	
 	public void testComprarModeloInexistente(){
 		try {
+			@SuppressWarnings("unused")
 			ParteAuto unaParte = unProveedor.comprar(null, unUsuario);
 			fail("Se supone que el modelo era invalido");
 		} catch (NoSuchModelException e) {
@@ -84,6 +84,7 @@ public class ProveedorDePartesTest extends TestCase {
 	public void testComprarSinDinero(){
 		unUsuario.setDinero(0);
 		try {
+			@SuppressWarnings("unused")
 			ParteAuto unaParte = unProveedor.comprar(unProveedor.getModelosDisponibles().get(5), unUsuario);
 			fail("Se supone que no tenia suficiente dinero");
 		} catch (NoSuchModelException e) {
