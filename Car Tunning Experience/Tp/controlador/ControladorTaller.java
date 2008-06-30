@@ -37,7 +37,7 @@ public class ControladorTaller implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
 		if (comando.equals("cargar"))
-			this.llenarTanque(Double.valueOf(pantallaTaller.obtenerCantidadPanelNafta()));
+			this.llenarTanque(Double.valueOf(pantallaTaller.obtenerCantidadNafta()));
 		if (comando.equals("comprar"))
 			this.comprarParte();
 		if (comando.equals("cambiar"))
@@ -45,11 +45,11 @@ public class ControladorTaller implements ActionListener {
 	}
 
     private void cambiarParte() {
-    	  	String nombreProducto = pantallaTaller.parteAComprar();
+    	  	String nombreProducto = pantallaTaller.obtenerParteACambiar();
            	InformacionDelModelo informacionModelo = actualizadorTaller.buscarInformacionModelo(nombreProducto);
         	ParteAuto parte = this.buscarParteEnReserva(informacionModelo);
         	try {
-				String parteARemover = pantallaTaller.parteARemover();
+				String parteARemover = pantallaTaller.obtenerParteARemover();
         		Ubicacion ubicacion = this.buscarUbicacion(parteARemover);
         		programaAuto.getUsuario().getAuto().colocarParte(parte, ubicacion);
 				pantallaTaller.generarMensaje("El cambio ha sido realizado satisfactoriamente");
@@ -88,7 +88,7 @@ public class ControladorTaller implements ActionListener {
 
 	private void comprarParte() {
     	try{
-        	String nombreProducto = pantallaTaller.parteAComprar();
+        	String nombreProducto = pantallaTaller.obtenerParteAComprar();
        	 	InformacionDelModelo info = actualizadorTaller.buscarInformacionModelo(nombreProducto);
         	ParteAuto unaParte = programaAuto.getUnProveedor().comprar(info, programaAuto.getUsuario());
          	programaAuto.getUsuario().getTaller().aniadirAReserva(unaParte);
