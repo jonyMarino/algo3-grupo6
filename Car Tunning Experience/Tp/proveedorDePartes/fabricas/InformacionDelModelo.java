@@ -6,7 +6,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import excepciones.BoundsException;
-//TODO: getCaracteristicasDisponibles() y getCaracteristica() a final
+
 public class InformacionDelModelo {
  
 	private Hashtable<String,String> informacionDeEstaParte;

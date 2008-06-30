@@ -36,7 +36,6 @@ public class ControladorPrincipal implements KeyListener{
 		try {
 			miPrograma = new ProgramaAuto("PROGRAMAPRUEBA");
 		} catch (WrongUserNameException e3) {
-			// TODO Auto-generated catch block
 			e3.printStackTrace();
 		}
 		miPrograma.generarProximaPista();
@@ -58,12 +57,10 @@ public class ControladorPrincipal implements KeyListener{
 			try {
 				tanque.llenarTanque(99999);
 			} catch (TankIsFullException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} catch (NoSuchModelException e) {
 		} catch (BoundsException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -81,10 +78,8 @@ public class ControladorPrincipal implements KeyListener{
 		try {
 			miPrograma.setPista(miPrograma.generarProximaPista());
 		} catch (NotContainedPistaException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (PistaPickedException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -93,13 +88,10 @@ public class ControladorPrincipal implements KeyListener{
 			miPrograma.entrarAlTaller();
 			miPrograma.entrarALaCarrera();
 		} catch (NoPistaPickedException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (NotAbleWhileSimulatingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (NotInTallerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	

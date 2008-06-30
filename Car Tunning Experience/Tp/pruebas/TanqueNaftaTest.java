@@ -47,7 +47,6 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertEquals(20.0*0.75, tanque.getPeso());
@@ -88,7 +87,6 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -122,9 +120,8 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+	}
 		try {
 			tanque.usarCombustible(-10);
 			fail("No se pueden usar cantidades negativas de combustible");
@@ -144,7 +141,6 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		} catch (NoSuchModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -190,10 +186,8 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		} catch (NoSuchModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -215,10 +209,8 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		} catch (NoSuchModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -240,10 +232,8 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (BoundsException e) {
 			//Prueba exitosa
 		} catch (NoSuchModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertEquals(0.0, tanque.getCantidadCombustible());
