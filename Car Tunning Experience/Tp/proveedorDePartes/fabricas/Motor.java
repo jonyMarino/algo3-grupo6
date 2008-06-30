@@ -117,7 +117,7 @@ public class Motor extends ParteAuto implements Torqueador{
 			//e.printStackTrace();
 		}	
 		double energiaDeCombustion=realizarCombustion(mezcla);
-		torque*=energiaDeCombustion*80; //TODO: agregue una constante 1000 para que el auto acelera mas rápido (sigue siendo lento)
+		torque*=energiaDeCombustion*5000; 
 		return torque;
 
 	}

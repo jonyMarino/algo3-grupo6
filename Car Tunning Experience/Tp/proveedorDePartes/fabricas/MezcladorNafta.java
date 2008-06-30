@@ -41,6 +41,7 @@ public class MezcladorNafta extends Mezclador {
 				else{
 					double mezclaNecesaria = ((litrosMezcla*100)/this.getRendimiento());
 					double naftaNecesaria = ((mezclaNecesaria*100)/(this.getTanqueCombustible().getCombustible().getOctanaje()));
+					naftaNecesaria /= 50;
 
 					if(naftaNecesaria > this.getTanqueCombustible().getCantidadCombustible())
 							throw new BoundsException("Faltante de nafta necesaria para la mezcla pedida");
