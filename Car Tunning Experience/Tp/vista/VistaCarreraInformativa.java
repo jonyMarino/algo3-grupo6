@@ -24,6 +24,18 @@ public class VistaCarreraInformativa  implements VistaGrafica {
 	private BufferedImage bufferPrincipal;
 	private ProgramaAuto elPrograma;
 	
+
+    /**
+     * Crea una nueva @link{VistaGrafica} que muestra una representacion de
+     * algunos parametros del @link{Auto} del @link{Usuario} principal, como ser
+     * la velocidad, las RPM del @link{Motor}, la distancia recorrida, etc., con texto.
+     *
+     * @param ancho El ancho de la vista
+     * @param alto El alto de la vista
+     *
+     * @see VistaGrafica
+     */
+
 	public VistaCarreraInformativa(int ancho, int alto, ProgramaAuto unPrograma) {
 		bufferPrincipal = new BufferedImage(ancho,alto, BufferedImage.TYPE_INT_ARGB);
 		elPrograma = unPrograma;
