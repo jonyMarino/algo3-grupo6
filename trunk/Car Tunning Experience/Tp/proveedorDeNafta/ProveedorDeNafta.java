@@ -3,12 +3,9 @@ package proveedorDeNafta;
 import java.util.ArrayList;
 import programaAuto.Usuario;
 import proveedorDeNafta.FabricaDeNafta;
-import proveedorDePartes.fabricas.InformacionDelModelo;
-import proveedorDePartes.fabricas.ParteAuto;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
-import excepciones.TankIsFullException;
 
 public class ProveedorDeNafta {
 	
@@ -21,7 +18,6 @@ public class ProveedorDeNafta {
 	
 	public double comprar(double cantidad,Usuario usuario) throws NotEnoughMoneyException, BoundsException{
 		InformacionCombustible modelo =getFabricasDisponibles().get(0).getTipos().get(0);
-		//como siempre usamos el mismo tipo de nafta por eso esto es interno
 		double dineroNecesario = 0;
 		try {
 			dineroNecesario = Double.parseDouble(modelo.getCaracteristica("COSTO"))*cantidad;
@@ -31,8 +27,12 @@ public class ProveedorDeNafta {
 			e.printStackTrace();
 		}
 
-			usuario.gastarDinero(dineroNecesario);
-			return cantidad;
+		if (usuario.getDinero() < dineroNecesario)
+			throw new NotEnoughMoneyException("No tiene suficiente dinero como para comprar la parte");
+		
+		usuario.gastarDinero(dineroNecesario);
+		
+		return cantidad;
 	}
 	
 	public Nafta obtenerNafta() throws NoSuchModelException{

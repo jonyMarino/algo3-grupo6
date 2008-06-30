@@ -221,7 +221,7 @@ public class PantallaTaller extends JPanelConImagen {
            botonCargar.addActionListener(controladorTaller);
            botonCargar.setActionCommand("cargar");
            botonCargar.setOpaque(false);
-           SpinnerModel model = new SpinnerNumberModel(0,0,capacidad-0, 0.5);         
+           SpinnerModel model = new SpinnerNumberModel(0,-capacidad,capacidad+10, 0.5);         
            cantidadSeleccionada.setModel(model);
           
            JLabel cantidadLitros = new JLabel(" Litros");
@@ -236,7 +236,7 @@ public class PantallaTaller extends JPanelConImagen {
            c.anchor = GridBagConstraints.CENTER;
            panelNafta.add(cantidadSeleccionada,c); 
            
-           labelPrecioNafta = new JLabel("$ " + precio);
+           labelPrecioNafta = new JLabel(precio + " $ / litro ");
            labelPrecioNafta.setMinimumSize(new Dimension(30, 30));
            c.anchor = GridBagConstraints.WEST;
            panelNafta.add(labelPrecioNafta,c);
@@ -331,14 +331,14 @@ public class PantallaTaller extends JPanelConImagen {
        
        public void generarMensaje(String mensaje){
            labelMensaje.setText(mensaje);
-           labelMensaje.setForeground(Color.GREEN);
+           labelMensaje.setForeground(Color.BLUE);
        }
        
        public void generarMensajeError(String mensaje){
            labelMensaje.setText(mensaje);
            labelMensaje.setForeground(Color.RED);
        }
-
+       
        /* PANEL CATALOGO */
        private void crearPanelCatalogo(){            
            Color nc = new Color(176,196,222);
