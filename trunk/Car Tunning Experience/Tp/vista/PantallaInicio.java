@@ -13,10 +13,10 @@ import javax.swing.JPanel;
 
 import controlador.ControladorJuego;
 
-public class PantallaInicio extends JPanelConImagen {
-	JFileChooser fileChooser;
+public class PantallaInicio extends JPanelConImagen {	
 	
 	private static final long serialVersionUID = 1L;
+	private JFileChooser fileChooser;
 	
 	public PantallaInicio(ControladorJuego controladorJuego) {
 		super();
