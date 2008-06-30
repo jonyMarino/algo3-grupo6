@@ -20,7 +20,7 @@ public class PantallaTaller extends JPanelConImagen {
        private JSpinner cantidadSeleccionada = new JSpinner();
        private JComboBox comboPartesReserva;    
        private JComboBox comboParteARemover; 
-       private JComboBox elCatalogo;
+       private JComboBox catalogo;
        private ControladorTaller controladorTaller;;
        private static final long serialVersionUID = 1L;
      
@@ -56,9 +56,9 @@ public class PantallaTaller extends JPanelConImagen {
     	   panelAutoActual.removeAll();
        }
        
-       public void agregarInformacionAuto(String nombreParte, String vidaUtil) { 
+       public void agregarInformacionAuto(String nombreParte, String vidaUtil, String ubicacion) { 
     	   JLabel jParteAuto = new JLabel();
-    	   jParteAuto.setText(nombreParte+" "+vidaUtil);
+    	   jParteAuto.setText(ubicacion + ":  " +nombreParte+ "   " +vidaUtil);
     	   panelAutoActual.add(jParteAuto);
        }
        
@@ -184,15 +184,15 @@ public class PantallaTaller extends JPanelConImagen {
        
        /* PANEL CATALOGO */
        public JComboBox obtenerCatalogo() {
-    	   return elCatalogo;
+    	   return catalogo;
        }
 
        public void agregarACatalogo(String parteAgregar) {
-    	   elCatalogo.addItem(parteAgregar);
+    	   catalogo.addItem(parteAgregar);
        }
        
        public String obtenerParteAComprar(){ 	
-    	   return (String)elCatalogo.getSelectedItem();
+    	   return (String)catalogo.getSelectedItem();
        }
        
        public void cambiarPrecioParteSeleccionada(String precio){
@@ -215,7 +215,6 @@ public class PantallaTaller extends JPanelConImagen {
            panelAutoActual.setLayout(new BoxLayout(panelAutoActual,BoxLayout.Y_AXIS));
            panelAutoActual.setOpaque(false);
            panelAuto.add(panelAutoActual);
-           
          
            tabbedPane.addTab("Mi Auto",panelAuto);
        
@@ -405,10 +404,10 @@ public class PantallaTaller extends JPanelConImagen {
 		   panelCombo.setLayout (g); 
 		   panelCombo.setOpaque(false);
 		       
-		   elCatalogo = new JComboBox();
-		   elCatalogo.addItem("-Catalogo-");
+		   catalogo = new JComboBox();
+		   catalogo.addItem("-Catalogo-");
 
-		   panelCombo.add(elCatalogo);
+		   panelCombo.add(catalogo);
 		     
 		   return panelCombo;
        }
