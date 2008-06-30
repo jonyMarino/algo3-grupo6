@@ -73,7 +73,7 @@ public class Motor extends ParteAuto implements Torqueador{
 		try{
 			if((getVidaUtil()!=0)){
 					double deltaVidaUtil = obtenerRPM()/getRPMMaximo()/50;
-					setVidaUtil(getVidaUtil()-deltaVidaUtil);
+					setVidaUtil(getVidaUtil()-Math.abs(deltaVidaUtil));
 			}
 		}catch(BoundsException e){
 			try{
