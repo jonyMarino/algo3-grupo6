@@ -65,7 +65,7 @@ public class PantallaCarrera extends JPanel{
 	
 	private void generarArboles() {
 		int cantidadArboles = 60;
-		int distanciaEntreArboles = (int) (elPrograma.getPista().getLongitud()*pixelesPorMetro/cantidadArboles);
+		int distanciaEntreArboles = (int) (elPrograma.getPista().getLongitud()/cantidadArboles*pixelesPorMetro);
 		
 		System.out.println(distanciaEntreArboles);
 		
