@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import programaAuto.ProgramaAuto;
+import programaAuto.Usuario;
 
 public class VistaDeCostado implements VistaGrafica {
 
@@ -24,6 +25,7 @@ public class VistaDeCostado implements VistaGrafica {
 	ArrayList<BufferedImage> arboles;
 	ProgramaAuto elPrograma;
 	ArrayList<Point2D> listaDeArboles;
+	private ArrayList<Usuario> competidores;
 
 	public VistaDeCostado(int ancho, int alto, ProgramaAuto unPrograma){
 		bufferPrincipal = new BufferedImage(ancho,alto, BufferedImage.TYPE_INT_RGB);
@@ -43,6 +45,7 @@ public class VistaDeCostado implements VistaGrafica {
 			e.printStackTrace();
 		}
 		proyectarArboles();
+		competidores = new ArrayList<Usuario>();
 
 	}
 
@@ -63,6 +66,10 @@ public class VistaDeCostado implements VistaGrafica {
 		listaDeArboles = lista;
 	}
 
+	public void setCompetidores(ArrayList<Usuario> competidores){
+		this.competidores = competidores;
+	}
+	
 	public int getHeight() {
 		return bufferPrincipal.getHeight();
 	}
@@ -87,6 +94,11 @@ public class VistaDeCostado implements VistaGrafica {
 		}
 		LinkedList<ImagenARenderizar> listaDeRenderizado = new LinkedList<ImagenARenderizar>();
 		listaDeRenderizado.add(new ImagenARenderizar((BufferedImage) autoPrincipal,posicion, getHeight()*3/4-autoPrincipal.getHeight(null)/2, 2));
+		
+		for(Usuario p:competidores){
+			if(p.getAuto() != elPrograma.getUsuario().getAuto())
+				listaDeRenderizado.add(new ImagenARenderizar((BufferedImage) autoPrincipal, (int) (p.getAuto().getPosicion()-inicio), getHeight()*3/4-autoPrincipal.getHeight(null)/2, 2));
+		}
 		agregarArboles(listaDeRenderizado, inicio);
 		Collections.sort(listaDeRenderizado);
 		dibujarTodo(temporal2D, listaDeRenderizado);

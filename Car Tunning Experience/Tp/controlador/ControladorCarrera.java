@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
@@ -12,6 +13,7 @@ import programaAuto.NoPistaPickedException;
 import programaAuto.NotInTallerException;
 import programaAuto.NotSimulatingException;
 import programaAuto.ProgramaAuto;
+import programaAuto.Usuario;
 import programaAuto.ProgramaAuto.SimuladorCarrera;
 import proveedorDePartes.fabricas.CajaManual;
 import vista.PantallaCarrera;
@@ -21,9 +23,11 @@ public class ControladorCarrera implements KeyListener{
 
 	ProgramaAuto programaAuto;
 	Auto unAuto;
+	ArrayList<Usuario> listaDeCompetidores;
 	PantallaCarrera laPantalla;
 	boolean simulando;
 	double tiempo;
+	private SimuladorCarrera simulacion;
 	
 	public ControladorCarrera(ProgramaAuto programaAuto, PantallaCarrera pantalla) {
 		this.programaAuto = programaAuto;
@@ -31,6 +35,20 @@ public class ControladorCarrera implements KeyListener{
 		laPantalla=pantalla;
 		simulando = true;
 		tiempo = 10;
+		simulacion = null;
+		
+		try {
+
+			simulacion = programaAuto.entrarALaCarrera();
+		} catch (NoPistaPickedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NotInTallerException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		listaDeCompetidores = (ArrayList<Usuario>) simulacion.getCompetidores();
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -87,18 +105,7 @@ public class ControladorCarrera implements KeyListener{
 
 	public void comenzar() {
 
-		SimuladorCarrera simulacion = null;
-		
-		try {
 
-			simulacion = programaAuto.entrarALaCarrera();
-		} catch (NoPistaPickedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (NotInTallerException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 	
 		AuxiliarSimulacion laSimulacion = new AuxiliarSimulacion(programaAuto);
 		AuxiliarActualizacion sim = new AuxiliarActualizacion(laPantalla, simulacion);
@@ -152,6 +159,10 @@ public class ControladorCarrera implements KeyListener{
 		
 		}
 		
+	}
+
+	public ArrayList<Usuario> getListaDeCompetidores() {
+		return listaDeCompetidores;
 	}
 	
 }
