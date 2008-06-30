@@ -2,19 +2,13 @@ package controlador;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.sun.jmx.snmp.tasks.Task;
-
-
 import programaAuto.Auto;
 import programaAuto.NoPistaPickedException;
-import programaAuto.NotAbleWhileSimulatingException;
 import programaAuto.NotInTallerException;
 import programaAuto.NotSimulatingException;
 import programaAuto.ProgramaAuto;
@@ -23,7 +17,7 @@ import proveedorDePartes.fabricas.CajaManual;
 import vista.PantallaCarrera;
 import excepciones.BoundsException;
 
-public class ControladorCarrera implements KeyListener, Observer{
+public class ControladorCarrera implements KeyListener{
 
 	ProgramaAuto programaAuto;
 	Auto unAuto;
@@ -52,17 +46,14 @@ public class ControladorCarrera implements KeyListener, Observer{
 			break;
 		}
 		try {
-			//TODO: SOLO ES PARA PROBAR LA VISTA, BORRAR CUANDO ESTÉ FUNCIONANDO
 			unAuto.presionarAcelerador(aceleracion);
-			//unAuto.setPosicion(unAuto.getPosicion()+aceleracion*10);
-			//laPantalla.actualizar();
 		} catch (BoundsException e1) {
 		}
 	}
 
 
 	public void keyReleased(KeyEvent e) {
-		double aceleracion=0;
+		double aceleracion=-1;
 		switch (e.getKeyChar()) {
 			case '1': aceleracion=0; 
 			case '2': aceleracion=0;
@@ -71,6 +62,11 @@ public class ControladorCarrera implements KeyListener, Observer{
 			case '5': aceleracion=0;
 			break;
 		default: break;
+		}
+		try {
+			unAuto.presionarAcelerador(aceleracion);
+		} catch (BoundsException e1) {
+			e1.printStackTrace();
 		}
 	}
 
@@ -86,12 +82,6 @@ public class ControladorCarrera implements KeyListener, Observer{
 		}
 		if(e.getKeyChar() == 'q'){
 			simulando=false;
-		}
-	}
-	
-	public void update(Observable o, Object arg) {
-		if (o==programaAuto)
-		{
 		}
 	}
 
