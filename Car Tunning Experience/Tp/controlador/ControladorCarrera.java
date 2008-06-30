@@ -18,6 +18,7 @@ import programaAuto.NotAbleWhileSimulatingException;
 import programaAuto.NotInTallerException;
 import programaAuto.NotSimulatingException;
 import programaAuto.ProgramaAuto;
+import programaAuto.ProgramaAuto.SimuladorCarrera;
 import proveedorDePartes.fabricas.CajaManual;
 import vista.PantallaCarrera;
 import excepciones.BoundsException;
@@ -96,22 +97,21 @@ public class ControladorCarrera implements KeyListener, Observer{
 
 	public void comenzar() {
 
+		SimuladorCarrera simulacion = null;
+		
 		try {
-			programaAuto.entrarAlTaller();
-			programaAuto.entrarALaCarrera();
+
+			simulacion = programaAuto.entrarALaCarrera();
 		} catch (NoPistaPickedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (NotInTallerException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (NotAbleWhileSimulatingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	
 		AuxiliarSimulacion laSimulacion = new AuxiliarSimulacion(programaAuto);
-		AuxiliarActualizacion sim = new AuxiliarActualizacion(laPantalla);
+		AuxiliarActualizacion sim = new AuxiliarActualizacion(laPantalla, simulacion);
 		laSimulacion.start();
 		Timer timer = new Timer();
 	    timer.schedule(sim, 0, 10);
@@ -121,12 +121,16 @@ public class ControladorCarrera implements KeyListener, Observer{
 	
 	private class AuxiliarActualizacion extends TimerTask{
 		private PantallaCarrera laPantalla;
-		public AuxiliarActualizacion(PantallaCarrera laPantalla) {
+		private SimuladorCarrera simulacion;
+		public AuxiliarActualizacion(PantallaCarrera laPantalla, SimuladorCarrera simulacion) {
 			this.laPantalla =laPantalla;
+			this.simulacion = simulacion;
 		}
 		
 		public void run() {
-			laPantalla.actualizar();
+			if (simulacion.estaCorriendo())
+				laPantalla.actualizar();
+			//else laPantalla.finalizarCarrera();
 			
 		}
 		

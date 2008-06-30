@@ -9,6 +9,8 @@ import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 import excepciones.TankIsFullException;
 import excepciones.UbicationUnkownException;
+import programaAuto.NoPistaPickedException;
+import programaAuto.NotAbleWhileSimulatingException;
 import programaAuto.ProgramaAuto;
 import programaAuto.Usuario;
 import programaAuto.Auto.Ubicacion;
@@ -27,6 +29,15 @@ public class ControladorTaller implements ActionListener {
 	public ControladorTaller(ProgramaAuto programaAuto) {
 		this.programaAuto = programaAuto;
 		this.actualizadorTaller = new ActualizadorPantallaTaller(programaAuto, null);
+		try {
+			programaAuto.entrarAlTaller();
+		} catch (NoPistaPickedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotAbleWhileSimulatingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void setPantallaTaller(PantallaTaller pantallaTaller) {
