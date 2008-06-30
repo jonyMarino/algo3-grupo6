@@ -65,6 +65,8 @@ public class ControladorTaller implements ActionListener {
 					pantallaTaller.generarMensajeError("No se puede realizar ese cambio");
 				} catch (UbicationUnkownException e) {
         	 		pantallaTaller.generarMensajeError("La parte seleccionada no es del tipo del auto");
+				} catch (RuntimeException e) {
+					pantallaTaller.generarMensajeError("La parte no corresponde a este tipo de Auto");
 				} finally {
 					actualizadorTaller.actualizarPantallaTaller();
 				}
