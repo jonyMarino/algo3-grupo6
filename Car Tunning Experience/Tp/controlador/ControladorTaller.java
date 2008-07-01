@@ -123,7 +123,7 @@ public class ControladorTaller implements ActionListener {
 				pantallaTaller.generarMensaje("La carga ha sido realizada satisfactoriamente");
 			}
 		} catch (TankIsFullException e1) {
-	    	pantallaTaller.generarMensajeError("El tanque ya estaba lleno, has perdido dinero");	
+	    	pantallaTaller.generarMensajeError("El tanque esta lleno");	
 		} catch (BoundsException e1) {
 	    	pantallaTaller.generarMensajeError("No puede cargar una cantidad negativa");		
 		} catch (NumberFormatException e1) {

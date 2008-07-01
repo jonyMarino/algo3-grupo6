@@ -101,7 +101,7 @@ public class PantallaTaller extends JPanelConImagen {
        }
           
        /* PANEL NAFTA */   
-       public void actualizarInformacionNafta(Double cantidad, Double capacidad, String precio){  	   
+    	public void actualizarInformacionNafta(Double cantidad, Double capacidad, String precio){  	   
     	   panelNafta.removeAll();
     	    	   
     	   JProgressBar barraTanque = new JProgressBar(0, (int)Math.floor(capacidad));
@@ -118,9 +118,12 @@ public class PantallaTaller extends JPanelConImagen {
            panelNafta.add(barraTanque,c);   
                               
            Boton botonCargar = new Boton("Cargar Nafta");
+           if(capacidad.equals(cantidad))
+        	   botonCargar.setEnabled(false);
            botonCargar.addActionListener(controladorTaller);
            botonCargar.setActionCommand("cargar");
            botonCargar.setOpaque(false);
+                  	   
            SpinnerModel model = new SpinnerNumberModel(0,-capacidad,capacidad+10, 0.5);         
            cantidadSeleccionada.setModel(model);
           
