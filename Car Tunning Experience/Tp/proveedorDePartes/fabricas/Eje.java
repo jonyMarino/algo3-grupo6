@@ -72,7 +72,7 @@ public class Eje extends ParteAuto{
 		torques.remove(torqueador);
 	}
 	
-	public boolean desgastar(int tiempo){
+	public void desgastar(double tiempo){
 		try{
 			if(getVidaUtil()!=0)
 				setVidaUtil(getVidaUtil()-tiempo/1000);
@@ -81,7 +81,6 @@ public class Eje extends ParteAuto{
 				setVidaUtil(0);			
 			}catch(BoundsException f){}
 		}
-		return desgastado();
 	}
 	
 

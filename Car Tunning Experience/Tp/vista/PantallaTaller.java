@@ -108,7 +108,8 @@ public class PantallaTaller extends JPanelConImagen {
     	   barraTanque.setPreferredSize(new Dimension(227,20));
     	   barraTanque.setValue((int)Math.floor(cantidad));
     	   barraTanque.setStringPainted(true);
-    	   barraTanque.setString(Double.toString(cantidad)+ " / " + Double.toString(capacidad) + " Litros");
+    	   double cantidadRedondeada =   Math.round(cantidad*Math.pow(10,2))/Math.pow(10,2);
+    	   barraTanque.setString( Double.toString(cantidadRedondeada) + " / " + Double.toString(capacidad) + " Litros");
     	   
     	   GridBagConstraints c = new GridBagConstraints();
            c.gridx =0; 

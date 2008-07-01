@@ -2,12 +2,14 @@ package programaAuto;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Observable;
 
 import nu.xom.Element;
 import excepciones.BoundsException;
 import excepciones.IncorrectPartForUbicationException;
+import excepciones.PartBrokenException;
 import excepciones.TankIsFullException;
 import excepciones.UbicationUnkownException;
 import proveedorDePartes.fabricas.Acelerador;
@@ -580,8 +582,9 @@ public abstract class Auto extends Observable{
 		double velocidadAnterior = getVelocidad();
 		this.setVelocidad(velocidadAnterior + aceleracion * segundosTranscurridos);
 		calcularPosicion(velocidadAnterior, aceleracion, segundosTranscurridos);
-		for(ParteAuto partesAuto:this.getPartes())
-			partesAuto.desgastar((int)(segundosTranscurridos));
+		Iterator<ParteAuto> itPartes = this.getPartes().iterator();
+		while(itPartes.hasNext()) 
+			itPartes.next().desgastar(segundosTranscurridos);
 		setChanged();
 	    notifyObservers(Double.toString(segundosTranscurridos));
 	}
@@ -882,10 +885,11 @@ public abstract class Auto extends Observable{
 	 * @param El combustible a asignar.
 	 * @throws BoundsException 
 	 * @throws TankIsFullException 
+	 * @throws PartBrokenException 
 	 *
 	 * @see TanqueCombustible
 	 */
-	public void cargarCombustible(double litros) throws TankIsFullException, BoundsException {
+	public void cargarCombustible(double litros) throws TankIsFullException, BoundsException, PartBrokenException {
 		this.getTanqueCombustible().llenarTanque(litros);
 	}
 

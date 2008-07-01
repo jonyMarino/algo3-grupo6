@@ -9,6 +9,7 @@ import excepciones.NoPistaPickedException;
 import excepciones.NoSuchModelException;
 import excepciones.NotAbleWhileSimulatingException;
 import excepciones.NotEnoughMoneyException;
+import excepciones.PartBrokenException;
 import excepciones.TankIsFullException;
 import excepciones.UbicationUnkownException;
 import programaAuto.ProgramaAuto;
@@ -111,9 +112,9 @@ public class ControladorTaller implements ActionListener {
 	private void llenarTanque(double cantidad) {
 		try {
 			if(cantidad != 0){
+				programaAuto.getUsuario().getAuto().cargarCombustible(cantidad);
 				if(!(cantidad < 0))
 					programaAuto.getUnProveedorDeNafta().comprar(cantidad,programaAuto.getUsuario());
-				programaAuto.getUsuario().getAuto().cargarCombustible(cantidad);
 				pantallaTaller.generarMensaje("La carga ha sido realizada satisfactoriamente");
 			}
 		} catch (TankIsFullException e1) {
@@ -123,6 +124,17 @@ public class ControladorTaller implements ActionListener {
 		} catch (NumberFormatException e1) {
 		} catch (NotEnoughMoneyException e1) {
 			pantallaTaller.generarMensajeError("No posee el dinero necesario");
+			try {
+				programaAuto.getUsuario().getAuto().getTanqueCombustible().llenarTanque(cantidad);
+			} catch (TankIsFullException e) {
+				e.printStackTrace();
+			} catch (BoundsException e) {
+				e.printStackTrace();
+			} catch (PartBrokenException e) {
+				e.printStackTrace();
+			}
+		} catch (PartBrokenException e) {
+			pantallaTaller.generarMensajeError("Su Tanque se rompió debe cambiarlo");			
 		} finally {
 			actualizadorTaller.actualizarPantallaTaller();
 		}	

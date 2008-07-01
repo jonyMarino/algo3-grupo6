@@ -105,6 +105,7 @@ public class ActualizadorPantallaTaller {
 			informacionParte = itPartesAuto.next();
     		try{
                 nombreParte = informacionParte.getInformacionModelo().getCaracteristica("DESCRIPCION");
+                
                 vidaUtil = Double.toString(informacionParte.getVidaUtil());
                 ubicacion = informacionParte.getUbicacion().toString();
                 pantallaTaller.agregarInformacionAuto(nombreParte, vidaUtil, ubicacion);

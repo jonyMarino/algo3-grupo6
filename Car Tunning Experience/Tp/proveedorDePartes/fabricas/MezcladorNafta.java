@@ -2,6 +2,8 @@ package proveedorDePartes.fabricas;
 
 
 import excepciones.BoundsException;
+import excepciones.PartBrokenException;
+import excepciones.WrongPartClassException;
 
 /**
  * El Mezclador es el encargado de obtener {@link Nafta} del {@link TanqueNafta},
@@ -32,8 +34,9 @@ public class MezcladorNafta extends Mezclador {
 	 * @return la cantidad de mezcla obtenida, sino se pudo realizar devuelve 0.
 	 *
 	 * @throws BoundsException
+	 * @throws IsBrokenException 
 	 */
-	public double obtenerMezcla(double litrosMezcla) throws BoundsException {
+	public double obtenerMezcla(double litrosMezcla) throws BoundsException, PartBrokenException {
 		double mezclaProducida = 0;
 		if(this.getVidaUtil() > 0){
 				if (litrosMezcla < 0)
@@ -46,13 +49,19 @@ public class MezcladorNafta extends Mezclador {
 					if(naftaNecesaria > this.getTanqueCombustible().getCantidadCombustible())
 							throw new BoundsException("Faltante de nafta necesaria para la mezcla pedida");
 					else{
-						this.getTanqueCombustible().usarCombustible(naftaNecesaria);
-						mezclaProducida = litrosMezcla;
+						try {
+							this.getTanqueCombustible().usarCombustible(naftaNecesaria);
+							mezclaProducida = litrosMezcla;
+						} catch (BoundsException e) {
+							mezclaProducida = 0;
+						} catch (PartBrokenException e) {
+							mezclaProducida = 0;
+						}
 					}
 				}
-
-			}
-		return mezclaProducida;
+				return mezclaProducida;
+		} else
+			throw new PartBrokenException("El Mezclador se rompio");	
 	}
 
 	/**
@@ -69,12 +78,12 @@ public class MezcladorNafta extends Mezclador {
 	*
 	* @param tanqueNafta {@link TanqueNafta} asignar al MezcladorNafta.
 	*
-	* @throws BoundsException
+	* @throws WrongPartClassException
 	*/
-    public void setTanqueCombustible(TanqueNafta tanqueNafta) throws BoundsException { //Si, ya sé, despues creo otro tipo de excepción
+    public void setTanqueCombustible(TanqueNafta tanqueNafta) throws WrongPartClassException {
 	    if(tanqueNafta instanceof TanqueNafta)
 		super.setTanqueCombustible(tanqueNafta);
-	    else throw new BoundsException();
+	    else throw new WrongPartClassException("El tanque deberia ser un TanqueNafta");
 	}
 
 }

@@ -23,7 +23,6 @@ public abstract class ParteAuto {
 			setPeso(0);
 			setVidaUtil(100);
 		}catch(BoundsException e){}
-
 	}
 
 	void setCosto(int costo) {
@@ -52,10 +51,11 @@ public abstract class ParteAuto {
 	}
 
 	public double getVidaUtil(){
-		return this.vidaUtil;
+		double vidaUtilRedondeada =  Math.round(vidaUtil*Math.pow(10,4))/Math.pow(10,4);
+		return vidaUtilRedondeada;
 	}
 
-	public abstract boolean desgastar(int segundosTranscurridos);
+	public abstract void desgastar(double segundosTranscurridos);
 
 	public boolean desgastado(){
 		return getVidaUtil()==0;

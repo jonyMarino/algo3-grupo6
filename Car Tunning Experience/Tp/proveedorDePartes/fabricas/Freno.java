@@ -1,6 +1,6 @@
 package proveedorDePartes.fabricas;
-
 import excepciones.BoundsException;
+import excepciones.PartBrokenException;
 
 /**
  * El {@link Pedal} del Freno.
@@ -40,11 +40,12 @@ public class Freno extends Pedal implements Torqueador {
 	*
 	* @throws BoundsException
 	*/
-	public void presionar(double intensidad) {
+	public void presionar(double intensidad) throws PartBrokenException {
 		super.setUsado(false);
 		if (this.getVidaUtil() > 0){
 			this.setTorque(- (intensidad * this.getPastillaDeFreno()));
-		}
+		} else
+			throw new PartBrokenException("El Freno se rompio");
 	}
 
 	/**
