@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Point2D;
@@ -48,9 +49,10 @@ public class VistaDeCostado implements VistaGrafica {
 		bufferPrincipal = new BufferedImage(ancho,alto, BufferedImage.TYPE_INT_RGB);
 
 		Graphics2D buffer = (Graphics2D) bufferPrincipal.getGraphics();
-		buffer.setColor(Color.cyan);
+		GradientPaint degrade = new GradientPaint(50.0f, 0.0f, new Color(0,115,202), 50.0f, 250.0f, new Color(171,221,230));
+		buffer.setPaint(degrade);
 		buffer.fillRect(0, 0, ancho, alto);
-		buffer.setColor(Color.green);
+		buffer.setColor(new Color(30,80,46));
 
 		elPrograma = unPrograma;
 		try {
@@ -58,6 +60,9 @@ public class VistaDeCostado implements VistaGrafica {
 			autoRival = new BufferedImage(autoPrincipal.getWidth()*4/5, autoPrincipal.getHeight()*4/5, BufferedImage.TYPE_INT_ARGB);
 			autoRival.createGraphics().drawImage(autoPrincipal, 0, 0, autoRival.getWidth(), autoRival.getHeight(), null);
 			if(elPrograma.getPista().getNombre() == "Nieve"){
+				degrade = new GradientPaint(50.0f, 0.0f, new Color(120,183,226), 50.0f, 250.0f, new Color(238,106,0));
+				buffer.setPaint(degrade);
+				buffer.fillRect(0, 0, ancho, alto);
 				unArbol =ImageIO.read(getClass().getResource("/vista/images/"+ "arbolitonieve" +".gif"));
 				buffer.setColor(Color.white);
 			}
