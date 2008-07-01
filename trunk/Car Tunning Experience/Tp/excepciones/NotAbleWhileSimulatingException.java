@@ -1,4 +1,4 @@
-package programaAuto;
+package excepciones;
 
 public class NotAbleWhileSimulatingException extends Exception {
 
