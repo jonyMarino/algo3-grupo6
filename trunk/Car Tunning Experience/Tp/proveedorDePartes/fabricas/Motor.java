@@ -3,6 +3,7 @@ package proveedorDePartes.fabricas;
 import java.lang.RuntimeException;
 
 import excepciones.BoundsException;
+import excepciones.PartBrokenException;
 
 /**
  * Es el encargado del proceso de combustión del {@link Combustible}, que obtiene a traves del {@link Mezclador}.
@@ -68,8 +69,8 @@ public class Motor extends ParteAuto implements Torqueador{
 		}else
 			this.aceleracion=0;
 	}
-//TODO: ¿tiempo siempre es cero?
-	public boolean desgastar(int tiempo) {	
+
+	public void desgastar(double tiempo) {	
 		try{
 			if((getVidaUtil()!=0)){
 					double deltaVidaUtil = obtenerRPM()/getRPMMaximo()/50;
@@ -83,7 +84,6 @@ public class Motor extends ParteAuto implements Torqueador{
 			}
 		}
 		
-		return getVidaUtil()==0;
 	}
 
 	private double realizarCombustion(double mezcla){
@@ -113,9 +113,10 @@ public class Motor extends ParteAuto implements Torqueador{
 		try {
 			mezcla = mezclador.obtenerMezcla(aceleracion*cilindrada);
 		} catch (BoundsException e) {
-			// TODO Auto-generated catch block. Ver excepciones del Mezclador
-			//e.printStackTrace();
-		}	
+			mezcla = 0;
+		} catch (PartBrokenException e) {
+			mezcla = 0;
+		}
 		double energiaDeCombustion=realizarCombustion(mezcla);
 		torque*=energiaDeCombustion*80; 
 		return torque;

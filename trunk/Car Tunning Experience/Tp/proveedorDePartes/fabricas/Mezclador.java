@@ -1,6 +1,7 @@
 package proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.PartBrokenException;
 
 /**
  * El Mezclador es el encargado de obtener {@link Combustible} del {@link TanqueCombustible},
@@ -15,7 +16,7 @@ import excepciones.BoundsException;
 
 public abstract class Mezclador extends ParteAuto {
 
-	private int               rendimiento;
+	private double            rendimiento;
     private TanqueCombustible tanque;
 
 	/**
@@ -38,16 +39,17 @@ public abstract class Mezclador extends ParteAuto {
 	*
 	* @return cantidad de mezcla que pudo generar.
 	*
-	* @throws BoundsException
+	* @throws BoundsException 
+	* @throws PartBrokenException
 	*/
-	public abstract double obtenerMezcla(double litrosMezcla) throws BoundsException;
+	public abstract double obtenerMezcla(double litrosMezcla) throws BoundsException,PartBrokenException;
 
 	/**
 	* Devuelve el rendimiento con el que opera el Mezclador.
 	*
 	* @return el rendimiento (0..100).
 	*/
-	public int getRendimiento(){
+	public double getRendimiento(){
 		return rendimiento;
 	}
 
@@ -70,13 +72,13 @@ public abstract class Mezclador extends ParteAuto {
 	}
 
 	/**
+	* Desgasta el {@link TanqueCombustible} segun el tiempo pasado por parametro.
 	*
-	*
-	*
-	* @return
+	* @param tiempo El tiempo ha desgastar.
+	*  
+	* @return true si esta desgastado, false caso contrario.
 	*/
-	public boolean desgastar(int tiempo) {
-
+	public void desgastar(double tiempo) {
 		try {
 			if(getVidaUtil()!=0){
 				setVidaUtil(getVidaUtil()-tiempo/1000);
@@ -88,10 +90,9 @@ public abstract class Mezclador extends ParteAuto {
 				setRendimiento(0);
 			}catch(BoundsException f){}
 		}
-		return desgastado();
 	}
 
-	void setRendimiento(int rendimiento) {
+	void setRendimiento(double rendimiento) {
 		this.rendimiento = rendimiento;
 	}
 

@@ -109,17 +109,16 @@ public class Rueda extends ParteAuto{
 		return getCoeficienteDinamico()*auto.getPeso();
 	}
 
-	public boolean desgastar(int tiempo) {
+	public void desgastar(double tiempo) {
 		try{
 			if(getVidaUtil()!=0)
-				 setVidaUtil(getVidaUtil()-tiempo*getRPM()/100);
+				 setVidaUtil(getVidaUtil()-(tiempo/getRPM())/1000000000);
 		}catch(BoundsException e){
 			try{
 				setVidaUtil(0);
 			}catch(BoundsException f){}
 		}
 
-		 return desgastado();
 	}
 
 	public void setAuto(Auto auto){

@@ -80,17 +80,20 @@ public class Carroceria extends ParteAuto{
 		return this.aeroDinamia;
 	}
 
-	public boolean desgastar(int tiempo){
-		try{
-			if(getVidaUtil()!=0)
-				setVidaUtil(getVidaUtil()-tiempo/100);
-		}catch(BoundsException e){
-			try{
-				setVidaUtil(0);			
-			}catch(BoundsException f){}
-		}
-		
-		return desgastado();
+	public void desgastar(double tiempo){
+		if(this.getVidaUtil() != 0) {
+			try {
+				setVidaUtil(this.getVidaUtil()-(tiempo/100));
+			} catch (BoundsException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				setVidaUtil(0);
+			} catch (BoundsException e) {
+				e.printStackTrace();
+			}
+		}	
 	}
 
 	public double getFuerzaAire(){

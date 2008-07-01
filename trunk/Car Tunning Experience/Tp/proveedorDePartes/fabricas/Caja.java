@@ -1,5 +1,7 @@
 package proveedorDePartes.fabricas;
 
+import excepciones.BoundsException;
+
 
 /**
  * La Caja transforma (se podría decir que lo "amplifica") el torque que genera el {@link Motor}.
@@ -21,10 +23,7 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	Caja(){
 		int i;
 		double reduccionCambio=3.0/4;
-		cambio=1; //empieza en punto muerto
-		//relaciones 
-		//double[] relaciones = {-30, 0, 50};
-		//this.relaciones = relaciones;
+		cambio=1; 
 		relaciones = new double[7];
 		relaciones[0]=-24;
 		relaciones[1]=0;
@@ -34,20 +33,17 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 		}
 		relaciones[5]=relaciones[4]*30/45;
 		relaciones[6]=relaciones[5]*3/4;
-//		for(int i=0;i<6;i++){
-		
-//			relaciones[i]=30-i*5;
-//		}
 	}
 
 	protected double convertir(double torque){
 			return torque*relaciones[cambio];
 	}
+	
 	public abstract double getTorque();
 
 	public void setCambio(int cambio) {
 		if((cambio>=-1) && (cambio<=5))
-		this.cambio=cambio+1; //La primer posicion del array (0) es reversa (-1)
+		this.cambio=cambio+1; 
 	}
 
 	public void setMotor(Motor motor){
@@ -70,11 +66,9 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	}
 
 	public int getCambio() {
-		return cambio-1;  ////La primer posicion del array (0) es reversa (-1)
+		return cambio-1;  
 	}
 	
-	
-	//TODO:Agregue esto q puede servir para calcular las revoluciones necesarias para cada cambio.
 	public double calcularRpmMinimas(){
 		return (motor.getRPMMaximo()/5)*cambio;
 	}
@@ -92,6 +86,19 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 		if (cambio==1)
 			return 0;
 		return eje.getRpm()*relaciones[cambio];
+	}
+	
+	public void desgastar(double tiempo){
+		try{
+			if(getVidaUtil()!=0){
+				setVidaUtil(getVidaUtil()-tiempo/100);
+			}
+		}
+		catch(BoundsException e){
+			try{
+				setVidaUtil(0);
+			}catch(BoundsException f){}
+		}
 	}
 
 }

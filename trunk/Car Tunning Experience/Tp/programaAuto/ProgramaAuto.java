@@ -45,6 +45,7 @@ import excepciones.NotContainedPistaException;
 import excepciones.NotEnoughMoneyException;
 import excepciones.NotInTallerException;
 import excepciones.NotSimulatingException;
+import excepciones.PartBrokenException;
 import excepciones.PistaPickedException;
 import excepciones.TankIsFullException;
 import excepciones.WrongPartClassException;
@@ -222,7 +223,7 @@ public class ProgramaAuto extends Observable {
         	try {
 				Pista pistaNormal = new Pista("Normal");
 				pistaNormal.setCoeficienteDeRozamientoRelativo(1);
-				pistaNormal.setLongitud(2000);	//2000m
+				pistaNormal.setLongitud(500);	//2000m
 				pistaNormal.setVelocidadAire(10); //10km/h
 				return pistaNormal;
 			} catch (InvalidPistaNameException e) {
@@ -242,7 +243,7 @@ public class ProgramaAuto extends Observable {
         	try {
 				Pista pistaNieve = new Pista("Nieve");
 				pistaNieve.setCoeficienteDeRozamientoRelativo(0.4);
-				pistaNieve.setLongitud(2000);	//2000m
+				pistaNieve.setLongitud(500);	//2000m
 				pistaNieve.setVelocidadAire(30); //30km/h
 				return pistaNieve;
 			} catch (InvalidPistaNameException e) {
@@ -262,7 +263,7 @@ public class ProgramaAuto extends Observable {
         	try {
 				Pista pistaLarga = new Pista("Larga");
 				pistaLarga.setCoeficienteDeRozamientoRelativo(0.8);
-				pistaLarga.setLongitud(5000);	//5000m
+				pistaLarga.setLongitud(500);	//5000m
 				pistaLarga.setVelocidadAire(15); //15km/h
 				return pistaLarga;
 			} catch (InvalidPistaNameException e) {
@@ -357,7 +358,9 @@ public class ProgramaAuto extends Observable {
 									e.printStackTrace();
 						} catch (BoundsException e1) {
                                 e1.printStackTrace();
-                        }
+                        } catch (PartBrokenException e) {
+							e.printStackTrace();
+						}
                 
                         MezcladorNafta mezclador = (MezcladorNafta) unProveedor.comprar(modelos.get(5), usuariotemporal);
                         Escape escape = (Escape) unProveedor.comprar(modelos.get(4), usuariotemporal);

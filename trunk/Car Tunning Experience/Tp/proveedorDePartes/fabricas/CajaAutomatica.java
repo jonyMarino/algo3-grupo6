@@ -35,8 +35,4 @@ public class CajaAutomatica extends Caja {
 		
 	}
 
-	public boolean desgastar(int tiempo){
-		return desgastado();
-	}
-
 }

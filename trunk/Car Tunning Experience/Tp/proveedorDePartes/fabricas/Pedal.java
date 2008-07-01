@@ -1,5 +1,6 @@
 package proveedorDePartes.fabricas;
 import excepciones.BoundsException;
+import excepciones.PartBrokenException;
 
 /**
  * El Pedal encapsula el comportamiento y las características de un pedal.
@@ -24,17 +25,17 @@ public abstract class Pedal extends ParteAuto {
 	*
 	* @throws BoundsException
 	*/
-	public abstract void presionar(double intensidad) throws BoundsException;
+	public abstract void presionar(double intensidad) throws PartBrokenException;
 
 	/**
 	* Produce el desgaste del pedal debido al uso y al tiempo.
 	*
 	* @param tiempo El tiempo que se desgasta.
 	*/
-	public boolean desgastar(int tiempo) {
+	public void desgastar(double tiempo) {
 		try{
-			if(this.isUsado() && getVidaUtil()!=0){
-				setVidaUtil(getVidaUtil()-tiempo/1000);
+			if(getVidaUtil()!=0){
+				setVidaUtil(getVidaUtil()-tiempo/100);
 			}
 		}
 		catch(BoundsException e){
@@ -42,7 +43,6 @@ public abstract class Pedal extends ParteAuto {
 				setVidaUtil(0);
 			}catch(BoundsException f){}
 		}
-		return desgastado();
 	}
 
 	/**

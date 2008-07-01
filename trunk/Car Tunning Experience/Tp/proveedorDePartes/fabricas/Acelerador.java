@@ -1,6 +1,7 @@
 package proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.PartBrokenException;
 
 /**
  * El {@link Pedal} del Acelerador.
@@ -27,12 +28,14 @@ public class Acelerador extends Pedal {
 	* Realiza la presion sobre el Acelerador.
 	*
 	* @param intensidad La intensidad con que se presiona.
-	*
-	* @throws BoundsException
 	*/
-	public void presionar(double intensidad) throws BoundsException {
-		super.setUsado(intensidad > 0);
-		getMotor().acelerar(intensidad); 
+	public void presionar(double intensidad) throws PartBrokenException {
+		try {
+			super.setUsado(intensidad > 0);
+			getMotor().acelerar(intensidad);
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		} 
 	}
 
 	/**

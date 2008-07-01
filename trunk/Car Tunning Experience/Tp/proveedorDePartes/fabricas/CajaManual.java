@@ -30,9 +30,5 @@ public class CajaManual extends Caja {
 		this.setCambio(cambio);
 	}
 
-	public boolean desgastar(int tiempo){
-		return desgastado();
-	}
-
 }
 

@@ -7,6 +7,7 @@ import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.Mezclador;
 import proveedorDePartes.fabricas.TanqueNafta;
 import excepciones.BoundsException;
+import excepciones.PartBrokenException;
 import excepciones.NoSuchModelException;
 import excepciones.TankIsFullException;
 import junit.framework.TestCase;
@@ -39,7 +40,7 @@ public class TanqueNaftaTest extends TestCase {
 	}
 
 	public void testGetPeso() {
-		
+
 		try {
 			tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(1));
 		} catch (NoSuchModelException e1) {
@@ -53,6 +54,8 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
+			e.printStackTrace();	
+		} catch (PartBrokenException e) {
 			e.printStackTrace();
 		}
 		assertEquals(20.0*0.75, tanque.getPeso());
@@ -61,6 +64,7 @@ public class TanqueNaftaTest extends TestCase {
 	}
 
 	public void testLlenarTanque() {
+
 		try {
 			tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(1));
 		} catch (NoSuchModelException e1) {
@@ -74,6 +78,8 @@ public class TanqueNaftaTest extends TestCase {
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
 			e.printStackTrace();
+		} catch (PartBrokenException e) {
+			e.printStackTrace();
 		}
 		assertEquals(20.0, tanque.getCantidadCombustible());
 		
@@ -83,18 +89,22 @@ public class TanqueNaftaTest extends TestCase {
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
 			e.printStackTrace();
+		} catch (PartBrokenException e) {
+			e.printStackTrace();
 		}
 		assertEquals(70.0, tanque.getCantidadCombustible());
 		
 		try {
 			tanque.llenarTanque(60);
-			fail("No se puede superar la capacidad máxima del tanque");
+			fail("Debería haberse lanzado una excepción");
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
 			assertTrue(true);
+		} catch (PartBrokenException e) {
+			e.printStackTrace();
 		}
-		
+	
 		tanque = null;
 	}
 
@@ -113,11 +123,15 @@ public class TanqueNaftaTest extends TestCase {
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
 			e.printStackTrace();
+		} catch (PartBrokenException e) {
+			e.printStackTrace();
 		}
 		
 		try {
 			tanque.usarCombustible(10);
 		} catch (BoundsException e) {
+			e.printStackTrace();
+		} catch (PartBrokenException e) {
 			e.printStackTrace();
 		}
 		assertEquals(10.0, tanque.getCantidadCombustible());
@@ -126,24 +140,26 @@ public class TanqueNaftaTest extends TestCase {
 			tanque.usarCombustible(2.5);
 		} catch (BoundsException e) {
 			e.printStackTrace();
+		} catch (PartBrokenException e) {
+			e.printStackTrace();
 		}
 		assertEquals(7.5, tanque.getCantidadCombustible());
 		
 		try {
 			tanque.usarCombustible(50);
-			fail("No se puede utilizar mas Nafta de la disponible");
+			fail("Debería haberse lanzado una excepción");
 		} catch (BoundsException e) {
-			if("No se posee la cantidad de combustible pedida" == e.getMessage())
-				try {
-					tanque.usarCombustible(tanque.getCantidadCombustible());
-				} catch (BoundsException e1) {}
-		}
-		assertEquals(0.0, tanque.getCantidadCombustible());
+			assertTrue(true);
+		} catch (PartBrokenException e) {
+			e.printStackTrace();
+		}		
+		assertEquals(7.5, tanque.getCantidadCombustible());
 
 		tanque = null;
 	}
 
 	public void testUsarNaftaNegativa() {
+		
 		try {
 			tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(1));
 		} catch (NoSuchModelException e1) {
@@ -157,18 +173,23 @@ public class TanqueNaftaTest extends TestCase {
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
 			e.printStackTrace();
+		} catch (PartBrokenException e) {
+			e.printStackTrace();
 		}
 		
 		try {
 			tanque.usarCombustible(-10);
-			fail("No se pueden usar cantidades negativas de combustible");
+			fail("Debería haberse lanzado una excepción");
 		} catch (BoundsException e) {
 			assertTrue(true);
+		} catch (PartBrokenException e) {
+			e.printStackTrace();
 		}
 		assertEquals(20.0, tanque.getCantidadCombustible());
 	}
 
 	public void testLlenarTanqueNegativo() {
+		
 		try {
 			tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(1));
 		} catch (NoSuchModelException e1) {
@@ -179,10 +200,12 @@ public class TanqueNaftaTest extends TestCase {
 		
 		try {
 			tanque.llenarTanque(-50);
-			fail("No se puede llenar el Tanque con una cantidad de litros negativa");
+			fail("Debería haberse lanzado una excepción");
 		} catch (BoundsException e) {
 			assertTrue(true);
 		} catch (TankIsFullException e) {
+			e.printStackTrace();
+		} catch (PartBrokenException e) {
 			e.printStackTrace();
 		}
 		assertEquals(0.0, tanque.getCantidadCombustible());
@@ -193,19 +216,60 @@ public class TanqueNaftaTest extends TestCase {
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
 			e.printStackTrace();
+		} catch (PartBrokenException e) {
+			e.printStackTrace();
 		}
 		assertEquals(40.0, tanque.getCantidadCombustible());
 
 		try {
 			tanque.llenarTanque(-10);
-			fail("No se puede llenar el Tanque con una cantidad de litros negativa");
+			fail("Debería haberse lanzado una excepción");
 		} catch (BoundsException e) {
 			assertTrue(true);
 		} catch (TankIsFullException e) {
 			e.printStackTrace();
+		} catch (PartBrokenException e) {
+			e.printStackTrace();
 		}
 		assertEquals(40.0, tanque.getCantidadCombustible());
 		
+		tanque = null;
+	}
+	
+	public void testTanqueDesgastado() {
+		
+		try {
+			tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(1));
+		} catch (NoSuchModelException e1) {
+			e1.printStackTrace();
+		}
+		tanque.setCombustible(nafta);
+		tanque.desgastar(5000);
+		assertEquals(95.0, tanque.getVidaUtil());
+		
+		tanque.desgastar(2000000000);
+		assertEquals(0.0, tanque.getVidaUtil());
+			
+		try {
+			tanque.llenarTanque(10);
+			fail("Debería haberse lanzado una excepción");
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		} catch (TankIsFullException e) {
+			e.printStackTrace();
+		} catch (PartBrokenException e) {
+			assertTrue(true);
+		}
+		
+		try {
+			tanque.usarCombustible(10);
+			fail("Debería haberse lanzado una excepción");
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		} catch (PartBrokenException e) {
+			assertTrue(true);
+		}
+	
 		tanque = null;
 	}
 
