@@ -28,13 +28,7 @@ public class ControladorTaller implements ActionListener {
 	public ControladorTaller(ProgramaAuto programaAuto) {
 		this.programaAuto = programaAuto;
 		this.actualizadorTaller = new ActualizadorPantallaTaller(programaAuto, null);
-		try {
-			programaAuto.entrarAlTaller();
-		} catch (NoPistaPickedException e) {
-			e.printStackTrace();
-		} catch (NotAbleWhileSimulatingException e) {
-			e.printStackTrace();
-		}
+		entrarAlTaller();
 	}
 
 	public void setPantallaTaller(PantallaTaller pantallaTaller) {
@@ -141,5 +135,16 @@ public class ControladorTaller implements ActionListener {
 	public ActualizadorPantallaTaller getActualizadorTaller() {
 		return actualizadorTaller;
 	}
+
+	public void entrarAlTaller() {
+		try {
+			programaAuto.entrarAlTaller();
+		} catch (NoPistaPickedException e) {
+		} catch (NotAbleWhileSimulatingException e) {
+		}
+		
+	}
+
+
 	
 }
