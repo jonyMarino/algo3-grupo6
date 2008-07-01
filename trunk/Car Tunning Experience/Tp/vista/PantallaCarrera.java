@@ -68,8 +68,8 @@ public class PantallaCarrera extends JPanel{
 	}
 	
 	private void generarArboles() {
-		int cantidadArboles = 60;
-		int distanciaEntreArboles = (int) (elPrograma.getPista().getLongitud()/cantidadArboles*pixelesPorMetro);
+		int cantidadArboles = (int) (elPrograma.getPista().getLongitud()/105);
+		int distanciaEntreArboles = (int) (10*pixelesPorMetro);
 		
 		listaDeArboles = new ArrayList<Point2D>();
 		
@@ -78,7 +78,7 @@ public class PantallaCarrera extends JPanel{
 			do{
 				y = (int) Math.abs((Math.random()*6));
 			}while(y==2 || y>4);
-			Point2D temporal = new Point((int) (i*distanciaEntreArboles),y);
+			Point2D temporal = new Point((int) (i*distanciaEntreArboles)*(5-y),y);
 			listaDeArboles.add(temporal);
 		}
 	}
