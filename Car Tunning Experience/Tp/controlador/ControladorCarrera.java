@@ -39,6 +39,13 @@ public class ControladorCarrera implements KeyListener{
 	double tiempo;
 	private SimuladorCarrera simulacion;
 	
+	/**
+	 * Crea un nuevo controldor para el programa auto especificado
+	 * @param programaAuto La instancia de ProgramaAuto
+	 * @param pantalla El panel que captará los eventos de teclado.
+	 * @see PantallaCarrera
+	 * @see ProgramaAuto
+	 */
 	public ControladorCarrera(ProgramaAuto programaAuto, PantallaCarrera pantalla) {
 		this.programaAuto = programaAuto;
 		unAuto = programaAuto.getUsuario().getAuto();
@@ -182,7 +189,11 @@ public class ControladorCarrera implements KeyListener{
 		}
 		
 	}
-
+/**
+ * Devuelve una lista con todos los competidores que intervinen en la carrera.
+ * @return Un ArrayList de Usuarios
+ * @see Usuario
+ */
 	public ArrayList<Usuario> getListaDeCompetidores() {
 		return listaDeCompetidores;
 	}
