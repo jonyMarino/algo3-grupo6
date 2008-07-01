@@ -50,13 +50,18 @@ public class VistaDeCostado implements VistaGrafica {
 		buffer.setColor(Color.cyan);
 		buffer.fillRect(0, 0, ancho, alto);
 		buffer.setColor(Color.green);
-		buffer.fillRect(0, alto*3/4, ancho, alto/4);
 
 		elPrograma = unPrograma;
 		try {
 			autoPrincipal = ImageIO.read(getClass().getResource("/vista/images/"+ "UnAuto" +".gif"));
-			unArbol = ImageIO.read(getClass().getResource("/vista/images/"+ "arbolito" +".gif"));
-			//unArbolNevado =ImageIO.read(getClass().getResource("/vista/images/"+ "arbolitonieve" +".gif"));
+			if(elPrograma.getPista().getNombre() == "Nieve"){
+				unArbol =ImageIO.read(getClass().getResource("/vista/images/"+ "arbolitonieve" +".gif"));
+				buffer.setColor(Color.white);
+			}
+			else unArbol = ImageIO.read(getClass().getResource("/vista/images/"+ "arbolito" +".gif"));
+		
+			buffer.fillRect(0, alto*3/4, ancho, alto/4);			
+		
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
