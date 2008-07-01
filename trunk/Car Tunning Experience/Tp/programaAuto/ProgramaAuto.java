@@ -144,7 +144,7 @@ public class ProgramaAuto extends Observable {
                                 Auto unAuto = competidor.getAuto();
                                 if(unAuto.getPosicion() >= pistaActual.getLongitud()){
                                 		agregarAPosiciones(competidor);
-                                        listaDeCompetidores.remove(competidor);
+                                        //listaDeCompetidores.remove(competidor);
                                         if(competidor==usuario){
                                         	simulando=false;
                                         	rellenarPosiciones();
@@ -262,7 +262,7 @@ public class ProgramaAuto extends Observable {
         	try {
 				Pista pistaLarga = new Pista("Larga");
 				pistaLarga.setCoeficienteDeRozamientoRelativo(0.8);
-				pistaLarga.setLongitud(20000);	//20000m
+				pistaLarga.setLongitud(5000);	//5000m
 				pistaLarga.setVelocidadAire(15); //15km/h
 				return pistaLarga;
 			} catch (InvalidPistaNameException e) {
