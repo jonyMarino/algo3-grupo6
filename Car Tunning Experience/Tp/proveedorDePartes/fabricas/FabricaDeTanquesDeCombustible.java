@@ -4,6 +4,16 @@ import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 
 
+/**
+ *
+ * Una clase particular de FabricaDePartes que se dedica a fabricar 
+ * Tanques de combustible
+ *
+ * @see FabricaDePartes
+ * @see TanqueDeCombustible
+ *
+ */
+
 public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
  
 	public FabricaDeTanquesDeCombustible(){

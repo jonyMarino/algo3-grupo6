@@ -9,17 +9,31 @@ import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
 import excepciones.WrongUserNameException;
 
+/**
+ * Clase que encapsula toda la informacion necesaria para describir a un
+ * usuario (jugador).
+ *
+ * @see Taller
+ * @see ProgramaAuto
+ */
 public class Usuario {
 	private double dinero;
 	private Auto auto;
 	private String nombre;
 	private Taller taller;
 
+    /**
+     * Crea un nuevo usuario y le asocia un nombre
+     *
+     * @param nombre El nombre del usuario
+     * @exception WrongUserNameException
+     */
 	public Usuario(String nombre) throws WrongUserNameException {
 		this.setNombre(nombre);
     	this.setDinero(1000);
 		this.taller = new Taller(this);
 	}
+
 	/**
 	 * Constructor para restaurar un objeto Usuario
 	 * @param usuario

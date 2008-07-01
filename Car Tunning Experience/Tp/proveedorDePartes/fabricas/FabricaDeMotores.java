@@ -3,6 +3,14 @@ package proveedorDePartes.fabricas;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 
+/**
+ *
+ * Una clase particular de FabricaDePartes que se dedica a fabricar Motores
+ *
+ * @see FabricaDePartes
+ * @see Motor
+ *
+ */
 
 public class FabricaDeMotores extends FabricaDePartes {
 	public FabricaDeMotores(){
