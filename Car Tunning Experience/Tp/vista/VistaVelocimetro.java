@@ -27,12 +27,12 @@ public class VistaVelocimetro  implements VistaGrafica {
 
     /**
      *
-     * Crea una nueva @{link VistaGrafica} que representa la velocidad del
-     * @link{Auto} del @{link Usuario} principal en forma de un velocímetro.
+     * Crea una nueva {@link VistaGrafica} que representa la velocidad del
+     * @link{Auto} del {@link Usuario} principal en forma de un velocímetro.
      *
      * @param ancho El ancho de la vista
      * @param alto El alto de la vista
-     * @param unPrograma La instancia de @{link ProgramaAuto} a la que pertenece el @link{Usuario} principal.
+     * @param unPrograma La instancia de {@link ProgramaAuto} a la que pertenece el @link{Usuario} principal.
      *
      * @see VistaGrafica
      */

@@ -7,9 +7,24 @@ import java.util.Iterator;
 
 import excepciones.BoundsException;
 
+/**
+ * Clase que guarda una descripcion de un determinado modelo de {@link ParteAuto}
+ * que entienden las {@link FabricaDePartes}, y que utilizan para fabricar las mismas
+ *
+ * @see FabricaDePartes
+ */
+
 public class InformacionDelModelo {
  
 	private Hashtable<String,String> informacionDeEstaParte;
+
+    /**
+     * Devuelve una lista de las características necesarias para describir
+     * este modelo.
+     *
+     * @returns Un {@link ArrayList} de {@link String}s que representa las caracterìsticas
+     * de este modelo
+     */
 	  
 	public ArrayList<String> getCaracteristicasDisponibles() {
 		Enumeration<String> listaDeClaves = informacionDeEstaParte.keys();
@@ -23,7 +38,14 @@ public class InformacionDelModelo {
 		informacionDeEstaParte.put(nombreDeLaCaracteristica, valorDeLaCaracteristica);
 	}
 	 
-	public String getCaracteristica(String caracteristica) throws BoundsException {
+    /**
+     * Devuelve el valor de la característica especificada
+     *
+     * @param caracteristica La característica en cuestion
+     * @returns un String que representa el valor de la característica
+     *
+     */
+        public String getCaracteristica(String caracteristica) throws BoundsException {
 		if(informacionDeEstaParte.containsKey(caracteristica)){
 			return informacionDeEstaParte.get(caracteristica);
 		}
@@ -49,7 +71,7 @@ public class InformacionDelModelo {
 	InformacionDelModelo(){
 		informacionDeEstaParte = new Hashtable<String, String>();
 	}
-	
+
 	public String toString() {
 		try {
 			return getCaracteristica("DESCRIPCION");
