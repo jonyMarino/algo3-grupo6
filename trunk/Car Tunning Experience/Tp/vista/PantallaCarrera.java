@@ -89,7 +89,7 @@ public class PantallaCarrera extends JPanel{
 	}
 
 	public void finalizarCarrera() {
-		elJuego.actionPerformed(new ActionEvent(null,0, "nueva"));
+		elJuego.actionPerformed(new ActionEvent(this,0, "volveraltaller"));
 		
 	}
 

@@ -40,6 +40,19 @@ public class ControladorJuego implements ActionListener {
 			inicializarJuego();
 		if (comando.equals("comenzar")){
 			panelBase.crearPantalla(new PantallaCarrera(this));
+		}
+		if (comando.equals("volveraltaller")){
+			try {
+				programaAuto.setPista(programaAuto.generarProximaPista());
+			} catch (NotContainedPistaException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (PistaPickedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			controladorTaller.getActualizadorTaller().actualizarPantallaTaller();
+			panelBase.pantallaAnterior();
 		}			
 	}
 	
@@ -60,8 +73,8 @@ public class ControladorJuego implements ActionListener {
 				TipoAuto tipoAuto = this.buscarTipoAuto(((PantallaUsuario)panelBase.getPantallaActual()).obtenerTipoAutoSeleccionado()); 
 				programaAuto = new ProgramaAuto(nombreUsuario, tipoAuto);
 				programaAuto.setPista(programaAuto.generarProximaPista());		
-				this.controladorTaller = new ControladorTaller(programaAuto);
 				ImageIcon imagen = ((PantallaUsuario)panelBase.getPantallaActual()).obtenerImagenSeleccionada(); 		
+				this.controladorTaller = new ControladorTaller(programaAuto);
 				panelBase.crearPantalla(new PantallaTaller(this));	
 				controladorTaller.setPantallaTaller((PantallaTaller)panelBase.getPantallaActual());
 				controladorTaller.getActualizadorTaller().cargarPantallaTaller(imagen);
@@ -70,6 +83,13 @@ public class ControladorJuego implements ActionListener {
 			} catch (WrongUserNameException e) {
 				this.MensajeError();
 			}
+	}
+	
+	private void volverAlTaller(){
+		this.controladorTaller = new ControladorTaller(programaAuto);
+		panelBase.crearPantalla(new PantallaTaller(this));	
+		controladorTaller.setPantallaTaller((PantallaTaller)panelBase.getPantallaActual());
+		//controladorTaller.getActualizadorTaller().cargarPantallaTaller(imagen);
 	}
 
 	private TipoAuto buscarTipoAuto(String tipoAuto) {

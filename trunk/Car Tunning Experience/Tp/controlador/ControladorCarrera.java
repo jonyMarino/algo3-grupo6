@@ -133,6 +133,8 @@ public class ControladorCarrera implements KeyListener{
 		
 		laSimulacion.start();
 	    timer.schedule(sim, 0, 16);
+	    
+
 	
 	}
 	
@@ -150,8 +152,8 @@ public class ControladorCarrera implements KeyListener{
 				laPantalla.actualizar();
 			else {
 				//laPantalla.finalizarCarrera();
-				//System.out.println("LLEGADA");
-				//this.cancel();
+				System.out.println("LLEGADA");
+				this.cancel();
 			}
 			
 		}
@@ -171,6 +173,10 @@ public class ControladorCarrera implements KeyListener{
 			} catch (NotSimulatingException e) {
 				e.printStackTrace();
 			}
+			System.out.println("JOIN");
+			//this.join();				
+			System.out.println("FINALIZAR");
+			laPantalla.finalizarCarrera();
 		
 		}
 		
