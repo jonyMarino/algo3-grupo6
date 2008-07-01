@@ -82,7 +82,7 @@ public class VistaDeCostado implements VistaGrafica {
      * Opcionalmente, la {@link VistaDeCostado}, puede renderizar arboles a los costados de la {@link Pista}
      * Este mètodo sirve para asignar esa lista de arboles.
      *
-     * @param lista Una lista de @{link Point2D}, que representa las posiciones de los arboles
+     * @param lista Una lista de {@link Point2D}, que representa las posiciones de los arboles
      * @see Point2D
      */
 	
