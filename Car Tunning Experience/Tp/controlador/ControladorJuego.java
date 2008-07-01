@@ -4,9 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+
+import excepciones.NotContainedPistaException;
+import excepciones.PistaPickedException;
 import excepciones.WrongUserNameException;
-import programaAuto.NotContainedPistaException;
-import programaAuto.PistaPickedException;
 import programaAuto.ProgramaAuto;
 import programaAuto.ProgramaAuto.TipoAuto;
 import vista.PanelBase;
