@@ -16,6 +16,13 @@ import programaAuto.ProgramaAuto;
 import controlador.ControladorCarrera;
 import controlador.ControladorJuego;
 
+/**
+ * Panel que sirve de base a las vistas de la carrera.
+ * 
+ * @see JPanel
+ * @see ControladorCarrera
+ * @see VistaGrafica
+ */
 public class PantallaCarrera extends JPanel{
 
 	private static final long serialVersionUID = 1L;
@@ -30,6 +37,12 @@ public class PantallaCarrera extends JPanel{
 	public static int pixelesPorMetro;
 	private ControladorJuego elJuego;
 	
+	/**
+	 * Crea una nueva PantallaCarrera para el ControladorJuego dado.
+	 * @param controladorJuego La instancia de {@link ControladorJuego}, para la cual creamos la {@link PantallaCarrera}.
+	 * @see ControladorJuego
+	 */
+	
 	public PantallaCarrera(ControladorJuego controladorJuego) {
 		super();
 		elJuego = controladorJuego;
@@ -37,7 +50,6 @@ public class PantallaCarrera extends JPanel{
 		int width = 900;
 		int height = 675;
 		this.setSize(width, height);
-		//this.setBorder(BorderFactory.createEmptyBorder(2, 0, 2,0));
 		this.add(new JSeparator(JSeparator.VERTICAL),BorderLayout.LINE_START);
 		elPrograma = controladorJuego.getProgramaAuto();
 		elControlador = new ControladorCarrera(elPrograma, this);
@@ -59,8 +71,6 @@ public class PantallaCarrera extends JPanel{
 		int cantidadArboles = 60;
 		int distanciaEntreArboles = (int) (elPrograma.getPista().getLongitud()/cantidadArboles*pixelesPorMetro);
 		
-		System.out.println(distanciaEntreArboles);
-		
 		listaDeArboles = new ArrayList<Point2D>();
 		
 		for(int i=0; i<cantidadArboles; i++){
@@ -68,7 +78,6 @@ public class PantallaCarrera extends JPanel{
 			do{
 				y = (int) Math.abs((Math.random()*6));
 			}while(y==2 || y>4);
-			System.out.println(y);
 			Point2D temporal = new Point((int) (i*distanciaEntreArboles),y);
 			listaDeArboles.add(temporal);
 		}
@@ -83,11 +92,18 @@ public class PantallaCarrera extends JPanel{
 	        	g2.drawImage(velocimetro.getVista(), getWidth()*3/4, 0, velocimetro.getWidth(), velocimetro.getHeight(), null);
 	        }
 	}
-	
+	/**
+	 * Actualiza el panel y todas las vistas gráficas que contiene.
+	 * @see VistaGrafica
+	 */
 	public void actualizar(){
 		repaint();
 	}
 
+	/**
+	 * Finaliza la carrera y regresa a la pantalla del taller.
+	 * @see PantallaTaller
+	 */
 	public void finalizarCarrera() {
 		elJuego.actionPerformed(new ActionEvent(this,0, "volveraltaller"));
 		
