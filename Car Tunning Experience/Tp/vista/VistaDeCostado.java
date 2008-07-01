@@ -27,6 +27,7 @@ public class VistaDeCostado implements VistaGrafica {
 
 	BufferedImage bufferPrincipal;
 	BufferedImage autoPrincipal;
+	BufferedImage autoRival;
 	BufferedImage unArbol;
 	ArrayList<BufferedImage> arboles;
 	ProgramaAuto elPrograma;
@@ -54,6 +55,8 @@ public class VistaDeCostado implements VistaGrafica {
 		elPrograma = unPrograma;
 		try {
 			autoPrincipal = ImageIO.read(getClass().getResource("/vista/images/"+ "UnAuto" +".gif"));
+			autoRival = new BufferedImage(autoPrincipal.getWidth()*4/5, autoPrincipal.getHeight()*4/5, BufferedImage.TYPE_INT_ARGB);
+			autoRival.createGraphics().drawImage(autoPrincipal, 0, 0, autoRival.getWidth(), autoRival.getHeight(), null);
 			if(elPrograma.getPista().getNombre() == "Nieve"){
 				unArbol =ImageIO.read(getClass().getResource("/vista/images/"+ "arbolitonieve" +".gif"));
 				buffer.setColor(Color.white);
@@ -129,12 +132,14 @@ public class VistaDeCostado implements VistaGrafica {
 			posicion = (getWidth()-anchoAuto)/2;
 		}
 		LinkedList<ImagenARenderizar> listaDeRenderizado = new LinkedList<ImagenARenderizar>();
-		listaDeRenderizado.add(new ImagenARenderizar((BufferedImage) autoPrincipal,posicion, getHeight()*3/4-autoPrincipal.getHeight(null)/2, 2));
-		
+			
 		for(Usuario p:competidores){
 			if(p.getAuto() != elPrograma.getUsuario().getAuto())
-				listaDeRenderizado.add(new ImagenARenderizar((BufferedImage) autoPrincipal, (int) (p.getAuto().getPosicion()*PantallaCarrera.pixelesPorMetro-inicio), getHeight()*3/4-autoPrincipal.getHeight(null)/2, 2));
+				listaDeRenderizado.add(new ImagenARenderizar((BufferedImage) autoRival, (int) (p.getAuto().getPosicion()*PantallaCarrera.pixelesPorMetro-inicio), getHeight()*3/4-autoPrincipal.getHeight(null)/2, 3));
 		}
+		
+		listaDeRenderizado.add(new ImagenARenderizar((BufferedImage) autoPrincipal,posicion, getHeight()*3/4-autoPrincipal.getHeight(null)/2, 2));
+		
 		agregarArboles(listaDeRenderizado, inicio);
 		Collections.sort(listaDeRenderizado);
 		dibujarTodo(temporal2D, listaDeRenderizado);
