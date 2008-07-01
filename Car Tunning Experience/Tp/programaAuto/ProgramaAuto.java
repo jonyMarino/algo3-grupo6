@@ -19,8 +19,8 @@ import java.util.Observable;
 import java.util.Random;
 import programaAuto.Taller.InformacionParteEnAuto;
 import programaAuto.Taller.InformacionParteReserva;
-import proveedorDeNafta.Nafta;
-import proveedorDeNafta.ProveedorDeNafta;
+import proveedorDeCombustibles.Nafta;
+import proveedorDeCombustibles.ProveedorDeCombustibles;
 import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.CajaAutomatica;
 import proveedorDePartes.fabricas.CajaManual;
@@ -66,7 +66,7 @@ public class ProgramaAuto extends Observable {
         private LinkedList<Pista> pistas=generarPistas();
         private static final double  PASO_SIMULACION = 0.05;
         ProveedorDePartes unProveedor=new ProveedorDePartes();
-        ProveedorDeNafta unProveedorNafta=new ProveedorDeNafta();
+        ProveedorDeCombustibles unProveedorNafta=new ProveedorDeCombustibles();
         
     /**
      *
@@ -341,7 +341,7 @@ public class ProgramaAuto extends Observable {
                 ArrayList<InformacionDelModelo> modelos = unProveedor.getModelosDisponibles();
                 
                 try{
-                	    Nafta nafta = unProveedorNafta.obtenerNafta();
+                	    Nafta nafta = (Nafta)unProveedorNafta.obtenerNafta();
                         TanqueNafta tanque = (TanqueNafta) unProveedor.comprar(modelos.get(9), usuariotemporal);
                         tanque.setCombustible(nafta);
         
@@ -555,13 +555,13 @@ public class ProgramaAuto extends Observable {
 			return usuario;
 		}
     /**
-     * Devuelve una instancia de {@link ProveedorDeNafta}
+     * Devuelve una instancia de {@link ProveedorDeCombustibles}
      *
      * @return Un proveedor de Nafta
-     * @see ProveedorDeNafta
+     * @see ProveedorDeCombustibles
      */
-        public ProveedorDeNafta getUnProveedorDeNafta(){
-        	ProveedorDeNafta proveedorDeNafta = new ProveedorDeNafta();
+        public ProveedorDeCombustibles getUnProveedorDeNafta(){
+        	ProveedorDeCombustibles proveedorDeNafta = new ProveedorDeCombustibles();
         	return proveedorDeNafta;
         }
         

@@ -2,8 +2,8 @@ package pruebas;
 
 import junit.framework.TestCase;
 import programaAuto.Pista;
-import proveedorDeNafta.FabricaDeNafta;
-import proveedorDeNafta.Nafta;
+import proveedorDeCombustibles.FabricaDeNafta;
+import proveedorDeCombustibles.Nafta;
 import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.CajaManual;

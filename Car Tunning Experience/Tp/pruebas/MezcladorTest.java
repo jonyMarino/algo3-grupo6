@@ -1,7 +1,7 @@
 package pruebas;
 
-import proveedorDeNafta.FabricaDeNafta;
-import proveedorDeNafta.Nafta;
+import proveedorDeCombustibles.FabricaDeNafta;
+import proveedorDeCombustibles.Nafta;
 import proveedorDePartes.fabricas.FabricaDeMezcladores;
 import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.Mezclador;

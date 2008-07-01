@@ -1,4 +1,4 @@
-package proveedorDeNafta;
+package proveedorDeCombustibles;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
