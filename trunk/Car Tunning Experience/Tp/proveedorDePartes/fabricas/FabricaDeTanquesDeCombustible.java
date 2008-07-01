@@ -55,7 +55,7 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 		}
 	}
 	
-	public void proponerMotor(String descripcion, int capacidad, double peso, String clase) throws BoundsException{
+	public void proponerTanque(String descripcion, int capacidad, double peso, String clase) throws BoundsException{
 		if(capacidad < 10)
 			throw new BoundsException("La capacidad no puede ser menor a 10 litros");
 		if(peso < 5)

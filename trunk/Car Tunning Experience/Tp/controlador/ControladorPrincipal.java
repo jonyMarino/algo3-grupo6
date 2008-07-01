@@ -40,7 +40,7 @@ public class ControladorPrincipal implements KeyListener{
 		unAuto = (miPrograma.getUsuario()).getAuto();
 		FabricaDeTanquesDeCombustible fabricaTanques = new FabricaDeTanquesDeCombustible();
 		try {
-			fabricaTanques.proponerMotor("Tanque exageradamente grande", 99999, 200, "NAFTA");
+			fabricaTanques.proponerTanque("Tanque exageradamente grande", 99999, 200, "NAFTA");
 		} catch (BoundsException e1) {
 			e1.printStackTrace();
 		}

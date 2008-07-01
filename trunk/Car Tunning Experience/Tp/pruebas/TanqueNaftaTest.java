@@ -25,23 +25,29 @@ public class TanqueNaftaTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		fabricaDeTanques = new FabricaDeTanquesDeCombustible();
+		fabricaDeTanques.proponerTanque("Tanque De Nafta", 70, 10.0, "NAFTA");
 		fabricaDeMezcladores = new FabricaDeMezcladores();
+		mezclador = fabricaDeMezcladores.fabricar(fabricaDeMezcladores.getModelos().get(0));
 		fabricaDeNafta = new FabricaDeNafta();
-		fabricaDeMezcladores.proponerMezclador("Mezclador 100% eficiente", 100, 50, "NAFTA");
-		fabricaDeMezcladores.proponerMezclador("Mezclador 50% eficiente", 50, 25, "NAFTA");
-		fabricaDeMezcladores.proponerMezclador("Mezclador 0% eficiente", 1, 10, "NAFTA");
 		nafta = fabricaDeNafta.fabricar(fabricaDeNafta.getTipos().get(0));
-		tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(0));
-		tanque.setCombustible(nafta);
 	}
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
-		tanque = null;
+		nafta = null;
+		mezclador = null;
 	}
 
 	public void testGetPeso() {
+		
+		try {
+			tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(1));
+		} catch (NoSuchModelException e1) {
+			e1.printStackTrace();
+		}
+		tanque.setCombustible(nafta);
 		assertEquals(0.0, tanque.getPeso());
+		
 		try {
 			tanque.llenarTanque(20);
 		} catch (BoundsException e) {
@@ -50,38 +56,57 @@ public class TanqueNaftaTest extends TestCase {
 			e.printStackTrace();
 		}
 		assertEquals(20.0*0.75, tanque.getPeso());
+		
+		tanque = null;
 	}
 
 	public void testLlenarTanque() {
-		assertEquals(0.0, tanque.getCantidadCombustible());
 		try {
-			tanque.llenarTanque(20);
-		} catch (BoundsException e) {
-			fail("Error no esperado");
-		} catch (TankIsFullException e) {
-			fail("Error no esperado");
+			tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(1));
+		} catch (NoSuchModelException e1) {
+			e1.printStackTrace();
 		}
+		tanque.setCombustible(nafta);
 		
-		assertEquals(20.0, tanque.getCantidadCombustible());
 		try {
 			tanque.llenarTanque(20);
 		} catch (BoundsException e) {
-			fail("Error no esperado");
+			e.printStackTrace();
 		} catch (TankIsFullException e) {
-			fail("Error no esperado");
+			e.printStackTrace();
 		}
-		assertEquals(40.0, tanque.getCantidadCombustible());
+		assertEquals(20.0, tanque.getCantidadCombustible());
+		
 		try {
-			tanque.llenarTanque(100);
+			tanque.llenarTanque(50);
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		} catch (TankIsFullException e) {
+			e.printStackTrace();
+		}
+		assertEquals(70.0, tanque.getCantidadCombustible());
+		
+		try {
+			tanque.llenarTanque(60);
 			fail("No se puede superar la capacidad máxima del tanque");
 		} catch (BoundsException e) {
-			fail("Error no esperado");
+			e.printStackTrace();
 		} catch (TankIsFullException e) {
 			assertTrue(true);
 		}
+		
+		tanque = null;
 	}
 
 	public void testUsarNafta() {
+		
+		try {
+			tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(1));
+		} catch (NoSuchModelException e1) {
+			e1.printStackTrace();
+		}
+		tanque.setCombustible(nafta);
+			
 		try {
 			tanque.llenarTanque(20);
 		} catch (BoundsException e) {
@@ -89,18 +114,21 @@ public class TanqueNaftaTest extends TestCase {
 		} catch (TankIsFullException e) {
 			e.printStackTrace();
 		}
+		
 		try {
 			tanque.usarCombustible(10);
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
 		assertEquals(10.0, tanque.getCantidadCombustible());
+		
 		try {
 			tanque.usarCombustible(2.5);
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		}
 		assertEquals(7.5, tanque.getCantidadCombustible());
+		
 		try {
 			tanque.usarCombustible(50);
 			fail("No se puede utilizar mas Nafta de la disponible");
@@ -112,127 +140,73 @@ public class TanqueNaftaTest extends TestCase {
 		}
 		assertEquals(0.0, tanque.getCantidadCombustible());
 
+		tanque = null;
 	}
 
 	public void testUsarNaftaNegativa() {
+		try {
+			tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(1));
+		} catch (NoSuchModelException e1) {
+			e1.printStackTrace();
+		}
+		tanque.setCombustible(nafta);
+		
 		try {
 			tanque.llenarTanque(20);
 		} catch (BoundsException e) {
 			e.printStackTrace();
 		} catch (TankIsFullException e) {
 			e.printStackTrace();
-	}
+		}
+		
 		try {
 			tanque.usarCombustible(-10);
 			fail("No se pueden usar cantidades negativas de combustible");
 		} catch (BoundsException e) {
-			//prueba exitosa
+			assertTrue(true);
 		}
 		assertEquals(20.0, tanque.getCantidadCombustible());
 	}
 
-	public void testConsumoDeNaftaAlMezclarMaximaEficiencia() throws TankIsFullException {
-		try {
-			mezclador = fabricaDeMezcladores.fabricar(fabricaDeMezcladores.getModelos().get(1));
-			mezclador.setTanqueCombustible(tanque);
-			naftaUtilRestante = 0;
-			mezclaMinima = 0;
-			tanque.llenarTanque(50);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		} catch (NoSuchModelException e) {
-			e.printStackTrace();
-		}
-		try {
-			mezclador.obtenerMezcla(1);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		}
-		assertEquals(49.99, tanque.getCantidadCombustible(), 0.2);
-		try {
-			mezclador.obtenerMezcla(5);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		}
-		assertEquals(49.98, tanque.getCantidadCombustible(), 0.2);
-		try {
-			mezclador.obtenerMezcla(10);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		}
-		assertEquals(49.94, tanque.getCantidadCombustible(), 0.4);
-		try {
-			mezclador.obtenerMezcla(90);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		}
-		assertEquals(49.64, tanque.getCantidadCombustible(), 0.4);
-		mezclador = null;
-
-	}
-
-	public void testConsumoDeNaftaAlMezclarMinimaEficiencia() {
-
-		try {
-			mezclador = fabricaDeMezcladores.fabricar(fabricaDeMezcladores.getModelos().get(3));
-			mezclador.setTanqueCombustible(tanque);
-			tanque.llenarTanque(50);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		} catch (NoSuchModelException e) {
-			e.printStackTrace();
-		} catch (TankIsFullException e) {
-			e.printStackTrace();
-		}
-		try {
-			mezclador.obtenerMezcla(0.01);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		}
-		assertEquals(49.9, tanque.getCantidadCombustible(), 0.1);
-		mezclador = null;
-
-	}
-
-	public void testConsumoDeNaftaAlMezclarMediaEficiencia() {
-
-		try {
-			mezclador = fabricaDeMezcladores.fabricar(fabricaDeMezcladores.getModelos().get(2));
-			mezclador.setTanqueCombustible(tanque);
-			tanque.llenarTanque(50);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		} catch (NoSuchModelException e) {
-			e.printStackTrace();
-		} catch (TankIsFullException e) {
-			e.printStackTrace();
-		}
-		try {
-			mezclador.obtenerMezcla(0.5);
-		} catch (BoundsException e) {
-			e.printStackTrace();
-		}
-		assertEquals(49.9, tanque.getCantidadCombustible(), 0.1);
-		mezclador = null;
-
-	}
-
 	public void testLlenarTanqueNegativo() {
 		try {
-			mezclador = fabricaDeMezcladores.fabricar(fabricaDeMezcladores.getModelos().get(0));
-			mezclador.setTanqueCombustible(tanque);
+			tanque = fabricaDeTanques.fabricar(fabricaDeTanques.getModelos().get(1));
+		} catch (NoSuchModelException e1) {
+			e1.printStackTrace();
+		}
+		tanque.setCombustible(nafta);
+		mezclador.setTanqueCombustible(tanque);
+		
+		try {
 			tanque.llenarTanque(-50);
 			fail("No se puede llenar el Tanque con una cantidad de litros negativa");
 		} catch (BoundsException e) {
-			//Prueba exitosa
-		} catch (NoSuchModelException e) {
-			e.printStackTrace();
+			assertTrue(true);
 		} catch (TankIsFullException e) {
 			e.printStackTrace();
 		}
 		assertEquals(0.0, tanque.getCantidadCombustible());
-		mezclador = null;
 
+		try {
+			tanque.llenarTanque(40);
+		} catch (BoundsException e) {
+			e.printStackTrace();
+		} catch (TankIsFullException e) {
+			e.printStackTrace();
+		}
+		assertEquals(40.0, tanque.getCantidadCombustible());
+
+		try {
+			tanque.llenarTanque(-10);
+			fail("No se puede llenar el Tanque con una cantidad de litros negativa");
+		} catch (BoundsException e) {
+			assertTrue(true);
+		} catch (TankIsFullException e) {
+			e.printStackTrace();
+		}
+		assertEquals(40.0, tanque.getCantidadCombustible());
+		
+		tanque = null;
 	}
 
 }
