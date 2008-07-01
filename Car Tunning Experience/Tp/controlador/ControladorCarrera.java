@@ -19,6 +19,15 @@ import proveedorDePartes.fabricas.CajaManual;
 import vista.PantallaCarrera;
 import excepciones.BoundsException;
 
+/**
+ *
+ * Clase que se encarga de controlar todos los aspectos de la interaccion
+ * del usuario con la carrera.
+ * Administra las vistas de la Carrera y los eventos de teclado durante la misma.
+ *
+ *
+ */
+
 public class ControladorCarrera implements KeyListener{
 
 	ProgramaAuto programaAuto;
@@ -103,6 +112,12 @@ public class ControladorCarrera implements KeyListener{
 		}
 	}
 
+
+    /**
+     *
+     *Comienza la simulacion de la carrera.
+     *
+     */
 	public void comenzar() {
 
 
