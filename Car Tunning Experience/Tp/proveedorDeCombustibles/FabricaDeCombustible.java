@@ -7,8 +7,8 @@ import excepciones.NoSuchModelException;
 
 /**
 *
-*Clase abstracta que define la funcionalidad básica que deben implementar
-*las distintas fabricas de combustible.
+* Clase abstracta que define la funcionalidad básica que deben implementar
+* las distintas fabricas de combustible.
 *
 */
 
@@ -26,22 +26,31 @@ public abstract class FabricaDeCombustible {
 			tiposConocidos = new ArrayList<InformacionCombustible>();
 		}
 	
-		/**
+            /**
 	     *Fabrica el tipo de combustible que se le especifica.
 	     *
 	     *@exception NoSuchModelException
 	     */
 		public abstract Combustible fabricar(InformacionCombustible modelo) throws NoSuchModelException;
 
-	  
+    /**
+     * Dado un tipo de combustible, devuelve su precio unitario
+     *
+     *@param modelo Una instancia de InformacionCombustible que describe el tipo de combustible
+     *@see Combustible
+     *@see InformacionCombustible
+     */
 		public Integer consultarPrecio(InformacionCombustible modelo) {
 			return null;
 		}
 		 
-		 /**
+	    /**
 	     *
-	     * Devuelve una lista con los tipos que la fabrica es capaz de fabricar
+	     * Devuelve una lista con los tipos de Combustible que la fabrica es capaz de fabricar
 	     *
+	     * @return Un ArrayList de los tipos de combustible que se pueden fabricar
+	     * @see Combustible
+	     * @see InformacionCombustible
 	     */
 	  
 		public ArrayList<InformacionCombustible> getTipos() {
