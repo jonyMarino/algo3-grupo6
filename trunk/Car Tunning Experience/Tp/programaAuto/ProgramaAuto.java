@@ -44,6 +44,16 @@ import excepciones.TankIsFullException;
 import excepciones.WrongPartClassException;
 import excepciones.WrongUserNameException;
 
+/**
+ *
+ * Clase que se encarga de administrar todas las cuestiones relacionadas
+ * con el juego en sí, como ser, el usuario principal, la creacion
+ * de una simulacion, correr la simulacion, etc. Como asi tambien
+ *de guardar el juego para recuperarlo mas tarde.
+ *
+ *@see Auto
+ *@see Usuario
+ */
 public class ProgramaAuto extends Observable {
 		/*
 		 * En nuestro modelo hay un solo usuario.
@@ -58,7 +68,12 @@ public class ProgramaAuto extends Observable {
         ProveedorDePartes unProveedor=new ProveedorDePartes();
         ProveedorDeNafta unProveedorNafta=new ProveedorDeNafta();
         
-        
+    /**
+     *
+     * Subclase de {@link ProgramaAuto}, que se encarga de crear y correr la simulacion
+     * como así de premiar a los ganadores y de notificar los cambios en el transcurso de la simulacion.
+     *
+     */
         public class SimuladorCarrera{
                 private ArrayList<Usuario> listaDeCompetidores;
                 private boolean simulando;
@@ -66,6 +81,12 @@ public class ProgramaAuto extends Observable {
                 private Pista pistaActual;
                 private LinkedList<Usuario> posicionesFinales;// indica el orden de llegada de los autos
                 
+	    /**
+	     *
+	     * Crea una nueva simulacion con la {@link Pista} especificada.
+	     *@param unaPista La pista sobre la cual transcurrirá la simulacion.
+	     *@see Pista
+	     */
                 SimuladorCarrera(Pista unaPista) {
                         pistaActual=unaPista;
                         simulando = false;
@@ -75,17 +96,16 @@ public class ProgramaAuto extends Observable {
                 }
                 /**
                  * Indica si la carrera se esta simulando o si no empezo  o termino.
-                 * @return
+                 * @return True o false dependiendo del estado de la simulacion
                  */
                 public boolean estaCorriendo(){
                 	return simulando; 
                 }
                 /**
                  * Obtiene una lista de los competidores de la carrera
-                 * @return
+                 * @return Un ArrayList con los {@link Usuario}s que intervienen el la carrera
                  */
-                @SuppressWarnings("unchecked")
-				public List<Usuario> getCompetidores(){
+		public List<Usuario> getCompetidores(){
                 	return (List<Usuario>)listaDeCompetidores.clone();
                 }
                 
@@ -95,7 +115,11 @@ public class ProgramaAuto extends Observable {
                 		usuario.getAuto().setPista(getPista());
                 		listaDeCompetidores.add(usuario);
                 }
-                
+	    /**
+	     *
+	     * Comienza la simulacion.
+	     *
+	     */                
                 synchronized void simular(){
                         simulando = true;
                         try{
@@ -138,14 +162,27 @@ public class ProgramaAuto extends Observable {
 	                posicionesFinales.add(competidor);
 	                competidor.getAuto().setPista(null);	//sale de la pista
                 }
-                
+	    /**
+	     *Pausa la simulacion
+	     *
+	     */                
                 public synchronized void setPausa(boolean pausar){
                 	pausa=pausar;
                 }
-                
+	    /**
+	     * Indica si la simulacion se encuentra detenida
+	     *@return true si está detenida, false en otro caso.
+	     */
                 public synchronized boolean getPausa(){
                 	return pausa;
                 }
+	    /**
+	     *
+	     *Devuelve los resultados de la simulacion.
+	     *
+	     *@return LinkedList de {@link Usuario}s, en el orden en que llegaron a la meta
+	     *@see Usuario
+	     */
                 public synchronized LinkedList<Usuario> getResultados(){
                 	return posicionesFinales;
                 }
@@ -171,8 +208,9 @@ public class ProgramaAuto extends Observable {
         	AUTOMATICO,
         }
         /**
-         * genero la pista normal
-         * @return
+         * Genera una {@link Pista} normal
+         * @return La pista generada
+	 *@see Pista
          */
         private Pista pistaNormal(){
         	try {
@@ -190,8 +228,9 @@ public class ProgramaAuto extends Observable {
         	
         }
         /**
-         * genero la pista nieve
-         * @return
+         * Genero una {@link Pista} con nieve
+         * @return La pista generada
+	 * @see Pista
          */
         private Pista pistaNieve(){
         	try {
@@ -209,8 +248,9 @@ public class ProgramaAuto extends Observable {
         	
         }
         /**
-         * genero la pista larga
-         * @return
+         * Genero una {@link Pista} larga
+         * @return la pista generada
+	 * @see Pista
          */
         private Pista pistaLarga(){
         	try {
@@ -229,7 +269,7 @@ public class ProgramaAuto extends Observable {
         }        
         /**
          * Genera las pistas que se pueden elegir para jugar.
-         * @return
+         * @return Una lista con las pistas disponibles
          */
         protected LinkedList<Pista> generarPistas(){
         	LinkedList<Pista> pistas = new LinkedList<Pista>();
