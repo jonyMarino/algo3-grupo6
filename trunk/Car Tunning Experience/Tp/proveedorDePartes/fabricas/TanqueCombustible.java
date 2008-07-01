@@ -1,7 +1,7 @@
 package proveedorDePartes.fabricas;
 
 
-import proveedorDeNafta.Combustible;
+import proveedorDeCombustibles.Combustible;
 import excepciones.BoundsException;
 import excepciones.TankIsFullException;
 

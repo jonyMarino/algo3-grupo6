@@ -1,4 +1,4 @@
-package proveedorDeNafta;
+package proveedorDeCombustibles;
 
 /**
  * Una clase particular de {@link Combustible}.

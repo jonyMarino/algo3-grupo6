@@ -1,20 +1,22 @@
-package proveedorDeNafta;
+package proveedorDeCombustibles;
 
 import java.util.ArrayList;
 import programaAuto.Usuario;
-import proveedorDeNafta.FabricaDeNafta;
+import proveedorDeCombustibles.FabricaDeNafta;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 
-public class ProveedorDeNafta {
+public class ProveedorDeCombustibles {
 	
-	private ArrayList<FabricaDeNafta> fabricasDisponibles;
+	private ArrayList<FabricaDeCombustible> fabricasDisponibles;
 	
-	public ProveedorDeNafta(){
-		fabricasDisponibles = new ArrayList<FabricaDeNafta> ();
+	public ProveedorDeCombustibles(){
+		fabricasDisponibles = new ArrayList<FabricaDeCombustible>();
 		agregarFabrica(new FabricaDeNafta());	
 	}
+	
+	/** Compra la cantidad de combustible requerida por el usuario **/
 	
 	public double comprar(double cantidad,Usuario usuario) throws NotEnoughMoneyException, BoundsException{
 		InformacionCombustible modelo =getFabricasDisponibles().get(0).getTipos().get(0);
@@ -35,12 +37,13 @@ public class ProveedorDeNafta {
 		return cantidad;
 	}
 	
-	public Nafta obtenerNafta() throws NoSuchModelException{
+	public Combustible obtenerNafta() throws NoSuchModelException{
 		InformacionCombustible modelo =getFabricasDisponibles().get(0).getTipos().get(0);
 		return fabricasDisponibles.get(0).fabricar(modelo);
 	}
 	
-	public ArrayList<FabricaDeNafta> getFabricasDisponibles(){
+	/** Retorna las fabricas de combustible disponibles **/
+	public ArrayList<FabricaDeCombustible> getFabricasDisponibles(){
 		return fabricasDisponibles;
 	}
 	

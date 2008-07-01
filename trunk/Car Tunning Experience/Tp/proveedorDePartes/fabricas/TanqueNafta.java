@@ -1,6 +1,6 @@
 package proveedorDePartes.fabricas;
 
-import proveedorDeNafta.Nafta;
+import proveedorDeCombustibles.Nafta;
 
 
 
