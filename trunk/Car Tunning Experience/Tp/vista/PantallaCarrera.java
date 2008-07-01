@@ -32,6 +32,7 @@ public class PantallaCarrera extends JPanel{
     VistaGrafica unaVista;
     VistaGrafica informacion;
     VistaGrafica velocimetro;
+    VistaGrafica lineal;
     ProgramaAuto elPrograma;
 	ArrayList<Point2D> listaDeArboles;
 	public static int pixelesPorMetro;
@@ -59,6 +60,8 @@ public class PantallaCarrera extends JPanel{
 		((VistaDeCostado)unaVista).setCompetidores(elControlador.getListaDeCompetidores());
 		informacion = new VistaCarreraInformativa(width, height/4, controladorJuego.getProgramaAuto());
 		velocimetro = new VistaVelocimetro(150, 150, controladorJuego.getProgramaAuto());
+		lineal = new VistaLineal(width, 50, controladorJuego.getProgramaAuto());
+		((VistaLineal)lineal).setCompetidores(elControlador.getListaDeCompetidores());
 		setFocusable(true);
 		setVisible(true);
 		addKeyListener(elControlador);
@@ -90,6 +93,7 @@ public class PantallaCarrera extends JPanel{
 	        	g2.drawImage(unaVista.getVista(), 0, 0, getWidth(), getHeight(), null);
 	        	g2.drawImage(informacion.getVista(), 0, 0, informacion.getWidth(), informacion.getHeight(), null);
 	        	g2.drawImage(velocimetro.getVista(), getWidth()*3/4, 0, velocimetro.getWidth(), velocimetro.getHeight(), null);
+	        	g2.drawImage(lineal.getVista(), 0, 150, lineal.getWidth(), lineal.getHeight(), null);
 	        }
 	}
 	/**
