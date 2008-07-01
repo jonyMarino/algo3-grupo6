@@ -140,6 +140,11 @@ public class ControladorCarrera implements KeyListener{
 		
 		
 		laSimulacion.start();
+		
+		while(!simulacion.estaCorriendo()){
+		
+		}
+			
 	    timer.schedule(sim, 0, 16);
 	    
 
