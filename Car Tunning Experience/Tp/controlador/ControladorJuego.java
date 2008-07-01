@@ -78,6 +78,7 @@ public class ControladorJuego implements ActionListener {
 	private void volverAlTaller(){
 		try {
 			programaAuto.setPista(programaAuto.generarProximaPista());
+			controladorTaller.entrarAlTaller();
 			controladorTaller.getActualizadorTaller().actualizarPantallaTaller();
 			panelBase.pantallaAnterior();
 		} catch (NotContainedPistaException e1) {
