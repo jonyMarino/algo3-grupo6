@@ -8,15 +8,34 @@ import java.util.Iterator;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 
+/**
+ *
+ * Clase que se encarga de producir los diferentes tipos de combustible
+ * necesarios para el funcionamiento de los {@link Auto}s.
+ *
+ * @see Nafta
+ * @see Combustible
+ * @see Auto
+ */
+//TODO:  ???? FabricaNafta o FabricaCombustible ????
 public class FabricaDeNafta {
 	
 	private ArrayList<InformacionCombustible> tiposConocidos;
-
+    /**
+     *Crea una fabrica de combustible.
+     *
+     */
 	public FabricaDeNafta() {
 		tiposConocidos = new ArrayList<InformacionCombustible>();
 		agregarTipo(nuevoTipoNafta(600,50.0));
 	}
 	
+    /**
+     *
+     *  Devuelve el precio de la clase de nafta solicitada.
+     *
+     *@see InformacionCombustible
+     */
 	public Integer consultarPrecio(InformacionCombustible modelo) {
 		return null;
 	}
