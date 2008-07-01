@@ -285,14 +285,15 @@ public class ProgramaAuto extends Observable {
         }
         
         /**
-         * 
+         *  Crea un nuevo {@link ProgramaAuto}
          * @param programa
          */
+    //TODO: ???????????? ProgramaAuto a partir de un Element?
         public ProgramaAuto (Element programa) {
         	usuario= new Usuario(unProveedor,programa.getChildElements("programa").get(0));
         }
         /**
-         * Esta llamada guarda el estado actual del programa con su usuario.
+         * Esta llamada guarda el estado actual del programa con su {@link Usuario}.
          */
         public Element getElement(){
             	Element raiz= new Element("programa");
@@ -318,6 +319,15 @@ public class ProgramaAuto extends Observable {
         }
              
 
+    /**
+     *
+     *Crea un {@link Auto} inicial para los usuarios.
+     *
+     *@param tipoAuto La clase de auto a generar.
+     *
+     *@see Auto
+     *@see Usuario
+     */
         public Auto autoInicial(TipoAuto tipoAuto){
         	Usuario usuariotemporal = null;
 			try {
@@ -387,14 +397,15 @@ public class ProgramaAuto extends Observable {
 
         /**
          * Devuelve las pistas disponibles para jugar.
-         * @return
+         * @return Un {@link Iterator} de las pistas disponibles.
          */
         public Iterator<Pista> getPistas(){
         	return ((Collection<Pista>)pistas.clone()).iterator();
         }
+
         /**
-         * Setea la pista a correr.
-         * @param pista
+         * Elige la pista en la cual se correrá la proxima carrera.
+         * @param pista La pista.
          * @throws NotContainedPistaException
          * @throws PistaPickedException
          */
@@ -406,13 +417,20 @@ public class ProgramaAuto extends Observable {
         	pistaActual = pista;
         }
         /**
-         * Devuelve la pista actual
-         * @return
+         * Devuelve la pista seleccionada actualmente.
+         * @return La pista.
          */
         public Pista getPista(){
                 return this.pistaActual;
         }
         
+    /**
+     * Cambia el estado del juego al estado de "Taller". En este estado
+     * el usuario puede comprar partes, cambiarlas y cargar combustible.
+     *
+     * @exception NoPistaPickedException
+     * @exception NotAbleWhileSimulatingException
+     */
         public Taller entrarAlTaller() throws NoPistaPickedException, NotAbleWhileSimulatingException{
         	if(pistaActual==null)
         		throw new NoPistaPickedException();
@@ -425,7 +443,10 @@ public class ProgramaAuto extends Observable {
          * TODO: Ver si no combiene hacer un Proxy aqui, en vez de esto.
          */
         /**
-         * Checkea que se este en el estado correcto antes de llamar al Taller.
+         * Intenta intercambiar una parte del Auto por una que el {@link Usuario} tiene en reserva.
+	 *
+	 *@exception IncorrectPartForUbicationException
+	 *@exception NotInTallerException
          */
         public 	void colocarParteDeReserva(InformacionParteReserva informacionReserva, InformacionParteEnAuto informacionParte)throws IncorrectPartForUbicationException, NotInTallerException{
         	if(tallerActual==null)
@@ -433,8 +454,9 @@ public class ProgramaAuto extends Observable {
         	tallerActual.colocarParteDeReserva(informacionReserva, informacionParte);
         }
         /**
-         * Salida del Taller y entrada a la carrera
-         * @return Simulador para conocer el estado de la carrera
+         * Sale del estado "Taller" y entrada al estado "Carrera".
+	 * En este estado se desarrolla la simulacion
+         * @return Simulador que permite conocer el estado de la carrera
          * @throws NoPistaPickedException
          * @throws NotInTallerException
          */
@@ -449,8 +471,9 @@ public class ProgramaAuto extends Observable {
         	simulador = inicializarCarrera();
             return simulador;
         }
+
         /**
-         * Se simula la carrera hasta terminar
+         * Comienza la simulacion.
          * @throws NotSimulatingException 
          */
         public void correr() throws NotSimulatingException{
@@ -461,6 +484,7 @@ public class ProgramaAuto extends Observable {
 	        simulador=null;	    // termino la simulacion
 	        pistaActual=null;	// ya se debe elegir otra pista        
         }
+
         /**
          * De acuerdo al resultado de la carrera, aumenta el dinero del usuario.
          */
@@ -507,6 +531,11 @@ public class ProgramaAuto extends Observable {
                 return unaSimulacion;
         }
 		
+    /**
+     * Devuelve un Proveedor de partes.
+     * @return Una instancia de {@link ProveedorDePartes}
+     * @see ProvedorDePartes
+     */
         public ProveedorDePartes getUnProveedor() {
 			return unProveedor;
 		}
@@ -515,11 +544,22 @@ public class ProgramaAuto extends Observable {
     		Random rand= new Random(new Date().getTime());
     		return(pistas.get((int)(rand.nextDouble()*pistas.size())));	
         }
-		
+    /**
+     *Devuelve el {@link Usuario} principal del juego
+     *
+     *@return El {@link usuario} principal
+     *
+     *@see Usuario
+     */	
         public Usuario getUsuario() {
 			return usuario;
 		}
-
+    /**
+     * Devuelve una instancia de {@link ProveedorDeNafta}
+     *
+     * @return Un proveedor de Nafta
+     * @see ProveedorDeNafta
+     */
         public ProveedorDeNafta getUnProveedorDeNafta(){
         	ProveedorDeNafta proveedorDeNafta = new ProveedorDeNafta();
         	return proveedorDeNafta;
