@@ -12,6 +12,7 @@ import programaAuto.Auto;
 import programaAuto.ProgramaAuto;
 import programaAuto.Usuario;
 import programaAuto.ProgramaAuto.SimuladorCarrera;
+import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.CajaManual;
 import vista.PantallaCarrera;
 import excepciones.BoundsException;
@@ -101,11 +102,11 @@ public class ControladorCarrera implements KeyListener{
 	public void keyTyped(KeyEvent e) {
 		if(e.getKeyChar() == 'c'){
 			int cambioActual=unAuto.getCaja().getCambio();
-			((CajaManual)unAuto.getCaja()).setCambioManual(cambioActual+1);
+			((Caja)unAuto.getCaja()).setCambio(cambioActual+1);
 		}
 		if(e.getKeyChar() == 'v'){
 			int cambioActual=unAuto.getCaja().getCambio();
-			((CajaManual)unAuto.getCaja()).setCambioManual(cambioActual-1);
+			((Caja)unAuto.getCaja()).setCambio(cambioActual-1);
 		}
 		if(e.getKeyChar() == 'q'){
 			simulando=false;

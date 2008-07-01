@@ -15,10 +15,12 @@ public class CajaAutomatica extends Caja {
 
 	CajaAutomatica(Eje eje,Motor motor) {
 		super();
+		super.setCambio(5);
 	}
 	
 	CajaAutomatica() {
 		super();
+		super.setCambio(5);
 	}
 	public double getTorque() {
 		if(this.getMotor()!=null){
@@ -27,6 +29,10 @@ public class CajaAutomatica extends Caja {
 			return convertir(getMotor().getTorque());
 		}
 		return 0;
+	}
+	
+	public void setCambio(int cambio){
+		
 	}
 
 	public boolean desgastar(int tiempo){
