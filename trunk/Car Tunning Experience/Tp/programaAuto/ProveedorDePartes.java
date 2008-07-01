@@ -19,10 +19,28 @@ import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
 import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.ParteAuto;
 
+/**
+ *
+ * Clase que utiliza las se encarga de vender las partes fabricadas por 
+ * las fabricas de partes al usuario
+ *
+ * @see FabricaDePartes
+ * @see Usuario
+ * @see ParteAuto
+ */
+
 public class ProveedorDePartes {
 	
 	CadenaDeFabricas miCadenaDeFabricas;
-	
+
+    /**
+     * Crea un nuevo proveedor de partes, conteniendo las fábricas 
+     * necesarias para producir cualquier parte del auto.
+     *
+     * @see CadenaDeFabricas
+     * @see ParteAuto
+     * @see FabricaDePartes
+     */	
 	public ProveedorDePartes(){
 		miCadenaDeFabricas = new CadenaDeFabricas();
 		miCadenaDeFabricas.agregarFabrica(new FabricaDeCajas());
@@ -36,10 +54,35 @@ public class ProveedorDePartes {
 		miCadenaDeFabricas.agregarFabrica(new FabricaDeTanquesDeCombustible());
 	}
 	
+    /**
+     * Devuelve los modelos de partes que vende el proveedor.
+     *
+     * @return Un ArrayList de InformacionDelModelo que describen cada 
+     * uno de los modelos disponibles. 
+     *
+     * @see InformacionDelModelo
+     */
 	public ArrayList<InformacionDelModelo> getModelosDisponibles(){
 		return miCadenaDeFabricas.getModelos();
 	}
-	
+
+    /**
+     * Vende a un usuario la parte que le pide, simpre y cuando éste posea
+     * el dinero suficiente.
+     *
+     * @param  modelo Una instancia de InformacionModelo que describe 
+     * la parte a comprar
+     * @param usuario El usuario que compra la parte.
+     *
+     * @return La parte comprada
+     *
+     * @see Usuario
+     * @see InformacionDelModelo
+     * @see ParteAuto
+     *
+     * @exception  NoSuchModelException
+     * @exception NotEnoughMoneyException
+     */
 	public ParteAuto comprar(InformacionDelModelo modelo, Usuario usuario) throws NoSuchModelException, NotEnoughMoneyException{
 		if (modelo == null)
 			throw new NoSuchModelException("No existe ese modelo");
@@ -62,10 +105,21 @@ public class ProveedorDePartes {
 		return unaParte;
 	}
 	
+    /**
+     * Hace fabricar una parte.
+     *
+     * @modelo El modelo a fabricar.
+     * @return La parte fabricada
+     */
 	ParteAuto obtenerParte(InformacionDelModelo modelo) throws NoSuchModelException{
 		return miCadenaDeFabricas.fabricar(modelo);
 	}
 
+    /**
+     * Devuelve la cadena de fábricas asociada a el proveedor.
+     *
+     * @see CadenaDeFabricas
+     */
 	public CadenaDeFabricas getMiCadenaDeFabricas() {
 		return miCadenaDeFabricas;
 	}

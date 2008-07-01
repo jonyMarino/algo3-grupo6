@@ -7,7 +7,11 @@ import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 
 /**
- * @author lucas
+ *
+ * Una clase particular de FabricaDePartes que se dedica a fabricar pedales
+ *
+ * @see FabricaDePartes
+ * @see Freno
  *
  */
 public class FabricaDePedales extends FabricaDePartes {

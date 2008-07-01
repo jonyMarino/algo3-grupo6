@@ -4,6 +4,15 @@ import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 
 
+/**
+ *
+ * Una clase particular de FabricaDePartes que se dedica a fabricar Ejes
+ *
+ * @see FabricaDePartes
+ * @see Eje
+ *
+ */
+
 public class FabricaDeEjes extends FabricaDePartes {
  
 	public FabricaDeEjes() {

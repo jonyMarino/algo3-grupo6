@@ -3,6 +3,14 @@ package proveedorDePartes.fabricas;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 
+/**
+ *
+ * Una clase particular de FabricaDePartes que se dedica a fabricar Mezcladores
+ *
+ * @see FabricaDePartes
+ * @see Mezclador
+ *
+ */
 
 public class FabricaDeMezcladores extends FabricaDePartes {
 	public FabricaDeMezcladores(){
