@@ -37,15 +37,17 @@ public class VistaLineal implements VistaGrafica {
 		bufferPrincipal = new BufferedImage(ancho,alto, BufferedImage.TYPE_INT_ARGB);
 
 
-/*
+		meta = largada = new BufferedImage(alto, alto, BufferedImage.TYPE_INT_ARGB);
+				
 		elPrograma = unPrograma;
 		try {
-			largada = ImageIO.read(getClass().getResource("/vista/images/"+ "UnAuto" +".gif"));
+			BufferedImage auxiliar = ImageIO.read(getClass().getResource("/vista/images/"+ "bandera" +".gif"));
+			meta.createGraphics().drawImage(auxiliar, 0, 0, alto, alto, null);			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		*/
+
 		competidores = new ArrayList<Usuario>();
 
 	}
@@ -66,9 +68,30 @@ public class VistaLineal implements VistaGrafica {
 	}
 
 	public BufferedImage getVista() {
+		actualizar();
 		return bufferPrincipal;
 	}
 	
+	private void actualizar() {
+		Graphics2D superficie = bufferPrincipal.createGraphics();
+		superficie.setBackground(new Color(0,0,0,0));
+		superficie.clearRect(0, 0, getWidth(), getHeight());
+		superficie.setColor(Color.red);
+		int medio = bufferPrincipal.getHeight()/2;
+		superficie.drawLine(0, medio, bufferPrincipal.getWidth(), medio);
+		superficie.drawImage(largada, 0, 0, null);
+		superficie.drawImage(meta, bufferPrincipal.getWidth()-meta.getWidth(), 0, null);
+		double factorDePosicion = bufferPrincipal.getWidth()/elPrograma.getPista().getLongitud();
+		superficie.setColor(Color.DARK_GRAY);
+		for(Usuario p:competidores){
+			if(p.getAuto() != elPrograma.getUsuario().getAuto())
+				superficie.fillOval((int) (p.getAuto().getPosicion()*factorDePosicion), medio/2, medio, medio);
+		}
+		superficie.setColor(Color.yellow);
+		superficie.fillOval((int) (elPrograma.getUsuario().getAuto().getPosicion()*factorDePosicion), medio/2, medio, medio);
+	}
+
+
 	public int getWidth() {
 		return bufferPrincipal.getWidth();
 	}
