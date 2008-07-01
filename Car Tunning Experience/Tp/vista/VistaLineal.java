@@ -36,7 +36,6 @@ public class VistaLineal implements VistaGrafica {
 	public VistaLineal(int ancho, int alto, ProgramaAuto unPrograma){
 		bufferPrincipal = new BufferedImage(ancho,alto, BufferedImage.TYPE_INT_ARGB);
 
-		Graphics2D buffer = (Graphics2D) bufferPrincipal.getGraphics();
 
 /*
 		elPrograma = unPrograma;

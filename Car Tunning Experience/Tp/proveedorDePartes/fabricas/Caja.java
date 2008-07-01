@@ -45,10 +45,9 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 	}
 	public abstract double getTorque();
 
-	protected void setCambio(int cambio) {
+	public void setCambio(int cambio) {
 		if((cambio>=-1) && (cambio<=5))
 		this.cambio=cambio+1; //La primer posicion del array (0) es reversa (-1)
-		//TODO: NO SE DEBERÍA PODER PASAR AL PROXIMO CAMBIO SI LAS REVOLUCIONES NO SON SUFICIENTES
 	}
 
 	public void setMotor(Motor motor){
