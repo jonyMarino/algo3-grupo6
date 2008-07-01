@@ -210,7 +210,7 @@ public class ProgramaAuto extends Observable {
         /**
          * Genera una {@link Pista} normal
          * @return La pista generada
-	 *@see Pista
+         * @see Pista
          */
         private Pista pistaNormal(){
         	try {
@@ -230,7 +230,7 @@ public class ProgramaAuto extends Observable {
         /**
          * Genero una {@link Pista} con nieve
          * @return La pista generada
-	 * @see Pista
+         * @see Pista
          */
         private Pista pistaNieve(){
         	try {
@@ -250,7 +250,7 @@ public class ProgramaAuto extends Observable {
         /**
          * Genero una {@link Pista} larga
          * @return la pista generada
-	 * @see Pista
+         * @see Pista
          */
         private Pista pistaLarga(){
         	try {
