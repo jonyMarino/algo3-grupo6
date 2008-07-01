@@ -42,17 +42,7 @@ public class ControladorJuego implements ActionListener {
 			panelBase.crearPantalla(new PantallaCarrera(this));
 		}
 		if (comando.equals("volveraltaller")){
-			try {
-				programaAuto.setPista(programaAuto.generarProximaPista());
-			} catch (NotContainedPistaException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (PistaPickedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			controladorTaller.getActualizadorTaller().actualizarPantallaTaller();
-			panelBase.pantallaAnterior();
+			volverAlTaller();
 		}			
 	}
 	
@@ -86,10 +76,14 @@ public class ControladorJuego implements ActionListener {
 	}
 	
 	private void volverAlTaller(){
-		this.controladorTaller = new ControladorTaller(programaAuto);
-		panelBase.crearPantalla(new PantallaTaller(this));	
-		controladorTaller.setPantallaTaller((PantallaTaller)panelBase.getPantallaActual());
-		//controladorTaller.getActualizadorTaller().cargarPantallaTaller(imagen);
+		try {
+			programaAuto.setPista(programaAuto.generarProximaPista());
+			controladorTaller.getActualizadorTaller().actualizarPantallaTaller();
+			panelBase.pantallaAnterior();
+		} catch (NotContainedPistaException e1) {
+		} catch (PistaPickedException e1) {
+		}
+
 	}
 
 	private TipoAuto buscarTipoAuto(String tipoAuto) {
