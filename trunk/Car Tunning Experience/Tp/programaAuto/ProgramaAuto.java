@@ -74,6 +74,7 @@ public class ProgramaAuto extends Observable {
         private LinkedList<Pista> pistas=generarPistas();
         private static final double  PASO_SIMULACION = 0.05;
         ProveedorDePartes unProveedor=new ProveedorDePartes();
+        private double ultimoPremio = 0;
         ProveedorDeCombustibles unProveedorCombustible=new ProveedorDeCombustibles();
         
     /**
@@ -510,8 +511,11 @@ public class ProgramaAuto extends Observable {
         	int posicion=simulador.getResultados().indexOf(usuario);
         	       	
 			try {
-				if(posicion<PremiosEnAlgo.length)
-					usuario.adquirirDinero(PremiosEnAlgo[posicion]);
+				if(posicion<PremiosEnAlgo.length) {
+					this.ultimoPremio = PremiosEnAlgo[posicion];
+					usuario.adquirirDinero(ultimoPremio);
+				} else
+					this.ultimoPremio = -1;
 			} catch (BoundsException e) {
 				e.printStackTrace();
 			}
@@ -581,6 +585,11 @@ public class ProgramaAuto extends Observable {
         public ProveedorDeCombustibles getUnProveedorDeNafta(){
         	ProveedorDeCombustibles proveedorDeNafta = new ProveedorDeCombustibles();
         	return proveedorDeNafta;
+        }
+        
+        //TODO: por diversion
+        public double getUltimoPremio() {
+        	return ultimoPremio;
         }
         
         
