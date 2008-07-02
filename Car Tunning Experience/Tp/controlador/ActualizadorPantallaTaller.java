@@ -7,7 +7,6 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import excepciones.BoundsException;
-import excepciones.NoSuchModelException;
 import programaAuto.ProgramaAuto;
 import programaAuto.Taller.InformacionParteEnAuto;
 import proveedorDePartes.fabricas.FabricaDePartes;
@@ -51,6 +50,7 @@ public class ActualizadorPantallaTaller {
 		this.actualizarInformacionReserva();
 		this.actualizarInformacionNafta();
 		this.actualizarInformacionAuto();
+		this.informarPremio(programaAuto.getUltimoPremio());
 	}
 	
 	private void actualizarInformacionPista() {
@@ -177,6 +177,12 @@ public class ActualizadorPantallaTaller {
 		}		
 		return informacionModelo;
 	}
-
 	
+	private void informarPremio(double premio) {
+		if (premio > 0)
+		pantallaTaller.generarMensaje("En hora Buena! has ganado " + Double.toString(premio) + " Algo$");
+		else if(premio == -1)
+			pantallaTaller.generarMensajeError("Looser!!!");  
+	}
+
 }
