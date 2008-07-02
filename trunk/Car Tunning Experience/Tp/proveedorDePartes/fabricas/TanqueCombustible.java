@@ -1,5 +1,6 @@
 package proveedorDePartes.fabricas;
 
+import nu.xom.Element;
 import proveedorDeCombustibles.Combustible;
 import proveedorDeCombustibles.Nafta;
 import excepciones.BoundsException;
@@ -92,5 +93,18 @@ public abstract class TanqueCombustible extends ParteAuto {
 	public void setCombustible(Combustible combustible) {
 		this.combustible = combustible;
 	}
-
+	
+	protected Element getElement(){
+		Element tanque=super.getElement();
+		Element combustible = new Element("combustible");
+		combustible.appendChild(cantidadCombustible+"");
+		tanque.appendChild(combustible);
+		return tanque;
+	}
+	
+	protected Element restaurar(Element elemento){
+		Element tanque=super.restaurar(elemento);
+		cantidadCombustible= Double.parseDouble(tanque.getFirstChildElement("combustible").getValue());
+		return tanque;
+	}	
 }

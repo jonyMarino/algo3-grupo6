@@ -79,14 +79,15 @@ public abstract class ParteAuto {
 	void setInformacionDelModelo(InformacionDelModelo informacionDelModelo) {
 		this.informacionDelModelo = informacionDelModelo;
 	}
-	protected void restaurar(Element elemento){
-		Element parte=elemento.getFirstChildElement("parte");
-		vidaUtil=Double.parseDouble(parte.getFirstChildElement("vida util").getValue());
+	protected Element restaurar(Element elemento){
+		Element parte=elemento.getFirstChildElement("parte_de_auto");
+		vidaUtil=Double.parseDouble(parte.getFirstChildElement("vida_util").getValue());
+		return parte;
 	} 
 	
 	protected Element getElement(){
-		Element parte=new Element("parte");
-		Element vida=new Element("vida util");
+		Element parte=new Element("parte_de_auto");
+		Element vida=new Element("vida_util");
 		vida.appendChild(vidaUtil+"");
 		parte.appendChild(vida);
 		return parte;
@@ -104,13 +105,13 @@ public abstract class ParteAuto {
 	}
 
 	public static ParteAuto recobrar(CadenaDeFabricas fabrica, Element elemento) {
-		String nombreModelo = elemento.getFirstChildElement("modelo").getValue();
-		InformacionDelModelo informacionDelModelo=RegistroDeModelos.getInstance().getInformacion(nombreModelo);
-
+		Element parte = elemento.getFirstChildElement("parte");
+		String nombreModelo = parte.getFirstChildElement("modelo").getValue();
+	
 		ParteAuto parteAuto;
 		try {
-			parteAuto = fabrica.fabricar(informacionDelModelo);
-			parteAuto.restaurar(elemento);
+			parteAuto = fabrica.fabricar(nombreModelo);
+			parteAuto.restaurar(parte);
 			return parteAuto;
 		} catch (NoSuchModelException e) {
 			// TODO Auto-generated catch block

@@ -119,7 +119,8 @@ public class ProgramaAuto extends Observable {
                  * Obtiene una lista de los competidores de la carrera
                  * @return Un ArrayList con los {@link Usuario}s que intervienen el la carrera
                  */
-		public List<Usuario> getCompetidores(){
+                @SuppressWarnings("unchecked")
+				public List<Usuario> getCompetidores(){
                 	return (List<Usuario>)listaDeCompetidores.clone();
                 }
                 
@@ -314,9 +315,7 @@ public class ProgramaAuto extends Observable {
             	Element raiz= new Element("programa");
             	raiz.appendChild(usuario.getElement(autosFactory));
             	return raiz;
-            	//Document doc= new Document(raiz);
-				//format(new BufferedOutputStream(new FileOutputStream(usuario.getNombre()+".xml")),
-				//		doc);
+
         }
         
         /** Da un formato legible para los humanos
@@ -424,7 +423,8 @@ public class ProgramaAuto extends Observable {
          * Devuelve las pistas disponibles para jugar.
          * @return Un {@link Iterator} de las pistas disponibles.
          */
-        public Iterator<Pista> getPistas(){
+        @SuppressWarnings("unchecked")
+		public Iterator<Pista> getPistas(){
         	return ((Collection<Pista>)pistas.clone()).iterator();
         }
 
