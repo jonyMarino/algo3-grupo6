@@ -9,10 +9,10 @@ import java.util.Observable;
 import nu.xom.Element;
 import excepciones.BoundsException;
 import excepciones.IncorrectPartForUbicationException;
+import excepciones.NoSuchModelException;
 import excepciones.PartBrokenException;
 import excepciones.TankIsFullException;
 import excepciones.UbicationUnkownException;
-import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
@@ -499,12 +499,40 @@ public abstract class Auto extends Observable{
 			Element elemento=auto.getFirstChildElement(ubicacion.toString());
 			String nombreModelo = elemento.getFirstChildElement("modelo").getValue();
 			InformacionDelModelo informacionDelModelo=RegistroDeModelos.getInstance().getInformacion(nombreModelo);
-			ParteAuto parte=proveedor.obtenerParte(informacionDelModelo);
-			parte.restaurar(elemento);
-			colocarParte(parte,ubicacion);
+			try {
+				ParteAuto parte = proveedor.obtenerParte(informacionDelModelo);
+				parte.restaurar(elemento);
+				colocarParte(parte,ubicacion);
+			} catch (NoSuchModelException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IncorrectPartForUbicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UbicationUnkownException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		
 		}
 		ensamblar();
+	}
+	
+	public Element getElement(){
+		Element auto=new Element("auto");
+		//partes
+		for(Ubicacion ubicacion: Ubicacion.values()){
+			Element ubicacionParte = new Element(ubicacion.toString());
+			Element modelo = new Element("modelo");
+			String nombre = partes.get(ubicacion).getInformacionDelModelo().getModelo();
+			modelo.appendChild(nombre);
+			Element parte = partes.get(ubicacion).getElement();
+			ubicacionParte.appendChild(modelo);
+			ubicacionParte.appendChild(parte);
+			auto.appendChild(ubicacionParte);
+		}
+		return auto;
 	}
 
 	/**
@@ -742,10 +770,11 @@ public abstract class Auto extends Observable{
 	 * Pisa el Pedal del Freno.
 	 *
 	 * @param intensidad Intensidad es grado de fuerza que se le aplica al Freno.
+	 * @throws PartBrokenException 
 	 *
 	 * @see Freno
 	 */
-	public void presionarFreno(double intensidad) {
+	public void presionarFreno(double intensidad) throws PartBrokenException {
 		this.getFreno().presionar(intensidad);
 	}
 
