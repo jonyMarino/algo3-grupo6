@@ -4,7 +4,6 @@ import junit.framework.TestCase;
 import programaAuto.Pista;
 import proveedorDeCombustibles.FabricaDeNafta;
 import proveedorDeCombustibles.Nafta;
-import proveedorDePartes.fabricas.Acelerador;
 import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
@@ -54,7 +53,6 @@ public class MotorTest extends TestCase {
 	FabricaDeEjes fabricaEjes;
 	FabricaDePedales fabricaPedales;
 	FabricaDeNafta fabricaDeNafta;
-	Acelerador acelerador;
 	Freno freno;
 	
 	protected void setUp() throws Exception {
