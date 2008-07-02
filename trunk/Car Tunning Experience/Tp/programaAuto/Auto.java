@@ -493,16 +493,8 @@ public abstract class Auto extends Observable{
 		
 		for(Ubicacion ubicacion: Ubicacion.values()){
 			Element elementoParte=partesElement.getFirstChildElement(ubicacion.toString());
-			String nombreModelo = elementoParte.getFirstChildElement("modelo").getValue();
-			InformacionDelModelo informacionDelModelo=RegistroDeModelos.getInstance().getInformacion(nombreModelo);
-			try {
-				ParteAuto parte = fabrica.fabricar(informacionDelModelo);
-				parte.restaurar(elementoParte);
-				colocarParte(parte,ubicacion);
-			} catch (NoSuchModelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ParteAuto parte = ParteAuto.recobrar(fabrica, elemento);
+			colocarParte(parte,ubicacion);
 		}
 		ensamblar();
 	}
@@ -510,15 +502,8 @@ public abstract class Auto extends Observable{
 	public Element getElement(){
 		Element auto=new Element("Auto");
 		//partes
-		for(Ubicacion ubicacion: Ubicacion.values()){
-			Element ubicacionParte = new Element(ubicacion.toString());
-			Element modelo = new Element("modelo");
-			String nombre = partes.get(ubicacion).getInformacionDelModelo().getModelo();
-			modelo.appendChild(nombre);
-			Element parte = partes.get(ubicacion).getElement();
-			ubicacionParte.appendChild(modelo);
-			ubicacionParte.appendChild(parte);
-			auto.appendChild(ubicacionParte);
+		for(ParteAuto parteAuto: partes.values()){
+			auto.appendChild(parteAuto.getElementParte());
 		}
 		return auto;
 	}

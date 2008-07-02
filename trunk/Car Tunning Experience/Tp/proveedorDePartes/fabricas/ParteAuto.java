@@ -1,7 +1,9 @@
 package proveedorDePartes.fabricas;
 
+import programaAuto.CadenaDeFabricas;
 import nu.xom.Element;
 import excepciones.BoundsException;
+import excepciones.NoSuchModelException;
 
 /**
  * Es la clase que se usa como base para todas las partes del auto ({@link Carroceria}, {@link Motor}, {@link Escape}, etc).
@@ -77,18 +79,44 @@ public abstract class ParteAuto {
 	void setInformacionDelModelo(InformacionDelModelo informacionDelModelo) {
 		this.informacionDelModelo = informacionDelModelo;
 	}
-	public void restaurar(Element elemento){
+	protected void restaurar(Element elemento){
 		Element parte=elemento.getFirstChildElement("parte");
 		vidaUtil=Double.parseDouble(parte.getFirstChildElement("vida util").getValue());
 	} 
 	
-	public Element getElement(){
+	protected Element getElement(){
 		Element parte=new Element("parte");
 		Element vida=new Element("vida util");
 		vida.appendChild(vidaUtil+"");
 		parte.appendChild(vida);
 		return parte;
 		
+	}
+	public Element getElementParte(){
+		Element parteElemento = new Element("parte");
+		Element modelo = new Element("modelo");
+		String nombre = getInformacionDelModelo().getModelo();
+		modelo.appendChild(nombre);
+		Element parte = getElement();
+		parteElemento.appendChild(modelo);
+		parteElemento.appendChild(parte);
+		return parteElemento;
+	}
+
+	public static ParteAuto recobrar(CadenaDeFabricas fabrica, Element elemento) {
+		String nombreModelo = elemento.getFirstChildElement("modelo").getValue();
+		InformacionDelModelo informacionDelModelo=RegistroDeModelos.getInstance().getInformacion(nombreModelo);
+
+		ParteAuto parteAuto;
+		try {
+			parteAuto = fabrica.fabricar(informacionDelModelo);
+			parteAuto.restaurar(elemento);
+			return parteAuto;
+		} catch (NoSuchModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
