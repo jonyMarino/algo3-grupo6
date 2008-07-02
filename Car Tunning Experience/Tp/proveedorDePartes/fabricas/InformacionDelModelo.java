@@ -6,11 +6,11 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import excepciones.BoundsException;
+import excepciones.ModelRegisteredException;
 
 /**
  * Clase que guarda una descripcion de un determinado modelo de {@link ParteAuto}
- * que entienden las {@link FabricaDePartes}, y que utilizan para fabricar las mismas
- *
+ * que entienden las {@link FabricaDePartes}, y que utilizan para fabricar las mismas.
  * @see FabricaDePartes
  */
 
@@ -60,25 +60,25 @@ public class InformacionDelModelo {
 		else throw new BoundsException("El modelo no posee la característica "+ nombre + ".");
 	}
 	 
+
 	InformacionDelModelo(String modelo,ArrayList<String> listaDeCaracteristicasDisponibles) {
+		setModelo(modelo);		
 		Iterator<String> iteradorDeCaracteristicas = listaDeCaracteristicasDisponibles.iterator();
 		informacionDeEstaParte = new Hashtable<String, String>();
 		while(iteradorDeCaracteristicas.hasNext()){
 			agregarCaracteristica(iteradorDeCaracteristicas.next(), "");
-		}
+		}	
+		RegistroDeModelos.getInstance().registrarModelo(this);
 	}
 	
 	InformacionDelModelo(String modelo){
+		setModelo(modelo);		
 		informacionDeEstaParte = new Hashtable<String, String>();
-		setModelo(modelo);
+		RegistroDeModelos.getInstance().registrarModelo(this);	
 	}
-
+	
 	public String toString() {
-		try {
-			return getCaracteristica("DESCRIPCION");
-		} catch (BoundsException e) {
-			return super.toString();
-		}
+		return modelo + informacionDeEstaParte;
 	}
 
 	public String getModelo() {

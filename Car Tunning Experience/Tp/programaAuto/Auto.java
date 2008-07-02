@@ -22,6 +22,7 @@ import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.Mezclador;
 import proveedorDePartes.fabricas.Motor;
 import proveedorDePartes.fabricas.ParteAuto;
+import proveedorDePartes.fabricas.RegistroDeModelos;
 import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.TanqueCombustible;
 
@@ -496,10 +497,10 @@ public abstract class Auto extends Observable{
 		
 		for(Ubicacion ubicacion: Ubicacion.values()){
 			Element elemento=auto.getFirstChildElement(ubicacion.toString());
-			String nombreModelo = elemento.getFirstChild("modelo");
-			InformacionDelModelo informacionDelModelo=proveedor.getModelo(nombreModelo);
+			String nombreModelo = elemento.getFirstChildElement("modelo").getValue();
+			InformacionDelModelo informacionDelModelo=RegistroDeModelos.getInstance().getInformacion(nombreModelo);
 			ParteAuto parte=proveedor.obtenerParte(informacionDelModelo);
-			parte.updateSinceElement(elemento);
+			parte.restaurar(elemento);
 			colocarParte(parte,ubicacion);
 		
 		}
