@@ -1,5 +1,6 @@
 package proveedorDePartes.fabricas;
 
+import nu.xom.Element;
 import excepciones.BoundsException;
 
 /**
@@ -76,5 +77,6 @@ public abstract class ParteAuto {
 	void setInformacionDelModelo(InformacionDelModelo informacionDelModelo) {
 		this.informacionDelModelo = informacionDelModelo;
 	}
+	public abstract void restaurar(Element elemento);  
 
 }
