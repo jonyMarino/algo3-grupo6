@@ -6,12 +6,12 @@ import excepciones.NoSuchModelException;
 
 /**
  *
- * Cadena de responsabilidades. Dado un objeto {@link InformacionDelModelo}
- * y dada una serie de {@link FabricaDePartes}, intenta hacer fabricar la
- * parte.
+ * Cadena de responsabilidades. Dado un objeto {@link InformacionCombustible}
+ * y dada una serie de {@link FabricaDecombustible}, intenta hacer fabricar el
+ * combustible.
  *
- * @see ProveedorDePartes
- * @see InformacionDelModelo
+ * @see ProveedorDeCombustible
+ * @see InformacionCombustible
  */
 
 public class CadenaDeFabricasCombustibles{
@@ -28,13 +28,9 @@ public class CadenaDeFabricasCombustibles{
 
     /**
      *
-     * Intenta que alguna de las fabricas de la cadena fabrique la parte en cuestion
-     *
-     *@param modelo Una instancia de InformacionDelModelo que describe la parte.
-     *
-     *@return La {@link ParteAuto} fabricada.
-     *
-     *@exception NoSuchModelException
+     * Intenta que alguna de las fabricas de la cadena fabrique el combustible
+     * en cuestion.
+     * 
      */
 	public Combustible fabricar(InformacionCombustible modelo) throws NoSuchModelException {
 		Iterator<FabricaDeCombustible> iteradorCadena = miCadenaDeFabricas.iterator();
@@ -69,10 +65,9 @@ public class CadenaDeFabricasCombustibles{
 	}
 
     /**
-     *Devuelve una lista de todos los modelos que esta {@link CadenaDeFabricas}
+     *Devuelve una lista de todos los tipos que esta {@link CadenaDeFabricasCombustibles}
      *es capaz de hacer fabricar.
      *
-     * @return Un {@link ArrayList} que contiene los modelos que se pueden fabricar.
      */
 	public ArrayList<InformacionCombustible> getModelos() {
 		Iterator<FabricaDeCombustible> iteradorCadena = miCadenaDeFabricas.iterator();

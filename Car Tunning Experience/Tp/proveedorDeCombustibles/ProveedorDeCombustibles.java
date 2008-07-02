@@ -3,8 +3,6 @@ package proveedorDeCombustibles;
 import java.util.ArrayList;
 import programaAuto.Usuario;
 import proveedorDeCombustibles.FabricaDeNafta;
-import proveedorDePartes.fabricas.InformacionDelModelo;
-import proveedorDePartes.fabricas.ParteAuto;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
@@ -70,10 +68,8 @@ public class ProveedorDeCombustibles {
 		
 		return unCombustible;
 	}
-
-    //TODO: ?????????????????????????????????	
+	/** Hace fabicar el combustible */
 	public Combustible obtenerCombustible(InformacionCombustible modelo) throws NoSuchModelException{
-		//InformacionCombustible modelo =getFabricasDisponibles().get(0).getTipos().get(0);
 		return fabricasDisponibles.fabricar(modelo);
 	}
 	
