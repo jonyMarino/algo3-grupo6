@@ -487,40 +487,28 @@ public abstract class Auto extends Observable{
 		
 		ensamblar();
 	}
-	/**
-	 * 
-	 * @param auto
-	 */
-	public Auto(ProveedorDePartes proveedor,Element element){
-		
-		Element auto=element.getFirstChildElement("auto");
+
+	public Auto(CadenaDeFabricas fabrica,Element elemento) throws IncorrectPartForUbicationException, UbicationUnkownException{
+		Element partesElement=elemento.getFirstChildElement("Auto");
 		
 		for(Ubicacion ubicacion: Ubicacion.values()){
-			Element elemento=auto.getFirstChildElement(ubicacion.toString());
-			String nombreModelo = elemento.getFirstChildElement("modelo").getValue();
+			Element elementoParte=partesElement.getFirstChildElement(ubicacion.toString());
+			String nombreModelo = elementoParte.getFirstChildElement("modelo").getValue();
 			InformacionDelModelo informacionDelModelo=RegistroDeModelos.getInstance().getInformacion(nombreModelo);
 			try {
-				ParteAuto parte = proveedor.obtenerParte(informacionDelModelo);
-				parte.restaurar(elemento);
+				ParteAuto parte = fabrica.fabricar(informacionDelModelo);
+				parte.restaurar(elementoParte);
 				colocarParte(parte,ubicacion);
 			} catch (NoSuchModelException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (IncorrectPartForUbicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (UbicationUnkownException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-
-		
 		}
 		ensamblar();
 	}
 	
 	public Element getElement(){
-		Element auto=new Element("auto");
+		Element auto=new Element("Auto");
 		//partes
 		for(Ubicacion ubicacion: Ubicacion.values()){
 			Element ubicacionParte = new Element(ubicacion.toString());

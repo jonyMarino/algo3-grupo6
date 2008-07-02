@@ -1,6 +1,12 @@
 package auto;
 
+import java.util.Hashtable;
+
+import nu.xom.Element;
+
 import programaAuto.Auto;
+import programaAuto.AutoFactory;
+import programaAuto.CadenaDeFabricas;
 import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
@@ -9,8 +15,11 @@ import proveedorDePartes.fabricas.Escape;
 import proveedorDePartes.fabricas.Freno;
 import proveedorDePartes.fabricas.MezcladorNafta;
 import proveedorDePartes.fabricas.Motor;
+import proveedorDePartes.fabricas.ParteAuto;
 import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.TanqueNafta;
+import excepciones.IncorrectPartForUbicationException;
+import excepciones.UbicationUnkownException;
 import excepciones.WrongPartClassException;
 
 /**
@@ -29,6 +38,13 @@ import excepciones.WrongPartClassException;
  */
 public class AutoManual extends Auto {
 
+	public static class Factory implements AutoFactory{
+
+		public Auto crear(CadenaDeFabricas fabrica,Element elemento) throws IncorrectPartForUbicationException, UbicationUnkownException {		
+			return new AutoManual(fabrica,elemento);
+		}
+		
+	}
 	/**
 	 * Crea un nuevo autoManual con las partes especificadas.
 	 *
@@ -50,6 +66,13 @@ public class AutoManual extends Auto {
 		          Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4, Eje eje, Freno freno) throws WrongPartClassException {
 
 		super(escape,carroceria,motor,cajaManual,mezclador,tanque,rueda1,rueda2,rueda3,rueda4, eje, freno);
+	}
+	
+	public AutoManual(CadenaDeFabricas fabrica,Element elemento) throws IncorrectPartForUbicationException, UbicationUnkownException{
+		super(fabrica,elemento);
+		if( !(this.getHashDePartes().get(Ubicacion.CAJA) instanceof CajaManual) )
+			throw new IncorrectPartForUbicationException(Ubicacion.CAJA.toString());
+		
 	}
 
 	/**

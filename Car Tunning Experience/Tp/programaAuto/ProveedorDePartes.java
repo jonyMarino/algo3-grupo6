@@ -6,7 +6,6 @@ import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 
-import proveedorDePartes.fabricas.CadenaDeFabricas;
 import proveedorDePartes.fabricas.FabricaDeCajas;
 import proveedorDePartes.fabricas.FabricaDeCarrocerias;
 import proveedorDePartes.fabricas.FabricaDeEjes;
@@ -100,19 +99,9 @@ public class ProveedorDePartes {
 				throw new NotEnoughMoneyException("No tiene suficiente dinero como para comprar la parte");
 		}
 
-		unaParte = obtenerParte(modelo);
+		unaParte = miCadenaDeFabricas.fabricar(modelo);
 		usuario.gastarDinero(dineroNecesario);
 		return unaParte;
-	}
-	
-    /**
-     * Hace fabricar una parte.
-     *
-     * @modelo El modelo a fabricar.
-     * @return La parte fabricada
-     */
-	ParteAuto obtenerParte(InformacionDelModelo modelo) throws NoSuchModelException{
-		return miCadenaDeFabricas.fabricar(modelo);
 	}
 
     /**
