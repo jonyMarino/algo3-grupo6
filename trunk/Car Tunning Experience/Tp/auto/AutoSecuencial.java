@@ -1,16 +1,27 @@
 package auto;
 
+import java.util.Hashtable;
+
+import nu.xom.Element;
+
 import programaAuto.Auto;
+import programaAuto.AutoFactory;
+import programaAuto.CadenaDeFabricas;
+import programaAuto.Auto.Ubicacion;
 import proveedorDePartes.fabricas.Caja;
 import proveedorDePartes.fabricas.CajaAutomatica;
+import proveedorDePartes.fabricas.CajaManual;
 import proveedorDePartes.fabricas.Carroceria;
 import proveedorDePartes.fabricas.Eje;
 import proveedorDePartes.fabricas.Escape;
 import proveedorDePartes.fabricas.Freno;
 import proveedorDePartes.fabricas.MezcladorNafta;
 import proveedorDePartes.fabricas.Motor;
+import proveedorDePartes.fabricas.ParteAuto;
 import proveedorDePartes.fabricas.Rueda;
 import proveedorDePartes.fabricas.TanqueNafta;
+import excepciones.IncorrectPartForUbicationException;
+import excepciones.UbicationUnkownException;
 import excepciones.WrongPartClassException;
 
 /**
@@ -28,7 +39,12 @@ import excepciones.WrongPartClassException;
  *   @see MezcladorNafta
  */
 public class AutoSecuencial extends Auto {
-
+	public static class Factory implements AutoFactory{
+		@Override
+		public Auto crear(CadenaDeFabricas fabrica,Element elemento) throws IncorrectPartForUbicationException, UbicationUnkownException {		
+			return new AutoSecuencial(fabrica,elemento);
+		}
+	}
 	/**
 	 * Crea un nuevo autoSecuencial con las partes especificadas.
 	 *
@@ -50,6 +66,12 @@ public class AutoSecuencial extends Auto {
 	                      Rueda rueda1, Rueda rueda2,Rueda rueda3,Rueda rueda4, Eje eje, Freno freno) throws WrongPartClassException {
 
 		super(escape,carroceria,motor,cajaAutomatica,mezclador,tanque,rueda1,rueda2,rueda3,rueda4, eje, freno);
+	}
+
+	public AutoSecuencial(CadenaDeFabricas fabrica,Element elemento) throws IncorrectPartForUbicationException, UbicationUnkownException {
+		super(fabrica,elemento);
+		if( !(this.getHashDePartes().get(Ubicacion.CAJA) instanceof CajaAutomatica) )
+			throw new IncorrectPartForUbicationException(Ubicacion.CAJA.toString());
 	}
 
 	/**

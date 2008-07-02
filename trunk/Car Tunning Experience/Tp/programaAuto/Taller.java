@@ -5,6 +5,8 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import nu.xom.Element;
+
 import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.ParteAuto;
 import excepciones.IncorrectPartForUbicationException;
@@ -50,6 +52,10 @@ public class Taller {
 	public Taller(Usuario usuario){
 		this.usuario = usuario;
 		partesDeReserva = new ArrayList<ParteAuto>();
+	}
+
+	public Taller(Usuario usuario2, CadenaDeFabricas fabrica, Element usuario3) {
+		// TODO Auto-generated constructor stub
 	}
 
 	void colocarParteDeReserva(InformacionParteReserva informacionReserva, InformacionParteEnAuto informacionParte)throws IncorrectPartForUbicationException{

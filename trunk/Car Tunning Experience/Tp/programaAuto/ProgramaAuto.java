@@ -45,6 +45,7 @@ import excepciones.NotAbleWhileSimulatingException;
 import excepciones.NotContainedPistaException;
 import excepciones.NotEnoughMoneyException;
 import excepciones.NotInTallerException;
+import excepciones.NotRegisteredCarException;
 import excepciones.NotSimulatingException;
 import excepciones.PartBrokenException;
 import excepciones.PistaPickedException;
@@ -76,7 +77,11 @@ public class ProgramaAuto extends Observable {
         ProveedorDePartes unProveedor=new ProveedorDePartes();
         private double ultimoPremio = 0;
         ProveedorDeCombustibles unProveedorCombustible=new ProveedorDeCombustibles();
-        
+        AutosFactory autosFactory= new AutosFactory();
+        {
+        	autosFactory.add(AutoManual.class,new AutoManual.Factory());
+        	autosFactory.add(AutoSecuencial.class, new AutoSecuencial.Factory());
+        }    
     /**
      *
      * Subclase de {@link ProgramaAuto}, que se encarga de crear y correr la simulacion
@@ -299,14 +304,15 @@ public class ProgramaAuto extends Observable {
          */
     //TODO: ???????????? ProgramaAuto a partir de un Element?
         public ProgramaAuto (Element programa) {
-        	usuario= new Usuario(unProveedor,programa.getChildElements("programa").get(0));
+        	Element programaElement = programa.getFirstChildElement("programa");
+        	usuario= new Usuario(unProveedor.getMiCadenaDeFabricas(),autosFactory,programaElement);
         }
         /**
          * Esta llamada guarda el estado actual del programa con su {@link Usuario}.
          */
         public Element getElement(){
             	Element raiz= new Element("programa");
-            	raiz.appendChild(usuario.getElement());
+            	raiz.appendChild(usuario.getElement(autosFactory));
             	return raiz;
             	//Document doc= new Document(raiz);
 				//format(new BufferedOutputStream(new FileOutputStream(usuario.getNombre()+".xml")),

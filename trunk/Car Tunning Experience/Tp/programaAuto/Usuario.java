@@ -38,15 +38,15 @@ public class Usuario {
 	 * Constructor para restaurar un objeto Usuario
 	 * @param usuario
 	 */
-	public Usuario(ProveedorDePartes proveedor,Element element){
+	public Usuario(CadenaDeFabricas fabrica,AutosFactory fabricaAutos,Element element){
 		Element usuario = element.getFirstChildElement("usuario");
 		nombre=usuario.getFirstChildElement("nombre").getValue();
 		dinero = Double.parseDouble(usuario.getFirstChildElement("dinero").getValue());
-		auto = new Auto(proveedor,usuario);	
-		this.taller = new Taller(this,proveedor,usuario.getFirstChildElement("taller"));	
+		auto = fabricaAutos.crear(fabrica, usuario);
+		this.taller = new Taller(this,fabrica,usuario);	
 	}
 	
-	public Element getElement(){
+	public Element getElement(AutosFactory fabricaAutos){
 		Element usuario=new Element("usuario");
 		Element unNombre=new Element("nombre");
 		unNombre.appendChild(nombre);
@@ -54,7 +54,7 @@ public class Usuario {
 		unDinero.appendChild(dinero+"");
 		usuario.appendChild(unNombre);
 		usuario.appendChild(unDinero);
-		usuario.appendChild(auto.getElement());
+		usuario.appendChild(fabricaAutos.getElement(auto));
 		usuario.appendChild(taller.getElement());
 		return usuario;
 	}
