@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 import excepciones.BoundsException;
 import excepciones.IncorrectPartForUbicationException;
@@ -15,6 +16,8 @@ import excepciones.UbicationUnkownException;
 import programaAuto.ProgramaAuto;
 import programaAuto.Auto.Ubicacion;
 import programaAuto.Taller.InformacionParteEnAuto;
+import proveedorDeCombustibles.InformacionCombustible;
+import proveedorDeCombustibles.Nafta;
 import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.ParteAuto;
 import vista.PantallaTaller;
@@ -110,34 +113,37 @@ public class ControladorTaller implements ActionListener {
     }
 
 	private void llenarTanque(double cantidad) {
-		try {
-			if(cantidad != 0){
-				programaAuto.getUsuario().getAuto().cargarCombustible(cantidad);
-				if(!(cantidad < 0))
-					programaAuto.getUnProveedorDeNafta().comprar(cantidad,programaAuto.getUsuario());
-				pantallaTaller.generarMensaje("La carga ha sido realizada satisfactoriamente");
-			}
-		} catch (TankIsFullException e1) {
-	    	pantallaTaller.generarMensajeError("Se supera la capacidad del tanque");	
-		} catch (BoundsException e1) {
-	    	pantallaTaller.generarMensajeError("No puede cargar una cantidad negativa");		
-		} catch (NumberFormatException e1) {
-		} catch (NotEnoughMoneyException e1) {
-			pantallaTaller.generarMensajeError("No posee el dinero necesario");
+			ArrayList<InformacionCombustible> modelosCombustibles = programaAuto.getUnProveedorDeNafta().getTiposDisponibles();
+			double dineroNecesario = 0;
+			
 			try {
-				programaAuto.getUsuario().getAuto().getTanqueCombustible().llenarTanque(cantidad);
-			} catch (TankIsFullException e) {
+				dineroNecesario = Double.parseDouble(modelosCombustibles.get(0).getCaracteristica("COSTO"))*cantidad;
+			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (BoundsException e) {
 				e.printStackTrace();
-			} catch (PartBrokenException e) {
-				e.printStackTrace();
 			}
-		} catch (PartBrokenException e) {
-			pantallaTaller.generarMensajeError("Su Tanque se rompió debe cambiarlo");			
-		} finally {
-			actualizadorTaller.actualizarPantallaTaller();
-		}	
+			
+			 if(cantidad != 0  && dineroNecesario < programaAuto.getUsuario().getDinero()) {
+				try {
+					programaAuto.getUsuario().getAuto().cargarCombustible(cantidad);
+					@SuppressWarnings("unused")
+					Nafta nafta = (Nafta) programaAuto.getUnProveedorDeNafta().comprar(modelosCombustibles.get(0), cantidad, programaAuto.getUsuario());
+					pantallaTaller.generarMensaje("La compra ha sido realizada satisfactoriamente");
+				} catch (TankIsFullException e) {
+					pantallaTaller.generarMensajeError("La cantidad supera el limite del tanque");
+				} catch (BoundsException e) {
+					pantallaTaller.generarMensajeError("La cantidad no puede ser negativa");
+				} catch (PartBrokenException e) {
+					pantallaTaller.generarMensajeError("El tanque esta roto, debe cambiarlo");
+				} catch (NoSuchModelException e) {
+					e.printStackTrace();
+				} catch (NotEnoughMoneyException e) {
+					pantallaTaller.generarMensajeError("El Usuario no posee el dinero necesario");
+				}
+			 } else 
+					pantallaTaller.generarMensajeError("El Usuario no posee el dinero necesario");
+				actualizadorTaller.actualizarPantallaTaller();
 	}
 
 	public ProgramaAuto getProgramaAuto() {

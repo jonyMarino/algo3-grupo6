@@ -3,6 +3,8 @@ package proveedorDeCombustibles;
 import java.util.ArrayList;
 import programaAuto.Usuario;
 import proveedorDeCombustibles.FabricaDeNafta;
+import proveedorDePartes.fabricas.InformacionDelModelo;
+import proveedorDePartes.fabricas.ParteAuto;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
@@ -18,7 +20,7 @@ import excepciones.NotEnoughMoneyException;
 
 public class ProveedorDeCombustibles {
 	
-	private ArrayList<FabricaDeCombustible> fabricasDisponibles;
+	private CadenaDeFabricasCombustibles fabricasDisponibles;
 	
     /**
      *
@@ -27,8 +29,8 @@ public class ProveedorDeCombustibles {
      * @see Combustible
      */
 	public ProveedorDeCombustibles(){
-		fabricasDisponibles = new ArrayList<FabricaDeCombustible>();
-		agregarFabrica(new FabricaDeNafta());	
+		fabricasDisponibles = new CadenaDeFabricasCombustibles();
+		fabricasDisponibles.agregarFabrica(new FabricaDeNafta());	
 	}
 	
 	/** 
@@ -47,8 +49,10 @@ public class ProveedorDeCombustibles {
 
     //TODO: ???????? COMPRA SIEMPRE NAFTA ??????????????????????
 	
-	public double comprar(double cantidad,Usuario usuario) throws NotEnoughMoneyException, BoundsException{
-		InformacionCombustible modelo =getFabricasDisponibles().get(0).getTipos().get(0);
+	public Combustible comprar(InformacionCombustible modelo,double cantidad,Usuario usuario) throws  NoSuchModelException,NotEnoughMoneyException, BoundsException{
+		
+		Combustible unCombustible = null;
+		
 		double dineroNecesario = 0;
 		try {
 			dineroNecesario = Double.parseDouble(modelo.getCaracteristica("COSTO"))*cantidad;
@@ -61,29 +65,26 @@ public class ProveedorDeCombustibles {
 		if (usuario.getDinero() < dineroNecesario)
 			throw new NotEnoughMoneyException("No tiene suficiente dinero como para comprar la parte");
 		
+		unCombustible =obtenerCombustible(modelo);
 		usuario.gastarDinero(dineroNecesario);
 		
-		return cantidad;
+		return unCombustible;
 	}
 
     //TODO: ?????????????????????????????????	
-	public Combustible obtenerNafta() throws NoSuchModelException{
-		InformacionCombustible modelo =getFabricasDisponibles().get(0).getTipos().get(0);
-		return fabricasDisponibles.get(0).fabricar(modelo);
+	public Combustible obtenerCombustible(InformacionCombustible modelo) throws NoSuchModelException{
+		//InformacionCombustible modelo =getFabricasDisponibles().get(0).getTipos().get(0);
+		return fabricasDisponibles.fabricar(modelo);
 	}
 	
 	/** Retorna las fabricas de combustible disponibles **/
-	public ArrayList<FabricaDeCombustible> getFabricasDisponibles(){
+	public CadenaDeFabricasCombustibles getFabricasDisponibles(){
 		return fabricasDisponibles;
 	}
-
-    /**
-     * Agrega una nueva fábrica.
-     *
-     */
 	
-	public void agregarFabrica(FabricaDeNafta unaFabrica) {
-		fabricasDisponibles.add(unaFabrica);	
+	public ArrayList<InformacionCombustible> getTiposDisponibles(){
+		return fabricasDisponibles.getModelos();
 	}
+
 
 }

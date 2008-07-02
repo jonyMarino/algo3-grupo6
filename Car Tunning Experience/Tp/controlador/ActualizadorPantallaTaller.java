@@ -87,12 +87,10 @@ public class ActualizadorPantallaTaller {
 		Double capacidad = programaAuto.getUsuario().getAuto().getTanqueCombustible().getCapacidad();
 		String precio = "";
 		try {
-			precio = programaAuto.getUnProveedorDeNafta().obtenerNafta().getInformacionCombustible().getCaracteristica("COSTO");
+			precio = programaAuto.getUnProveedorDeNafta().getFabricasDisponibles().getModelos().get(0).getCaracteristica("COSTO");
 		} catch (BoundsException e) {
 			e.printStackTrace();
-		} catch (NoSuchModelException e) {
-			e.printStackTrace();
-		}
+		} 
 		pantallaTaller.actualizarInformacionNafta(cantidad, capacidad, precio);
 	}
 	
