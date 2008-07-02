@@ -13,7 +13,6 @@ import programaAuto.Pista;
 * @see ParteAuto
 *
 */
-
 public class Rueda extends ParteAuto{
 
 	private int rodado;
@@ -116,7 +115,7 @@ public class Rueda extends ParteAuto{
 	public void desgastar(double tiempo) {
 		try{
 			if(getVidaUtil()!=0){
-				double deltaVidaUtil = (getRPM()/50000000) * (tiempo*1000);
+				double deltaVidaUtil = (getRPM()/50) * tiempo;
 				setVidaUtil(getVidaUtil()-Math.abs(deltaVidaUtil));
 			}
 		}catch(BoundsException e){
