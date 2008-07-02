@@ -16,7 +16,7 @@ public class FabricaDeRuedas extends FabricaDePartes {
  
 	public FabricaDeRuedas(){
 		super();
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+		InformacionDelModelo nuevaInfo = new InformacionDelModelo("Pirelli 3000");
 		nuevaInfo.agregarCaracteristica("COSTO", "500");
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", "Rueda básica.");
 		nuevaInfo.agregarCaracteristica("COEFICIENTEESTATICO", "0.9");

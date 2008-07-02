@@ -13,13 +13,14 @@ import excepciones.NoSuchModelException;
  */
 
 public class FabricaDeEscapes extends FabricaDePartes {
+	static int modeloNumero;
 	public FabricaDeEscapes(){
 		super();
-		agregarModelo(nuevoModeloEscape(50, "Escape básico.", 80, 5.0)); //agrega un escape básico al catálogo
+		agregarModelo(nuevoModeloEscape("Turbo DH100",50, "Escape básico.", 80, 5.0)); //agrega un escape básico al catálogo
 	}
 	
-	private InformacionDelModelo nuevoModeloEscape(Integer costo, String descripcion, Integer rendimiento, Double peso){
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+	private InformacionDelModelo nuevoModeloEscape(String modelo,Integer costo, String descripcion, Integer rendimiento, Double peso){
+		InformacionDelModelo nuevaInfo = new InformacionDelModelo(modelo);
 		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
  		nuevaInfo.agregarCaracteristica("EFICIENCIA", rendimiento.toString());
@@ -59,7 +60,8 @@ public class FabricaDeEscapes extends FabricaDePartes {
 		if(peso < 0.5)
 			throw new BoundsException("El peso no puede ser menor a 0.5 kilos");
 		int costo = (int) (rendimiento/peso)*4;
-		agregarModelo(nuevoModeloEscape(costo, descripcion, rendimiento, peso));
+		String modelo = "Escape "+modeloNumero++;
+		agregarModelo(nuevoModeloEscape(modelo,costo, descripcion, rendimiento, peso));
 	}
 
 }

@@ -15,7 +15,7 @@ import excepciones.BoundsException;
  */
 
 public class InformacionDelModelo {
- 
+	private String modelo;
 	private Hashtable<String,String> informacionDeEstaParte;
 
     /**
@@ -60,7 +60,7 @@ public class InformacionDelModelo {
 		else throw new BoundsException("El modelo no posee la característica "+ nombre + ".");
 	}
 	 
-	InformacionDelModelo(ArrayList<String> listaDeCaracteristicasDisponibles) {
+	InformacionDelModelo(String modelo,ArrayList<String> listaDeCaracteristicasDisponibles) {
 		Iterator<String> iteradorDeCaracteristicas = listaDeCaracteristicasDisponibles.iterator();
 		informacionDeEstaParte = new Hashtable<String, String>();
 		while(iteradorDeCaracteristicas.hasNext()){
@@ -68,8 +68,9 @@ public class InformacionDelModelo {
 		}
 	}
 	
-	InformacionDelModelo(){
+	InformacionDelModelo(String modelo){
 		informacionDeEstaParte = new Hashtable<String, String>();
+		setModelo(modelo);
 	}
 
 	public String toString() {
@@ -78,6 +79,14 @@ public class InformacionDelModelo {
 		} catch (BoundsException e) {
 			return super.toString();
 		}
+	}
+
+	public String getModelo() {
+		return modelo;
+	}
+
+	private void setModelo(String modelo) {
+		this.modelo = modelo;
 	}
 
 }

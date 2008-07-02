@@ -13,13 +13,14 @@ import excepciones.NoSuchModelException;
  */
 
 public class FabricaDeMotores extends FabricaDePartes {
+	static int modeloNumero=1;
 	public FabricaDeMotores(){
 		super();
-		agregarModelo(nuevoModeloMotor(600, "Motor básico.", 80, 200.0, 5800.0, 2.0)); //agrega un motor básico al catálogo
+		agregarModelo(nuevoModeloMotor("General motors 2000",600, "Motor básico.", 80, 200.0, 5800.0, 2.0)); //agrega un motor básico al catálogo
 	}
 	
-	private InformacionDelModelo nuevoModeloMotor(Integer costo, String descripcion, Integer rendimiento, Double peso, Double rpmmax, Double cilindrada){
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+	private InformacionDelModelo nuevoModeloMotor(String modelo,Integer costo, String descripcion, Integer rendimiento, Double peso, Double rpmmax, Double cilindrada){
+		InformacionDelModelo nuevaInfo = new InformacionDelModelo(modelo);
 		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
  		nuevaInfo.agregarCaracteristica("RENDIMIENTO", rendimiento.toString());
@@ -63,7 +64,8 @@ public class FabricaDeMotores extends FabricaDePartes {
 		if(peso < 80)
 			throw new BoundsException("El peso no puede ser menor a 80 kilos");
 		int costo = (int) (rendimiento*rpmmax*cilindrada/peso)*2;
-		agregarModelo(nuevoModeloMotor(costo, descripcion, rendimiento, peso, rpmmax, cilindrada));
+		String modelo = "Motor "+modeloNumero++;
+		agregarModelo(nuevoModeloMotor(modelo,costo, descripcion, rendimiento, peso, rpmmax, cilindrada));
 	}
 	 
 	

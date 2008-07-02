@@ -15,12 +15,12 @@ public class FabricaDeCajas extends FabricaDePartes {
  
 	public FabricaDeCajas(){
 		super();
-		agregarModelo(nuevoModeloMotor(200, "Caja Manual básica.", 100.0, "MANUAL"));
-		agregarModelo(nuevoModeloMotor(200, "Caja Automática básica.", 80.0, "AUTOMATICA"));
+		agregarModelo(nuevoModeloMotor("Ford NT10",200, "Caja Manual básica.", 100.0, "MANUAL"));
+		agregarModelo(nuevoModeloMotor("Nisan 123",200, "Caja Automática básica.", 80.0, "AUTOMATICA"));
 	}
 	
-	private InformacionDelModelo nuevoModeloMotor(Integer costo, String descripcion, Double peso, String clase){
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+	private InformacionDelModelo nuevoModeloMotor(String modelo,Integer costo, String descripcion, Double peso, String clase){
+		InformacionDelModelo nuevaInfo = new InformacionDelModelo(modelo);
 		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
 		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
