@@ -45,11 +45,8 @@ public class Rueda extends ParteAuto{
 			}
 		}
 
-	public double getRadioEnMetros() throws WheelPunctureException {
-		if(getVidaUtil() > 0)
+	public double getRadioEnMetros(){
 			return radioEnMetros;
-		else
-			throw new WheelPunctureException("La Rueda se pincho");
 	}
 	
 	public void setPista(Pista pista) {
@@ -71,11 +68,8 @@ public class Rueda extends ParteAuto{
 		return metrosPorSegundo*60;
 	}
 	
-	public double getRPM() throws WheelPunctureException {
-		if(getVidaUtil() > 0)
+	public double getRPM(){
 			return convertirAMetrosPorMinuto(auto.getVelocidad())/(radioEnMetros * 2 * Math.PI);
-		else
-			throw new WheelPunctureException("La Rueda se pincho");
 	}
 
 	void setCoeficienteEstatico(double coeficienteEstatico) throws BoundsException {
@@ -122,12 +116,6 @@ public class Rueda extends ParteAuto{
 			try{
 				setVidaUtil(0);
 			}catch(BoundsException f){}
-		} catch (WheelPunctureException e) {
-			try {
-				setVidaUtil(0);
-			} catch (BoundsException e1) {
-				e1.printStackTrace();
-			}
 		}
 
 	}
