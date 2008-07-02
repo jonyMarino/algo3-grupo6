@@ -5,11 +5,16 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import nu.xom.Elements;
+
 import nu.xom.Element;
 
+import programaAuto.Auto.Ubicacion;
 import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.ParteAuto;
+import proveedorDePartes.fabricas.RegistroDeModelos;
 import excepciones.IncorrectPartForUbicationException;
+import excepciones.NoSuchModelException;
 import excepciones.UbicationUnkownException;
 
 public class Taller {
@@ -46,16 +51,30 @@ public class Taller {
 		}
 	}
 	
-	ArrayList<ParteAuto> partesDeReserva;
+	ArrayList<ParteAuto> partesDeReserva=new ArrayList<ParteAuto>();;
 	Usuario usuario;
 	
 	public Taller(Usuario usuario){
 		this.usuario = usuario;
-		partesDeReserva = new ArrayList<ParteAuto>();
 	}
 
-	public Taller(Usuario usuario2, CadenaDeFabricas fabrica, Element usuario3) {
-		// TODO Auto-generated constructor stub
+	public Taller(Usuario usuario, CadenaDeFabricas fabrica, Element elemento) {
+		this.usuario = usuario;
+		Element taller=elemento.getFirstChildElement("Taller");
+		Elements partes = taller.getChildElements();
+		for(int i=0;i<partes.size();i++){
+			Element parteElement= partes.get(i);
+			String nombreModelo = parteElement.getFirstChildElement("modelo").getValue();
+			InformacionDelModelo informacionDelModelo=RegistroDeModelos.getInstance().getInformacion(nombreModelo);
+			try {
+				ParteAuto parteAuto = fabrica.fabricar(informacionDelModelo);
+				parteAuto.restaurar(parteElement);
+				aniadirAReserva(parteAuto);
+			} catch (NoSuchModelException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	void colocarParteDeReserva(InformacionParteReserva informacionReserva, InformacionParteEnAuto informacionParte)throws IncorrectPartForUbicationException{
@@ -122,6 +141,22 @@ public class Taller {
 	//TODO: comentar	
 	public Iterator<ParteAuto> getPartesReserva(){
 		return partesDeReserva.iterator();
+	}
+
+	public Element getElement() {
+		Element auto=new Element("Taller");
+		//partes
+		for(ParteAuto parteAuto:partesDeReserva){
+			Element parteElemento = new Element("Parte de reserva");
+			Element modelo = new Element("modelo");
+			String nombre = parteAuto.getInformacionDelModelo().getModelo();
+			modelo.appendChild(nombre);
+			Element parte = parteAuto.getElement();
+			parteElemento.appendChild(modelo);
+			parteElemento.appendChild(parte);
+			auto.appendChild(parteElemento);
+		}
+		return auto;
 	}
 	
 }

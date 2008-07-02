@@ -7,6 +7,7 @@ package programaAuto;
 import nu.xom.Element;
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
+import excepciones.NotRegisteredCarException;
 import excepciones.WrongUserNameException;
 
 /**
@@ -54,7 +55,12 @@ public class Usuario {
 		unDinero.appendChild(dinero+"");
 		usuario.appendChild(unNombre);
 		usuario.appendChild(unDinero);
-		usuario.appendChild(fabricaAutos.getElement(auto));
+		try {
+			usuario.appendChild(fabricaAutos.getElement(auto));
+		} catch (NotRegisteredCarException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		usuario.appendChild(taller.getElement());
 		return usuario;
 	}
