@@ -1,11 +1,19 @@
 package proveedorDePartes.fabricas;
 
 import proveedorDeCombustibles.Combustible;
+import proveedorDeCombustibles.Nafta;
 import excepciones.BoundsException;
 import excepciones.PartBrokenException;
 import excepciones.TankIsFullException;
 
-
+/**
+ * 
+ * El Tanque de Combustible sirve para almacenar combustibles varios.
+ *
+ * @see TanqueCombustible
+ * @see Nafta
+ * 
+ */
 public abstract class TanqueCombustible extends ParteAuto {
 
 	private int         capacidad;

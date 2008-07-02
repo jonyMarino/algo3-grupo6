@@ -2,13 +2,13 @@ package proveedorDePartes.fabricas;
 
 import proveedorDeCombustibles.Nafta;
 
-
-
 /**
+ * 
  * El Tanque de Nafta sirve para almacenar {@link Nafta}.
  *
  * @see TanqueCombustible
  * @see Nafta
+ * 
  */
 public class TanqueNafta extends TanqueCombustible {
 
