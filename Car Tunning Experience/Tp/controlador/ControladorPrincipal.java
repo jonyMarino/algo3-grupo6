@@ -17,6 +17,7 @@ import excepciones.NoSuchModelException;
 import excepciones.NotAbleWhileSimulatingException;
 import excepciones.NotContainedPistaException;
 import excepciones.NotInTallerException;
+import excepciones.PartBrokenException;
 import excepciones.PistaPickedException;
 import excepciones.TankIsFullException;
 import excepciones.WrongUserNameException;
@@ -55,6 +56,8 @@ public class ControladorPrincipal implements KeyListener{
 			try {
 				tanque.llenarTanque(99999);
 			} catch (TankIsFullException e) {
+				e.printStackTrace();
+			} catch (PartBrokenException e) {
 				e.printStackTrace();
 			}
 		} catch (NoSuchModelException e) {
