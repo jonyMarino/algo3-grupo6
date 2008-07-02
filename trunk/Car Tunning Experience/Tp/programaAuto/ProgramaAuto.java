@@ -19,6 +19,7 @@ import java.util.Observable;
 import java.util.Random;
 import programaAuto.Taller.InformacionParteEnAuto;
 import programaAuto.Taller.InformacionParteReserva;
+import proveedorDeCombustibles.InformacionCombustible;
 import proveedorDeCombustibles.Nafta;
 import proveedorDeCombustibles.ProveedorDeCombustibles;
 import proveedorDePartes.fabricas.Caja;
@@ -73,7 +74,7 @@ public class ProgramaAuto extends Observable {
         private LinkedList<Pista> pistas=generarPistas();
         private static final double  PASO_SIMULACION = 0.05;
         ProveedorDePartes unProveedor=new ProveedorDePartes();
-        ProveedorDeCombustibles unProveedorNafta=new ProveedorDeCombustibles();
+        ProveedorDeCombustibles unProveedorCombustible=new ProveedorDeCombustibles();
         
     /**
      *
@@ -346,12 +347,20 @@ public class ProgramaAuto extends Observable {
                 Auto auto=null;
           
                 ArrayList<InformacionDelModelo> modelos = unProveedor.getModelosDisponibles();
+                ArrayList<InformacionCombustible> modelosCombustibles = unProveedorCombustible.getTiposDisponibles();
                 
-                try{
-                	    Nafta nafta = (Nafta)unProveedorNafta.obtenerNafta();
+                try{ Nafta nafta = null;
+                		
+                	     try {
+							nafta = (Nafta)unProveedorCombustible.comprar(modelosCombustibles.get(0),70, usuariotemporal);
+						} catch (BoundsException e2) {
+							// TODO Auto-generated catch block
+							e2.printStackTrace();
+						}
+                	
                         TanqueNafta tanque = (TanqueNafta) unProveedor.comprar(modelos.get(9), usuariotemporal);
                         tanque.setCombustible(nafta);
-        
+      
                         try {
                         		tanque.llenarTanque(70);
 						} catch (TankIsFullException e) {
