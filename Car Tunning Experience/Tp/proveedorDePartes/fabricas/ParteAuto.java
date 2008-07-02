@@ -77,6 +77,18 @@ public abstract class ParteAuto {
 	void setInformacionDelModelo(InformacionDelModelo informacionDelModelo) {
 		this.informacionDelModelo = informacionDelModelo;
 	}
-	public abstract void restaurar(Element elemento);  
+	public void restaurar(Element elemento){
+		Element parte=elemento.getFirstChildElement("parte");
+		vidaUtil=Double.parseDouble(parte.getFirstChildElement("vida util").getValue());
+	} 
+	
+	public Element getElement(){
+		Element parte=new Element("parte");
+		Element vida=new Element("vida util");
+		vida.appendChild(vidaUtil+"");
+		parte.appendChild(vida);
+		return parte;
+		
+	}
 
 }

@@ -48,6 +48,6 @@ public class Escape extends ParteAuto{
 			}catch(BoundsException f){}
 		}
 	}
-
+	
 }
 

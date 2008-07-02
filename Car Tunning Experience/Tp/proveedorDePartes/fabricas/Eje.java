@@ -80,7 +80,7 @@ public class Eje extends ParteAuto {
 	public void setRuedaTrasera(Rueda ruedaTrasera) {
 		this.ruedaTrasera = ruedaTrasera;
 	}
-
+	
 }
 
 

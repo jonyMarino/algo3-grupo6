@@ -1,5 +1,6 @@
 package proveedorDePartes.fabricas;
 
+import nu.xom.Element;
 import excepciones.BoundsException;
 
 
@@ -100,5 +101,4 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 			}catch(BoundsException f){}
 		}
 	}
-
 }

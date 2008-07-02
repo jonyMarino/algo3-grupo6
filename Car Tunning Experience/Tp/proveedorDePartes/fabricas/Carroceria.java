@@ -1,6 +1,8 @@
 package proveedorDePartes.fabricas;
 import java.awt.Color;
 
+import nu.xom.Element;
+
 import programaAuto.Auto;
 
 import excepciones.BoundsException;
