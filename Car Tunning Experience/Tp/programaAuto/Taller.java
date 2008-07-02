@@ -64,16 +64,8 @@ public class Taller {
 		Elements partes = taller.getChildElements();
 		for(int i=0;i<partes.size();i++){
 			Element parteElement= partes.get(i);
-			String nombreModelo = parteElement.getFirstChildElement("modelo").getValue();
-			InformacionDelModelo informacionDelModelo=RegistroDeModelos.getInstance().getInformacion(nombreModelo);
-			try {
-				ParteAuto parteAuto = fabrica.fabricar(informacionDelModelo);
-				parteAuto.restaurar(parteElement);
-				aniadirAReserva(parteAuto);
-			} catch (NoSuchModelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ParteAuto parteAuto= ParteAuto.recobrar(fabrica,parteElement);
+			aniadirAReserva(parteAuto);
 		}
 	}
 
@@ -144,19 +136,12 @@ public class Taller {
 	}
 
 	public Element getElement() {
-		Element auto=new Element("Taller");
+		Element taller=new Element("Taller");
 		//partes
-		for(ParteAuto parteAuto:partesDeReserva){
-			Element parteElemento = new Element("Parte de reserva");
-			Element modelo = new Element("modelo");
-			String nombre = parteAuto.getInformacionDelModelo().getModelo();
-			modelo.appendChild(nombre);
-			Element parte = parteAuto.getElement();
-			parteElemento.appendChild(modelo);
-			parteElemento.appendChild(parte);
-			auto.appendChild(parteElemento);
+		for(ParteAuto parteAuto:partesDeReserva){	
+			taller.appendChild(parteAuto.getElementParte());
 		}
-		return auto;
+		return taller;
 	}
 	
 }
