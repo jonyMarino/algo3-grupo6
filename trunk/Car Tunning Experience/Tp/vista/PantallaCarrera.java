@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -32,7 +33,9 @@ public class PantallaCarrera extends JPanel{
     VistaGrafica unaVista;
     VistaGrafica informacion;
     VistaGrafica velocimetro;
+    double proporcionVelocimetro = 1.0f/6.0f;
     VistaGrafica lineal;
+    double proporcionLineal = 1.0f/13.5f;
     ProgramaAuto elPrograma;
 	ArrayList<Point2D> listaDeArboles;
 	public static int pixelesPorMetro;
@@ -59,8 +62,8 @@ public class PantallaCarrera extends JPanel{
 		((VistaDeCostado)unaVista).setArboles(listaDeArboles);
 		((VistaDeCostado)unaVista).setCompetidores(elControlador.getListaDeCompetidores());
 		informacion = new VistaCarreraInformativa(width, height/4, controladorJuego.getProgramaAuto());
-		velocimetro = new VistaVelocimetro(150, 150, controladorJuego.getProgramaAuto());
-		lineal = new VistaLineal(width, 50, controladorJuego.getProgramaAuto());
+		velocimetro = new VistaVelocimetro((int)(proporcionVelocimetro*width), (int)(proporcionVelocimetro*width), controladorJuego.getProgramaAuto());
+		lineal = new VistaLineal(width, (int) (proporcionLineal*height), controladorJuego.getProgramaAuto());
 		((VistaLineal)lineal).setCompetidores(elControlador.getListaDeCompetidores());
 		setFocusable(true);
 		setVisible(true);
@@ -89,11 +92,15 @@ public class PantallaCarrera extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		 Graphics2D g2 =(Graphics2D) g;
+		 BufferedImage temporal = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		 Graphics2D grTemporal = temporal.createGraphics();
 	        if(g2!=null){
-	        	g2.drawImage(unaVista.getVista(), 0, 0, getWidth(), getHeight(), null);
-	        	g2.drawImage(informacion.getVista(), 0, 0, informacion.getWidth(), informacion.getHeight(), null);
-	        	g2.drawImage(velocimetro.getVista(), getWidth()*3/4, 0, velocimetro.getWidth(), velocimetro.getHeight(), null);
-	        	g2.drawImage(lineal.getVista(), 0, 150, lineal.getWidth(), lineal.getHeight(), null);
+	        	grTemporal.drawImage(unaVista.getVista(), 0, 0, getWidth(), getHeight(), null);
+	        	grTemporal.drawImage(informacion.getVista(), 0, 0, informacion.getWidth(), informacion.getHeight(), null);
+	        	grTemporal.drawImage(velocimetro.getVista(), getWidth()*3/4, 0, (int)(proporcionVelocimetro*getWidth()), (int)(proporcionVelocimetro*getWidth()), null);
+	        	grTemporal.drawImage(lineal.getVista(), 0, 150, getWidth(), (int) (proporcionLineal*getHeight()), null);
+	        	grTemporal.dispose();
+	        	g2.drawImage(temporal, 0, 0, null);	    
 	        }
 	}
 	/**
