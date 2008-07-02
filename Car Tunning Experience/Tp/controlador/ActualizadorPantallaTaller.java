@@ -103,15 +103,10 @@ public class ActualizadorPantallaTaller {
 		InformacionParteEnAuto informacionParte = null; 
 		while(itPartesAuto.hasNext()){
 			informacionParte = itPartesAuto.next();
-    		try{
-                nombreParte = informacionParte.getInformacionModelo().getCaracteristica("DESCRIPCION");
-                
+                nombreParte = informacionParte.getInformacionModelo().getModelo();           
                 vidaUtil = Double.toString(informacionParte.getVidaUtil());
                 ubicacion = informacionParte.getUbicacion().toString();
                 pantallaTaller.agregarInformacionAuto(nombreParte, vidaUtil, ubicacion);
-      	   	}catch (BoundsException e){
-        	    e.printStackTrace();
-      	   	}
          }
 	}
 	
