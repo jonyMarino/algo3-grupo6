@@ -6,6 +6,7 @@ import java.util.Iterator;
 import proveedorDePartes.fabricas.FabricaDePartes;
 import proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedorDePartes.fabricas.ParteAuto;
+import proveedorDePartes.fabricas.RegistroDeModelos;
 import excepciones.NoSuchModelException;
 
 /**
@@ -60,6 +61,10 @@ public class CadenaDeFabricas{
 		if (fabricado)
 			return unaParte;
 		else throw new  NoSuchModelException("Ninguna de las fábricas sabe como fabricar ese modelo.");
+	}
+	
+	public ParteAuto fabricar(String modelo) throws NoSuchModelException {
+		return fabricar(RegistroDeModelos.getInstance().getInformacion(modelo));
 	}
 
     /**
