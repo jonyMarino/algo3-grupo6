@@ -17,7 +17,7 @@ public class FabricaDeEjes extends FabricaDePartes {
  
 	public FabricaDeEjes() {
 		super();
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+		InformacionDelModelo nuevaInfo = new InformacionDelModelo("Renault SD100");
 		nuevaInfo.agregarCaracteristica("COSTO", "90");
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", "Eje básico.");
 		nuevaInfo.agregarCaracteristica("PESO", "40");

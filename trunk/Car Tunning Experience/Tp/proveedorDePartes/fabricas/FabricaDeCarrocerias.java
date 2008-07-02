@@ -13,14 +13,15 @@ import excepciones.NoSuchModelException;
  */
 
 public class FabricaDeCarrocerias extends FabricaDePartes {
- 
+	static int modeloNumero=0;
 	public FabricaDeCarrocerias() {
 		super();
-		agregarModelo(nuevoModeloCarroceria(100, "Carrocería básica.", 50.0, 10, 5.0)); //agrega una carroceria básica al catálogo
+		agregarModelo(nuevoModeloCarroceria("Coupe 256",100, "Carrocería básica.", 50.0, 10, 5.0)); //agrega una carroceria básica al catálogo
+	
 	}
 	
-	private InformacionDelModelo nuevoModeloCarroceria(Integer costo, String descripcion, Double peso, Integer aerodinamia, Double volumen){
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+	private InformacionDelModelo nuevoModeloCarroceria(String modelo,Integer costo, String descripcion, Double peso, Integer aerodinamia, Double volumen){
+		InformacionDelModelo nuevaInfo = new InformacionDelModelo(modelo);
 		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
  		nuevaInfo.agregarCaracteristica("AERODINAMIA", aerodinamia.toString());
@@ -60,7 +61,8 @@ public class FabricaDeCarrocerias extends FabricaDePartes {
 		if(peso < 10)
 			throw new BoundsException("El peso no puede ser menor a 10 kilos");
 		int costo = (int) (aerodinamia/(peso*volumen))*5000;
-		agregarModelo(nuevoModeloCarroceria(costo, descripcion,peso,  aerodinamia, volumen));
+		String modelo ="Carroceria"+ modeloNumero++; 
+		agregarModelo(nuevoModeloCarroceria(modelo,costo, descripcion,peso,  aerodinamia, volumen));
 	}
 	 
 }

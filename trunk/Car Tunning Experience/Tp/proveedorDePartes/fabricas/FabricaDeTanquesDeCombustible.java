@@ -15,16 +15,15 @@ import excepciones.NoSuchModelException;
  */
 
 public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
- 
+	static int modeloNumero=0;
 	public FabricaDeTanquesDeCombustible(){
 		super();
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
-		agregarModelo(nuevoModeloTanque(100, "Tanque de Nafta básico.",70, 10.0, "NAFTA")); //agrega un motor básico al catálogo
+		agregarModelo(nuevoModeloTanque("Tanque 70.10",100, "Tanque de Nafta básico.",70, 10.0, "NAFTA")); //agrega un motor básico al catálogo
 	}
 	
 	
-	private InformacionDelModelo nuevoModeloTanque(Integer costo, String descripcion, Integer capacidad, Double peso, String clase){
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+	private InformacionDelModelo nuevoModeloTanque(String modelo,Integer costo, String descripcion, Integer capacidad, Double peso, String clase){
+		InformacionDelModelo nuevaInfo = new InformacionDelModelo(modelo);
 		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
 		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
@@ -71,7 +70,8 @@ public class FabricaDeTanquesDeCombustible extends FabricaDePartes {
 		if(peso < 5)
 			throw new BoundsException("El peso no puede ser menor a 5 kilos");
 		int costo = (int) (capacidad/peso)*60;
-		agregarModelo(nuevoModeloTanque(costo, descripcion, capacidad, peso, clase));
+		String modelo="Tanque "+modeloNumero++;
+		agregarModelo(nuevoModeloTanque(modelo,costo, descripcion, capacidad, peso, clase));
 	}
 	 
 }

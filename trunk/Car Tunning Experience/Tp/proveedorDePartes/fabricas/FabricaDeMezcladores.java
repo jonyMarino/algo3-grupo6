@@ -13,14 +13,15 @@ import excepciones.NoSuchModelException;
  */
 
 public class FabricaDeMezcladores extends FabricaDePartes {
+	static int modeloNumero;
 	public FabricaDeMezcladores(){
 		super();
-		agregarModelo(nuevoModeloMezclador(200, "Mezclador básico.", 80, 30.0, "NAFTA"));
+		agregarModelo(nuevoModeloMezclador("Mixer CD101",200, "Mezclador básico.", 80, 30.0, "NAFTA"));
 		//agrega un motor básico al catálogo
 	}
 	
-	private InformacionDelModelo nuevoModeloMezclador(Integer costo, String descripcion, Integer rendimiento, Double peso, String clase){
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+	private InformacionDelModelo nuevoModeloMezclador(String modelo,Integer costo, String descripcion, Integer rendimiento, Double peso, String clase){
+		InformacionDelModelo nuevaInfo = new InformacionDelModelo(modelo);
 		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
  		nuevaInfo.agregarCaracteristica("RENDIMIENTO", rendimiento.toString());
@@ -66,7 +67,8 @@ public class FabricaDeMezcladores extends FabricaDePartes {
 		if(peso < 2)
 			throw new BoundsException("El peso no puede ser menor a 2 kilos");
 		int costo = (int) (rendimiento/peso)*500;
-		agregarModelo(nuevoModeloMezclador(costo, descripcion, rendimiento, peso, clase));
+		String modelo = "Mezclador "+modeloNumero++;
+		agregarModelo(nuevoModeloMezclador(modelo,costo, descripcion, rendimiento, peso, clase));
 	}
 }
  

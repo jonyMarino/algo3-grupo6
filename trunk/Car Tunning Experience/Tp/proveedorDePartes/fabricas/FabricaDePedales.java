@@ -18,11 +18,11 @@ public class FabricaDePedales extends FabricaDePartes {
 
 	public FabricaDePedales(){
 		super();
-		agregarModelo(nuevoModeloMezclador(10, "Freno.", 1.0, "FRENO"));
+		agregarModelo(nuevoModeloMezclador("Freno TD101",10, "Freno.", 1.0, "FRENO"));
 	}
 	
-	private InformacionDelModelo nuevoModeloMezclador(Integer costo, String descripcion, Double peso, String clase){
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo();
+	private InformacionDelModelo nuevoModeloMezclador(String modelo,Integer costo, String descripcion, Double peso, String clase){
+		InformacionDelModelo nuevaInfo = new InformacionDelModelo(modelo);
 		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
 		nuevaInfo.agregarCaracteristica("PESO", peso.toString());
@@ -44,22 +44,12 @@ public class FabricaDePedales extends FabricaDePartes {
 			int costo = Integer.parseInt(modelo.getCaracteristica("COSTO"));
 			double peso = Double.parseDouble(modelo.getCaracteristica("PESO"));
 			Pedal unPedal;
-			try{
-				modelo.getCaracteristica("ACELERADOR");
-				unPedal = new Acelerador(null);
-				unPedal.setDescripcion(descripcion);
-				unPedal.setCosto(costo);
-				unPedal.setPeso(peso);
-				unPedal.setInformacionDelModelo(modelo);
-				return unPedal;
-			}catch(BoundsException e){
-				unPedal= new Freno(100);
-				unPedal.setDescripcion(descripcion);
-				unPedal.setCosto(costo);
-				unPedal.setPeso(peso);
-				unPedal.setInformacionDelModelo(modelo);
-				return unPedal;
-			}
+			unPedal= new Freno(100);
+			unPedal.setDescripcion(descripcion);
+			unPedal.setCosto(costo);
+			unPedal.setPeso(peso);
+			unPedal.setInformacionDelModelo(modelo);
+			return unPedal;
 		}
 		catch(BoundsException e){
 			throw unaExcepcion;
