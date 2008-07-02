@@ -45,12 +45,16 @@ public class ActualizadorPantallaTaller {
 	}
 
 	public void actualizarPantallaTaller(){
-		pantallaTaller.actualizarInformacionDinero(Double.toString(programaAuto.getUsuario().getDinero()));
+		pantallaTaller.actualizarInformacionDinero(Double.toString(programaAuto.getUsuario().getDinero()));	
 		this.actualizarInformacionPista();
 		this.actualizarInformacionReserva();
 		this.actualizarInformacionNafta();
 		this.actualizarInformacionAuto();
+	}
+	
+	public void actualizarResultado(){
 		this.informarPremio(programaAuto.getUltimoPremio());
+			
 	}
 	
 	private void actualizarInformacionPista() {
@@ -62,6 +66,7 @@ public class ActualizadorPantallaTaller {
 
 	private void actualizarInformacionReserva() {	
 		pantallaTaller.limpiarInformacionReserva();
+	
 		String descripcion,vidaUtil;
 		boolean cargo = false;
 		Iterator<ParteAuto> iteradorReserva = programaAuto.getUsuario().getTaller().getPartesReserva(); 
