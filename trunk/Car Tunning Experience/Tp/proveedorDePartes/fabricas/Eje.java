@@ -35,11 +35,7 @@ public class Eje extends ParteAuto {
 		for(Torqueador iteradorTorques:torques)
 			torque += iteradorTorques.getTorque();
 		double fuerza;
-		try {
-			fuerza = torque/ruedaTrasera.getRadioEnMetros();
-		} catch (WheelPunctureException e) {
-			fuerza = 0;
-		}
+		fuerza = torque/ruedaTrasera.getRadioEnMetros();
 		//TODO: revisar cuidadosamente el código. Sobre todo el caso en que fuerza< rozamiento estático y el uto está detenido
 		return fuerza;
 	}
@@ -66,11 +62,7 @@ public class Eje extends ParteAuto {
 	}
 	
 	public double getRpm() {
-		try {
-			return ruedaTrasera.getRPM();
-		} catch (WheelPunctureException e) {
-			return 0;
-		}
+		return ruedaTrasera.getRPM();
 	}
 
 	public Rueda getRuedaTrasera() {
