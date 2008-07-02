@@ -7,7 +7,14 @@
     <property name="doc" location="doc/" />
     <property name="junit.out" value="${dest}/pruebas/resultados"/>
     <property name="junit.reporte" value="${dest}/pruebas/reporte"/>
-    <target name="ayuda" >
+	<property name="include" value="${src}/include/"/>
+	<property name="TALK" value="true" />
+    <path id="build.class.path">
+        <fileset dir="${include}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+	<target name="ayuda" >
     	<echo> Debe escribir "ant" y especificar una accion: </echo>
     	<echo>		compilar:   compila el proyecto en ${dest}.</echo>
     	<echo>		probar:     corre las prubas unitarias.</echo>
@@ -17,24 +24,32 @@
     	<echo>		limpiar:    borra el directorio ${dest} y ${doc}, y sus contenidos.</echo>
     	<echo>		ayuda:      muestra esta pantalla.</echo>
     	<echo></echo>
-    	<echo>Nota: para construir y/o correr las prubas, es necesario que el directorio que contiene junit.jar se encuentre en el classpath</echo>
     </target>
     <target name="inicializar">
         <mkdir dir="${dest}"/>
-    </target>
+    	<mkdir dir="${dest}/vista/images"/>
+    	 <copy todir="${dest}/vista/images">
+    	        <fileset dir="${src}/vista/images"/>
+    	 </copy>  
+     </target>
     <target name="limpiar">
         <delete dir="${dest}"/>
         <delete dir="${doc}"/>
     </target>
     <target depends="inicializar" name="compilar">
-        <javac destdir="${dest}" srcdir="${src}"/>
+        <javac destdir="${dest}" srcdir="${src}">
+        	<classpath refid="build.class.path" />
+    	</javac>
     </target>
     <target depends="compilar" name="probar">
         <mkdir dir="${junit.out}"/>
         <junit fork="yes" printsummary="withOutAndErr">
         	<classpath>
 				<pathelement location="${dest}"/>
-    			<pathelement path="${java.class.path}"/>
+        			<pathelement location="${src}/include" />
+	        	  	<pathelement location="${src}/include/junit.jar" />	  	
+	        	  	<pathelement location="${src}/include/xom-1.1.jar" />
+        			<pathelement path="${java.class.path}"/>
   			</classpath>
             <formatter type="xml"/>
             <batchtest fork="yes" todir="${junit.out}">

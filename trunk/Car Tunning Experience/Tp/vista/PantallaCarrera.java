@@ -74,7 +74,7 @@ public class PantallaCarrera extends JPanel{
 	}
 	
 	private void generarArboles() {
-		int cantidadArboles = (int) (elPrograma.getPista().getLongitud()/105);
+		int cantidadArboles = (int) (elPrograma.getPista().getLongitud()/10);
 		int distanciaEntreArboles = (int) (10*pixelesPorMetro);
 		
 		listaDeArboles = new ArrayList<Point2D>();
