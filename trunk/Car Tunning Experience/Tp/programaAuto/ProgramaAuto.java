@@ -303,7 +303,7 @@ public class ProgramaAuto extends Observable {
          * @param programa
          */
         public ProgramaAuto (Element programa) {
-        	Element programaElement = programa.getFirstChildElement("usuario");
+        	Element programaElement = programa.getFirstChildElement("programa");
         	usuario= new Usuario(unProveedor.getMiCadenaDeFabricas(),autosFactory,programaElement);
         }
         /**
