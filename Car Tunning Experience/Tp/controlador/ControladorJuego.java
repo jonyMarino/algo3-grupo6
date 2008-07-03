@@ -54,7 +54,11 @@ public class ControladorJuego implements ActionListener {
 		}
 		if (comando.equals("volveraltaller")){
 			volverAlTaller();
-		}			
+		}
+		//TODO: ACA VA QUE PASA!!!!!! 
+/*
+		if (comando.equals("guardar"))
+	*/		
 	}
 	
 	private void cargarPantallaUsuario(PantallaUsuario pantallaUsuario) {

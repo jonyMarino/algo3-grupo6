@@ -54,7 +54,13 @@ public class PantallaTaller extends JPanelConImagen {
            Boton botonComenzar = new Boton("Comenzar Carrera");
            botonComenzar.addActionListener(controladorJuego);
            botonComenzar.setActionCommand("comenzar");
-           this.add(botonComenzar, c);            
+           this.add(botonComenzar, c);
+           Boton botonGuardar = new Boton("Guardar Partida");
+           botonGuardar.addActionListener(controladorJuego);
+           botonGuardar.setActionCommand("guardar");
+           //TODO: quedo oculto
+           this.add(botonGuardar, c);
+           
        }
        
        /* PANEL AUTO */         
