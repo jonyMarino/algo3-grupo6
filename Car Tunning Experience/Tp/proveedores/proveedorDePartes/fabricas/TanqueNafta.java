@@ -61,7 +61,7 @@ public class TanqueNafta extends TanqueCombustible {
 	
 	protected Element restaurar(Element elemento){
 		Element tanque=super.restaurar(elemento);
-		setCombustible(new Nafta(tanque));
+		super.setCombustible(new Nafta(tanque));
 		return tanque;
 	}	
 
