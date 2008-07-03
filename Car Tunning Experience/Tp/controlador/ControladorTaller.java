@@ -22,13 +22,25 @@ import proveedores.proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedores.proveedorDePartes.fabricas.ParteAuto;
 import vista.PantallaTaller;
 
-
+/**
+ * 
+ * Clase que se encarga de controlar todos los aspectos de la interaccion
+ * del usuario con el taller.
+ * Administra los eventos de teclado durante la misma.
+ * 
+ */
 public class ControladorTaller implements ActionListener {
 	
 	private PantallaTaller pantallaTaller;
 	private ProgramaAuto programaAuto;
 	private ActualizadorPantallaTaller actualizadorTaller;
 	
+
+	/**
+	 * Crea un nuevo controladorTaller para el programa auto especificado
+	 * @param programaAuto La instancia de ProgramaAuto.
+	 * @see ProgramaAuto
+	 */
 	public ControladorTaller(ProgramaAuto programaAuto) {
 		this.programaAuto = programaAuto;
 		this.actualizadorTaller = new ActualizadorPantallaTaller(programaAuto, null);

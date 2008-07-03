@@ -14,11 +14,24 @@ import proveedores.proveedorDePartes.fabricas.InformacionDelModelo;
 import proveedores.proveedorDePartes.fabricas.ParteAuto;
 import vista.PantallaTaller;
 
+/**
+*
+* Clase que se encargá de la actualizacion gráfica de la vista Taller.
+* Administra las vistas del Taller durante la misma.
+* 
+*/
 public class ActualizadorPantallaTaller {
 	
 	private PantallaTaller pantallaTaller;
 	private ProgramaAuto programaAuto;
 	
+	/**
+	 * Crea un nuevo actualizadorTaller para el programa auto especificado.
+	 * @param programaAuto La instancia de ProgramaAuto.
+	 * @param pantallaTaller El panel en el que se realizarán las actualizaciones.
+	 * @see PantallaTaller
+	 * @see ProgramaAuto 
+	 */
 	public ActualizadorPantallaTaller(ProgramaAuto programaAuto, PantallaTaller pantallaTaller){
 		this.pantallaTaller = pantallaTaller;
 		this.programaAuto = programaAuto;
