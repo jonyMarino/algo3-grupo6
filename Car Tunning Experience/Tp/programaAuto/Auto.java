@@ -744,7 +744,7 @@ public abstract class Auto extends Observable{
 	 *
 	 * @see Acelerador
 	 */
-	public void presionarAcelerador(double intensidad)throws BoundsException  {
+	public void acelerar(double intensidad)throws BoundsException  {
 		getMotor().acelerar(intensidad);
 	}
 
@@ -756,7 +756,7 @@ public abstract class Auto extends Observable{
 	 *
 	 * @see Freno
 	 */
-	public void presionarFreno(double intensidad) throws PartBrokenException {
+	public void frenar(double intensidad) throws PartBrokenException {
 		this.getFreno().presionar(intensidad);
 	}
 

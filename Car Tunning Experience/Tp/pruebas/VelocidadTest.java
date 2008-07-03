@@ -33,7 +33,7 @@ public class VelocidadTest extends TestCase {
 			AutoManual auto=(AutoManual)programa.autoInicial(TipoAuto.MANUAL); 
 			auto.setPista(pista);
 			auto.setCambio(i+1);
-			auto.presionarAcelerador(1);
+			auto.acelerar(1);
 			auto.simular(0.5);		
 			autos.add(auto);
 		}
