@@ -1,10 +1,10 @@
 package pruebas;
 
 import excepciones.NoSuchModelException;
-import proveedorDePartes.fabricas.Escape;
-import proveedorDePartes.fabricas.FabricaDeEscapes;
-import proveedorDePartes.fabricas.FabricaDeMotores;
-import proveedorDePartes.fabricas.Motor;
+import proveedores.proveedorDePartes.fabricas.Escape;
+import proveedores.proveedorDePartes.fabricas.FabricaDeEscapes;
+import proveedores.proveedorDePartes.fabricas.FabricaDeMotores;
+import proveedores.proveedorDePartes.fabricas.Motor;
 
 import junit.framework.TestCase;
 

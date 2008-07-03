@@ -9,9 +9,9 @@ import javax.swing.ImageIcon;
 import excepciones.BoundsException;
 import programaAuto.ProgramaAuto;
 import programaAuto.Taller.InformacionParteEnAuto;
-import proveedorDePartes.fabricas.FabricaDePartes;
-import proveedorDePartes.fabricas.InformacionDelModelo;
-import proveedorDePartes.fabricas.ParteAuto;
+import proveedores.proveedorDePartes.fabricas.FabricaDePartes;
+import proveedores.proveedorDePartes.fabricas.InformacionDelModelo;
+import proveedores.proveedorDePartes.fabricas.ParteAuto;
 import vista.PantallaTaller;
 
 public class ActualizadorPantallaTaller {

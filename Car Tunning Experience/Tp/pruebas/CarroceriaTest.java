@@ -7,8 +7,8 @@ import programaAuto.Auto;
 import programaAuto.Pista;
 import programaAuto.ProgramaAuto;
 import programaAuto.ProgramaAuto.TipoAuto;
-import proveedorDePartes.fabricas.Carroceria;
-import proveedorDePartes.fabricas.FabricaDeCarrocerias;
+import proveedores.proveedorDePartes.fabricas.Carroceria;
+import proveedores.proveedorDePartes.fabricas.FabricaDeCarrocerias;
 
 public class CarroceriaTest extends TestCase {
 

@@ -1,11 +1,11 @@
 package pruebas;
 
-import proveedorDeCombustibles.FabricaDeNafta;
-import proveedorDeCombustibles.Nafta;
-import proveedorDePartes.fabricas.FabricaDeMezcladores;
-import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
-import proveedorDePartes.fabricas.Mezclador;
-import proveedorDePartes.fabricas.TanqueNafta;
+import proveedores.proveedorDeCombustibles.FabricaDeNafta;
+import proveedores.proveedorDeCombustibles.Nafta;
+import proveedores.proveedorDePartes.fabricas.FabricaDeMezcladores;
+import proveedores.proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
+import proveedores.proveedorDePartes.fabricas.Mezclador;
+import proveedores.proveedorDePartes.fabricas.TanqueNafta;
 import junit.framework.TestCase;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;

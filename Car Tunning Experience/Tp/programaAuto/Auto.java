@@ -13,18 +13,18 @@ import excepciones.NoSuchModelException;
 import excepciones.PartBrokenException;
 import excepciones.TankIsFullException;
 import excepciones.UbicationUnkownException;
-import proveedorDePartes.fabricas.Caja;
-import proveedorDePartes.fabricas.Carroceria;
-import proveedorDePartes.fabricas.Eje;
-import proveedorDePartes.fabricas.Escape;
-import proveedorDePartes.fabricas.Freno;
-import proveedorDePartes.fabricas.InformacionDelModelo;
-import proveedorDePartes.fabricas.Mezclador;
-import proveedorDePartes.fabricas.Motor;
-import proveedorDePartes.fabricas.ParteAuto;
-import proveedorDePartes.fabricas.RegistroDeModelos;
-import proveedorDePartes.fabricas.Rueda;
-import proveedorDePartes.fabricas.TanqueCombustible;
+import proveedores.proveedorDePartes.fabricas.Caja;
+import proveedores.proveedorDePartes.fabricas.Carroceria;
+import proveedores.proveedorDePartes.fabricas.Eje;
+import proveedores.proveedorDePartes.fabricas.Escape;
+import proveedores.proveedorDePartes.fabricas.Freno;
+import proveedores.proveedorDePartes.fabricas.InformacionDelModelo;
+import proveedores.proveedorDePartes.fabricas.Mezclador;
+import proveedores.proveedorDePartes.fabricas.Motor;
+import proveedores.proveedorDePartes.fabricas.ParteAuto;
+import proveedores.proveedorDePartes.fabricas.RegistroDeModelos;
+import proveedores.proveedorDePartes.fabricas.Rueda;
+import proveedores.proveedorDePartes.fabricas.TanqueCombustible;
 
 /**
  * Auto es una clase que intenta encapsular el comportamiento y las características de un auto.
