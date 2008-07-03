@@ -3,8 +3,6 @@ package proveedorDePartes.fabricas;
 import java.util.LinkedList;
 import java.lang.RuntimeException;
 import excepciones.BoundsException;
-import excepciones.WheelPunctureException;
-
 
 class NoTorqueadorException extends RuntimeException{
 	static final long serialVersionUID=1;

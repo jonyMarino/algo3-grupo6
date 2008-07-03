@@ -265,13 +265,12 @@ public class PantallaTaller extends JPanelConImagen {
     	  
     	   comboParteARemover=new JComboBox();
 	       comboParteARemover.addItem("-Parte a Cambiar-");
-    	   ubicacion.anchor= GridBagConstraints.SOUTH;
+	       ubicacion.anchor= GridBagConstraints.SOUTH;
     	   panelBodega.add(comboParteARemover,ubicacion);
     	   
     	   Boton botonCambiar = new Boton("Cambiar");
     	   botonCambiar.addActionListener(controladorTaller);
            botonCambiar.setActionCommand("cambiar");
-		   
     	   panelBodega.add(botonCambiar,posicionBoton());
                
     	   return panelBodega;
