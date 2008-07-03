@@ -135,8 +135,12 @@ public class Taller {
 	public Element getElement() {
 		Element taller=new Element("Taller");
 		//partes
+		int i=0;
 		for(ParteAuto parteAuto:partesDeReserva){	
-			taller.appendChild(parteAuto.getElementParte());
+			i++;
+			Element parte=new Element("parte"+i);
+			parte.appendChild(parteAuto.getElementParte());
+			taller.appendChild(parte);
 		}
 		return taller;
 	}
