@@ -54,11 +54,7 @@ public abstract class FabricaDePartes {
 		try {
 			return Integer.parseInt(modelo.getCaracteristica("COSTO"));
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (BoundsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		throw new NoSuchModelException("El modelo no existe");
 	}
