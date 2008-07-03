@@ -28,7 +28,7 @@ public abstract class Combustible {
 	public Combustible(Element elemento) {
 		// TODO Auto-generated constructor stub
 		Element combustible = elemento.getFirstChildElement("Combustible");
-		costo = Integer.parseInt(combustible.getFirstChildElement("Costo").getValue());
+		costo = Double.parseDouble(combustible.getFirstChildElement("Costo").getValue());
 	}
 
 	/**

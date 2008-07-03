@@ -24,8 +24,8 @@ public class Nafta extends Combustible {
 	}
 
 	public Nafta(Element elemento) {
-		super(elemento.getFirstChildElement("nafta"));
-		Element nafta = elemento.getFirstChildElement("nafta");
+		super(elemento.getFirstChildElement("Nafta"));
+		Element nafta = elemento.getFirstChildElement("Nafta");
 		octanaje = Integer.parseInt(nafta.getFirstChildElement("Octanaje").getValue());
 		pesoEspecifico = Double.parseDouble(nafta.getFirstChildElement("Peso_Especifico").getValue());
 	}
