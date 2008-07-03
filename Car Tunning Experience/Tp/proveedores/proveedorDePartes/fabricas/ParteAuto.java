@@ -114,7 +114,6 @@ public abstract class ParteAuto {
 			parteAuto.restaurar(parte);
 			return parteAuto;
 		} catch (NoSuchModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

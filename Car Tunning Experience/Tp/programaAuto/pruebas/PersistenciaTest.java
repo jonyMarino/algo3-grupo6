@@ -30,7 +30,6 @@ public class PersistenciaTest extends TestCase {
 		try {
 			prog=new ProgramaAuto("jon",ProgramaAuto.TipoAuto.AUTOMATICO);
 		} catch (WrongUserNameException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

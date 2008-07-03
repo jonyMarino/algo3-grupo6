@@ -1,9 +1,6 @@
 package programaAuto;
 
-/*
- * El usuario pertenece al modelo, no puede tener referencias a Swing,
- * TODO: usuario visual
- */
+
 import nu.xom.Element;
 import excepciones.BoundsException;
 import excepciones.NotEnoughMoneyException;
@@ -58,7 +55,6 @@ public class Usuario {
 		try {
 			usuario.appendChild(fabricaAutos.getElement(auto));
 		} catch (NotRegisteredCarException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		usuario.appendChild(taller.getElement());

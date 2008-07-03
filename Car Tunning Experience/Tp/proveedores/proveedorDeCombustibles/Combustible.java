@@ -26,7 +26,6 @@ public abstract class Combustible {
 	}
 
 	public Combustible(Element elemento) {
-		// TODO Auto-generated constructor stub
 		Element combustible = elemento.getFirstChildElement("Combustible");
 		costo = Double.parseDouble(combustible.getFirstChildElement("Costo").getValue());
 		String nombreInfo=combustible.getFirstChildElement("Informacion").getValue();

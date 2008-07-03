@@ -39,10 +39,8 @@ public class AutosFactory {
 			Auto auto = autos.get(tipo).crear(fabrica,factory);
 			return auto;
 		} catch (IncorrectPartForUbicationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UbicationUnkownException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

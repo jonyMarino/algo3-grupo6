@@ -45,8 +45,6 @@ public class ProveedorDeCombustibles {
 	 * @exception BoundsException
 	 */
 
-    //TODO: ???????? COMPRA SIEMPRE NAFTA ??????????????????????
-	
 	public Combustible comprar(InformacionCombustible modelo,double cantidad,Usuario usuario) throws  NoSuchModelException,NotEnoughMoneyException, BoundsException{
 		
 		Combustible unCombustible = null;

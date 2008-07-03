@@ -104,7 +104,6 @@ public class Rueda extends ParteAuto{
 		return getCoeficienteDinamico()*auto.getPeso();
 	}
 
-	//TODO: hayy q modificar la cuenta, ahora no se desgasta practicamente nada
 	public void desgastar(double tiempo) {
 		try{
 			if(getVidaUtil()!=0){

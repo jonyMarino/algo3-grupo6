@@ -51,7 +51,6 @@ public class VistaGraficador extends Frame implements Observer{
 		colorFondo = Color.black;
 		colorMensajes = Color.green;
 		colorLineas = Color.white;
-		//TODO: limpiar código
     }
     
     public void nuevoPunto(double delta_x, double y){
