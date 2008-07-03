@@ -17,33 +17,29 @@ import excepciones.ModelRegisteredException;
  */
 
 public class InformacionDelModelo extends InformacionDeProducto{
-	private String modelo;
-
-
-	 
+ 
 
 	InformacionDelModelo(String modelo,ArrayList<String> listaDeCaracteristicasDisponibles) {
-		super(listaDeCaracteristicasDisponibles);
-		setModelo(modelo);		
+		super(modelo,listaDeCaracteristicasDisponibles);
 
-		RegistroDeModelos.getInstance().registrarModelo(this);
+
+		RegistroDeModelos.getInstance().registrar(this);
 	}
 	
 	InformacionDelModelo(String modelo){
-		setModelo(modelo);		
-		RegistroDeModelos.getInstance().registrarModelo(this);	
+		super(modelo);
+
+		RegistroDeModelos.getInstance().registrar(this);	
 	}
 	
+
+
 	public String toString() {
-		return modelo + super.toString();
+		return getModelo() + super.toString();
 	}
 
 	public String getModelo() {
-		return modelo;
-	}
-
-	private void setModelo(String modelo) {
-		this.modelo = modelo;
+		return getNombre();
 	}
 	
 	void agregarCaracteristica(String nombreDeLaCaracteristica, String valorDeLaCaracteristica) {
