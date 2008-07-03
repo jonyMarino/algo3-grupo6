@@ -88,6 +88,7 @@ public class PersistenciaTest extends TestCase {
 		assertEquals(tanqueRecobrado.getPeso(),tanque.getPeso());
 		assertEquals(tanqueRecobrado.getCapacidad(),tanque.getCapacidad());
 		assertEquals(tanqueRecobrado.getDescripcion(),tanque.getDescripcion());
+		assertEquals(tanqueRecobrado.getCombustible().getInformacionCombustible(),tanqueRecobrado.getCombustible().getInformacionCombustible());
 		assertEquals(tanqueRecobrado.getCantidadCombustible(),tanque.getCantidadCombustible());	
 	}
 	
