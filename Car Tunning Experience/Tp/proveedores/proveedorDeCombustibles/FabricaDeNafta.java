@@ -1,6 +1,7 @@
 package proveedores.proveedorDeCombustibles;
 
 import excepciones.BoundsException;
+import excepciones.ModelRegisteredException;
 import excepciones.NoSuchModelException;
 
 /**
@@ -25,7 +26,13 @@ public class FabricaDeNafta extends FabricaDeCombustible{
 
 	
 	private InformacionCombustible nuevoTipoNafta(String nombre,int octanaje,Double costo){
-		InformacionCombustible nuevaInfo = new InformacionCombustible(nombre);
+		InformacionCombustible nuevaInfo=null;
+		try{
+			nuevaInfo = new InformacionCombustible(nombre);
+		}
+		catch(ModelRegisteredException e){
+			return RegistroDeCombustibles.getInstance().getInformacion(nombre);
+		}
 		nuevaInfo.agregarCaracteristica("OCTANAJE",Integer.toString(octanaje));
 		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		
