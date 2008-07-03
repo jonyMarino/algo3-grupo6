@@ -57,8 +57,13 @@ public class PantallaTaller extends JPanelConImagen {
            this.add(botonComenzar, c);
            Boton botonGuardar = new Boton("Guardar Partida");
            botonGuardar.addActionListener(controladorJuego);
+           
            botonGuardar.setActionCommand("guardar");
-           //TODO: quedo oculto
+           c.gridx=2;
+           c.gridy=2;
+           Insets in2=new Insets(200,20,0,0);
+           c.insets=in2;
+           c.anchor = GridBagConstraints.NORTH;
            this.add(botonGuardar, c);
            
        }
