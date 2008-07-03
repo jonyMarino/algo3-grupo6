@@ -3,17 +3,13 @@ package controlador;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import programaAuto.Auto;
 import programaAuto.ProgramaAuto;
 import programaAuto.Usuario;
 import programaAuto.ProgramaAuto.SimuladorCarrera;
 import proveedores.proveedorDePartes.fabricas.Caja;
-import proveedores.proveedorDePartes.fabricas.CajaManual;
 import vista.PantallaCarrera;
 import excepciones.BoundsException;
 import excepciones.NoPistaPickedException;
@@ -25,7 +21,6 @@ import excepciones.NotSimulatingException;
  * Clase que se encarga de controlar todos los aspectos de la interaccion
  * del usuario con la carrera.
  * Administra las vistas de la Carrera y los eventos de teclado durante la misma.
- *
  *
  */
 
@@ -58,10 +53,8 @@ public class ControladorCarrera implements KeyListener{
 
 			simulacion = programaAuto.entrarALaCarrera();
 		} catch (NoPistaPickedException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (NotInTallerException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
