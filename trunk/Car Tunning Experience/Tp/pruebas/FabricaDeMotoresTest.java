@@ -33,7 +33,12 @@ public class FabricaDeMotoresTest extends TestCase {
 	}
 
 	public void testConsultarPrecio() {
-		fail("Falta implementar");
+		FabricaDeMotores fabrica = new FabricaDeMotores();
+		try {
+			assertEquals(600, (int)(fabrica.consultarPrecio(fabrica.getModelos().get(0))));
+		} catch (NoSuchModelException e) {
+			fail("Se supone que el modelo existe");
+		} 
 
 	}
 
