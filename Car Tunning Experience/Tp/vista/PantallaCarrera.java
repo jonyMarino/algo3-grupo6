@@ -116,6 +116,7 @@ public class PantallaCarrera extends JPanel{
 	 * @see PantallaTaller
 	 */
 	public void finalizarCarrera() {
+		removeKeyListener(elControlador);
 		elJuego.actionPerformed(new ActionEvent(this,0, "volveraltaller"));
 		
 	}

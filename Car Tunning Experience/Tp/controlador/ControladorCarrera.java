@@ -189,8 +189,19 @@ public class ControladorCarrera implements KeyListener{
 			System.out.println("JOIN");
 			//this.join();				
 			System.out.println("FINALIZAR");
-			laPantalla.finalizarCarrera();
+			finalizarCarrera();
 		
+		}
+
+		private void finalizarCarrera() {
+			unAuto.getCaja().setCambio(0);
+			try {
+				unAuto.presionarAcelerador(0);
+			} catch (BoundsException e1) {
+				//e1.printStackTrace();
+			}
+			laPantalla.finalizarCarrera();
+			
 		}
 		
 	}
