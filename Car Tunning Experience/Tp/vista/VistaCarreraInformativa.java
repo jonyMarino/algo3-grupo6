@@ -6,8 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Observable;
-
 import programaAuto.Auto;
 import programaAuto.ProgramaAuto;
 
@@ -19,7 +17,7 @@ import programaAuto.ProgramaAuto;
  */
 
 public class VistaCarreraInformativa  implements VistaGrafica {
-	private ArrayList listaDeTexto;
+	private ArrayList<String> listaDeTexto;
 	private Auto unAuto;
 	private BufferedImage bufferPrincipal;
 	private ProgramaAuto elPrograma;
@@ -49,7 +47,7 @@ public class VistaCarreraInformativa  implements VistaGrafica {
 		superficie.clearRect(0, 0, getWidth(), getHeight());
 		superficie.setColor(Color.black); //colorMensajes);
 		superficie.setFont(new Font("Arial",Font.BOLD,12));
-		Iterator iteradorTexto = listaDeTexto.iterator();
+		Iterator<String> iteradorTexto = listaDeTexto.iterator();
 		int indice=0;
 		while(iteradorTexto.hasNext()){
 			superficie.drawString((String)iteradorTexto.next(), 5, 9+21*indice);
@@ -73,20 +71,18 @@ public class VistaCarreraInformativa  implements VistaGrafica {
 
 
 	public int getHeight() {
-		// TODO Auto-generated method stub
 		return bufferPrincipal.getHeight();
 	}
 
 
 	public BufferedImage getVista() {
-		// TODO Auto-generated method stub
 		actualizar();
 		return bufferPrincipal;
 	}
 
 
 	public int getWidth() {
-		// TODO Auto-generated method stub
 		return bufferPrincipal.getWidth();
 	}
 }
+

@@ -19,6 +19,7 @@ import programaAuto.Auto;
 
 public class VistaGraficador extends Frame implements Observer{
 
+	private static final long serialVersionUID = 1L;
 	private  ArrayList<Point2D> listaDePuntos;
 	private int MaximoX;
 	private int MaximoY;
@@ -29,13 +30,13 @@ public class VistaGraficador extends Frame implements Observer{
 	private Color colorTrazo, colorMensajes;
 	private Color colorFondo, colorLineas;
 	private Object objetoObservado;
-	private ArrayList listaDeTexto;
+	private ArrayList<String> listaDeTexto;
 	private double tiempoTotal;
 	
     public VistaGraficador(String Titulo, int ancho, int alto, Object objetoObservado){
     	this.setVisible(true);
     	this.setTitle(Titulo);
-    	listaDeTexto = new ArrayList();
+    	listaDeTexto = new ArrayList<String>();
     	this.objetoObservado=objetoObservado;
 		MaximoX = ancho;
 		MaximoY=alto;
@@ -54,10 +55,11 @@ public class VistaGraficador extends Frame implements Observer{
     }
     
     public void nuevoPunto(double delta_x, double y){
+    	Point2D.Double punto;
     	if (listaDePuntos.size() >= getMaximoX()/pixelesPorUnidadx){
-    		Point2D.Double punto = (Double) listaDePuntos.remove(0);
+    		punto = (Double) listaDePuntos.remove(0);
     	}
-    	Point2D.Double punto = new Point2D.Double(delta_x, y);
+    	punto = new Point2D.Double(delta_x, y);
     	listaDePuntos.add(punto);
     }
 
@@ -73,9 +75,7 @@ public class VistaGraficador extends Frame implements Observer{
 	public void dibujar(){
 		Graphics2D gr = (Graphics2D)this.getGraphics();
 		dibujar_buffer();
-		double yMedio = (getMaximoY()+getMinimoY())/2;
-		gr.drawImage(bufferPrincipal, 0, 0, getMaximoX(), getMaximoY(), 0, 0, bufferPrincipal.getWidth(), bufferPrincipal.getHeight(), null);
-		
+		gr.drawImage(bufferPrincipal, 0, 0, getMaximoX(), getMaximoY(), 0, 0, bufferPrincipal.getWidth(), bufferPrincipal.getHeight(), null);	
 	}
 
 	private void dibujar_buffer(){
@@ -103,7 +103,7 @@ public class VistaGraficador extends Frame implements Observer{
 		Graphics2D superficie = bufferPrincipal.createGraphics();
 		superficie.setColor(colorMensajes);
 		superficie.setFont(new Font("Arial",Font.BOLD,12));
-		Iterator iteradorTexto = listaDeTexto.iterator();
+		Iterator<String> iteradorTexto = listaDeTexto.iterator();
 		int indice=0;
 		while(iteradorTexto.hasNext()){
 			superficie.drawString((String)iteradorTexto.next(), getMinimoX()+5, getMaximoY()-9-12*indice);
