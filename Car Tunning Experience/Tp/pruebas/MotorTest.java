@@ -29,6 +29,7 @@ import auto.AutoManual;
 
 
 import excepciones.BoundsException;
+import excepciones.ModelRegisteredException;
 
 public class MotorTest extends TestCase {
 
@@ -58,6 +59,7 @@ public class MotorTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		pista = new Pista("UnaPista");
+
 		fabricaTanques = new FabricaDeTanquesDeCombustible();
 		fabricaMezcladores = new FabricaDeMezcladores();
 		fabricaEscapes = new FabricaDeEscapes();
@@ -68,7 +70,6 @@ public class MotorTest extends TestCase {
 		fabricaEjes = new FabricaDeEjes();
 		fabricaPedales = new FabricaDePedales();
 		fabricaDeNafta = new FabricaDeNafta();
-		
 		nafta = fabricaDeNafta.fabricar(fabricaDeNafta.getTipos().get(0));
 		
 		tanque = fabricaTanques.fabricar(fabricaTanques.getModelos().get(0));
@@ -153,7 +154,8 @@ public class MotorTest extends TestCase {
 		motor.acelerar(1);
 
 		for(contador=0;contador<900;contador++)
-			auto.simular(90000);
+			auto.simular(9);
+		
 		assertEquals(0.0, motor.getVidaUtil());
 	}
 	
