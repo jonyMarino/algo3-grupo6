@@ -59,7 +59,7 @@ public class ControladorJuego implements ActionListener {
 			this.cargarPantallaUsuario((PantallaUsuario)panelBase.getPantallaActual());
 		}
 		if (comando.equals("continuar")){
-			buscarArchivo();
+			//buscarArchivo();
 			Document doc;
 			try {
 				doc = new Builder().build("Car.xml");
