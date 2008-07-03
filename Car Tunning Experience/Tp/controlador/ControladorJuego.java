@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -64,16 +65,30 @@ public class ControladorJuego implements ActionListener {
 				doc = new Builder().build("Car.xml");
 				programaAuto= new ProgramaAuto(doc.getRootElement());
 			} catch (ValidityException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (ParsingException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+			try {
+				programaAuto.setPista(programaAuto.generarProximaPista());
+			} catch (NotContainedPistaException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (PistaPickedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		//TODO: Supongo que habra que hacer mas cosas para que empieze	
+			ImageIcon imagen = null; // //((PantallaUsuario)panelBase.getPantallaActual()).obtenerImagenSeleccionada(); 		
+			this.controladorTaller = new ControladorTaller(programaAuto);
+			panelBase.crearPantalla(new PantallaTaller(this));	
+			controladorTaller.setPantallaTaller((PantallaTaller)panelBase.getPantallaActual());
+			controladorTaller.getActualizadorTaller().cargarPantallaTaller(imagen);
+			
+			/////////////////////////////////////
+			
 		}
 		if (comando.equals("volver"))
 			panelBase.pantallaAnterior();
