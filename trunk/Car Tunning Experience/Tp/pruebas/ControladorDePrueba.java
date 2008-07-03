@@ -127,7 +127,7 @@ public class ControladorDePrueba implements KeyListener{
 			break;
 		}
 		try {
-			unAuto.presionarAcelerador(aceleracion);
+			unAuto.acelerar(aceleracion);
 		} catch (BoundsException e1) {
 		}
 

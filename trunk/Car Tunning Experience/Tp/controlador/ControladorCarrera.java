@@ -74,7 +74,7 @@ public class ControladorCarrera implements KeyListener{
 			break;
 		}
 		try {
-			unAuto.presionarAcelerador(aceleracion);
+			unAuto.acelerar(aceleracion);
 		} catch (BoundsException e1) {
 		}
 	}
@@ -92,7 +92,7 @@ public class ControladorCarrera implements KeyListener{
 		default: break;
 		}
 		try {
-			unAuto.presionarAcelerador(aceleracion);
+			unAuto.acelerar(aceleracion);
 		} catch (BoundsException e1) {
 		}
 	}
@@ -174,7 +174,7 @@ public class ControladorCarrera implements KeyListener{
 		private void finalizarCarrera() {
 			unAuto.getCaja().setCambio(0);
 			try {
-				unAuto.presionarAcelerador(0);
+				unAuto.acelerar(0);
 			} catch (BoundsException e1) {
 			}
 			laPantalla.finalizarCarrera();
