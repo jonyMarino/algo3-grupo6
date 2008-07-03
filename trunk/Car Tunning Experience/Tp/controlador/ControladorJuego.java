@@ -109,7 +109,7 @@ public class ControladorJuego implements ActionListener {
 			BufferedOutputStream file;
 			try {
 				file = new BufferedOutputStream(new FileOutputStream("Car.xml"));
-				//format(file,doc);
+				format(file,doc);
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -124,7 +124,7 @@ public class ControladorJuego implements ActionListener {
     private void format(OutputStream os, Document doc) throws Exception {
         Serializer serializer= new Serializer(os,"ISO-8859-1");
         serializer.setIndent(4);
-        serializer.setMaxLength(60);
+        serializer.setMaxLength(1000);
         serializer.write(doc);
         serializer.flush();
       }
