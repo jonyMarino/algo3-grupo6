@@ -16,6 +16,7 @@ import nu.xom.Serializer;
 import programaAuto.Auto;
 import programaAuto.ProgramaAuto;
 import programaAuto.ProveedorDePartes;
+import programaAuto.Taller;
 import proveedores.proveedorDeCombustibles.FabricaDeNafta;
 import proveedores.proveedorDeCombustibles.Nafta;
 import proveedores.proveedorDeCombustibles.ProveedorDeCombustibles;
@@ -129,6 +130,54 @@ public class PersistenciaTest extends TestCase {
 		assertEquals(autoRecobrado.getClass(),auto.getClass());
 		assertEquals(autoRecobrado.getPeso(),auto.getPeso());
 	}
+	
+	public void testTAller() throws FileNotFoundException, Exception{
+		Taller miTaller=prog.getUsuario().getTaller();
+		ProveedorDePartes unProveedor=prog.getUnProveedor();
+
+		ParteAuto parte=unProveedor.getMiCadenaDeFabricas().fabricar("General motors 2000");
+		Motor motor=(Motor)parte;
+
+		miTaller.aniadirAReserva(motor);
+		
+		Element raiz = new Element("test");
+		raiz.appendChild(miTaller.getElement());
+    	Document doc= new Document(raiz);
+    	format(System.out,doc);
+    	ByteArrayOutputStream buf1= new ByteArrayOutputStream();
+    	ObjectOutputStream file = new ObjectOutputStream(buf1);
+		format(file,doc);
+		
+		ByteArrayInputStream in=new ByteArrayInputStream(buf1.toByteArray());
+		Document docIn = new Builder().build(new ObjectInputStream(in));
+		
+		Taller tallerRecobrado= new Taller(prog.getUsuario(),unProveedor.getMiCadenaDeFabricas(),docIn.getRootElement());
+		
+		String s=tallerRecobrado.getPartesDeReserva().next().getInformacionModelo().getNombre();
+		String t=miTaller.getPartesDeReserva().next().getInformacionModelo().getNombre();
+		assertEquals(s,t);
+
+	}
+	public void testPrograma() throws FileNotFoundException, Exception{
+		
+		
+		Element raiz = new Element("test");
+		raiz.appendChild(prog.getElement());
+    	Document doc= new Document(raiz);
+    	format(System.out,doc);
+    	ByteArrayOutputStream buf1= new ByteArrayOutputStream();
+    	ObjectOutputStream file = new ObjectOutputStream(buf1);
+		format(file,doc);
+		
+		ByteArrayInputStream in=new ByteArrayInputStream(buf1.toByteArray());
+		Document docIn = new Builder().build(new ObjectInputStream(in));
+		
+//		ProgramaAuto programaRecobrado= new ProgramaAuto(docIn.getRootElement());
+		assertTrue(true);
+
+	}
+	
+	
 	
 	
 }
