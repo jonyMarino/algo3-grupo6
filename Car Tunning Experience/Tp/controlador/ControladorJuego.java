@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
 import nu.xom.Document;
+import nu.xom.Element;
 import nu.xom.Serializer;
 import excepciones.NotContainedPistaException;
 import excepciones.PistaPickedException;
@@ -66,7 +67,10 @@ public class ControladorJuego implements ActionListener {
 		}
 
 		if (comando.equals("guardar")){
-			Document doc= new Document(programaAuto.getElement());
+			Element raiz= new Element("root");
+			raiz.appendChild(programaAuto.getElement());
+				
+			Document doc= new Document(raiz);
 			BufferedOutputStream file;
 			try {
 				file = new BufferedOutputStream(new FileOutputStream("Car.xml"));
