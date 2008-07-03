@@ -2,8 +2,17 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+
+import nu.xom.Document;
+import nu.xom.Serializer;
 import excepciones.NotContainedPistaException;
 import excepciones.PistaPickedException;
 import excepciones.WrongUserNameException;
@@ -55,12 +64,31 @@ public class ControladorJuego implements ActionListener {
 		if (comando.equals("volveraltaller")){
 			volverAlTaller();
 		}
-		//TODO: ACA VA QUE PASA!!!!!! 
-/*
-		if (comando.equals("guardar"))
-	*/		
-	}
+
+		if (comando.equals("guardar")){
+			Document doc= new Document(programaAuto.getElement());
+			BufferedOutputStream file;
+			try {
+				file = new BufferedOutputStream(new FileOutputStream("Car.xml"));
+				format(file,doc);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
 	
+	}
+    private void format(OutputStream os, Document doc) throws Exception {
+        Serializer serializer= new Serializer(os,"ISO-8859-1");
+        serializer.setIndent(4);
+        serializer.setMaxLength(60);
+        serializer.write(doc);
+        serializer.flush();
+      }
 	private void cargarPantallaUsuario(PantallaUsuario pantallaUsuario) {
 		pantallaUsuario.agregarTipoAuto(TipoAuto.MANUAL.toString());
 		pantallaUsuario.agregarTipoAuto(TipoAuto.AUTOMATICO.toString());
