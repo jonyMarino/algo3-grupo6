@@ -1,4 +1,4 @@
-package controlador;
+package pruebas;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -22,14 +22,14 @@ import excepciones.PistaPickedException;
 import excepciones.TankIsFullException;
 import excepciones.WrongUserNameException;
 
-public class ControladorPrincipal implements KeyListener{
+public class ControladorDePrueba implements KeyListener{
 
 	private static boolean simulando;
 	private static Auto unAuto;
 	private static double tiempo;
 	private int fastForward;
 	VistaGraficador vista1;
-	public ControladorPrincipal(){
+	public ControladorDePrueba(){
 		
 		ProgramaAuto miPrograma = null;
 		try {
