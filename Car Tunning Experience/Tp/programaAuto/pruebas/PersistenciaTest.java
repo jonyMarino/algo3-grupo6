@@ -14,6 +14,7 @@ import nu.xom.Serializer;
 import programaAuto.ProveedorDePartes;
 import proveedores.proveedorDeCombustibles.FabricaDeNafta;
 import proveedores.proveedorDeCombustibles.Nafta;
+import proveedores.proveedorDeCombustibles.ProveedorDeCombustibles;
 import proveedores.proveedorDePartes.fabricas.Motor;
 import proveedores.proveedorDePartes.fabricas.ParteAuto;
 import proveedores.proveedorDePartes.fabricas.TanqueNafta;
@@ -21,7 +22,7 @@ import junit.framework.TestCase;
 
 public class PersistenciaTest extends TestCase {
 	private static ProveedorDePartes unProveedor=new ProveedorDePartes();
-	
+	private static ProveedorDeCombustibles proveedorCombustible=new ProveedorDeCombustibles();
 
 	
     private void format(OutputStream os, Document doc) throws Exception {
@@ -63,8 +64,7 @@ public class PersistenciaTest extends TestCase {
 		TanqueNafta tanque=(TanqueNafta)parte;
 		tanque.llenarTanque(30);
 		tanque.desgastar(10000); 
-		FabricaDeNafta fabrica = new FabricaDeNafta(); 
-		tanque.setCombustible(fabrica.fabricar(fabrica.getTipos().get(0)));
+		tanque.setCombustible(proveedorCombustible.obtenerCombustible("Fangio 2000"));
 		
 		Element raiz = new Element("test");
 		raiz.appendChild(tanque.getElementParte());
