@@ -81,7 +81,7 @@ public class ControladorJuego implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			ImageIcon imagen = null; // //((PantallaUsuario)panelBase.getPantallaActual()).obtenerImagenSeleccionada(); 		
+			ImageIcon imagen = new PantallaUsuario(this).obtenerImagenSeleccionada(); 		
 			this.controladorTaller = new ControladorTaller(programaAuto);
 			panelBase.crearPantalla(new PantallaTaller(this));	
 			controladorTaller.setPantallaTaller((PantallaTaller)panelBase.getPantallaActual());
