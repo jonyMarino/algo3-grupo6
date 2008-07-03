@@ -98,8 +98,7 @@ public class CadenaDeFabricas{
      *
      *@return Un {@link Arraylist} con las fabricas integrantes.
      */
-	/*public ArrayList<FabricaDePartes> getMiCadenaDeFabricas() {
+	public ArrayList<FabricaDePartes> getMiCadenaDeFabricas() {
 		return miCadenaDeFabricas;
 	}
-*/
 }
