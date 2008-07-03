@@ -19,6 +19,12 @@ import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import controlador.ControladorJuego;
 
+/**
+*
+* Clase que se encarga de modelar la vista de la pantalla de nuevo usuario.
+*
+*/
+
 public class PantallaUsuario extends JPanelConImagen {
 
 	private static final long serialVersionUID = 1L;

@@ -4,6 +4,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import controlador.ControladorJuego;
 
+/**
+ * Panel que sirve de base a las vistas del juego.
+ *
+ */
+
 public class PanelBase extends JPanel {
 
 	private static final long serialVersionUID = 1L;

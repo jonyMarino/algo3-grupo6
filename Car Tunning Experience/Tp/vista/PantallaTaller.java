@@ -6,6 +6,12 @@ import javax.swing.border.Border;
 import controlador.ControladorJuego;
 import controlador.ControladorTaller;
 
+/**
+*
+* Clase que se encarga de modelar la vista de la pantalla taller.
+*
+*/
+
 public class PantallaTaller extends JPanelConImagen {
 
 	   private JPanel panelAutoActual;

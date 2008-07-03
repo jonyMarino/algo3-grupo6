@@ -2,6 +2,12 @@ package vista;
 
 import javax.swing.JFrame;
 
+/**
+*
+* Clase que se encarga de modelar el frame principal.
+*
+*/
+
 public class VistaPrincipal extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
