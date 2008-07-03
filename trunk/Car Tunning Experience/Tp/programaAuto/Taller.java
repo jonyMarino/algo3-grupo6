@@ -46,8 +46,7 @@ public class Taller {
 			this.ubicacion=ubicacion;
 		}
 		public Auto.Ubicacion getUbicacion(){
-			return ubicacion; //TODO: PARA PASAR UNA COPIA LO ANTERIOR GENERABA UN BUG... 
-			// si alguien se toma el trabajo de clonar un string ...
+			return ubicacion; 
 		}
 	}
 	
@@ -129,8 +128,6 @@ public class Taller {
 		return usuario;
 	}
 	
-	//TODO: Lo agregue por conveniencia
-	//TODO: comentar	
 	public Iterator<ParteAuto> getPartesReserva(){
 		return partesDeReserva.iterator();
 	}

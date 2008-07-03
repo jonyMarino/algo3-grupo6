@@ -67,7 +67,6 @@ public abstract class FabricaDePartes {
      *
      *
      */
-    //TODO: definir su uso
 	public void eliminarModelo(InformacionDelModelo modelo) {
 	}
 
@@ -75,7 +74,6 @@ public abstract class FabricaDePartes {
      *
      *
      */	 
-    //TODO: definir su uso
 	public void agregarModelo(InformacionDelModelo datosDelModelo) {
 		Iterator<InformacionDelModelo> iteradorModelos = getModelos().iterator();
 		ArrayList<String> claves = datosDelModelo.getCaracteristicasDisponibles();

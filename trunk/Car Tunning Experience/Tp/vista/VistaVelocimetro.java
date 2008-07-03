@@ -51,13 +51,11 @@ public class VistaVelocimetro  implements VistaGrafica {
 	
 
 	public int getHeight() {
-		// TODO Auto-generated method stub
 		return bufferPrincipal.getHeight();
 	}
 
 
 	public BufferedImage getVista() {
-		// TODO Auto-generated method stub
 		actualizar();
 		return bufferPrincipal;
 	}
@@ -78,7 +76,6 @@ public class VistaVelocimetro  implements VistaGrafica {
 
 
 	public int getWidth() {
-		// TODO Auto-generated method stub
 		return bufferPrincipal.getWidth();
 	}
 }

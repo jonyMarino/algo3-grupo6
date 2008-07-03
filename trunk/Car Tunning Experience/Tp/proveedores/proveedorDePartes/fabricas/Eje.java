@@ -35,7 +35,6 @@ public class Eje extends ParteAuto {
 			torque += iteradorTorques.getTorque();
 		double fuerza;
 		fuerza = torque/ruedaTrasera.getRadioEnMetros();
-		//TODO: revisar cuidadosamente el código. Sobre todo el caso en que fuerza< rozamiento estático y el uto está detenido
 		return fuerza;
 	}
 

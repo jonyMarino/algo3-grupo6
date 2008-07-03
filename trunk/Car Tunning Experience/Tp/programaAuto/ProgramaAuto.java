@@ -294,7 +294,6 @@ public class ProgramaAuto extends Observable {
         	return pistas;
         }
 
-        //TODO: para elegir el tipo de auto
         public ProgramaAuto (String nombre, TipoAuto tipoAuto) throws WrongUserNameException {
         	usuario=nuevoUsuario(nombre,tipoAuto);
         }
@@ -303,7 +302,6 @@ public class ProgramaAuto extends Observable {
          *  Crea un nuevo {@link ProgramaAuto}
          * @param programa
          */
-    //TODO: ???????????? ProgramaAuto a partir de un Element?
         public ProgramaAuto (Element programa) {
         	Element programaElement = programa.getFirstChildElement("programa");
         	usuario= new Usuario(unProveedor.getMiCadenaDeFabricas(),autosFactory,programaElement);
@@ -360,7 +358,6 @@ public class ProgramaAuto extends Observable {
                 	     try {
 							nafta = (Nafta)unProveedorCombustible.comprar(modelosCombustibles.get(0),70, usuariotemporal);
 						} catch (BoundsException e2) {
-							// TODO Auto-generated catch block
 							e2.printStackTrace();
 						}
                 	
@@ -395,7 +392,6 @@ public class ProgramaAuto extends Observable {
                         
                         Freno freno =  (Freno) unProveedor.comprar(modelos.get(7), usuariotemporal);
                         
-                        //TODO: se modifico
                         Caja caja = null;
                         
                         try {
@@ -412,7 +408,7 @@ public class ProgramaAuto extends Observable {
                         auto.setPista(pistaActual);
                 }
                 catch (NoSuchModelException e) {
-                        e.printStackTrace();  //TODO: bastante sucio
+                        e.printStackTrace();  
                 } catch (NotEnoughMoneyException e) {
                         e.printStackTrace();
                 }
@@ -464,9 +460,7 @@ public class ProgramaAuto extends Observable {
         	tallerActual=usuario.getTaller();
         	return tallerActual;
         }
-        /*
-         * TODO: Ver si no combiene hacer un Proxy aqui, en vez de esto.
-         */
+
         /**
          * Intenta intercambiar una parte del Auto por una que el {@link Usuario} tiene en reserva.
 	 *
@@ -538,12 +532,10 @@ public class ProgramaAuto extends Observable {
         private SimuladorCarrera inicializarCarrera() {
                 SimuladorCarrera unaSimulacion = new SimuladorCarrera(getPista());
                 unaSimulacion.agregarCompetidor(usuario);
-                //TODO: AGREGAR COMPETIDORES
                 Usuario unRival = null;
 				try {
 					unRival = new Usuario("Rival1");
 				} catch (WrongUserNameException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				unRival.setAuto(autoInicial(TipoAuto.MANUAL));
@@ -552,10 +544,8 @@ public class ProgramaAuto extends Observable {
 					((CajaManual)unRival.getAuto().getCaja()).setCambioManual(5);
 					unRival.getAuto().presionarAcelerador(0.8);
 				} catch (BoundsException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-                //TODO: AGREGAR COMPETIDORES
                 return unaSimulacion;
         }
 		
@@ -593,7 +583,7 @@ public class ProgramaAuto extends Observable {
         	return proveedorDeNafta;
         }
         
-        //TODO: por diversion
+
         public double getUltimoPremio() {
         	return ultimoPremio;
         }

@@ -127,10 +127,7 @@ public class ControladorCarrera implements KeyListener{
 		AuxiliarActualizacion sim = new AuxiliarActualizacion(laPantalla, simulacion);
 		Timer timer = new Timer();
 		
-		//TODO: !!!!!!!!!!!!!!SOLO PARA TESTING!!!!!!!!!!!!!!!!
-		//programaAuto.getUsuario().getAuto().setPosicion(1900);
-		//TODO: !!!!!!!!!!!!!!SOLO PARA TESTING!!!!!!!!!!!!!!!!
-		
+	
 		
 		laSimulacion.start();
 		

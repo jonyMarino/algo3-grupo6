@@ -78,7 +78,6 @@ public abstract class Caja extends ParteAuto implements Torqueador{
 		if(cambio<=5)
 			if(obtenerRpmEntrada()>=calcularRpmMinimas())
 			cambio++;
-		//TODO: MANEJAR CON EXCEPCIONES
 	}
 
 	public double obtenerRpmEntrada(){
