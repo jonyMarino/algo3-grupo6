@@ -6,17 +6,17 @@ import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 
-import proveedorDePartes.fabricas.FabricaDeCajas;
-import proveedorDePartes.fabricas.FabricaDeCarrocerias;
-import proveedorDePartes.fabricas.FabricaDeEjes;
-import proveedorDePartes.fabricas.FabricaDeEscapes;
-import proveedorDePartes.fabricas.FabricaDeMezcladores;
-import proveedorDePartes.fabricas.FabricaDeMotores;
-import proveedorDePartes.fabricas.FabricaDePedales;
-import proveedorDePartes.fabricas.FabricaDeRuedas;
-import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
-import proveedorDePartes.fabricas.InformacionDelModelo;
-import proveedorDePartes.fabricas.ParteAuto;
+import proveedores.proveedorDePartes.fabricas.FabricaDeCajas;
+import proveedores.proveedorDePartes.fabricas.FabricaDeCarrocerias;
+import proveedores.proveedorDePartes.fabricas.FabricaDeEjes;
+import proveedores.proveedorDePartes.fabricas.FabricaDeEscapes;
+import proveedores.proveedorDePartes.fabricas.FabricaDeMezcladores;
+import proveedores.proveedorDePartes.fabricas.FabricaDeMotores;
+import proveedores.proveedorDePartes.fabricas.FabricaDePedales;
+import proveedores.proveedorDePartes.fabricas.FabricaDeRuedas;
+import proveedores.proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
+import proveedores.proveedorDePartes.fabricas.InformacionDelModelo;
+import proveedores.proveedorDePartes.fabricas.ParteAuto;
 
 /**
  *

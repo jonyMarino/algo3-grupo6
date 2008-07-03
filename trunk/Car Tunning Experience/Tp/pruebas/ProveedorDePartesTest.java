@@ -5,12 +5,12 @@ import excepciones.NoSuchModelException;
 import excepciones.NotEnoughMoneyException;
 import programaAuto.ProveedorDePartes;
 import programaAuto.Usuario;
-import proveedorDePartes.fabricas.CajaAutomatica;
-import proveedorDePartes.fabricas.CajaManual;
-import proveedorDePartes.fabricas.Carroceria;
-import proveedorDePartes.fabricas.InformacionDelModelo;
-import proveedorDePartes.fabricas.ParteAuto;
-import proveedorDePartes.fabricas.Pedal;
+import proveedores.proveedorDePartes.fabricas.CajaAutomatica;
+import proveedores.proveedorDePartes.fabricas.CajaManual;
+import proveedores.proveedorDePartes.fabricas.Carroceria;
+import proveedores.proveedorDePartes.fabricas.InformacionDelModelo;
+import proveedores.proveedorDePartes.fabricas.ParteAuto;
+import proveedores.proveedorDePartes.fabricas.Pedal;
 import junit.framework.TestCase;
 
 public class ProveedorDePartesTest extends TestCase {

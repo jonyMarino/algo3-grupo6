@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import excepciones.BoundsException;
 import excepciones.NoSuchModelException;
 
-import proveedorDePartes.fabricas.FabricaDeMotores;
-import proveedorDePartes.fabricas.InformacionDelModelo;
-import proveedorDePartes.fabricas.Motor;
+import proveedores.proveedorDePartes.fabricas.FabricaDeMotores;
+import proveedores.proveedorDePartes.fabricas.InformacionDelModelo;
+import proveedores.proveedorDePartes.fabricas.Motor;
 import junit.framework.TestCase;
 
 public class FabricaDeMotoresTest extends TestCase {

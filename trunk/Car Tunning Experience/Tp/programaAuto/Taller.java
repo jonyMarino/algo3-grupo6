@@ -10,9 +10,9 @@ import nu.xom.Elements;
 import nu.xom.Element;
 
 import programaAuto.Auto.Ubicacion;
-import proveedorDePartes.fabricas.InformacionDelModelo;
-import proveedorDePartes.fabricas.ParteAuto;
-import proveedorDePartes.fabricas.RegistroDeModelos;
+import proveedores.proveedorDePartes.fabricas.InformacionDelModelo;
+import proveedores.proveedorDePartes.fabricas.ParteAuto;
+import proveedores.proveedorDePartes.fabricas.RegistroDeModelos;
 import excepciones.IncorrectPartForUbicationException;
 import excepciones.NoSuchModelException;
 import excepciones.UbicationUnkownException;

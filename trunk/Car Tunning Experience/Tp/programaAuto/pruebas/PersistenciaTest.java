@@ -1,10 +1,8 @@
 package programaAuto.pruebas;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -13,14 +11,15 @@ import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Serializer;
-import excepciones.NoSuchModelException;
 import programaAuto.ProveedorDePartes;
-import proveedorDePartes.fabricas.Motor;
-import proveedorDePartes.fabricas.ParteAuto;
+import proveedores.proveedorDeCombustibles.Nafta;
+import proveedores.proveedorDePartes.fabricas.Motor;
+import proveedores.proveedorDePartes.fabricas.ParteAuto;
+import proveedores.proveedorDePartes.fabricas.TanqueNafta;
 import junit.framework.TestCase;
 
 public class PersistenciaTest extends TestCase {
-	ProveedorDePartes unProveedor=new ProveedorDePartes();
+	private static ProveedorDePartes unProveedor=new ProveedorDePartes();
 	
 
 	
@@ -56,6 +55,38 @@ public class PersistenciaTest extends TestCase {
 		assertEquals(motorRecobrado.getDescripcion(),motor.getDescripcion());
 		assertEquals(motorRecobrado.getRendimiento(),motor.getRendimiento());
 		assertEquals(motorRecobrado.getVidaUtil(),motor.getVidaUtil());	
+	}
+	
+	public void testTanque() throws FileNotFoundException, Exception{
+		ParteAuto parte=unProveedor.getMiCadenaDeFabricas().fabricar("Tanque 70.10");
+		TanqueNafta tanque=(TanqueNafta)parte;
+		tanque.llenarTanque(30);
+		tanque.desgastar(10000); 
+		tanque.setCombustible(new Nafta(10,1));
+		
+		Element raiz = new Element("test");
+		raiz.appendChild(tanque.getElementParte());
+    	Document doc= new Document(raiz);
+    	format(System.out,doc);
+    	ByteArrayOutputStream buf1= new ByteArrayOutputStream();
+    	ObjectOutputStream file = new ObjectOutputStream(buf1);
+		format(file,doc);
+		
+		ByteArrayInputStream in=new ByteArrayInputStream(buf1.toByteArray());
+		Document docIn = new Builder().build(new ObjectInputStream(in));
+		TanqueNafta tanqueRecobrado=(TanqueNafta)ParteAuto.recobrar(unProveedor.getMiCadenaDeFabricas(), docIn.getRootElement());
+		
+		System.out.println(tanque);
+		System.out.println(tanqueRecobrado);
+		System.out.println(tanqueRecobrado.getCantidadCombustible());
+		System.out.println(tanqueRecobrado.getVidaUtil());
+		
+		assertNotSame(tanque, tanqueRecobrado);
+		assertEquals(tanqueRecobrado.getClass(),tanque.getClass());
+		assertEquals(tanqueRecobrado.getPeso(),tanque.getPeso());
+		assertEquals(tanqueRecobrado.getCapacidad(),tanque.getCapacidad());
+		assertEquals(tanqueRecobrado.getDescripcion(),tanque.getDescripcion());
+		assertEquals(tanqueRecobrado.getCantidadCombustible(),tanque.getCantidadCombustible());	
 	}
 	
 	

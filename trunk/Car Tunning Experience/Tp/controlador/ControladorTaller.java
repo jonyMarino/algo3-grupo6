@@ -16,10 +16,10 @@ import excepciones.UbicationUnkownException;
 import programaAuto.ProgramaAuto;
 import programaAuto.Auto.Ubicacion;
 import programaAuto.Taller.InformacionParteEnAuto;
-import proveedorDeCombustibles.InformacionCombustible;
-import proveedorDeCombustibles.Nafta;
-import proveedorDePartes.fabricas.InformacionDelModelo;
-import proveedorDePartes.fabricas.ParteAuto;
+import proveedores.proveedorDeCombustibles.InformacionCombustible;
+import proveedores.proveedorDeCombustibles.Nafta;
+import proveedores.proveedorDePartes.fabricas.InformacionDelModelo;
+import proveedores.proveedorDePartes.fabricas.ParteAuto;
 import vista.PantallaTaller;
 
 
