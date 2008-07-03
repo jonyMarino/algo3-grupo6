@@ -94,7 +94,6 @@ public class ControladorCarrera implements KeyListener{
 		try {
 			unAuto.presionarAcelerador(aceleracion);
 		} catch (BoundsException e1) {
-			//e1.printStackTrace();
 		}
 	}
 
@@ -126,19 +125,13 @@ public class ControladorCarrera implements KeyListener{
 		AuxiliarSimulacion laSimulacion = new AuxiliarSimulacion(programaAuto);
 		AuxiliarActualizacion sim = new AuxiliarActualizacion(laPantalla, simulacion);
 		Timer timer = new Timer();
-		
-	
-		
+
 		laSimulacion.start();
 		
 		while(!simulacion.estaCorriendo()){
-		
 		}
 			
 	    timer.schedule(sim, 0, 16);
-	    
-
-	
 	}
 	
 	
@@ -154,8 +147,6 @@ public class ControladorCarrera implements KeyListener{
 			if (simulacion.estaCorriendo())
 				laPantalla.actualizar();
 			else {
-				//laPantalla.finalizarCarrera();
-				System.out.println("LLEGADA");
 				this.cancel();
 			}
 			
@@ -176,9 +167,6 @@ public class ControladorCarrera implements KeyListener{
 			} catch (NotSimulatingException e) {
 				e.printStackTrace();
 			}
-			System.out.println("JOIN");
-			//this.join();				
-			System.out.println("FINALIZAR");
 			finalizarCarrera();
 		
 		}
@@ -188,7 +176,6 @@ public class ControladorCarrera implements KeyListener{
 			try {
 				unAuto.presionarAcelerador(0);
 			} catch (BoundsException e1) {
-				//e1.printStackTrace();
 			}
 			laPantalla.finalizarCarrera();
 			
