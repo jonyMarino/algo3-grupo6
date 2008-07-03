@@ -12,6 +12,7 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Serializer;
 import programaAuto.ProveedorDePartes;
+import proveedores.proveedorDeCombustibles.FabricaDeNafta;
 import proveedores.proveedorDeCombustibles.Nafta;
 import proveedores.proveedorDePartes.fabricas.Motor;
 import proveedores.proveedorDePartes.fabricas.ParteAuto;
@@ -62,7 +63,8 @@ public class PersistenciaTest extends TestCase {
 		TanqueNafta tanque=(TanqueNafta)parte;
 		tanque.llenarTanque(30);
 		tanque.desgastar(10000); 
-		tanque.setCombustible(new Nafta(10,1));
+		FabricaDeNafta fabrica = new FabricaDeNafta(); 
+		tanque.setCombustible(fabrica.fabricar(fabrica.getTipos().get(0)));
 		
 		Element raiz = new Element("test");
 		raiz.appendChild(tanque.getElementParte());
