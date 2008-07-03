@@ -597,6 +597,12 @@ public class ProgramaAuto extends Observable {
         public double getUltimoPremio() {
         	return ultimoPremio;
         }
+		public AutosFactory getAutosFactory() {
+			return autosFactory;
+		}
+		public ProveedorDeCombustibles getUnProveedorCombustible() {
+			return unProveedorCombustible;
+		}
         
         
 }

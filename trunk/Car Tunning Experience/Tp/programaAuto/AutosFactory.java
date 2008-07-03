@@ -36,7 +36,7 @@ public class AutosFactory {
 		String tipo = factory.getFirstChildElement("tipo").getValue();
 
 		try {
-			Auto auto = autos.get(tipo).crear(fabrica,elemento);
+			Auto auto = autos.get(tipo).crear(fabrica,factory);
 			return auto;
 		} catch (IncorrectPartForUbicationException e) {
 			// TODO Auto-generated catch block

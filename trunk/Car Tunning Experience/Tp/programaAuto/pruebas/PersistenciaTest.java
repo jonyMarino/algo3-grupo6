@@ -7,10 +7,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
+import excepciones.WrongUserNameException;
+
 import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Serializer;
+import programaAuto.Auto;
+import programaAuto.ProgramaAuto;
 import programaAuto.ProveedorDePartes;
 import proveedores.proveedorDeCombustibles.FabricaDeNafta;
 import proveedores.proveedorDeCombustibles.Nafta;
@@ -21,10 +25,15 @@ import proveedores.proveedorDePartes.fabricas.TanqueNafta;
 import junit.framework.TestCase;
 
 public class PersistenciaTest extends TestCase {
-	private static ProveedorDePartes unProveedor=new ProveedorDePartes();
-	private static ProveedorDeCombustibles proveedorCombustible=new ProveedorDeCombustibles();
-
-	
+	static ProgramaAuto prog;
+	static {
+		try {
+			prog=new ProgramaAuto("jon",ProgramaAuto.TipoAuto.AUTOMATICO);
+		} catch (WrongUserNameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     private void format(OutputStream os, Document doc) throws Exception {
         Serializer serializer= new Serializer(os,"ISO-8859-1");
         serializer.setIndent(4);
@@ -33,6 +42,8 @@ public class PersistenciaTest extends TestCase {
         serializer.flush();
       }
 	public void testMotor() throws FileNotFoundException, Exception{
+		ProveedorDePartes unProveedor=prog.getUnProveedor();
+
 		ParteAuto parte=unProveedor.getMiCadenaDeFabricas().fabricar("General motors 2000");
 		Motor motor=(Motor)parte;
 		
@@ -60,6 +71,9 @@ public class PersistenciaTest extends TestCase {
 	}
 	
 	public void testTanque() throws FileNotFoundException, Exception{
+		ProveedorDePartes unProveedor=prog.getUnProveedor();
+		ProveedorDeCombustibles proveedorCombustible=prog.getUnProveedorCombustible();
+
 		ParteAuto parte=unProveedor.getMiCadenaDeFabricas().fabricar("Tanque 70.10");
 		TanqueNafta tanque=(TanqueNafta)parte;
 		tanque.llenarTanque(30);
@@ -90,6 +104,31 @@ public class PersistenciaTest extends TestCase {
 		assertEquals(tanqueRecobrado.getDescripcion(),tanque.getDescripcion());
 		assertEquals(tanqueRecobrado.getCombustible().getInformacionCombustible(),tanqueRecobrado.getCombustible().getInformacionCombustible());
 		assertEquals(tanqueRecobrado.getCantidadCombustible(),tanque.getCantidadCombustible());	
+	}
+	
+	public void testAuto() throws FileNotFoundException, Exception{
+		
+		Auto auto = prog.autoInicial(ProgramaAuto.TipoAuto.AUTOMATICO);
+		
+		Element raiz = new Element("test");
+		raiz.appendChild(prog.getAutosFactory().getElement(auto));
+    	Document doc= new Document(raiz);
+    	format(System.out,doc);
+    	ByteArrayOutputStream buf1= new ByteArrayOutputStream();
+    	ObjectOutputStream file = new ObjectOutputStream(buf1);
+		format(file,doc);
+		
+		ByteArrayInputStream in=new ByteArrayInputStream(buf1.toByteArray());
+		Document docIn = new Builder().build(new ObjectInputStream(in));
+		Auto autoRecobrado= prog.getAutosFactory().crear(prog.getUnProveedor().getMiCadenaDeFabricas(),docIn.getRootElement());
+		
+		System.out.println(auto);
+		System.out.println(autoRecobrado);
+
+		
+		assertNotSame(auto, autoRecobrado);
+		assertEquals(autoRecobrado.getClass(),auto.getClass());
+		assertEquals(autoRecobrado.getPeso(),auto.getPeso());
 	}
 	
 	

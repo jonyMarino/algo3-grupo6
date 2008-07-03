@@ -205,8 +205,10 @@ public abstract class Auto extends Observable{
 				return false;
 			if(!(parte instanceof Caja))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a una caja");
-			getCaja().setEje(null);//Caja vieja
-			getCaja().setMotor(null);
+			if(getCaja()!=null){
+				getCaja().setEje(null);//Caja vieja
+				getCaja().setMotor(null);
+			}
 			setCaja((Caja)parte);
 			return true;
 		}
@@ -287,7 +289,8 @@ public abstract class Auto extends Observable{
 				return false;
 			if(!(parte instanceof Carroceria))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a una carroceria");			
-			getCarroceria().setAuto(null);
+			if (getCarroceria()!=null)
+				getCarroceria().setAuto(null);
 			setCarroceria((Carroceria)parte);
 			return true;
 		}
@@ -312,7 +315,8 @@ public abstract class Auto extends Observable{
 				return false;
 			if(!(parte instanceof Freno))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a un freno");			
-			getFreno().setEje(null);
+			if (getFreno()!=null)
+				getFreno().setEje(null);
 			setFreno((Freno)parte);
 			return true;
 		}
@@ -337,8 +341,10 @@ public abstract class Auto extends Observable{
 				return false;
 			if(!(parte instanceof Mezclador))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a un mezclador");			
-			getMezclador().setTanqueCombustible(null);
-			getMotor().setMezclador(null);	
+			if(getMezclador()!=null)
+				getMezclador().setTanqueCombustible(null);
+			if(getMotor()!=null)
+				getMotor().setMezclador(null);	
 			setMezclador((Mezclador)parte);
 			return true;
 		}
@@ -366,20 +372,21 @@ public abstract class Auto extends Observable{
 			if(!(parte instanceof Rueda))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a una rueda.");			
 			if ( ubicacion == Ubicacion.RUEDA_DELANTERA_DERECHA ){
-					getRuedaDelanteraDerecha().setAuto(null);
+					//getRuedaDelanteraDerecha().setAuto(null);
 					setRuedaDelanteraDerecha((Rueda)parte);
 			}
 			if ( ubicacion == Ubicacion.RUEDA_DELANTERA_IZQUIERDA){
-					getRuedaDelanteraIzquierda().setAuto(null);
+					//getRuedaDelanteraIzquierda().setAuto(null);
 					setRuedaDelanteraIzquierda((Rueda)parte);
 			}
 			if ( ubicacion == Ubicacion.RUEDA_TRASERA_DERECHA){
-					getRuedaTraseraDerecha().setAuto(null);
+					//getRuedaTraseraDerecha().setAuto(null);
 					setRuedaTraseraDerecha((Rueda)parte);
 			}
 			if ( ubicacion == Ubicacion.RUEDA_TRASERA_IZQUIERDA ){
-					getRuedaTraseraIzquierda().setAuto(null);
-					getEje().setRuedaTrasera(null);
+					//getRuedaTraseraIzquierda().setAuto(null);
+					if (getEje()!=null)	
+						getEje().setRuedaTrasera(null);
 					setRuedaTraseraIzquierda((Rueda)parte);
 			}
 			return true;
@@ -418,7 +425,7 @@ public abstract class Auto extends Observable{
 				return false;
 			if(!(parte instanceof TanqueCombustible))
 				throw new IncorrectPartForUbicationException("No se tiene referencia a un tanque");			
-			getMezclador().setTanqueCombustible(null);
+			//getMezclador().setTanqueCombustible(null);
 			setTanqueCombustible((TanqueCombustible)parte);
 			return true;
 		}
@@ -492,8 +499,8 @@ public abstract class Auto extends Observable{
 		Element partesElement=elemento.getFirstChildElement("Auto");
 		
 		for(Ubicacion ubicacion: Ubicacion.values()){
-			Element elementoParte=partesElement.getFirstChildElement(ubicacion.toString());
-			ParteAuto parte = ParteAuto.recobrar(fabrica, elemento);
+			Element elementoParte=partesElement.getFirstChildElement(ubicacion.name());
+			ParteAuto parte = ParteAuto.recobrar(fabrica, elementoParte);
 			colocarParte(parte,ubicacion);
 		}
 		ensamblar();
@@ -502,8 +509,10 @@ public abstract class Auto extends Observable{
 	public Element getElement(){
 		Element auto=new Element("Auto");
 		//partes
-		for(ParteAuto parteAuto: partes.values()){
-			auto.appendChild(parteAuto.getElementParte());
+		for(Ubicacion ubicacion: Ubicacion.values()){
+			Element elementoParte=new Element(ubicacion.name());
+			elementoParte.appendChild(partes.get(ubicacion).getElementParte());
+			auto.appendChild(elementoParte);
 		}
 		return auto;
 	}
