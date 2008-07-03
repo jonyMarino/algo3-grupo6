@@ -6,5 +6,4 @@ public class PartBrokenException extends Exception {
 	public PartBrokenException(String string){
 		super(string);
 	}
-
 }
