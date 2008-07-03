@@ -48,9 +48,19 @@ public abstract class FabricaDePartes {
      * @param modelo La instancia de {@link InformacionDelModelo} que describe la parte en cuestion
      *
      * @return El costo de la parte
+     * @throws NoSuchModelException 
      */
-	public Integer consultarPrecio(InformacionDelModelo modelo) {
-		return null;
+	public Integer consultarPrecio(InformacionDelModelo modelo) throws NoSuchModelException {
+		try {
+			return Integer.parseInt(modelo.getCaracteristica("COSTO"));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BoundsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		throw new NoSuchModelException("El modelo no existe");
 	}
 	 
     /**
