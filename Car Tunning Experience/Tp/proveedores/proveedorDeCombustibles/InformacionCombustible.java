@@ -7,6 +7,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import proveedores.InformacionDeProducto;
+import proveedores.proveedorDePartes.fabricas.RegistroDeModelos;
 
 import excepciones.BoundsException;
 
@@ -18,7 +19,19 @@ import excepciones.BoundsException;
  */
 
 public class InformacionCombustible extends InformacionDeProducto{
+	
+	InformacionCombustible(String nombre,ArrayList<String> listaDeCaracteristicasDisponibles) {
+		super(nombre,listaDeCaracteristicasDisponibles);
 
+
+		RegistroDeCombustibles.getInstance().registrar(this);
+	}
+	
+	InformacionCombustible(String nombre){
+		super(nombre);		
+		RegistroDeCombustibles.getInstance().registrar(this);	
+	}
+	
 	void agregarCaracteristica(String nombreDeLaCaracteristica, String valorDeLaCaracteristica) {
 		aniadirCaracteristica(nombreDeLaCaracteristica,valorDeLaCaracteristica);
 	}
@@ -26,5 +39,9 @@ public class InformacionCombustible extends InformacionDeProducto{
 	void setCaracteristica(String nombre, String valor) throws BoundsException {
 		ponerCaracteristica(nombre,valor);
 	}
+
+
+	
+	
 	
 }

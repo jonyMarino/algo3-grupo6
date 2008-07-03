@@ -73,6 +73,11 @@ public class ProveedorDeCombustibles {
 		return fabricasDisponibles.fabricar(modelo);
 	}
 	
+	public Combustible obtenerCombustible(String nombre) throws NoSuchModelException{
+		InformacionCombustible info=RegistroDeCombustibles.getInstance().getInformacion(nombre);
+		return obtenerCombustible(info);
+	}	
+	
 	/** Retorna las fabricas de combustible disponibles **/
 	public CadenaDeFabricasCombustibles getFabricasDisponibles(){
 		return fabricasDisponibles;

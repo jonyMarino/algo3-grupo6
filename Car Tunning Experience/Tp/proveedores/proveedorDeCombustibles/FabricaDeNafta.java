@@ -20,12 +20,12 @@ public class FabricaDeNafta extends FabricaDeCombustible{
      */
 	public FabricaDeNafta() {
 	
-		agregarTipo(nuevoTipoNafta(600,50.0));
+		agregarTipo(nuevoTipoNafta("Fangio 2000",600,50.0));
 	}
 
 	
-	private InformacionCombustible nuevoTipoNafta(int octanaje,Double costo){
-		InformacionCombustible nuevaInfo = new InformacionCombustible();
+	private InformacionCombustible nuevoTipoNafta(String nombre,int octanaje,Double costo){
+		InformacionCombustible nuevaInfo = new InformacionCombustible(nombre);
 		nuevaInfo.agregarCaracteristica("OCTANAJE",Integer.toString(octanaje));
 		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		
