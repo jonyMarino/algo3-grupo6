@@ -1,6 +1,7 @@
 package proveedores.proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.ModelRegisteredException;
 import excepciones.NoSuchModelException;
 
 
@@ -17,12 +18,20 @@ public class FabricaDeEjes extends FabricaDePartes {
  
 	public FabricaDeEjes() {
 		super();
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo("Renault SD100");
-		nuevaInfo.agregarCaracteristica("COSTO", "90");
-		nuevaInfo.agregarCaracteristica("DESCRIPCION", "Eje básico.");
-		nuevaInfo.agregarCaracteristica("PESO", "40");
-		nuevaInfo.agregarCaracteristica("PARTE", "EJE");
-		agregarModelo(nuevaInfo); //agrega uneje básico
+		InformacionDelModelo nuevaInfo = null;
+		String modelo = "Renault SD100";
+		try{
+			nuevaInfo = new InformacionDelModelo(modelo);
+			nuevaInfo.agregarCaracteristica("COSTO", "90");
+			nuevaInfo.agregarCaracteristica("DESCRIPCION", "Eje básico.");
+			nuevaInfo.agregarCaracteristica("PESO", "40");
+			nuevaInfo.agregarCaracteristica("PARTE", "EJE");
+		}catch (ModelRegisteredException e){
+			nuevaInfo = RegistroDeModelos.getInstance().getInformacion(modelo);
+		}
+		finally{
+			agregarModelo(nuevaInfo); 
+		}
 	}
 	
 	public Eje fabricar(InformacionDelModelo modelo) throws NoSuchModelException {

@@ -55,7 +55,7 @@ public class CarroceriaTest extends TestCase {
 		auto.setCarroceria(carroceria);
 		carroceria.setAuto(auto);
 		carroceria.desgastar(100000);
-		assertEquals(15.0,carroceria.getFuerzaAire());
+		assertEquals(1.5,carroceria.getFuerzaAire());
 		
 		carroceria = null;
 	}

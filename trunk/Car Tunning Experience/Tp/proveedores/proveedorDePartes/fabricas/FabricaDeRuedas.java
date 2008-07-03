@@ -1,6 +1,7 @@
 package proveedores.proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.ModelRegisteredException;
 import excepciones.NoSuchModelException;
 
 /**
@@ -16,15 +17,23 @@ public class FabricaDeRuedas extends FabricaDePartes {
  
 	public FabricaDeRuedas(){
 		super();
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo("Pirelli 3000");
-		nuevaInfo.agregarCaracteristica("COSTO", "500");
-		nuevaInfo.agregarCaracteristica("DESCRIPCION", "Rueda básica.");
-		nuevaInfo.agregarCaracteristica("COEFICIENTEESTATICO", "0.9");
-		nuevaInfo.agregarCaracteristica("RODADO", "28");
-		nuevaInfo.agregarCaracteristica("COEFICIENTEDINAMICO", "0.6");
-		nuevaInfo.agregarCaracteristica("PESO", "10");
-		nuevaInfo.agregarCaracteristica("PARTE", "RUEDA");
-		agregarModelo(nuevaInfo); //agrega una rueda básica al catálogo
+		InformacionDelModelo nuevaInfo = null;
+		String modelo = "Pirelli 3000";
+		try{
+			nuevaInfo = new InformacionDelModelo(modelo);
+			nuevaInfo.agregarCaracteristica("COSTO", "500");
+			nuevaInfo.agregarCaracteristica("DESCRIPCION", "Rueda básica.");
+			nuevaInfo.agregarCaracteristica("COEFICIENTEESTATICO", "0.9");
+			nuevaInfo.agregarCaracteristica("RODADO", "28");
+			nuevaInfo.agregarCaracteristica("COEFICIENTEDINAMICO", "0.6");
+			nuevaInfo.agregarCaracteristica("PESO", "10");
+			nuevaInfo.agregarCaracteristica("PARTE", "RUEDA");
+		}catch (ModelRegisteredException e){
+			nuevaInfo = RegistroDeModelos.getInstance().getInformacion(modelo);
+		}
+		finally{
+			agregarModelo(nuevaInfo); //agrega una rueda básica al catálogo
+		}
 	}
 	public Rueda fabricar(InformacionDelModelo modelo) throws NoSuchModelException {
 		NoSuchModelException unaExcepcion = new NoSuchModelException("El modelo no es una Rueda");

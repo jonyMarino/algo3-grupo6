@@ -2,14 +2,15 @@ package pruebas;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import programaAuto.Auto;
 import programaAuto.ProgramaAuto;
 import programaAuto.ProgramaAuto.TipoAuto;
-import proveedorDeCombustibles.FabricaDeNafta;
-import proveedorDeCombustibles.Nafta;
-import proveedorDePartes.fabricas.CajaManual;
-import proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
-import proveedorDePartes.fabricas.TanqueCombustible;
+import proveedores.proveedorDeCombustibles.FabricaDeNafta;
+import proveedores.proveedorDeCombustibles.Nafta;
+import proveedores.proveedorDePartes.fabricas.CajaManual;
+import proveedores.proveedorDePartes.fabricas.FabricaDeTanquesDeCombustible;
+import proveedores.proveedorDePartes.fabricas.TanqueCombustible;
 import vista.VistaGraficador;
 import excepciones.BoundsException;
 import excepciones.NoPistaPickedException;

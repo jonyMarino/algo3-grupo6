@@ -1,6 +1,7 @@
 package proveedores.proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
+import excepciones.ModelRegisteredException;
 import excepciones.NoSuchModelException;
 
 /**
@@ -21,7 +22,14 @@ public class FabricaDeCarrocerias extends FabricaDePartes {
 	}
 	
 	private InformacionDelModelo nuevoModeloCarroceria(String modelo,Integer costo, String descripcion, Double peso, Integer aerodinamia, Double volumen){
-		InformacionDelModelo nuevaInfo = new InformacionDelModelo(modelo);
+		InformacionDelModelo nuevaInfo = null;
+		try{
+			nuevaInfo = new InformacionDelModelo(modelo);
+		}catch(ModelRegisteredException e)
+		{
+			return RegistroDeModelos.getInstance().getInformacion(modelo);	
+
+		}
 		nuevaInfo.agregarCaracteristica("COSTO", costo.toString());
 		nuevaInfo.agregarCaracteristica("DESCRIPCION", descripcion);
  		nuevaInfo.agregarCaracteristica("AERODINAMIA", aerodinamia.toString());
