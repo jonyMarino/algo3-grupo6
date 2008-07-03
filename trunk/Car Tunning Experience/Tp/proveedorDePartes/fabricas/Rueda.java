@@ -1,7 +1,6 @@
 package proveedorDePartes.fabricas;
 
 import excepciones.BoundsException;
-import excepciones.WheelPunctureException;
 import programaAuto.Auto;
 import programaAuto.Pista;
 

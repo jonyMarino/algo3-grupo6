@@ -40,7 +40,6 @@ import excepciones.WrongPartClassException;
  */
 public class AutoSecuencial extends Auto {
 	public static class Factory implements AutoFactory{
-		@Override
 		public Auto crear(CadenaDeFabricas fabrica,Element elemento) throws IncorrectPartForUbicationException, UbicationUnkownException {		
 			return new AutoSecuencial(fabrica,elemento);
 		}
