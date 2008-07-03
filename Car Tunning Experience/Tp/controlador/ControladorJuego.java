@@ -5,15 +5,19 @@ import java.awt.event.ActionListener;
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
+import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.Element;
+import nu.xom.ParsingException;
 import nu.xom.Serializer;
+import nu.xom.ValidityException;
 import excepciones.NotContainedPistaException;
 import excepciones.PistaPickedException;
 import excepciones.WrongUserNameException;
@@ -53,8 +57,24 @@ public class ControladorJuego implements ActionListener {
 			panelBase.crearPantalla(new PantallaUsuario(this));
 			this.cargarPantallaUsuario((PantallaUsuario)panelBase.getPantallaActual());
 		}
-		if (comando.equals("continuar"))
+		if (comando.equals("continuar")){
 			buscarArchivo();
+			Document doc;
+			try {
+				doc = new Builder().build("Car.xml");
+				programaAuto= new ProgramaAuto(doc.getRootElement());
+			} catch (ValidityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ParsingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		//TODO: Supongo que habra que hacer mas cosas para que empieze	
+		}
 		if (comando.equals("volver"))
 			panelBase.pantallaAnterior();
 		if (comando.equals("aceptar"))
