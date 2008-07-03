@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-
 import excepciones.NotContainedPistaException;
 import excepciones.PistaPickedException;
 import excepciones.WrongUserNameException;
@@ -16,12 +15,23 @@ import vista.PantallaInicio;
 import vista.PantallaTaller;
 import vista.PantallaUsuario;
 
+/**
+ * 
+ * Clase que se encarga de controlar todos los aspectos de la interacción
+ * del usuario durante todo el transcurso del juego.
+ * 
+ */
 public class ControladorJuego implements ActionListener {
 	
 	private ProgramaAuto programaAuto;
 	private PanelBase panelBase;
 	private ControladorTaller controladorTaller;
 	
+	/**
+	 * Crea un nuevo controladorJuego para el programa auto especificado
+	 * @param programaAuto La instancia de ProgramaAuto.
+	 * @see ProgramaAuto
+	 */
 	public ControladorJuego(ProgramaAuto programaAuto) {
 		this.programaAuto = programaAuto;	
 		this.controladorTaller = null;	
