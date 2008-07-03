@@ -10,20 +10,24 @@ import proveedores.proveedorDePartes.fabricas.RegistroDeModelos;
 
 import excepciones.BoundsException;
 
-public class InformacionDeProducto {
+public abstract class InformacionDeProducto {
 	private Hashtable<String,String> informacion= new Hashtable<String, String>();
-
+	String nombre;
+	
 	/**
 	 * Constructor por defecto
 	 */
-	public InformacionDeProducto(){}
+	public InformacionDeProducto(String nombre){
+		setNombre(nombre);
+	}
 	/**
      * Crea una nueva instancia de InformacionCombustible, y le agrega las
      * características especificadas. Los valores se inicializan vacíos.
      *
      * @param listaDeCaracteristicasDisponibles
      */
-	public InformacionDeProducto(ArrayList<String> listaDeCaracteristicasDisponibles) {
+	public InformacionDeProducto(String nombre,ArrayList<String> listaDeCaracteristicasDisponibles) {
+		setNombre(nombre);
 		Iterator<String> iteradorDeCaracteristicas = listaDeCaracteristicasDisponibles.iterator();
 		while(iteradorDeCaracteristicas.hasNext()){
 			aniadirCaracteristica(iteradorDeCaracteristicas.next(), "");
@@ -89,6 +93,12 @@ public class InformacionDeProducto {
      */
 	public String toString() {
 		return informacion.toString();
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	protected void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 }

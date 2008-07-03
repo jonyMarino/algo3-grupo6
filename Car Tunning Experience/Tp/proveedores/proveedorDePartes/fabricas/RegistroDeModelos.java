@@ -1,35 +1,28 @@
 package proveedores.proveedorDePartes.fabricas;
 
-import java.util.Hashtable;
+import proveedores.InformacionDeProducto;
+import proveedores.RegistroProducto;
 
-import excepciones.ModelRegisteredException;
+
+
 /**
  * Guarda un registro de modelos al igual que se registra un modelo en la realidad.
  *
  */
-public class RegistroDeModelos {
-	private Hashtable<String,InformacionDelModelo> tablaModelo=new Hashtable<String,InformacionDelModelo>();
-	private static RegistroDeModelos instance=null;
+public class RegistroDeModelos extends RegistroProducto {
+	static RegistroDeModelos instance=null;
 	
-	public static RegistroDeModelos getInstance(){
+	public static RegistroDeModelos getInstance() {
 		if(instance==null)
 			instance = new RegistroDeModelos();
 		return instance;
 	}
 	
-	public void registrarModelo(InformacionDelModelo informacion){
-		String modelo = informacion.getModelo();
-		if(tablaModelo.containsKey(modelo))
-			throw new ModelRegisteredException();
-		tablaModelo.put(modelo,informacion);
+	void registrar(InformacionDelModelo informacion){
+		registrar((InformacionDeProducto) informacion);
 	}
 	
-	public String[] modelosRegistrados(){
-		return (String[])tablaModelo.keySet().toArray();
+	public  InformacionDelModelo getInformacion(String modeloRegistrado) {
+		return (InformacionDelModelo)super.getInformacion(modeloRegistrado);
 	}
-	
-	public InformacionDelModelo getInformacion(String modeloRegistrado){
-		return tablaModelo.get( modeloRegistrado);
-	}
-
 }
