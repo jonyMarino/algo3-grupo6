@@ -37,11 +37,11 @@ public class Usuario {
 	 * @param usuario
 	 */
 	public Usuario(CadenaDeFabricas fabrica,AutosFactory fabricaAutos,Element element){
-		Element usuario = element.getFirstChildElement("usuario");
-		nombre=usuario.getFirstChildElement("nombre").getValue();
-		dinero = Double.parseDouble(usuario.getFirstChildElement("dinero").getValue());
-		auto = fabricaAutos.crear(fabrica, usuario);
-		this.taller = new Taller(this,fabrica,usuario);	
+		//Element usuario = element.getFirstChildElement("usuario");
+		nombre=element.getFirstChildElement("nombre").getValue();
+		dinero = Double.parseDouble(element.getFirstChildElement("dinero").getValue());
+		auto = fabricaAutos.crear(fabrica, element);
+		this.taller = new Taller(this,fabrica,element);	
 	}
 	
 	public Element getElement(AutosFactory fabricaAutos){
