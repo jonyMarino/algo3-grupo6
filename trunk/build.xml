@@ -31,6 +31,9 @@
     	 <copy todir="${dest}/vista/images">
     	        <fileset dir="${src}/vista/images"/>
     	 </copy>  
+	 <copy file="${include}/xom-1.1.jar" todir="${dest}"/>
+	 <copy file="JugarWindows.bat" todir="${dest}"/>
+	 <copy file="JugarLinux.sh" todir="${dest}"/>
      </target>
     <target name="limpiar">
         <delete dir="${dest}"/>
