@@ -11,6 +11,12 @@ import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.ButtonModel;
 
+/**
+*
+* Clase que se encarga de modelar los botones de las vistas.
+*
+*/
+
 public class Boton extends JButton {
 	
 	private static final long serialVersionUID = 1L;

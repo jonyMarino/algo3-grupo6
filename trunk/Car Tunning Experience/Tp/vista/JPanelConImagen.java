@@ -6,6 +6,11 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+/**
+ * Clase que modela un panel con imagen de fondo.
+ *
+ */
+
 public class JPanelConImagen extends JPanel {
 
 	private static final long serialVersionUID = 1L;

@@ -10,6 +10,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import controlador.ControladorJuego;
 
+/**
+*
+* Clase que se encarga de modelar la vista de la pantalla inicial del juego.
+*
+*/
+
 public class PantallaInicio extends JPanelConImagen {	
 	
 	private static final long serialVersionUID = 1L;
