@@ -107,7 +107,7 @@ public class Rueda extends ParteAuto{
 	public void desgastar(double tiempo) {
 		try{
 			if(getVidaUtil()!=0){
-				double deltaVidaUtil = (getRPM()/50) * tiempo;
+				double deltaVidaUtil = (getRPM()/500) * tiempo;
 				setVidaUtil(getVidaUtil()-Math.abs(deltaVidaUtil));
 			}
 		}catch(BoundsException e){
