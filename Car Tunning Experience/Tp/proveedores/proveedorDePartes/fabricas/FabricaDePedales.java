@@ -19,10 +19,10 @@ public class FabricaDePedales extends FabricaDePartes {
 
 	public FabricaDePedales(){
 		super();
-		agregarModelo(nuevoModeloMezclador("Freno TD101",10, "Freno.", 1.0, "FRENO"));
+		agregarModelo(nuevoModeloPedal("Freno TD101",10, "Freno.", 1.0, "FRENO"));
 	}
 	
-	private InformacionDelModelo nuevoModeloMezclador(String modelo,Integer costo, String descripcion, Double peso, String clase){
+	private InformacionDelModelo nuevoModeloPedal(String modelo,Integer costo, String descripcion, Double peso, String clase){
 		InformacionDelModelo nuevaInfo = null;
 		try{
 			nuevaInfo = new InformacionDelModelo(modelo);
