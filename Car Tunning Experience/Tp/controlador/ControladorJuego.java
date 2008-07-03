@@ -109,7 +109,7 @@ public class ControladorJuego implements ActionListener {
 			BufferedOutputStream file;
 			try {
 				file = new BufferedOutputStream(new FileOutputStream("Car.xml"));
-				format(file,doc);
+				//format(file,doc);
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
