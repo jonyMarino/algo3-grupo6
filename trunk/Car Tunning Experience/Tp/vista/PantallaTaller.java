@@ -1,8 +1,15 @@
 package vista;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Hashtable;
+
 import javax.swing.*;
 import javax.swing.border.Border;
+
+import proveedores.proveedorDePartes.fabricas.InformacionDelModelo;
+import proveedores.proveedorDePartes.fabricas.RegistroDeModelos;
 import controlador.ControladorJuego;
 import controlador.ControladorTaller;
 
@@ -21,6 +28,7 @@ public class PantallaTaller extends JPanelConImagen {
        private JPanel panelNafta;
        private JLabel labelDinero;
        private JLabel labelMensaje;
+       private JTextArea textoInformacionParte;
        private JLabel labelPrecio;
        private JLabel labelPrecioNafta;
        private JSpinner cantidadSeleccionada = new JSpinner();
@@ -29,6 +37,7 @@ public class PantallaTaller extends JPanelConImagen {
        private JComboBox catalogo;
        private ControladorTaller controladorTaller;;
        private static final long serialVersionUID = 1L;
+       private Hashtable<String,String> reservas = new Hashtable<String,String>();
      
        public PantallaTaller(ControladorJuego controladorJuego) {
     	   super();
@@ -43,6 +52,7 @@ public class PantallaTaller extends JPanelConImagen {
            crearPanelPistaDineroBodega();
            crearPanelUsuario();
            crearPanelMensajes();
+           crearPanelInformacion();          
                
            GridBagConstraints c = new GridBagConstraints();
            c.gridx=2;
@@ -92,16 +102,20 @@ public class PantallaTaller extends JPanelConImagen {
        }
 
        /* PANEL RESERVAS */
-       public void agregarAReserva(String descripcion,String vidaUtil){ 
-    	   comboPartesReserva.addItem( descripcion + " " + vidaUtil );
+       public void agregarAReserva(String nombre,String vidaUtil){
+    	   String nombreEnReserva=nombre + " " + vidaUtil ;
+    	   reservas.put(nombreEnReserva, nombre);
+    	   comboPartesReserva.addItem( nombreEnReserva );
+    	   
        }
        
        public void agregarARemover(String parteARemover){
     	   comboParteARemover.addItem(parteARemover);   
        }
        
-       public String obtenerParteACambiar(){
-    	   return (String)comboPartesReserva.getSelectedItem();
+       public String obtenerReservaSeleccionada(){
+    	   String nombreEnReserva= (String)comboPartesReserva.getSelectedItem();
+    	   return reservas.get(nombreEnReserva);
        }
        
        public String obtenerParteARemover(){ 	
@@ -277,18 +291,35 @@ public class PantallaTaller extends JPanelConImagen {
 	       ubicacion.anchor= GridBagConstraints.NORTH;
 	   	   
 	       comboPartesReserva = new JComboBox();
-    	   comboPartesReserva.addItem("-Lista Vacía-");
+
+	       
+    	   comboPartesReserva.addItem("- Lista  Vacía -");
     	   panelBodega.add(comboPartesReserva,ubicacion);
     	  
     	   comboParteARemover=new JComboBox();
 	       comboParteARemover.addItem("-Parte a Cambiar-");
 	       ubicacion.anchor= GridBagConstraints.SOUTH;
     	   panelBodega.add(comboParteARemover,ubicacion);
+ 
+		   ActionListener listener=new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+						String nombreParte=obtenerReservaSeleccionada();
+						InformacionDelModelo informacion=RegistroDeModelos.getInstance().getInformacion(nombreParte);
+						if(informacion!=null){
+							textoInformacionParte.setText(informacion.toString());
+						}
+			}
+		   };
     	   
     	   Boton botonCambiar = new Boton("Cambiar");
     	   botonCambiar.addActionListener(controladorTaller);
            botonCambiar.setActionCommand("cambiar");
     	   panelBodega.add(botonCambiar,posicionBoton());
+    	   
+    	   Boton botonInformacion = new Boton("Ver Info.");
+    	   botonInformacion.addActionListener(listener);
+    	   panelBodega.add(botonInformacion,posicionBotonInformacion());
                
     	   return panelBodega;
        }
@@ -327,7 +358,7 @@ public class PantallaTaller extends JPanelConImagen {
        
        private void crearPanelPistaDineroBodega(){             
            JTabbedPane tabbedPane = new JTabbedPane();
-           tabbedPane.setPreferredSize(new Dimension(300,150));
+           tabbedPane.setPreferredSize(new Dimension(300,200));
 
 		   tabbedPane.addTab("Dinero",crearPanelDinero());
 		   tabbedPane.addTab("Bodega",crearPanelReserva());  
@@ -369,6 +400,34 @@ public class PantallaTaller extends JPanelConImagen {
      
            this.add(panelMensaje,c);         
        }
+       
+       private void crearPanelInformacion() {       
+           JPanel panelMensaje = new JPanel();
+           panelMensaje.setPreferredSize(new Dimension(300,100));
+        
+           Color nc = new Color(176,196,222);
+           panelMensaje.setBackground(nc);
+           panelMensaje.setOpaque(true);
+           Color nc2 = new Color(224,224,255);
+           Border border2 = BorderFactory.createMatteBorder(2,2,2,2,nc2);
+           Border border= BorderFactory.createTitledBorder(border2,"Informacion de Parte");
+        
+           textoInformacionParte = new JTextArea(5,15);
+           textoInformacionParte.setEditable(false);
+           panelMensaje.add(textoInformacionParte);
+           
+           panelMensaje.setBorder(border);
+           GridBagConstraints c = new GridBagConstraints();
+           c.gridx =2;
+           c.gridy =4;
+           Insets in=new Insets(30,0,0,0);
+           c.insets=in;
+           c.anchor = GridBagConstraints.NORTHWEST;
+     
+           this.add(panelMensaje,c);         
+       }
+       
+       
      
        private void crearPanelCatalogo(){            
            Color nc = new Color(176,196,222);
@@ -411,6 +470,22 @@ public class PantallaTaller extends JPanelConImagen {
 		   c.weighty = 1.0;
 		   c.gridwidth =2;
 		   c.anchor = GridBagConstraints.NORTH;
+		   
+		   ActionListener listener=new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+							String nombreParte=(String)catalogo.getSelectedItem();
+							InformacionDelModelo informacion=RegistroDeModelos.getInstance().getInformacion(nombreParte);
+							if(informacion!=null){
+								textoInformacionParte.setText(informacion.toString());
+							}
+				}
+			   };
+			   Boton botonInfo = new Boton("Ver Info.");
+			   botonInfo.addActionListener(listener);
+			   panelCatalogo.add(botonInfo,posicionBotonInformacion());
+			   
+			   
 		       
 		   this.add(tabbedPane,c);
        }     
@@ -458,6 +533,17 @@ public class PantallaTaller extends JPanelConImagen {
 	       ubicacion.weightx = 1.0;
 	       ubicacion.weighty = 1.0;
 	       ubicacion.anchor = GridBagConstraints.SOUTHEAST;
+               
+           return ubicacion;
+        }
+       
+       private GridBagConstraints posicionBotonInformacion(){
+    	   GridBagConstraints ubicacion = new GridBagConstraints();
+	       Insets in=new Insets(0,0,5,0);
+	       ubicacion.insets=in;
+	       ubicacion.weightx = 1.0;
+	       ubicacion.weighty = 1.0;
+	       ubicacion.anchor = GridBagConstraints.NORTHWEST;
                
            return ubicacion;
         }

@@ -18,6 +18,10 @@ public class FabricaDeMotores extends FabricaDePartes {
 	public FabricaDeMotores(){
 		super();
 		agregarModelo(nuevoModeloMotor("General motors 2000",600, "Motor básico.", 80, 200.0, 5800.0, 2.0)); //agrega un motor básico al catálogo
+		agregarModelo(nuevoModeloMotor("Enzo 23",800, "Motor básico++.", 85, 203.0, 6000.0, 2.0)); //agrega un motor básico al catálogo
+		agregarModelo(nuevoModeloMotor("General motors 2100",1000, "Motor especial", 83, 250.0, 8000.0, 2.0)); 
+		agregarModelo(nuevoModeloMotor("Ferrari 1930",3000, "Motor especial++", 90, 300.0, 10000.0, 4.0)); 
+	
 	}
 	
 	private InformacionDelModelo nuevoModeloMotor(String modelo,Integer costo, String descripcion, Integer rendimiento, Double peso, Double rpmmax, Double cilindrada){
