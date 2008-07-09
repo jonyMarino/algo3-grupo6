@@ -341,27 +341,14 @@ public class ProgramaAuto extends Observable {
      *@see Usuario
      */
         public Auto autoInicial(TipoAuto tipoAuto){
-        	Usuario usuariotemporal = null;
-			try {
-				usuariotemporal = new Usuario("___TEMPORAL_DE_PROGRAMA_AUTO___");
-			} catch (WrongUserNameException e2) {
-				e2.printStackTrace();
-			}
-        	usuariotemporal.setDinero(999999999);
                 Auto auto=null;
           
-                ArrayList<InformacionDelModelo> modelos = unProveedor.getModelosDisponibles();
-                ArrayList<InformacionCombustible> modelosCombustibles = unProveedorCombustible.getTiposDisponibles();
                 
                 try{ Nafta nafta = null;
                 		
-                	     try {
-							nafta = (Nafta)unProveedorCombustible.comprar(modelosCombustibles.get(0),70, usuariotemporal);
-						} catch (BoundsException e2) {
-							e2.printStackTrace();
-						}
+                	     nafta = (Nafta)unProveedorCombustible.obtenerCombustible("Fangio 2000");
                 	
-                        TanqueNafta tanque = (TanqueNafta) unProveedor.comprar(modelos.get(9), usuariotemporal);
+                        TanqueNafta tanque = (TanqueNafta) unProveedor.getMiCadenaDeFabricas().fabricar("Tanque 70.10");
                         tanque.setCombustible(nafta);
       
                         try {
@@ -374,32 +361,32 @@ public class ProgramaAuto extends Observable {
 							e.printStackTrace();
 						}
                 
-                        MezcladorNafta mezclador = (MezcladorNafta) unProveedor.comprar(modelos.get(5), usuariotemporal);
-                        Escape escape = (Escape) unProveedor.comprar(modelos.get(4), usuariotemporal);
+                        MezcladorNafta mezclador = (MezcladorNafta) unProveedor.getMiCadenaDeFabricas().fabricar("Mixer CD101");
+                        Escape escape = (Escape) unProveedor.getMiCadenaDeFabricas().fabricar("Turbo DH100");
                         
-                        Carroceria carroceria = (Carroceria) unProveedor.comprar(modelos.get(2), usuariotemporal);
+                        Carroceria carroceria = (Carroceria) unProveedor.getMiCadenaDeFabricas().fabricar("Coupe 256");
 
                         ArrayList<Rueda> ruedas = new ArrayList<Rueda>();
                 
                         for(int i=0;i<4;i++){
-                                Rueda rueda = (Rueda) unProveedor.comprar(modelos.get(8), usuariotemporal);
+                                Rueda rueda = (Rueda) unProveedor.getMiCadenaDeFabricas().fabricar("Pirelli 3000");
                                 ruedas.add(rueda);                              
                         }
                         
-                        Eje eje = (Eje) unProveedor.comprar(modelos.get(3), usuariotemporal);
+                        Eje eje = (Eje) unProveedor.getMiCadenaDeFabricas().fabricar("Renault SD100");
                         
-                        Motor motor=(Motor) unProveedor.comprar(modelos.get(6), usuariotemporal);
+                        Motor motor=(Motor) unProveedor.getMiCadenaDeFabricas().fabricar("General motors 2000");
                         
-                        Freno freno =  (Freno) unProveedor.comprar(modelos.get(7), usuariotemporal);
+                        Freno freno =  (Freno) unProveedor.getMiCadenaDeFabricas().fabricar("Freno TD101");
                         
                         Caja caja = null;
                         
                         try {
                         	if(TipoAuto.MANUAL == tipoAuto) {
-                        		caja=(Caja) unProveedor.comprar(modelos.get(0), usuariotemporal);
+                        		caja=(Caja) unProveedor.getMiCadenaDeFabricas().fabricar("Ford NT10");
                             	auto = new AutoManual(escape, carroceria, motor, (CajaManual) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje, freno);
                         	} else {
-                        		caja=(Caja) unProveedor.comprar(modelos.get(1), usuariotemporal);
+                        		caja=(Caja) unProveedor.getMiCadenaDeFabricas().fabricar("Nisan 123");
                                 auto = new AutoSecuencial(escape, carroceria, motor, (CajaAutomatica) caja, (MezcladorNafta) mezclador, tanque, ruedas.get(0), ruedas.get(1),ruedas.get(2),ruedas.get(3), eje, freno);
                         	}
                         } catch (WrongPartClassException e) {
@@ -409,8 +396,6 @@ public class ProgramaAuto extends Observable {
                 }
                 catch (NoSuchModelException e) {
                         e.printStackTrace();  
-                } catch (NotEnoughMoneyException e) {
-                        e.printStackTrace();
                 }
                 return auto;
         }
@@ -542,7 +527,7 @@ public class ProgramaAuto extends Observable {
                 unaSimulacion.agregarCompetidor(unRival);
                 try {
 					((CajaManual)unRival.getAuto().getCaja()).setCambioManual(5);
-					unRival.getAuto().acelerar(0.8);
+					unRival.getAuto().presionarAcelerador(0.8);
 				} catch (BoundsException e) {
 					e.printStackTrace();
 				}

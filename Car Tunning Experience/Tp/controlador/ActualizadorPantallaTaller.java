@@ -80,20 +80,16 @@ public class ActualizadorPantallaTaller {
 	private void actualizarInformacionReserva() {	
 		pantallaTaller.limpiarInformacionReserva();
 	
-		String descripcion,vidaUtil;
+		String nombreModelo,vidaUtil;
 		boolean cargo = false;
 		Iterator<ParteAuto> iteradorReserva = programaAuto.getUsuario().getTaller().getPartesReserva(); 
 		
 		while (iteradorReserva.hasNext()) {
 			cargo = true;
-			try {
-				ParteAuto parte = iteradorReserva.next();
-				descripcion = parte.getInformacionDelModelo().getCaracteristica("DESCRIPCION");
-				vidaUtil = Double.toString(parte.getVidaUtil());
-				pantallaTaller.agregarAReserva(descripcion, vidaUtil);
-			} catch (BoundsException e) {
-				e.printStackTrace();
-			}	    	
+			ParteAuto parte = iteradorReserva.next();
+			nombreModelo = parte.getInformacionDelModelo().getNombre();
+			vidaUtil = Double.toString(parte.getVidaUtil());
+			pantallaTaller.agregarAReserva(nombreModelo, vidaUtil);	    	
 		}	
 		if(!cargo){
 			pantallaTaller.agregarAReserva("- Lista ", "Vacía -");
@@ -140,11 +136,7 @@ public class ActualizadorPantallaTaller {
 			itProducto = productos.iterator();
 			while(itProducto.hasNext()){
 				InformacionDelModelo info = (InformacionDelModelo) itProducto.next();			
-				try {
-					pantallaTaller.agregarACatalogo(info.getCaracteristica("DESCRIPCION"));
-				} catch (BoundsException e) {
-        	 		e.printStackTrace();
-				}				
+				pantallaTaller.agregarACatalogo(info.getNombre());				
 			}
 		}		
 	}
@@ -178,22 +170,17 @@ public class ActualizadorPantallaTaller {
 		InformacionDelModelo informacionModelo = null;			
 		ArrayList<InformacionDelModelo> productos;
 		Iterator<InformacionDelModelo> itProducto;
-		boolean encontrado = false;
 		while(it.hasNext()){
 			fabrica = (FabricaDePartes)it.next();
 			productos = fabrica.getModelos();
 			itProducto = productos.iterator();
-			while(itProducto.hasNext() && !encontrado){
+			while(itProducto.hasNext()){
 				informacionModelo = (InformacionDelModelo) itProducto.next();			
-				try {
-					if((informacionModelo.getCaracteristica("DESCRIPCION")).equals(nombreProducto))
-						encontrado = true;
-				} catch (BoundsException e) {
-        	 		e.printStackTrace();
-				}				
+				if((informacionModelo.getNombre()).equals(nombreProducto))
+					return informacionModelo;
 			}
 		}		
-		return informacionModelo;
+		return null;
 	}
 	
 	private void informarPremio(double premio) {

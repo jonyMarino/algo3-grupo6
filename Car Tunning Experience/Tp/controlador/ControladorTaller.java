@@ -66,7 +66,7 @@ public class ControladorTaller implements ActionListener {
 	}
 
     private void cambiarParte() {
-    	  	String nombreProducto = pantallaTaller.obtenerParteACambiar();
+    	  	String nombreProducto = pantallaTaller.obtenerReservaSeleccionada();
            	InformacionDelModelo informacionModelo = actualizadorTaller.buscarInformacionModelo(nombreProducto);
         	ParteAuto parte = this.buscarParteEnReserva(informacionModelo);
         	try {

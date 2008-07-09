@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="Car Tunning Experience/Tp"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-	<classpathentry kind="lib" path="/home/lucas/Desktop/eclipse/xom-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/jdk1.6.0_06/jre/lib/ext/xom-1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
