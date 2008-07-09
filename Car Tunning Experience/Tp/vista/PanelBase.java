@@ -1,7 +1,13 @@
 package vista;
 
+
+
 import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+
 import controlador.ControladorJuego;
 
 /**
@@ -46,6 +52,21 @@ public class PanelBase extends JPanel {
 		this.pantallaAnterior = pantallaActual;
 		this.pantallaActual = pantallaAuxiliar;
 	}
+	
+	public void mostrarMensajeDeError(String mensaje){
+		JOptionPane.showMessageDialog(this, mensaje, "Error!", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public String salvarArchivo(FileFilter filtro){	
+		JFileChooser chooser = new JFileChooser();
+	    chooser.setFileFilter(filtro);
+	    int returnVal = chooser.showSaveDialog(this);
+	    if(returnVal == JFileChooser.APPROVE_OPTION) {      
+	    	return chooser.getSelectedFile().getPath();
+	    }
+	    return "";
+	}
+	
 
 	public JPanel getPantallaAnterior() {
 		return pantallaAnterior;
