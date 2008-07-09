@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+
 import controlador.ControladorJuego;
 
 /**
@@ -36,6 +38,16 @@ public class PantallaInicio extends JPanelConImagen {
 	
 	public JFileChooser getfileChooser() {
 		return fileChooser;
+	}
+	
+	public String buscarArchivo(FileFilter filtro){	
+		JFileChooser chooser = getfileChooser();
+	    chooser.setFileFilter(filtro);
+	    int returnVal = chooser.showOpenDialog(this);
+	    if(returnVal == JFileChooser.APPROVE_OPTION) {      
+	       return chooser.getSelectedFile().getPath();
+	    }
+	    return "";
 	}
 	
 	private class BotoneraInicio extends JPanel{

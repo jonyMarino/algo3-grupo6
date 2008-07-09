@@ -51,6 +51,9 @@ public class ControladorTaller implements ActionListener {
 		this.pantallaTaller = pantallaTaller;
 		this.actualizadorTaller.setPantallaTaller(pantallaTaller);
 	}
+	public PantallaTaller getPantallaTaller(){
+		return pantallaTaller;
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();

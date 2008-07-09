@@ -3,10 +3,13 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
@@ -59,18 +62,23 @@ public class ControladorJuego implements ActionListener {
 			this.cargarPantallaUsuario((PantallaUsuario)panelBase.getPantallaActual());
 		}
 		if (comando.equals("continuar")){
-			//buscarArchivo();
+			FiltroDeArchivos filtro= new FiltroDeArchivos();
+			filtro.addExtension("xml");
+			filtro.setDescription("Archivo guardado(*.xml)");
+			PantallaInicio pantallaInicio =((PantallaInicio)panelBase.getPantallaActual());
+			String nombreArchivo=pantallaInicio.buscarArchivo(filtro);
+			if(nombreArchivo=="")
+				return;
 			Document doc;
 			try {
-				doc = new Builder().build("Car.xml");
+				InputStream entrada = new BufferedInputStream(new FileInputStream(nombreArchivo));
+				doc = new Builder().build(entrada);
 				programaAuto= new ProgramaAuto(doc.getRootElement());
-			} catch (ValidityException e1) {
+			} catch (Exception e1) {
 				e1.printStackTrace();
-			} catch (ParsingException e1) {
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+				panelBase.mostrarMensajeDeError("El Archivo elegido se encuentra corrupto.");
+				return;
+			}  
 			
 			try {
 				programaAuto.setPista(programaAuto.generarProximaPista());
@@ -104,11 +112,18 @@ public class ControladorJuego implements ActionListener {
 		if (comando.equals("guardar")){
 			Element raiz= new Element("root");
 			raiz.appendChild(programaAuto.getElement());
-				
+			FiltroDeArchivos filtro= new FiltroDeArchivos();
+			filtro.addExtension("xml");
+			filtro.setDescription("Archivo guardado(*.xml)");
+			
+			String nombreArchivo=panelBase.salvarArchivo(filtro);
+			if(nombreArchivo==""){
+				return;
+			}
 			Document doc= new Document(raiz);
 			BufferedOutputStream file;
 			try {
-				file = new BufferedOutputStream(new FileOutputStream("Car.xml"));
+				file = new BufferedOutputStream(new FileOutputStream(nombreArchivo));
 				format(file,doc);
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
@@ -131,12 +146,6 @@ public class ControladorJuego implements ActionListener {
 	private void cargarPantallaUsuario(PantallaUsuario pantallaUsuario) {
 		pantallaUsuario.agregarTipoAuto(TipoAuto.MANUAL.toString());
 		pantallaUsuario.agregarTipoAuto(TipoAuto.AUTOMATICO.toString());
-	}
-
-	private void buscarArchivo(){
-		PantallaInicio pantallaInicio =((PantallaInicio)panelBase.getPantallaActual());
-		JFileChooser fileChooser = pantallaInicio.getfileChooser();
-		fileChooser.showOpenDialog(fileChooser);
 	}
 	
 	private void inicializarJuego(){
